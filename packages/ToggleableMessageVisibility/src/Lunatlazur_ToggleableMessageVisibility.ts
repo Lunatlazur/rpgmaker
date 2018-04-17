@@ -96,7 +96,7 @@ interface Window_Message {
     _Window_Message_show.call(this)
     this._hideMessageManager.handleShow()
   }
-  
+
   const _Window_Message_hide = Window_Message.prototype.hide
   Window_Message.prototype.hide = function () {
     _Window_Message_hide.call(this)
@@ -327,7 +327,7 @@ interface Window_Message {
       this._hiddenSubWindows = []
       this._isHidden = false
     }
-  
+
     public handleHide (subWindows: Window_Base[]) {
       if (this.isButtonAvailable) {
         this._hideMessageButton.hide()
@@ -345,7 +345,7 @@ interface Window_Message {
 
     public handleOpennessChanged (opened: boolean, x: number, y: number, width: number, height: number) {
       if (!this.isButtonAvailable) {
-        return 
+        return
       }
       if (opened) {
         if (!this.isOpened) {

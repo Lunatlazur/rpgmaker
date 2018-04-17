@@ -16,18 +16,18 @@
  * @plugindesc Functional button on message window
  * @author Taku Aoi
  * @help This plugin adds some functional button to the message window.
- * 
+ *
  * Command parameters
- * 
+ *
  * In case that the command is 'scene':
  * By passing the "XXX" part of "Scene_XXX" (for example, Save, Load, Menu,
  * Title etc) as parameter, you can make transition to the corresponding scene
  * when button is pressed.
- * 
+ *
  * In case that the command is 'plugin':
  * By passing the plug-in command name and arguments as parameter, you can
  * execute the corresponding plug-in command when the button is pressed.
- * 
+ *
  * @param buttons
  * @desc configure the buttons attached to the message window.
  * @type struct<button>[]
@@ -38,17 +38,17 @@
  * @author あおいたく
  * @help このプラグインはメッセージウィンドウに任意の機能を実行するためのボタンを
  * 追加します。
- * 
+ *
  * コマンドのパラメータについて
- * 
+ *
  * command が scene のとき：
  * パラメータにScene_XXX の XXX の部分（Save, Load, Menu, Title など）を
  * 指定することで、ボタンを押したときに該当のシーンに遷移させることができます。
- * 
+ *
  * command が plugin のとき：
  * パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
  * 押したときに該当のプラグインコマンドを実行することができます。
- * 
+ *
  * @param ボタン
  * @desc メッセージウィンドウに表示するボタンを設定します。
  * @type struct<button>[]
@@ -57,21 +57,21 @@
 /*~struct~button:
  * @param text
  * @desc text for button
- * 
+ *
  * @param command
  * @desc command to be called when button pressed
  * @type select
  * @option scene
  * @option plugin command
  * @value plugin
- * 
+ *
  * @param parameters
  * @desc parameters for command. see help for detail.
  */
 /*~struct~button:ja
  * @param text
  * @desc ボタンに表示するテキスト。
- * 
+ *
  * @param command
  * @desc ボタンを押したときに実行するコマンド。
  * @type select
@@ -79,7 +79,7 @@
  * @value scene
  * @option プラグインコマンド
  * @value plugin
- * 
+ *
  * @param parameters
  * @desc コマンドのパラメータを指定します。
  * 詳細はプラグインヘルプを参照してください。
@@ -172,7 +172,7 @@ interface Input {
     _Window_Message_show.call(this)
     this._attachmentButtonManager.handleShow()
   }
-  
+
   const _Window_Message_hide = Window_Message.prototype.hide
   Window_Message.prototype.hide = function () {
     _Window_Message_hide.call(this)
@@ -389,7 +389,7 @@ interface Input {
         this._buttons.forEach((button) => button.show())
       }
     }
-  
+
     public handleHide () {
       if (this.isButtonAvailable) {
         this._buttons.forEach((button) => button.hide())
@@ -398,7 +398,7 @@ interface Input {
 
     public handleOpennessChanged (opened: boolean, x: number, y: number, width: number, height: number) {
       if (!this.isButtonAvailable) {
-        return 
+        return
       }
       if (opened) {
         if (!this.isOpened) {

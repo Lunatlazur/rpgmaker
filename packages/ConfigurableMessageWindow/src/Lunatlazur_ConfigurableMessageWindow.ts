@@ -16,31 +16,31 @@
  * @plugindesc Configure message window settings.
  * @author Taku Aoi
  * @help This plugin makes the message window configurable.
- * 
+ *
  * @param Number of message rows
  * @desc number of message rows.
  * @default 4
  * @type number
- * 
+ *
  * @param Custom message font
- * @desc Additional message fonts. 
+ * @desc Additional message fonts.
  * @type string[]
  */
 /*:ja
  * @plugindesc メッセージウィンドウカスタムプラグイン
  * @author あおいたく
  * @help このプラグインはメッセージ行数やフォントを変更できるようにします。
- * 
+ *
  * @param メッセージ行数
  * @desc メッセージの行数です。
  * @default 4
  * @type number
- * 
+ *
  * @param メッセージウェイト
  * @desc メッセージの文字送りにかかるウェイトです。
  * @default 1
  * @type number
- * 
+ *
  * @param フォント
  * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
  * @default ["UD デジタル 教科書体 NP-R", "Klee"]

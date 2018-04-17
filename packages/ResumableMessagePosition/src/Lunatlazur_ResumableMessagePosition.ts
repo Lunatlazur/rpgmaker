@@ -148,7 +148,7 @@ interface ISavefileInfo {
     public static isMapEvent (eventId: number) {
       return eventId !== 0
     }
-  
+
     public static isAutoEvent (eventId: number) {
       const event = $gameMap.event(eventId)
       if (!event) {
@@ -156,7 +156,7 @@ interface ISavefileInfo {
       }
       return event.page().trigger === 3
     }
-  
+
     public static isStateRecordableEvent (eventId: number) {
       return this.isMapEvent(eventId) && this.isAutoEvent(eventId)
     }
