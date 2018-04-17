@@ -4,7 +4,8 @@
   "description": "plugins hub for RPG Maker MV",
   "main": "index.js",
   "scripts": {
-    "bootstrap": "lerna bootstrap"
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build"
   },
   "author": "Taku Aoi",
   "license": "Zlib",
