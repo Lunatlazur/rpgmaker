@@ -1,5 +1,5 @@
 # ConfigurableMessageWindow
-RPGツクールMV用 プラグイン
+RPGツクールMV用 メッセージウィンドウカスタマイズプラグイン
 
 # 導入方法
 build フォルダ内の Lunatlazur_ConfigurableMessageWindow.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。

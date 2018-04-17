@@ -1,8 +1,8 @@
-# 
-RPGツクールMV用 プラグイン
+# Tachie
+RPGツクールMV用 立ち絵プラグイン
 
 # 導入方法
-build フォルダ内の Lunatlazur_.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
+build フォルダ内の Lunatlazur_Tachie.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
 プラグインの使い方はプラグインヘルプを参照してください。
 

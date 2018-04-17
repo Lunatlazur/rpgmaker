@@ -1,5 +1,5 @@
 # ConfigurableMessageClosing
-RPGツクールMV用 プラグイン
+RPGツクールMV用 メッセージウィンドウ開閉制御プラグイン
 
 # 導入方法
 build フォルダ内の Lunatlazur_ConfigurableMessageClosing.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。

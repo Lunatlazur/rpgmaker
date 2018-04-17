@@ -1,8 +1,8 @@
-# 
-RPGツクールMV用 プラグイン
+# ToggleableMessageVisibility
+RPGツクールMV用 メッセージウィンドウ表示切り替えプラグイン
 
 # 導入方法
-build フォルダ内の Lunatlazur_.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
+build フォルダ内の Lunatlazur_ToggleableMessageVisibility.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
 プラグインの使い方はプラグインヘルプを参照してください。
 

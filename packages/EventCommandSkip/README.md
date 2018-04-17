@@ -1,8 +1,8 @@
-# 
-RPGツクールMV用 プラグイン
+# EventCommandSkip
+RPGツクールMV用 イベントコマンドスキッププラグイン
 
 # 導入方法
-build フォルダ内の Lunatlazur_.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
+build フォルダ内の Lunatlazur_EventCommandSkip.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
 プラグインの使い方はプラグインヘルプを参照してください。
 

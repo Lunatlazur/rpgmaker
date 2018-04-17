@@ -1,8 +1,8 @@
-# 
-RPGツクールMV用 プラグイン
+# PauseSignAfterText
+RPGツクールMV用 メッセージ送りアイコン位置変更プラグイン
 
 # 導入方法
-build フォルダ内の Lunatlazur_.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
+build フォルダ内の Lunatlazur_PauseSignAfterText.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
 プラグインの使い方はプラグインヘルプを参照してください。
 
