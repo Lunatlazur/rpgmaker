@@ -27,14 +27,14 @@
  * トランジションを使わずにカスタムフェード機能として使うこともできます。
  *
  * トランジション画像は img/transitions フォルダに配置してください。
- * 
+ *
  * 【プラグインコマンド一覧】
- * 
+ *
  * 【フェードイン】
  * フェードイン [色] [トランジション画像名] [フェードにかける時間]
- * 
+ *
  * 　フェードインを行います。
- * 
+ *
  * 　色 白|黒
  * 　　フェードインするときの色
  * 　　白を指定すると白画面からフェードイン、
@@ -43,12 +43,12 @@
  * 　　img/transitions フォルダ内の画像ファイル名
  * 　フェードにかける時間 nフレーム
  * 　　フェードにかける時間をフレーム数で指定する
- * 
+ *
  * 【フェードアウト】
  * フェードアウト [色] [トランジション画像名] [フェードにかける時間]
- * 
+ *
  * 　フェードアウトを行います。
- * 
+ *
  * 　色 白|黒
  * 　　フェードアウトするときの色
  * 　　白を指定すると白画面からフェードアウト、
@@ -59,10 +59,15 @@
  * 　　フェードにかける時間をフレーム数で指定する
  */
 
+interface ColorThresholdFilterUniforms {
+  threshold: number
+  white: boolean
+}
+
 namespace PIXI {
   export namespace filters {
 
-    export class ColorThresholdFilter extends PIXI.Filter {
+    export class ColorThresholdFilter extends PIXI.Filter<ColorThresholdFilterUniforms> {
       constructor() {
         const fragmentSrc = `varying vec2 vTextureCoord;
 uniform sampler2D uSampler;
@@ -212,11 +217,11 @@ interface Game_Screen {
   class TransitionManager {
     private static _transition: Game_Transition | null
     public static fadeSpeed: number | null = null
-    
+
     public static transition () {
       return this._transition
     }
-    
+
     public static setTransition (isFadingIn: boolean, isFilledWhite: boolean, name: string, duration: number) {
       this._transition = new Game_Transition(isFadingIn, isFilledWhite, name, duration)
     }
@@ -256,7 +261,7 @@ interface Game_Screen {
     public z: number
     private _duration: number
     private _transitionName: string
-    private _thresholdFilter: PIXI.Filter
+    private _thresholdFilter: PIXI.Filter<ColorThresholdFilterUniforms>
     private _durationRest: number
     private _isFadingIn: boolean
     private _isFilledWhite: boolean
@@ -288,7 +293,7 @@ interface Game_Screen {
         this.updateFilter()
       }
     }
-  
+
     public updateBitmap () {
       const transition = this.transition()
       if (transition) {
@@ -320,16 +325,16 @@ interface Game_Screen {
           }
           TransitionManager.clearTransition()
         }
-      }     
+      }
     }
-    
+
     public updateFilter () {
       if (this._durationRest > 0) {
         const threshold = this._durationRest / this._duration
-        this._thresholdFilter.uniforms.threshold = (this._isFadingIn ? threshold : 1.0 - threshold) 
+        this._thresholdFilter.uniforms.threshold = (this._isFadingIn ? threshold : 1.0 - threshold)
       }
     }
-  
+
     public loadBitmap () {
       this.bitmap = TransitionManager.load(this._transitionName)
     }
