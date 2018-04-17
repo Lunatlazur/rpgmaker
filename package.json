@@ -1,0 +1,14 @@
+{
+  "name": "rpgmakermv-plugins",
+  "version": "1.0.0",
+  "description": "plugins hub for RPG Maker MV",
+  "main": "index.js",
+  "scripts": {
+    "bootstrap": "lerna bootstrap"
+  },
+  "author": "Taku Aoi",
+  "license": "Zlib",
+  "devDependencies": {
+    "lerna": "^2.10.2"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "toggleable-message-visibility",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts#feature/separate-dependencies",
+    "typescript": "^2.8.1"
+  }
+}
