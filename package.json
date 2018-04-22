@@ -4,11 +4,13 @@
   "description": "plugins hub for RPG Maker MV",
   "main": "index.js",
   "scripts": {
+    "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build"
   },
   "author": "Taku Aoi",
   "license": "Zlib",
+  "private": true,
   "devDependencies": {
     "lerna": "^2.10.2"
   }
