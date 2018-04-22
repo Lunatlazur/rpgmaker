@@ -3,7 +3,7 @@ branches:
     - master
 
 addons:
-  ssh_known_hosts: $IP
+  ssh_known_hosts: $IP:$PORT
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_264c10ddeb21_key -iv $encrypted_264c10ddeb21_iv
