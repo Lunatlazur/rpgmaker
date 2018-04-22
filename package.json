@@ -6,12 +6,13 @@
   "scripts": {
     "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build"
+    "build": "lerna run build -- -- --outDir ../../build"
   },
   "author": "Taku Aoi",
   "license": "Zlib",
   "private": true,
   "devDependencies": {
-    "lerna": "^2.10.2"
+    "lerna": "^2.10.2",
+    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts#feature/separate-dependencies"
   }
 }
