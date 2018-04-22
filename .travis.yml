@@ -12,5 +12,5 @@ before_install:
 script: ""
 
 after_success:
-  - ssh-keyscan -t rsa $IP >> ~/.ssh/known_hosts
+  - ssh-keyscan -p $PORT -t rsa $IP >> ~/.ssh/known_hosts
   - bash .travis/deploy.sh
