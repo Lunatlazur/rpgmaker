@@ -12,7 +12,7 @@
   "license": "Zlib",
   "private": true,
   "devDependencies": {
-    "lerna": "^2.10.2",
+    "lerna": "^3.4.3",
     "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts#feature/separate-dependencies"
   }
 }
