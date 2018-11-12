@@ -580,9 +580,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 right: width / 5 * 4,
             };
             this.yByDistance = {
-                near: height * 2 + 96,
-                middle: height * 2 - 80,
-                far: height * 2 - 256,
+                near: height / 6 * 7,
+                middle: height / 8 * 9,
+                far: height,
             };
             this.scaleByDistance = {
                 near: 100,

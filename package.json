@@ -13,6 +13,7 @@
   "private": true,
   "devDependencies": {
     "lerna": "^3.4.3",
-    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts#feature/separate-dependencies"
+    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts#feature/separate-dependencies",
+    "typescript": "^2.8.1"
   }
 }
