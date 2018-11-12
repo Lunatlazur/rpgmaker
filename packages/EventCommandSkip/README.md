@@ -1,6 +1,8 @@
 # EventCommandSkip
 RPGツクールMV用 イベントコマンドスキッププラグイン
 
+このプラグインはCtrlキーを押すことでイベントコマンドをスキップできるようにします。
+
 # 導入方法
 build フォルダ内の Lunatlazur_EventCommandSkip.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
@@ -21,7 +23,7 @@ yarn
 ビルドするには
 
 ```
-yarn run build
+yarn build
 ```
 
 を実行してください。
