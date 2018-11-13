@@ -76,10 +76,11 @@ var PIXI;
             __extends(ColorThresholdFilter, _super);
             function ColorThresholdFilter() {
                 var _this = this;
-                var fragmentSrc = "varying vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform float threshold;\nuniform bool white;\nvoid main(void) {\n    vec4 color = texture2D(uSampler, vTextureCoord);\n    float v = 0.298912 * color.r + 0.586611 * color.g + 0.114478 * color.b;\n    if (white) {\n      gl_FragColor = vec4(vec3(threshold - v), 0.0);\n    } else {\n      gl_FragColor = vec4(vec3(0.0), 1.0 - (v - threshold));\n    }\n}";
+                var fragmentSrc = "varying vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform float threshold;\nuniform bool white;\nuniform bool fadingIn;\nvoid main(void) {\n    vec4 color = texture2D(uSampler, vTextureCoord);\n    float v = 0.298912 * color.r + 0.586611 * color.g + 0.114478 * color.b;\n    if (white) {\n        if (fadingIn) {\n            gl_FragColor = vec4(vec3(threshold - v), 0.0);\n        } else {\n            gl_FragColor = vec4(vec3(1.0 - (v - threshold)), 0.0);\n        }\n    } else {\n        if (fadingIn) {\n            gl_FragColor = vec4(vec3(0.0), threshold - v);\n        } else {\n            gl_FragColor = vec4(vec3(0.0), 1.0 - (v - threshold));\n        }\n    }\n}";
                 var uniforms = {
                     threshold: { type: '1f', value: 0.5 },
                     white: { type: 'b', value: false },
+                    fadingIn: { type: 'b', value: false },
                 };
                 _this = _super.call(this, null, fragmentSrc, uniforms) || this;
                 return _this;
@@ -241,6 +242,7 @@ var PIXI;
             this._thresholdFilter = new PIXI.filters.ColorThresholdFilter();
             this._thresholdFilter.uniforms.threshold = this._isFadingIn ? 0.0 : 1.0;
             this._thresholdFilter.uniforms.white = this._isFilledWhite;
+            this._thresholdFilter.uniforms.fadingIn = this._isFadingIn;
             this._filters = [this._thresholdFilter];
         };
         Sprite_Transition.prototype.transition = function () {
@@ -279,6 +281,7 @@ var PIXI;
                 this._isFadingIn = transition.isFadingIn;
                 this._isFilledWhite = transition.isFilledWhite;
                 this._thresholdFilter.uniforms.white = this._isFilledWhite;
+                this._thresholdFilter.uniforms.fadingIn = this._isFadingIn;
                 if (this._durationRest <= 0) {
                     if (!this._isFadingIn) {
                         $gameScreen._brightness = 0;
@@ -289,7 +292,7 @@ var PIXI;
         };
         Sprite_Transition.prototype.updateFilter = function () {
             if (this._durationRest > 0) {
-                var threshold = this._durationRest / this._duration;
+                var threshold = (this._durationRest * 2) / this._duration;
                 this._thresholdFilter.uniforms.threshold = (this._isFadingIn ? threshold : 1.0 - threshold);
             }
         };
