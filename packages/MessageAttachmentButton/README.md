@@ -2,7 +2,7 @@
 RPGツクールMV用 拡張機能ボタン付きメッセージウィンドウプラグイン
 
 ![スクリーンショット](./doc/message-attachment-button-1.jpg)\
-©KADOKAWA ©Vibrato ©Teddy Plaza
+©KADOKAWA ©Vibrato ©TEDDY-PLAZA
 
 このプラグインはメッセージウィンドウに任意の機能を実行するためのボタンを追加します。
 

@@ -1,42 +1,24 @@
-# PauseSignAfterText
-RPGツクールMV用 メッセージ送りアイコン位置変更プラグイン
-
-![スクリーンショット](./doc/pause-sign-after-text.jpg)\
-©KADOKAWA ©Vibrato ©TEDDY-PLAZA
-
 このプラグインはメッセージ送り記号をメッセージの末尾に表示するようにします。
 
-# 導入方法
-build フォルダ内の Lunatlazur_PauseSignAfterText.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
+スクリーンショットで使われているキャラクター画像、背景画像はプラグインに含まれません。
+
+## 利用方法
 
 このプラグインにはプラグインオプション、プラグインコマンドはありません。\
 プラグインを有効化するだけで利用可能です。
 
-スクリーンショットで使われているキャラクター画像、背景画像はプラグインに含まれません。
+## クレジット（敬称略）
 
-# 開発者向け情報
+スクリーンショットには下記の素材を利用させていただきました。
 
-このプラグインは TypeScript で書かれています。ビルドするには TypeScript の実行環境が必要です。
+### キャラクター画像
+- [RPGツクールMV：パッケージキャラクター素材](http://store.tkool.jp/a/rpg-maker-mv-music-sound/cover-art-characters-pack) by KADOKAWA
+- RPGツクールMVパッケージキャラクター：フェイス・カットイン素材 by Vibrato（[P3X-774](http://p3x774.web.fc2.com/)）
 
-このリポジトリを `git clone` して
+### 背景画像
+- 欧州の村 by 瀬尾辰也（[TEDDY-PLAZA](http://teddy-plaza.sakura.ne.jp/)）
 
-```
-yarn
-```
-
-を実行すると TypeScript の実行環境がインストールされます。
-
-ビルドするには
-
-```
-yarn build
-```
-
-を実行してください。
-
-Visual Studio Code を使用している場合はエディタからビルドタスクの実行を行うことでビルドすることができます。
-
-# ライセンス
+## ライセンス
 このプラグインは [zlib ライセンス](https://www.zlib.net/zlib_license.html) のもと配布されます。
 
 Copyright (C) 2018 Taku Aoi

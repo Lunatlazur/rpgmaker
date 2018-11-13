@@ -2,7 +2,7 @@
 RPGツクールMV用 メッセージウィンドウ表示切り替えプラグイン
 
 ![スクリーンショット](./doc/toggleable-message-visibility.jpg)\
-©KADOKAWA ©Vibrato ©Teddy Plaza
+©KADOKAWA ©Vibrato ©TEDDY-PLAZA
 
 このプラグインはメッセージウィンドウの表示／非表示を切替できるようにします。\
 右クリックまたはメッセージウィンドウ右上の✕ボタンをタップすると、ウィンドウを非表示にします。\
