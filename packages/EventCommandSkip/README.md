@@ -1,6 +1,8 @@
 # EventCommandSkip
 RPGツクールMV用 イベントコマンドスキッププラグイン
 
+![スクリーンショット](./doc/event-command-skip.png)
+
 このプラグインはCtrlキーを押すことでイベントコマンドをスキップできるようにします。
 
 # 導入方法

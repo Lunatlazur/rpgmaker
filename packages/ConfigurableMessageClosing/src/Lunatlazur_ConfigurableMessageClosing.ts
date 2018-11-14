@@ -44,8 +44,6 @@
 (function () {
   const pluginName = 'Lunatlazur_ConfigurableMessageClosing';
 
-  const indentWhenFaceVisible = 168
-
   const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function (command, args) {
     _Game_Interpreter_pluginCommand.apply(this, arguments)
@@ -57,6 +55,7 @@
     if (WindowAutoCloseManager.isAutoCloseEnabled()) {
       _Window_Message_terminateMessage.call(this)
     } else {
+      const indentWhenFaceVisible = this.newLineX()
       $gameMessage.clear()
       this.contents.clearRect(
         indentWhenFaceVisible,

@@ -1,6 +1,8 @@
 # ResumableMessagePosition
 RPGツクールMV用 イベント内メッセージ位置記憶プラグイン
 
+![スクリーンショット](./doc/resumable-message-posistion.png)
+
 このプラグインは自動ではじまるイベントの途中でセーブを行ったときに、表示中のメッセージ位置を保持し、ロード時にその位置から復帰できるようにします。
 
 # 導入方法
