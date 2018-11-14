@@ -163,6 +163,7 @@ var PIXI;
         if (isFadingIn) {
             TransitionManager.fadeSpeed = duration;
             if (!$gameMessage.isBusy()) {
+                TransitionManager.setTransition(isFadingIn, isFilledWhite, '', 1);
                 $gameScreen.startFadeIn(this.fadeSpeed());
                 this.wait(this.fadeSpeed());
             }
@@ -244,6 +245,9 @@ var PIXI;
             this._thresholdFilter.uniforms.white = this._isFilledWhite;
             this._thresholdFilter.uniforms.fadingIn = this._isFadingIn;
             this._filters = [this._thresholdFilter];
+            this._fillBitmap = new Bitmap(Graphics.width, Graphics.height);
+            this._fillBitmap.fillAll('white');
+            this.bitmap = this._fillBitmap;
         };
         Sprite_Transition.prototype.transition = function () {
             return TransitionManager.transition();
@@ -268,7 +272,7 @@ var PIXI;
             }
             else {
                 this._transitionName = '';
-                this.bitmap = null;
+                this.bitmap = this._fillBitmap;
                 this.visible = false;
             }
         };
@@ -320,7 +324,6 @@ var PIXI;
                 command === 'フェードアウト') {
                 var _b = _Game_Interpreter_parseTransitionParameters.call(_this, args), isFilledWhite = _b.isFilledWhite, name_1 = _b.name, duration = _b.duration;
                 if (name_1) {
-                    console.log("preload " + name_1);
                     ImageManager.requestBitmap('img/transitions/', name_1, 0, true);
                 }
             }

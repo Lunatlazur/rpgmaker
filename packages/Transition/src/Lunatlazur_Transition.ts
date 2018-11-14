@@ -191,6 +191,7 @@ interface Game_Screen {
     if (isFadingIn) {
       TransitionManager.fadeSpeed = duration
       if (!$gameMessage.isBusy()) {
+        TransitionManager.setTransition(isFadingIn, isFilledWhite, '', 1)
         $gameScreen.startFadeIn(this.fadeSpeed())
         this.wait(this.fadeSpeed())
       }
@@ -293,7 +294,7 @@ interface Game_Screen {
       this._thresholdFilter.uniforms.fadingIn = this._isFadingIn
       this._filters = [this._thresholdFilter]
       this._fillBitmap = new Bitmap(Graphics.width, Graphics.height)
-      this._fillBitmap.fillAll('black')
+      this._fillBitmap.fillAll('white')
       this.bitmap = this._fillBitmap
     }
 
