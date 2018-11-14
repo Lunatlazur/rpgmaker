@@ -276,6 +276,7 @@ interface Game_Screen {
     private _durationRest: number
     private _isFadingIn: boolean
     private _isFilledWhite: boolean
+    private _fillBitmap: Bitmap
 
     public initialize (...args: any[]): void
     public initialize () {
@@ -291,6 +292,9 @@ interface Game_Screen {
       this._thresholdFilter.uniforms.white = this._isFilledWhite
       this._thresholdFilter.uniforms.fadingIn = this._isFadingIn
       this._filters = [this._thresholdFilter]
+      this._fillBitmap = new Bitmap(Graphics.width, Graphics.height)
+      this._fillBitmap.fillAll('black')
+      this.bitmap = this._fillBitmap
     }
 
     public transition () {
@@ -317,7 +321,7 @@ interface Game_Screen {
         this.visible = true
       } else {
         this._transitionName = ''
-        this.bitmap = null
+        this.bitmap = this._fillBitmap
         this.visible = false
       }
     }
@@ -368,7 +372,6 @@ interface Game_Screen {
       ) {
         const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args)
         if (name) {
-          console.log(`preload ${name}`)
           ImageManager.requestBitmap('img/transitions/', name, 0, true)
         }
       }
