@@ -4,7 +4,7 @@
 
 ## 利用方法
 
-1. 以下形式の名前の立ち絵画像ファイルを img/pictures フォルダに配置します。\
+1. 以下形式の名前の立ち絵画像ファイルを img/pictures フォルダに配置します。
 
     characterA1.png\
     characterA2.png\
@@ -16,7 +16,7 @@
     :\
     :
 
-2. Data フォルダに Tachie.csv という名前で以下形式の立ち絵定義ファイルを作成してください。\
+2. Data フォルダに Tachie.csv という名前で以下形式の立ち絵定義ファイルを作成してください。
 
     characterA, キャラA, 笑い, 怒り, 呆れ, 不満\
     characterB, キャラB, 笑い, 緊張, 呆れ, 不満\
