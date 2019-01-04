@@ -1,50 +1,49 @@
 /** アクターのデータ */
-declare var $dataActors      : IDataActor[];
+declare var $dataActors: IDataActor[];
 /** 職業のデータ */
-declare var $dataClasses     : IDataClass[];
+declare var $dataClasses: IDataClass[];
 /** スキルのデータ */
-declare var $dataSkills      : IDataSkill[];
+declare var $dataSkills: IDataSkill[];
 /** アイテムのデータ */
-declare var $dataItems       : IDataItem[];
+declare var $dataItems: IDataItem[];
 /** 武器のデータ */
-declare var $dataWeapons     : IDataWeapon[];
+declare var $dataWeapons: IDataWeapon[];
 /** 防具のデータ */
-declare var $dataArmors      : IDataArmor[];
+declare var $dataArmors: IDataArmor[];
 /** 敵のデータ */
-declare var $dataEnemies     : IDataEnemy[];
+declare var $dataEnemies: IDataEnemy[];
 /** 敵グループのデータ */
-declare var $dataTroops      : IDataTroop[];
+declare var $dataTroops: IDataTroop[];
 /** ステートのデータ */
-declare var $dataStates      : IDataState[];
+declare var $dataStates: IDataState[];
 /** アニメーションのデータ */
-declare var $dataAnimations  : IDataAnimation[];
+declare var $dataAnimations: IDataAnimation[];
 /** タイルセットのデータ */
-declare var $dataTilesets    : IDataTileset[];
+declare var $dataTilesets: IDataTileset[];
 /** コモンイベントのデータ */
 declare var $dataCommonEvents: IDataCommonEvent[];
 /** システムのデータ */
-declare var $dataSystem      : IDataSystem;
+declare var $dataSystem: IDataSystem;
 /** マップ情報のデータ */
-declare var $dataMapInfos    : IDataMapInfo[];
+declare var $dataMapInfos: IDataMapInfo[];
 /** マップのデータ */
-declare var $dataMap         : IDataMap;
-declare var $gameTemp        : Game_Temp;
-declare var $gameSystem      : Game_System;
-declare var $gameScreen      : Game_Screen;
-declare var $gameTimer       : Game_Timer;
-declare var $gameMessage     : Game_Message;
-declare var $gameSwitches    : Game_Switches;
-declare var $gameVariables   : Game_Variables;
+declare var $dataMap: IDataMap;
+declare var $gameTemp: Game_Temp;
+declare var $gameSystem: Game_System;
+declare var $gameScreen: Game_Screen;
+declare var $gameTimer: Game_Timer;
+declare var $gameMessage: Game_Message;
+declare var $gameSwitches: Game_Switches;
+declare var $gameVariables: Game_Variables;
 declare var $gameSelfSwitches: Game_SelfSwitches;
-declare var $gameMap         : Game_Map;
-declare var $gameActors      : Game_Actors;
-declare var $gameParty       : Game_Party;
-declare var $gameTroop       : Game_Troop;
-declare var $gamePlayer      : Game_Player;
-declare var $testEvent       : any; // TODO
+declare var $gameMap: Game_Map;
+declare var $gameActors: Game_Actors;
+declare var $gameParty: Game_Party;
+declare var $gameTroop: Game_Troop;
+declare var $gamePlayer: Game_Player;
+declare var $testEvent: any; // TODO
 
-declare interface ISavefileInfo
-{
+declare interface ISavefileInfo {
     globalId?: number;
     title?: string;
     characters?: [string, number][];
@@ -53,30 +52,28 @@ declare interface ISavefileInfo
     timestamp?: number;
 }
 
-declare interface ISaveContents
-{
-    system?         : Game_System;
-    screen?         : Game_Screen;
-    timer?          : Game_Timer;
-    switches?       : Game_Switches;
-    variables?      : Game_Variables;
-    selfSwitches?   : Game_SelfSwitches;
-    actors?         : Game_Actors;
-    party?          : Game_Party;
-    map?            : Game_Map;
-    player?         : Game_Player;
+declare interface ISaveContents {
+    system?: Game_System;
+    screen?: Game_Screen;
+    timer?: Game_Timer;
+    switches?: Game_Switches;
+    variables?: Game_Variables;
+    selfSwitches?: Game_SelfSwitches;
+    actors?: Game_Actors;
+    party?: Game_Party;
+    map?: Game_Map;
+    player?: Game_Player;
 }
 
 /** データマネージャー */
-declare class DataManager
-{
+declare class DataManager {
     private constructor();
 
-    static _globalId       : "RPGMV";
-    static _lastAccessedId : number;
-    static _errorUrl       : string;
+    static _globalId: "RPGMV";
+    static _lastAccessedId: number;
+    static _errorUrl: string;
 
-    static _databaseFiles: {name: string, src: string}[];
+    static _databaseFiles: { name: string, src: string }[];
     /**
      * データベースを読む
      *
@@ -96,7 +93,7 @@ declare class DataManager
      * `Map${mapId}.json`
      * @param mapId マップID 3桁にゼロパディングされて使われる
      */
-    static loadMapData(mapId: number) : void;
+    static loadMapData(mapId: number): void;
     /**
      * $dataMapに空のデータをセットする
      */
@@ -255,8 +252,7 @@ declare class DataManager
 }
 
 /** オプションデータ */
-declare interface IConfig
-{
+declare interface IConfig {
     /** 常時ダッシュ */
     alwaysDash?: boolean;
     /** コマンド記憶 */
@@ -272,8 +268,7 @@ declare interface IConfig
 }
 
 /** オプションマネージャ */
-declare class ConfigManager
-{
+declare class ConfigManager {
     private constructor();
 
     /** 常時ダッシュ */
@@ -324,8 +319,7 @@ declare class ConfigManager
     static readVolume(config: IConfig, name: string): number;
 }
 
-declare class StorageManager
-{
+declare class StorageManager {
     private constructor();
 
     /**
@@ -425,8 +419,7 @@ declare class StorageManager
 /**
  * 画像マネージャー(キャッシュやリクエストキュー付き)
  */
-declare class ImageManager
-{
+declare class ImageManager {
     private constructor();
 
     static _imageCache: ImageCache;
@@ -515,8 +508,7 @@ declare class ImageManager
     static clearRequest(): void;
 }
 
-interface IAudioObject
-{
+interface IAudioObject {
     name: string;
     volume: number;
     pitch: number;
@@ -525,25 +517,24 @@ interface IAudioObject
 }
 
 /** オーディオマネージャー */
-declare class AudioManager
-{
+declare class AudioManager {
     private constructor();
 
-    static _masterVolume   : number;
-    static _bgmVolume      : number;
-    static _bgsVolume      : number;
-    static _meVolume       : number;
-    static _seVolume       : number;
-    static _currentBgm     : IAudioObject;
-    static _currentBgs     : IAudioObject;
-    static _bgmBuffer      : WebAudio | Html5Audio;
-    static _bgsBuffer      : WebAudio;
-    static _meBuffer       : WebAudio;
-    static _seBuffers      : WebAudio[];
-    static _staticBuffers  : WebAudio[];
-    static _replayFadeTime : number;
-    static _path           : string;
-    static _blobUrl        : string;
+    static _masterVolume: number;
+    static _bgmVolume: number;
+    static _bgsVolume: number;
+    static _meVolume: number;
+    static _seVolume: number;
+    static _currentBgm: IAudioObject;
+    static _currentBgs: IAudioObject;
+    static _bgmBuffer: WebAudio | Html5Audio;
+    static _bgsBuffer: WebAudio;
+    static _meBuffer: WebAudio;
+    static _seBuffers: WebAudio[];
+    static _staticBuffers: WebAudio[];
+    static _replayFadeTime: number;
+    static _path: string;
+    static _blobUrl: string;
 
     /** マスター音量を設定・取得 */
     static masterVolume: number;
@@ -597,8 +588,7 @@ declare class AudioManager
 }
 
 /** システムSEマネージャー */
-declare class SoundManager
-{
+declare class SoundManager {
     private constructor();
 
     /**
@@ -642,8 +632,7 @@ declare class SoundManager
 }
 
 /** システムテキストマネージャー */
-declare class TextManager
-{
+declare class TextManager {
     private constructor();
 
     static basic(basicId: number): string;
@@ -741,8 +730,7 @@ declare class TextManager
 }
 
 /** シーンマネージャー */
-declare class SceneManager
-{
+declare class SceneManager {
     private constructor();
 
     static _getTimeInMsWithoutMobileSafari: number;
@@ -984,8 +972,7 @@ declare class SceneManager
 }
 
 /** バトル報酬 */
-declare interface IDataRewards
-{
+declare interface IDataRewards {
     /** ゴールド */
     gold: number;
     /** 経験値 */
@@ -995,8 +982,7 @@ declare interface IDataRewards
 }
 
 /** バトルマネージャー */
-declare class BattleManager
-{
+declare class BattleManager {
     private constructor();
 
     static _phase: string;
@@ -1106,8 +1092,7 @@ declare class BattleManager
 }
 
 /** プラグイン指定 */
-declare interface IDataPlugin
-{
+declare interface IDataPlugin {
     /** 名前 */
     name: string;
     /** 状態(ON/OFF) */
@@ -1122,8 +1107,7 @@ declare interface IDataPlugin
 declare type PluginParameters = { [key: string]: string; };
 
 /** プラグインマネージャー */
-declare class PluginManager
-{
+declare class PluginManager {
     private constructor();
 
     static _path: string;

@@ -1,5 +1,4 @@
-declare class Scene_Base extends Stage
-{
+declare class Scene_Base extends Stage {
     _active: boolean;
     _fadeSign: number;
     _fadeDuration: number;
@@ -33,8 +32,7 @@ declare class Scene_Base extends Stage
     detachReservation(): void;
 }
 
-declare class Scene_Boot extends Scene_Base
-{
+declare class Scene_Boot extends Scene_Base {
     _startDate: number;
 
     static loadSystemImages(): void;
@@ -50,8 +48,7 @@ declare class Scene_Boot extends Scene_Base
     checkPlayerLocation(): void;
 }
 
-declare class Scene_Title extends Scene_Base
-{
+declare class Scene_Title extends Scene_Base {
     _commandWindow: Window_TitleCommand;
     _backSprite1: Sprite;
     _backSprite2: Sprite;
@@ -75,8 +72,7 @@ declare class Scene_Title extends Scene_Base
     playTitleMusic(): void;
 }
 
-declare class Scene_Map extends Scene_Base
-{
+declare class Scene_Map extends Scene_Base {
     _waitCount: number;
     _encounterEffectDuration: number;
     _mapLoaded: boolean;
@@ -135,8 +131,7 @@ declare class Scene_Map extends Scene_Base
     encounterEffectSpeed(): number;
 }
 
-declare class Scene_MenuBase extends Scene_Base
-{
+declare class Scene_MenuBase extends Scene_Base {
     _actor: Game_Actor;
     _backgroundSprite: Sprite;
     _helpWindow: Window_Help;
@@ -154,8 +149,7 @@ declare class Scene_MenuBase extends Scene_Base
     onActorChange(): void;
 }
 
-declare class Scene_Menu extends Scene_MenuBase
-{
+declare class Scene_Menu extends Scene_MenuBase {
     _statusWindow: Window_MenuStatus;
     _goldWindow: Window_Gold;
     _commandWindow: Window_MenuCommand;
@@ -179,8 +173,7 @@ declare class Scene_Menu extends Scene_MenuBase
     onFormationCancel(): void;
 }
 
-declare class Scene_ItemBase extends Scene_MenuBase
-{
+declare class Scene_ItemBase extends Scene_MenuBase {
     _actorWindow: Window_MenuActor;
     _itemWindow: Window_Selectable;
 
@@ -205,8 +198,7 @@ declare class Scene_ItemBase extends Scene_MenuBase
     checkCommonEvent(): void;
 }
 
-declare class Scene_Item extends Scene_ItemBase
-{
+declare class Scene_Item extends Scene_ItemBase {
     _categoryWindow: Window_ItemCategory;
     _itemWindow: Window_ItemList;
 
@@ -223,8 +215,7 @@ declare class Scene_Item extends Scene_ItemBase
     useItem(): void;
 }
 
-declare class Scene_Skill extends Scene_ItemBase
-{
+declare class Scene_Skill extends Scene_ItemBase {
     _skillTypeWindow: Window_SkillType;
     _statusWindow: Window_SkillStatus;
     _itemWindow: Window_SkillList;
@@ -246,8 +237,7 @@ declare class Scene_Skill extends Scene_ItemBase
     onActorChange(): void;
 }
 
-declare class Scene_Equip extends Scene_MenuBase
-{
+declare class Scene_Equip extends Scene_MenuBase {
     _statusWindow: Window_EquipStatus;
     _commandWindow: Window_EquipCommand;
     _slotWindow: Window_EquipSlot;
@@ -271,8 +261,7 @@ declare class Scene_Equip extends Scene_MenuBase
     onActorChange(): void;
 }
 
-declare class Scene_Status extends Scene_MenuBase
-{
+declare class Scene_Status extends Scene_MenuBase {
     _statusWindow: Window_Status;
 
     constructor();
@@ -282,8 +271,7 @@ declare class Scene_Status extends Scene_MenuBase
     onActorChange(): void;
 }
 
-declare class Scene_Options extends Scene_MenuBase
-{
+declare class Scene_Options extends Scene_MenuBase {
     _optionsWindow: Window_Options;
 
     constructor();
@@ -293,8 +281,7 @@ declare class Scene_Options extends Scene_MenuBase
     createOptionsWindow(): void;
 }
 
-declare class Scene_File extends Scene_MenuBase
-{
+declare class Scene_File extends Scene_MenuBase {
     _listWindow: Window_SavefileList;
     _helpWindow: Window_Help;
 
@@ -312,8 +299,7 @@ declare class Scene_File extends Scene_MenuBase
     onSavefileOk(): void;
 }
 
-declare class Scene_Save extends Scene_File
-{
+declare class Scene_Save extends Scene_File {
     constructor();
     initialize(): void;
     mode(): string;
@@ -324,8 +310,7 @@ declare class Scene_Save extends Scene_File
     onSaveFailure(): void;
 }
 
-declare class Scene_Load extends Scene_File
-{
+declare class Scene_Load extends Scene_File {
     _loadSuccess: boolean;
 
     constructor();
@@ -340,8 +325,7 @@ declare class Scene_Load extends Scene_File
     reloadMapIfUpdated(): void;
 }
 
-declare class Scene_GameEnd extends Scene_MenuBase
-{
+declare class Scene_GameEnd extends Scene_MenuBase {
     _commandWindow: Window_GameEnd;
 
     constructor();
@@ -353,8 +337,7 @@ declare class Scene_GameEnd extends Scene_MenuBase
     commandToTitle(): void;
 }
 
-declare class Scene_Shop extends Scene_MenuBase
-{
+declare class Scene_Shop extends Scene_MenuBase {
     _goods: any[][];
     _purchaseOnly: boolean;
     _item: IDataAllItem;
@@ -402,8 +385,7 @@ declare class Scene_Shop extends Scene_MenuBase
     sellingPrice(): number;
 }
 
-declare class Scene_Name extends Scene_MenuBase
-{
+declare class Scene_Name extends Scene_MenuBase {
     _actor: Game_Actor;
     _actorId: number;
     _maxLength: number;
@@ -420,11 +402,10 @@ declare class Scene_Name extends Scene_MenuBase
     onInputOk(): void;
 }
 
-declare class Scene_Debug extends Scene_MenuBase
-{
+declare class Scene_Debug extends Scene_MenuBase {
     _editWindow: Window_DebugEdit;
     _rangeWindow: Window_DebugRange;
-    _debugHelpWindow : Window_Base;
+    _debugHelpWindow: Window_Base;
 
     constructor();
     initialize(): void;
@@ -438,8 +419,7 @@ declare class Scene_Debug extends Scene_MenuBase
     helpText(): string;
 }
 
-declare class Scene_Battle extends Scene_Base
-{
+declare class Scene_Battle extends Scene_Base {
     _partyCommandWindow: Window_PartyCommand;
     _actorCommandWindow: Window_ActorCommand;
     _skillWindow: Window_BattleSkill;
@@ -505,8 +485,7 @@ declare class Scene_Battle extends Scene_Base
     endCommandSelection(): void;
 }
 
-declare class Scene_Gameover extends Scene_Base
-{
+declare class Scene_Gameover extends Scene_Base {
     _backSprite: Sprite;
 
     constructor();

@@ -1,10 +1,8 @@
-declare class JsExtensions
-{
+declare class JsExtensions {
     private constructor();
 }
 
-declare interface Number
-{
+declare interface Number {
     /**
      * Returns a number whose value is limited to the given range.
      *
@@ -33,8 +31,7 @@ declare interface Number
     padZero(length: number): string;
 }
 
-declare interface String
-{
+declare interface String {
     /**
      * Replaces %1, %2 and so on in the string to the arguments.
      *
@@ -61,8 +58,7 @@ declare interface String
     contains(string: string): boolean;
 }
 
-declare interface Array<T>
-{
+declare interface Array<T> {
     /**
      * Checks whether the two arrays are same.
      *
@@ -88,8 +84,7 @@ declare interface Array<T>
     contains(element: T): boolean;
 }
 
-declare interface Math
-{
+declare interface Math {
     /**
      * Generates a random integer in the range (0, max-1).
      *
@@ -101,8 +96,7 @@ declare interface Math
     randomInt(max: number): number;
 }
 
-declare class Utils
-{
+declare class Utils {
     private constructor();
 
     static RPGMAKER_NAME: "MV";
@@ -181,15 +175,13 @@ declare class Utils
     static _supportPassiveEvent: boolean;
 }
 
-declare interface IImageCacheItem
-{
+declare interface IImageCacheItem {
     bitmap: Bitmap;
     touch: number;
     key: string;
 }
 
-declare class ImageCache
-{
+declare class ImageCache {
     static limit: number;
 
     initialize(): void;
@@ -204,8 +196,7 @@ declare class ImageCache
     _mustBeHeld(item: IImageCacheItem): boolean;
 }
 
-declare class RequestQueue
-{
+declare class RequestQueue {
     constructor();
     initialize(): void;
     enqueue(key: string, value: Bitmap): void;
@@ -217,8 +208,7 @@ declare class RequestQueue
 /**
  * The resource class. Allows to be collected as a garbage if not use for some time or ticks
  */
-declare class CacheEntry
-{
+declare class CacheEntry {
     cache: CacheMap;
     key: string;
     item: Bitmap | Html5Audio | WebAudio;
@@ -262,10 +252,9 @@ declare class CacheEntry
 /**
  * Cache for images, audio, or any other kind of resource
  */
-declare class CacheMap
-{
+declare class CacheMap {
     _inner: { [key: string]: CacheEntry };
-    _lastRemovedEntries:  CacheEntry[];
+    _lastRemovedEntries: CacheEntry[];
 
     manager: typeof DataManager | typeof ConfigManager | typeof StorageManager | typeof ImageManager | typeof AudioManager | typeof SoundManager | typeof TextManager | typeof SceneManager | typeof BattleManager | typeof PluginManager;
     updateTicks: number;
@@ -296,8 +285,7 @@ declare class CacheMap
 /**
  * The point class.
  */
-declare class Point extends PIXI.Point
-{
+declare class Point extends PIXI.Point {
     /**
      * @param {Number} x The x coordinate
      * @param {Number} y The y coordinate
@@ -309,8 +297,7 @@ declare class Point extends PIXI.Point
 /**
  * The rectangle class.
  */
-declare class Rectangle extends PIXI.Rectangle
-{
+declare class Rectangle extends PIXI.Rectangle {
     /**
      * @static
      * @property emptyRectangle
@@ -346,8 +333,7 @@ declare type BitmapLoadingState =
 /**
  * The basic object that represents an image.
  */
-declare class Bitmap
-{
+declare class Bitmap {
     static _reuseImages: HTMLImageElement[];
     /**
      * Loads a image file and returns a new bitmap object.
@@ -555,8 +541,7 @@ declare class Bitmap
 declare var waitForLoading: boolean;
 declare var register: boolean;
 
-declare class Graphics
-{
+declare class Graphics {
     private constructor();
 
     static frameCount: number;
@@ -674,8 +659,7 @@ declare class Graphics
     static _cancelFullScreen(): void;
 }
 
-declare class Input
-{
+declare class Input {
     private constructor();
 
     static keyRepeatWait: number;
@@ -720,8 +704,7 @@ declare class Input
     static _isEscapeCompatible(keyName: string): boolean;
 }
 
-declare interface IDataTouchInput
-{
+declare interface IDataTouchInput {
     triggered: boolean;
     cancelled: boolean;
     moved: boolean;
@@ -730,8 +713,7 @@ declare interface IDataTouchInput
     wheelY: number;
 }
 
-declare class TouchInput
-{
+declare class TouchInput {
     private constructor();
 
     static keyRepeatWait: number;
@@ -786,8 +768,7 @@ declare class TouchInput
     static _onRelease(x: number, y: number): void;
 }
 
-declare class Sprite extends PIXI.Sprite
-{
+declare class Sprite extends PIXI.Sprite {
     static _counter: number;
 
     bitmap: Bitmap;
@@ -829,8 +810,7 @@ declare class Sprite extends PIXI.Sprite
     _renderWebGL(renderer: PIXI.WebGLRenderer): void;
 }
 
-declare class Tilemap extends PIXI.Container
-{
+declare class Tilemap extends PIXI.Container {
     width: number;
     height: number;
     tileWidth: number;
@@ -929,8 +909,7 @@ declare class Tilemap extends PIXI.Container
     static WATERFALL_AUTOTILE_TABLE: number[][][];
 }
 
-declare class ShaderTilemap extends Tilemap
-{
+declare class ShaderTilemap extends Tilemap {
     roundPixels: boolean;
     animationFrame: number;
     lowerZLayer: PIXI.tilemap.ZLayer;
@@ -962,8 +941,7 @@ declare class ShaderTilemap extends Tilemap
     _drawShadow(layer: PIXI.tilemap.RectTileLayer, shadowBits: number, dx: number, dy: number): void;
 }
 
-declare class TilingSprite extends PIXI.extras.TilingSprite
-{
+declare class TilingSprite extends PIXI.extras.TilingSprite {
     bitmap: Bitmap;
     opacity: number;
     spriteId: number;
@@ -990,8 +968,7 @@ declare class TilingSprite extends PIXI.extras.TilingSprite
     updateTransformTS(): void;
 }
 
-declare class ScreenSprite extends PIXI.Container
-{
+declare class ScreenSprite extends PIXI.Container {
     static YEPWarned: boolean;
     static warnYep(): void;
 
@@ -1012,8 +989,7 @@ declare class ScreenSprite extends PIXI.Container
     setColor(r?: number, g?: number, b?: number): void;
 }
 
-declare class Window extends PIXI.Container
-{
+declare class Window extends PIXI.Container {
     _isWindow: boolean;
     _windowskin: Bitmap;
     _width: number;
@@ -1074,8 +1050,7 @@ declare class Window extends PIXI.Container
     _updatePauseSign(): void;
 }
 
-declare class WindowLayer extends PIXI.Container
-{
+declare class WindowLayer extends PIXI.Container {
     static voidFilter: PIXI.filters.VoidFilter;
 
     _width: number;
@@ -1102,8 +1077,7 @@ declare class WindowLayer extends PIXI.Container
     _maskWindow(window: Window, shift: PIXI.Point): void;
 }
 
-declare class Weather extends PIXI.Container
-{
+declare class Weather extends PIXI.Container {
     _width: number;
     _height: number;
     _sprites: Sprite[];
@@ -1133,16 +1107,14 @@ declare class Weather extends PIXI.Container
     _rebornSprite(sprite: Sprite): void;
 }
 
-declare class ToneFilter extends PIXI.filters.ColorMatrixFilter
-{
+declare class ToneFilter extends PIXI.filters.ColorMatrixFilter {
     constructor();
     adjustHue(value: number): void;
     adjustSaturation(value?: number): void;
     adjustTone(r?: number, g?: number, b?: number): void;
 }
 
-declare class ToneSprite extends PIXI.Container
-{
+declare class ToneSprite extends PIXI.Container {
     constructor();
     initialize(): void;
     clear(): void;
@@ -1157,14 +1129,12 @@ declare class ToneSprite extends PIXI.Container
     _renderWebGL(renderer: PIXI.WebGLRenderer): void;
 }
 
-declare class Stage extends PIXI.Container
-{
+declare class Stage extends PIXI.Container {
     constructor();
     initialize(): void;
 }
 
-declare class WebAudio
-{
+declare class WebAudio {
     static _masterVolume: number;
     static _context: AudioContext;
     static _masterGainNode: GainNode;
@@ -1248,8 +1218,7 @@ declare class WebAudio
     _readFourCharacters(array: Uint8Array, index: number): void;
 }
 
-declare class Html5Audio
-{
+declare class Html5Audio {
     private constructor();
 
     static _url: string;
@@ -1302,8 +1271,7 @@ declare class Html5Audio
     static _applyTweenValue(volume: number): void;
 }
 
-declare class JsonEx
-{
+declare class JsonEx {
     private constructor();
 
     static maxDepth: number;
@@ -1323,8 +1291,7 @@ declare class JsonEx
     static _cleanMetadata(object: any): void;
 }
 
-declare class Decrypter
-{
+declare class Decrypter {
     private constructor();
 
     static hasEncryptedImages: boolean;
@@ -1349,8 +1316,7 @@ declare class Decrypter
     static readEncryptionkey(): void;
 }
 
-declare class ResourceHandler
-{
+declare class ResourceHandler {
     private constructor();
 
     static _reloaders: Function[];

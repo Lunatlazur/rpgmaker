@@ -1,5 +1,4 @@
-declare class Game_Temp
-{
+declare class Game_Temp {
     constructor();
     initialize(): void;
     isPlaytest(): boolean;
@@ -19,8 +18,7 @@ declare class Game_Temp
     _destinationY: number;
 }
 
-declare class Game_System
-{
+declare class Game_System {
     _saveEnabled: boolean;
     _menuEnabled: boolean;
     _encounterEnabled: boolean;
@@ -87,8 +85,7 @@ declare class Game_System
     saveWalkingBgm2(): void;
 }
 
-declare class Game_Timer
-{
+declare class Game_Timer {
     _frames: number;
     _working: boolean;
 
@@ -102,8 +99,7 @@ declare class Game_Timer
     onExpire(): void;
 }
 
-declare class Game_Message
-{
+declare class Game_Message {
     _texts: string[];
     _choices: string[];
     _faceName: string;
@@ -163,8 +159,7 @@ declare class Game_Message
     allText(): string;
 }
 
-declare class Game_Switches
-{
+declare class Game_Switches {
     constructor();
     initialize(): void;
     clear(): void;
@@ -175,8 +170,7 @@ declare class Game_Switches
     _data: boolean[];
 }
 
-declare class Game_Variables
-{
+declare class Game_Variables {
     constructor();
     initialize(): void;
     clear(): void;
@@ -187,8 +181,7 @@ declare class Game_Variables
     _data: number[];
 }
 
-declare class Game_SelfSwitches
-{
+declare class Game_SelfSwitches {
     constructor();
     initialize(): void;
     clear(): void;
@@ -199,8 +192,7 @@ declare class Game_SelfSwitches
     _data: { [key: string]: boolean };
 }
 
-declare class Game_Screen
-{
+declare class Game_Screen {
     _brightness: number;
     _zoomX: number;
     _zoomY: number;
@@ -273,8 +265,7 @@ declare class Game_Screen
     erasePicture(pictureId: number): void;
 }
 
-declare class Game_Picture
-{
+declare class Game_Picture {
     _name: string;
     _origin: number;
     _x: number;
@@ -322,8 +313,7 @@ declare class Game_Picture
     updateRotation(): void;
 }
 
-declare class Game_Item
-{
+declare class Game_Item {
     _dataClass: string;
     _itemId: number;
 
@@ -342,8 +332,7 @@ declare class Game_Item
     setEquip(isWeapon: boolean, itemId: number): void;
 }
 
-declare class Game_Action
-{
+declare class Game_Action {
     constructor(subject: Game_Battler, forcing: boolean);
 
     static EFFECT_RECOVER_HP: number;
@@ -468,8 +457,7 @@ declare class Game_Action
     applyGlobal(): void;
 }
 
-declare class Game_ActionResult
-{
+declare class Game_ActionResult {
     used: boolean;
     missed: boolean;
     evaded: boolean;
@@ -506,8 +494,7 @@ declare class Game_ActionResult
     pushRemovedBuff(paramId: number): void;
 }
 
-declare class Game_BattlerBase
-{
+declare class Game_BattlerBase {
     static TRAIT_ELEMENT_RATE: number;
     static TRAIT_DEBUFF_RATE: number;
     static TRAIT_STATE_RATE: number;
@@ -710,15 +697,13 @@ declare class Game_BattlerBase
     canGuard(): boolean;
 }
 
-declare interface IGame_BattlerAnimation
-{
+declare interface IGame_BattlerAnimation {
     animationId: string;
     mirror: boolean;
     delay: number;
 }
 
-declare class Game_Battler extends Game_BattlerBase
-{
+declare class Game_Battler extends Game_BattlerBase {
     _actions: Game_Action[];
     _speed: number;
     _result: Game_ActionResult;
@@ -828,8 +813,7 @@ declare class Game_Battler extends Game_BattlerBase
     performCollapse(): void;
 }
 
-declare class Game_Actor extends Game_Battler
-{
+declare class Game_Actor extends Game_Battler {
     level: number;
 
     _actorId: number;
@@ -847,7 +831,7 @@ declare class Game_Actor extends Game_Battler
     _equips: Game_Item[];
     _actionInputIndex: number;
     _lastMenuSkill: Game_Item;
-    _lastBattleSkill : Game_Item;
+    _lastBattleSkill: Game_Item;
     _lastCommandSymbol: string;
     _profile: string;
     _stateSteps: { [key: number]: number };
@@ -985,8 +969,7 @@ declare class Game_Actor extends Game_Battler
     meetsUsableItemConditions(item: IDataAllItem): boolean;
 }
 
-declare class Game_Enemy extends Game_Battler
-{
+declare class Game_Enemy extends Game_Battler {
     _enemyId: number;
     _letter: string;
     _plural: boolean;
@@ -1041,8 +1024,7 @@ declare class Game_Enemy extends Game_Battler
     makeActions(): void;
 }
 
-declare class Game_Actors
-{
+declare class Game_Actors {
     _data: Game_Actor[];
 
     constructor();
@@ -1050,8 +1032,7 @@ declare class Game_Actors
     actor(actorId: number): Game_Actor;
 }
 
-declare class Game_Unit
-{
+declare class Game_Unit {
     _inBattle: boolean;
 
     constructor();
@@ -1077,8 +1058,7 @@ declare class Game_Unit
     substituteBattler(): Game_Battler;
 }
 
-declare class Game_Party extends Game_Unit
-{
+declare class Game_Party extends Game_Unit {
     static ABILITY_ENCOUNTER_HALF: number;
     static ABILITY_ENCOUNTER_NONE: number;
     static ABILITY_CANCEL_SURPRISE: number;
@@ -1168,8 +1148,7 @@ declare class Game_Party extends Game_Unit
     requestMotionRefresh(): void;
 }
 
-declare class Game_Troop extends Game_Unit
-{
+declare class Game_Troop extends Game_Unit {
     static LETTER_TABLE_HALF: string[];
     static LETTER_TABLE_FULL: string[];
 
@@ -1201,8 +1180,7 @@ declare class Game_Troop extends Game_Unit
     makeDropItems(): IDataItem[];
 }
 
-declare class Game_Map
-{
+declare class Game_Map {
     _interpreter: Game_Interpreter;
     _mapId: number;
     _tilesetId: number;
@@ -1339,8 +1317,7 @@ declare class Game_Map
     isAnyEventStarting(): boolean;
 }
 
-declare class Game_CommonEvent
-{
+declare class Game_CommonEvent {
     _commonEventId: number;
     _interpreter: Game_Interpreter;
 
@@ -1353,8 +1330,7 @@ declare class Game_CommonEvent
     update(): void;
 }
 
-declare class Game_CharacterBase
-{
+declare class Game_CharacterBase {
     x: number;
     y: number;
 
@@ -1490,8 +1466,7 @@ declare class Game_CharacterBase
     endBalloon(): void;
 }
 
-declare class Game_Character extends Game_CharacterBase
-{
+declare class Game_Character extends Game_CharacterBase {
     static ROUTE_END: number;
     static ROUTE_MOVE_DOWN: number;
     static ROUTE_MOVE_LEFT: number;
@@ -1581,8 +1556,7 @@ declare class Game_Character extends Game_CharacterBase
     searchLimit(): number;
 }
 
-declare class Game_Player extends Game_Character
-{
+declare class Game_Player extends Game_Character {
     _vehicleType: string;
     _vehicleGettingOn: boolean;
     _vehicleGettingOff: boolean;
@@ -1672,8 +1646,7 @@ declare class Game_Player extends Game_Character
     areFollowersGathered(): boolean;
 }
 
-declare class Game_Follower extends Game_Character
-{
+declare class Game_Follower extends Game_Character {
     _memberIndex: number;
 
     constructor();
@@ -1685,8 +1658,7 @@ declare class Game_Follower extends Game_Character
     chaseCharacter(character: Game_CharacterBase): void;
 }
 
-declare class Game_Followers extends Game_Character
-{
+declare class Game_Followers extends Game_Character {
     _visible: boolean;
     _gathering: boolean;
     _data: Game_Follower[];
@@ -1712,8 +1684,7 @@ declare class Game_Followers extends Game_Character
     isSomeoneCollided(): boolean;
 }
 
-declare class Game_Vehicle extends Game_Character
-{
+declare class Game_Vehicle extends Game_Character {
     _type: string;
     _mapId: number;
     _altitude: number;
@@ -1754,8 +1725,7 @@ declare class Game_Vehicle extends Game_Character
     isLandOk(x: number, y: number, d: number): boolean;
 }
 
-declare class Game_Event extends Game_Character
-{
+declare class Game_Event extends Game_Character {
     _mapId: number;
     _eventId: number;
     _moveType: number;
@@ -1812,8 +1782,7 @@ declare class Game_Event extends Game_Character
     forceMoveRoute(moveRoute: IDataMoveRoute): void;
 }
 
-declare class Game_Interpreter
-{
+declare class Game_Interpreter {
     _depth: number;
     _branch: { [key: number]: number };
     _params: any[];
@@ -1860,13 +1829,13 @@ declare class Game_Interpreter
     changeHp(target: Game_Battler, value: number, allowDeath: boolean): void;
     command101(): boolean;
     command102(): boolean;
-    setupChoices(params: (number|string)[]): void;
+    setupChoices(params: (number | string)[]): void;
     command402(): boolean;
     command403(): boolean;
     command103(): boolean;
-    setupNumInput(params: (number|string)[]): void;
+    setupNumInput(params: (number | string)[]): void;
     command104(): boolean;
-    setupItemChoice(params: (number|string)[]): void;
+    setupItemChoice(params: (number | string)[]): void;
     command105(): boolean;
     command108(): boolean;
     command111(): boolean;

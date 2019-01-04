@@ -1,5 +1,4 @@
-declare class Sprite_Base extends Sprite
-{
+declare class Sprite_Base extends Sprite {
     _animationSprites: Sprite_Animation[];
     _effectTarget: Sprite_Base;
     _hiding: boolean;
@@ -17,8 +16,7 @@ declare class Sprite_Base extends Sprite
     isAnimationPlaying(): boolean;
 }
 
-declare class Sprite_Button extends Sprite
-{
+declare class Sprite_Button extends Sprite {
     _touching: boolean;
     _coldFrame: Rectangle;
     _hotFrame: Rectangle;
@@ -40,8 +38,7 @@ declare class Sprite_Button extends Sprite
     reserveFaceImages(): void;
 }
 
-declare class Sprite_Character extends Sprite_Base
-{
+declare class Sprite_Character extends Sprite_Base {
     _character: Game_Character;
     _balloonSprite: Sprite_Balloon;
     _balloonDuration: number;
@@ -88,8 +85,7 @@ declare class Sprite_Character extends Sprite_Base
     isBalloonPlaying(): boolean;
 }
 
-declare class Sprite_Battler extends Sprite_Base
-{
+declare class Sprite_Battler extends Sprite_Base {
     _battler: Game_Battler;
     _damages: Sprite_Damage[];
     _homeX: number;
@@ -127,14 +123,12 @@ declare class Sprite_Battler extends Sprite_Base
     inHomePosition(): boolean;
 }
 
-declare interface IMotion
-{
+declare interface IMotion {
     index: number;
     loop: boolean;
 }
 
-declare class Sprite_Actor extends Sprite_Battler
-{
+declare class Sprite_Actor extends Sprite_Battler {
     static MOTIONS: { [key: string]: IMotion };
 
     _battlerName: string;
@@ -180,8 +174,7 @@ declare class Sprite_Actor extends Sprite_Battler
     damageOffsetY(): number;
 }
 
-declare class Sprite_Enemy extends Sprite_Battler
-{
+declare class Sprite_Enemy extends Sprite_Battler {
     _enemy: Game_Enemy;
     _appeared: boolean;
     _battlerName: string;
@@ -226,8 +219,7 @@ declare class Sprite_Enemy extends Sprite_Battler
     damageOffsetY(): number;
 }
 
-declare class Sprite_Animation extends Sprite
-{
+declare class Sprite_Animation extends Sprite {
     _reduceArtifacts: boolean;
     _target: Sprite_Base;
     _animation: IDataAnimation;
@@ -276,8 +268,7 @@ declare class Sprite_Animation extends Sprite
     startHiding(duration: number): void;
 }
 
-declare class Sprite_Damage extends Sprite
-{
+declare class Sprite_Damage extends Sprite {
     _duration: number;
     _flashColor: number[];
     _flashDuration: number;
@@ -298,8 +289,7 @@ declare class Sprite_Damage extends Sprite
     isPlaying(): boolean;
 }
 
-declare class Sprite_StateIcon extends Sprite
-{
+declare class Sprite_StateIcon extends Sprite {
     static _iconWidth: number;
     static _iconHeight: number;
 
@@ -318,8 +308,7 @@ declare class Sprite_StateIcon extends Sprite
     updateFrame(): void;
 }
 
-declare class Sprite_StateOverlay extends Sprite_Base
-{
+declare class Sprite_StateOverlay extends Sprite_Base {
     _battler: Game_Battler;
     _overlayIndex: number;
     _animationCount: number;
@@ -336,8 +325,7 @@ declare class Sprite_StateOverlay extends Sprite_Base
     updateFrame(): void;
 }
 
-declare class Sprite_Weapon extends Sprite_Base
-{
+declare class Sprite_Weapon extends Sprite_Base {
     _weaponImageId: number;
     _animationCount: number;
     _pattern: number;
@@ -354,8 +342,7 @@ declare class Sprite_Weapon extends Sprite_Base
     isPlaying(): boolean;
 }
 
-declare class Sprite_Balloon extends Sprite_Base
-{
+declare class Sprite_Balloon extends Sprite_Base {
     _balloonId: number;
     _duration: number;
 
@@ -372,8 +359,7 @@ declare class Sprite_Balloon extends Sprite_Base
     isPlaying(): boolean;
 }
 
-declare class Sprite_Picture extends Sprite
-{
+declare class Sprite_Picture extends Sprite {
     _pictureId: number;
     _pictureName: string;
     _isPicture: boolean;
@@ -392,8 +378,7 @@ declare class Sprite_Picture extends Sprite
     loadBitmap(): void;
 }
 
-declare class Sprite_Timer extends Sprite
-{
+declare class Sprite_Timer extends Sprite {
     _seconds: number;
 
     constructor();
@@ -407,8 +392,7 @@ declare class Sprite_Timer extends Sprite
     updateVisibility(): void;
 }
 
-declare class Sprite_Destination extends Sprite
-{
+declare class Sprite_Destination extends Sprite {
     _frameCount: number;
 
     constructor();
@@ -419,8 +403,7 @@ declare class Sprite_Destination extends Sprite
     updateAnimation(): void;
 }
 
-declare class Spriteset_Base extends Sprite
-{
+declare class Spriteset_Base extends Sprite {
     _tone: number[];
     _baseSprite: Sprite;
     _toneSprite: ToneSprite;
@@ -450,8 +433,7 @@ declare class Spriteset_Base extends Sprite
     updatePosition(): void;
 }
 
-declare class Spriteset_Map extends Spriteset_Base
-{
+declare class Spriteset_Map extends Spriteset_Base {
     _parallax: TilingSprite;
     _parallaxName: string;
     _tilemap: Tilemap;
@@ -483,8 +465,7 @@ declare class Spriteset_Map extends Spriteset_Base
     updateWeather(): void;
 }
 
-declare class Spriteset_Battle extends Spriteset_Base
-{
+declare class Spriteset_Battle extends Spriteset_Base {
     _battlebackLocated: boolean;
     _backgroundSprite: Sprite;
     _battleField: Sprite;

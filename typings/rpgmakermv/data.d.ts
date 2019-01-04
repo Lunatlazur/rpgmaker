@@ -6,48 +6,44 @@
  * @example
  * type IJsonDataState = JsonDataOf<IDataState>;
  */
-declare type JsonDataOf<T> = Pick<T, ({[P in keyof T]: P } & {[P in "meta"]: never })[keyof T]>;
+declare type JsonDataOf<T> = Pick<T, ({ [P in keyof T]: P } & { [P in "meta"]: never })[keyof T]>;
 
 /** "id"をもつデータ */
 declare interface IHasId {
-  /** ID */
-  id: number;
+    /** ID */
+    id: number;
 }
 
 /** "note"をもつデータ */
 declare interface IHasNote {
-  /** メモ */
-  note: string;
-  /** メタ情報 */
-  meta: IDataMeta;
+    /** メモ */
+    note: string;
+    /** メタ情報 */
+    meta: IDataMeta;
 }
 
-declare interface IDataSound
-{
+declare interface IDataSound {
     name: string;
     pan: number;
     pitch: number;
     volume: number;
 }
 
-declare interface IDataTrait
-{
+declare interface IDataTrait {
     code: number;
     dataId: number;
     value: number;
 }
 
 /** 使用効果 */
-declare interface IDataEffect
-{
+declare interface IDataEffect {
     code: number;
     dataId: number;
     value1: number;
     value2: number;
 }
 
-declare interface IDataAction
-{
+declare interface IDataAction {
     conditionParam1: number;
     conditionParam2: number;
     conditionType: number;
@@ -56,21 +52,18 @@ declare interface IDataAction
 }
 
 /** イベントコマンド */
-declare interface IDataList
-{
+declare interface IDataList {
     code: number;
     indent: number;
     parameters: Array<number | string>;
 }
 
-declare interface IDataMoveRouteCommand
-{
+declare interface IDataMoveRouteCommand {
     code: number;
     parameters: number[];
 }
 
-declare interface IDataMoveRoute
-{
+declare interface IDataMoveRoute {
     list: IDataMoveRouteCommand[];
     repeat: boolean;
     skippable: boolean;
@@ -78,8 +71,7 @@ declare interface IDataMoveRoute
 }
 
 /** アクター */
-declare interface IDataActor extends IHasId, IHasNote
-{
+declare interface IDataActor extends IHasId, IHasNote {
     battlerName: string;
     characterIndex: number;
     characterName: string;
@@ -96,8 +88,7 @@ declare interface IDataActor extends IHasId, IHasNote
 }
 
 /** 職業 */
-declare interface IDataClass extends IHasId, IHasNote
-{
+declare interface IDataClass extends IHasId, IHasNote {
     expParams: number[];
     traits: IDataTrait[];
     learnings: {
@@ -110,8 +101,7 @@ declare interface IDataClass extends IHasId, IHasNote
 }
 
 /** スキル */
-declare interface IDataSkill extends IHasId, IHasNote
-{
+declare interface IDataSkill extends IHasId, IHasNote {
     /** アニメーション */
     animationId: number;
     /** ダメージ */
@@ -166,8 +156,7 @@ declare interface IDataSkill extends IHasId, IHasNote
 }
 
 /** 全アイテム共通 */
-declare interface IDataAllItem extends IHasId, IHasNote
-{
+declare interface IDataAllItem extends IHasId, IHasNote {
     description: string;
     name: string;
     iconIndex: number;
@@ -175,8 +164,7 @@ declare interface IDataAllItem extends IHasId, IHasNote
 }
 
 /** アイテム */
-declare interface IDataItem extends IDataAllItem
-{
+declare interface IDataItem extends IDataAllItem {
     animationId: number;
     consumable: boolean;
     damage: {
@@ -198,37 +186,32 @@ declare interface IDataItem extends IDataAllItem
 }
 
 /** 装備アイテム */
-declare interface IDataEquipItem extends IDataAllItem
-{
+declare interface IDataEquipItem extends IDataAllItem {
     etypeId: number;
     traits: IDataTrait[];
     params: number[];
 }
 
 /** 武器 */
-declare interface IDataWeapon extends IDataEquipItem
-{
+declare interface IDataWeapon extends IDataEquipItem {
     animationId: number;
     wtypeId: number;
 }
 
 /** 防具 */
-declare interface IDataArmor extends IDataEquipItem
-{
+declare interface IDataArmor extends IDataEquipItem {
     atypeId: number;
 }
 
 /** ドロップアイテム */
-declare interface IDataDropItem
-{
+declare interface IDataDropItem {
     kind: number;
     dataId: number;
     denominator: number;
 }
 
 /** 敵 */
-declare interface IDataEnemy extends IHasId, IHasNote
-{
+declare interface IDataEnemy extends IHasId, IHasNote {
     actions: IDataAction[];
     battlerHue: number;
     battlerName: string;
@@ -240,8 +223,7 @@ declare interface IDataEnemy extends IHasId, IHasNote
     params: number[];
 }
 
-declare interface IDataPage
-{
+declare interface IDataPage {
     conditions: {
         actorHP: number;
         actorId: number;
@@ -261,8 +243,7 @@ declare interface IDataPage
 }
 
 /** 敵グループ */
-declare interface IDataTroop extends IHasId
-{
+declare interface IDataTroop extends IHasId {
     members: {
         enemyId: number;
         x: number;
@@ -274,8 +255,7 @@ declare interface IDataTroop extends IHasId
 }
 
 /** ステート */
-declare interface IDataState extends IHasId, IHasNote
-{
+declare interface IDataState extends IHasId, IHasNote {
     autoRemovalTiming: number;
     chanceByDamage: number;
     iconIndex: number;
@@ -299,8 +279,7 @@ declare interface IDataState extends IHasId, IHasNote
     traits: IDataTrait[];
 }
 
-declare interface IDataAnimationTiming
-{
+declare interface IDataAnimationTiming {
     flashColor: number[];
     flashDuration: number;
     flashScope: number;
@@ -309,8 +288,7 @@ declare interface IDataAnimationTiming
 }
 
 /** アニメーション */
-declare interface IDataAnimation extends IHasId
-{
+declare interface IDataAnimation extends IHasId {
     animation1Hue: number;
     animation1Name: string;
     animation2Hue: number;
@@ -322,8 +300,7 @@ declare interface IDataAnimation extends IHasId
 }
 
 /** タイルセット */
-declare interface IDataTileset extends IHasId, IHasNote
-{
+declare interface IDataTileset extends IHasId, IHasNote {
     flags: number[];
     mode: number;
     name: string;
@@ -331,8 +308,7 @@ declare interface IDataTileset extends IHasId, IHasNote
 }
 
 /** コモンイベント */
-declare interface IDataCommonEvent extends IHasId
-{
+declare interface IDataCommonEvent extends IHasId {
     list: IDataList[];
     name: string;
     switchId: number;
@@ -340,8 +316,7 @@ declare interface IDataCommonEvent extends IHasId
 }
 
 /** 乗り物 */
-declare interface IVehicle
-{
+declare interface IVehicle {
     bgm: IDataSound;
     characterIndex: number;
     characterName: string;
@@ -351,8 +326,7 @@ declare interface IVehicle
 }
 
 /** システム */
-declare interface IDataSystem
-{
+declare interface IDataSystem {
     airship: IVehicle;
     armorTypes: string[];
     attackMotions: {
@@ -466,8 +440,7 @@ declare interface IDataSystem
 }
 
 /** マップ情報 */
-declare interface IDataMapInfo extends IHasId
-{
+declare interface IDataMapInfo extends IHasId {
     expanded: boolean;
     name: string;
     order: number;
@@ -476,15 +449,13 @@ declare interface IDataMapInfo extends IHasId
     scrollY: number;
 }
 
-declare interface IDataEncounterList
-{
+declare interface IDataEncounterList {
     regionSet: number[];
     troopId: number;
     weight: number;
 }
 
-declare interface IDataMapEventPage
-{
+declare interface IDataMapEventPage {
     conditions: {
         actorId: number;
         actorValid: boolean;
@@ -528,15 +499,13 @@ declare interface IDataMapEventPage
     walkAnime: boolean;
 }
 
-declare interface IDataMapEvent extends IHasId, IHasNote
-{
+declare interface IDataMapEvent extends IHasId, IHasNote {
     name: string;
     pages: IDataMapEventPage[];
 }
 
 /** マップ */
-declare interface IDataMap extends IHasNote
-{
+declare interface IDataMap extends IHasNote {
     autoplayBgm: boolean;
     autoplayBgs: boolean;
     battleback1Name: string;
@@ -564,5 +533,5 @@ declare interface IDataMap extends IHasNote
 
 /** メタ情報 */
 declare interface IDataMeta {
-  [name: string]: string | true;
+    [name: string]: string | true;
 }

@@ -10,12 +10,8 @@
     "noImplicitThis": true,
     "removeComments": false,
     "experimentalDecorators": true,
-    "lib": [
-      "es5"
-    ]
+    "lib": ["es5"],
+    "newLine": "LF"
   },
-  "include": [
-    "sample_code/ts/**/*",
-    "typings/**/*"
-  ]
+  "include": ["sample_code/ts/**/*", "typings/**/*"]
 }

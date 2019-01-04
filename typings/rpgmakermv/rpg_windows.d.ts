@@ -1,5 +1,4 @@
-declare interface ITextState
-{
+declare interface ITextState {
     index?: number;
     x?: number;
     y?: number;
@@ -8,8 +7,7 @@ declare interface ITextState
     height?: number;
 }
 
-declare class Window_Base extends Window
-{
+declare class Window_Base extends Window {
     static _iconWidth: number;
     static _iconHeight: number;
     static _faceWidth: number;
@@ -81,7 +79,7 @@ declare class Window_Base extends Window
     processNewPage(textState: ITextState): void;
     obtainEscapeCode(textState: ITextState): string;
     obtainEscapeParam(textState: ITextState): string;
-    processEscapeCharacter(code : string, textState: ITextState): void;
+    processEscapeCharacter(code: string, textState: ITextState): void;
     processDrawIcon(iconIndex: number, textState: ITextState): void;
     makeFontBigger(): void;
     makeFontSmaller(): void;
@@ -119,8 +117,7 @@ declare class Window_Base extends Window
     canvasToLocalY(y: number): number;
 }
 
-declare class Window_Selectable extends Window_Base
-{
+declare class Window_Selectable extends Window_Base {
     _index: number;
     _cursorFixed: boolean;
     _cursorAll: boolean;
@@ -221,16 +218,14 @@ declare class Window_Selectable extends Window_Base
     refresh(): void;
 }
 
-declare class IDataCommandList
-{
+declare class IDataCommandList {
     name: string;
     symbol: string;
     enabled: boolean;
     ext: number;
 }
 
-declare class Window_Command extends Window_Selectable
-{
+declare class Window_Command extends Window_Selectable {
     _list: IDataCommandList[];
 
     constructor(x?: number, y?: number);
@@ -261,8 +256,7 @@ declare class Window_Command extends Window_Selectable
     refresh(): void;
 }
 
-declare class Window_HorzCommand extends Window_Command
-{
+declare class Window_HorzCommand extends Window_Command {
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
@@ -271,8 +265,7 @@ declare class Window_HorzCommand extends Window_Command
     itemTextAlign(): string;
 }
 
-declare class Window_Help extends Window_Base
-{
+declare class Window_Help extends Window_Base {
     _text: string;
 
     constructor(numLines?: number);
@@ -284,8 +277,7 @@ declare class Window_Help extends Window_Base
     refresh(): void;
 }
 
-declare class Window_Gold extends Window_Base
-{
+declare class Window_Gold extends Window_Base {
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
@@ -297,8 +289,7 @@ declare class Window_Gold extends Window_Base
     open(): void;
 }
 
-declare class Window_MenuCommand extends Window_Command
-{
+declare class Window_MenuCommand extends Window_Command {
     static _lastCommandSymbol: string;
 
     static initCommandPosition(): void;
@@ -325,8 +316,7 @@ declare class Window_MenuCommand extends Window_Command
     selectLast(): void;
 }
 
-declare class Window_MenuStatus extends Window_Selectable
-{
+declare class Window_MenuStatus extends Window_Selectable {
     _formationMode: boolean;
     _pendingIndex: number;
 
@@ -352,8 +342,7 @@ declare class Window_MenuStatus extends Window_Selectable
     setPendingIndex(index: number): void;
 }
 
-declare class Window_MenuActor extends Window_MenuStatus
-{
+declare class Window_MenuActor extends Window_MenuStatus {
     constructor();
     initialize(): void;
     processOk(): void;
@@ -361,8 +350,7 @@ declare class Window_MenuActor extends Window_MenuStatus
     selectForItem(item: IDataAllItem): void;
 }
 
-declare class Window_ItemCategory extends Window_HorzCommand
-{
+declare class Window_ItemCategory extends Window_HorzCommand {
     _itemWindow: Window_ItemList;
 
     constructor();
@@ -374,8 +362,7 @@ declare class Window_ItemCategory extends Window_HorzCommand
     setItemWindow(itemWindow: Window_ItemList): void;
 }
 
-declare class Window_ItemList extends Window_Selectable
-{
+declare class Window_ItemList extends Window_Selectable {
     _category: string;
     _data: IDataAllItem[];
 
@@ -399,8 +386,7 @@ declare class Window_ItemList extends Window_Selectable
     refresh(): void;
 }
 
-declare class Window_SkillType extends Window_Command
-{
+declare class Window_SkillType extends Window_Command {
     _actor: Game_Actor;
     _skillWindow: Window_SkillList;
 
@@ -416,8 +402,7 @@ declare class Window_SkillType extends Window_Command
     selectLast(): void;
 }
 
-declare class Window_SkillStatus extends Window_Base
-{
+declare class Window_SkillStatus extends Window_Base {
     _actor: Game_Actor;
 
     constructor(x?: number, y?: number, width?: number, height?: number);
@@ -427,8 +412,7 @@ declare class Window_SkillStatus extends Window_Base
     refresh(): void;
 }
 
-declare class Window_SkillList extends Window_Selectable
-{
+declare class Window_SkillList extends Window_Selectable {
     _actor: Game_Actor;
     _stypeId: number;
     _data: IDataAllItem[];
@@ -454,8 +438,7 @@ declare class Window_SkillList extends Window_Selectable
     refresh(): void;
 }
 
-declare class Window_EquipStatus extends Window_Base
-{
+declare class Window_EquipStatus extends Window_Base {
     _actor: Game_Actor;
     _tempActor: Game_Actor;
 
@@ -475,8 +458,7 @@ declare class Window_EquipStatus extends Window_Base
     drawNewParam(x: number, y: number, paramId: number): void;
 }
 
-declare class Window_EquipCommand extends Window_HorzCommand
-{
+declare class Window_EquipCommand extends Window_HorzCommand {
     _windowWidth: number;
 
     constructor(x?: number, y?: number, width?: number);
@@ -487,8 +469,7 @@ declare class Window_EquipCommand extends Window_HorzCommand
     makeCommandList(): void;
 }
 
-declare class Window_EquipSlot extends Window_Selectable
-{
+declare class Window_EquipSlot extends Window_Selectable {
     _actor: Game_Actor;
     _itemWindow: Window_EquipItem;
     _statusWindow: Window_EquipStatus;
@@ -509,8 +490,7 @@ declare class Window_EquipSlot extends Window_Selectable
     updateHelp(): void;
 }
 
-declare class Window_EquipItem extends Window_ItemList
-{
+declare class Window_EquipItem extends Window_ItemList {
     _actor: Game_Actor;
     _slotId: number;
     _statusWindow: Window_EquipStatus;
@@ -528,8 +508,7 @@ declare class Window_EquipItem extends Window_ItemList
     playOkSound(): void;
 }
 
-declare class Window_Status extends Window_Selectable
-{
+declare class Window_Status extends Window_Selectable {
     _actor: Game_Actor;
 
     constructor();
@@ -550,8 +529,7 @@ declare class Window_Status extends Window_Selectable
     maxEquipmentLines(): number;
 }
 
-declare class Window_Options extends Window_Command
-{
+declare class Window_Options extends Window_Command {
     constructor();
     initialize(): void;
     windowWidth(): number;
@@ -575,8 +553,7 @@ declare class Window_Options extends Window_Command
     setConfigValue(symbol: string, volume: number | boolean): void;
 }
 
-declare class Window_SavefileList extends Window_Selectable
-{
+declare class Window_SavefileList extends Window_Selectable {
     _mode: string;
 
     constructor(x?: number, y?: number, width?: number, height?: number);
@@ -595,8 +572,7 @@ declare class Window_SavefileList extends Window_Selectable
     playOkSound(): void;
 }
 
-declare class Window_ShopCommand extends Window_HorzCommand
-{
+declare class Window_ShopCommand extends Window_HorzCommand {
     _windowWidth: number;
     _purchaseOnly: boolean;
 
@@ -608,8 +584,7 @@ declare class Window_ShopCommand extends Window_HorzCommand
     makeCommandList(): void;
 }
 
-declare class Window_ShopBuy extends Window_Selectable
-{
+declare class Window_ShopBuy extends Window_Selectable {
     _shopGoods: any[][];
     _money: number;
     _data: IDataAllItem[];
@@ -633,16 +608,14 @@ declare class Window_ShopBuy extends Window_Selectable
     updateHelp(): void;
 }
 
-declare class Window_ShopSell extends Window_ItemList
-{
+declare class Window_ShopSell extends Window_ItemList {
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
     isEnabled(item: IDataAllItem): boolean;
 }
 
-declare class Window_ShopNumber extends Window_Selectable
-{
+declare class Window_ShopNumber extends Window_Selectable {
     _item: IDataAllItem;
     _max: number;
     _price: number;
@@ -685,8 +658,7 @@ declare class Window_ShopNumber extends Window_Selectable
     onButtonOk(): void;
 }
 
-declare class Window_ShopStatus extends Window_Base
-{
+declare class Window_ShopStatus extends Window_Base {
     _item: IDataAllItem;
     _pageIndex: number;
 
@@ -712,8 +684,7 @@ declare class Window_ShopStatus extends Window_Base
     changePage(): void;
 }
 
-declare class Window_NameEdit extends Window_Base
-{
+declare class Window_NameEdit extends Window_Base {
     _actor: Game_Actor;
     _name: string;
     _index: number;
@@ -739,8 +710,7 @@ declare class Window_NameEdit extends Window_Base
     refresh(): void;
 }
 
-declare class Window_NameInput extends Window_Selectable
-{
+declare class Window_NameInput extends Window_Selectable {
     static LATIN1: string[];
     static LATIN2: string[];
     static RUSSIA: string[];
@@ -784,8 +754,7 @@ declare class Window_NameInput extends Window_Selectable
     onNameOk(): void;
 }
 
-declare class Window_ChoiceList extends Window_Command
-{
+declare class Window_ChoiceList extends Window_Command {
     _messageWindow: Window_Message;
     _background: number;
 
@@ -809,8 +778,7 @@ declare class Window_ChoiceList extends Window_Command
     callCancelHandler(): void;
 }
 
-declare class Window_NumberInput extends Window_Selectable
-{
+declare class Window_NumberInput extends Window_Selectable {
     _messageWindow: Window_Message;
     _number: number;
     _maxDigits: number;
@@ -847,8 +815,7 @@ declare class Window_NumberInput extends Window_Selectable
     onButtonOk(): void;
 }
 
-declare class Window_EventItem extends Window_ItemList
-{
+declare class Window_EventItem extends Window_ItemList {
     _messageWindow: Window_Message;
 
     constructor(messageWindow?: Window_Message);
@@ -864,8 +831,7 @@ declare class Window_EventItem extends Window_ItemList
     onCancel(): void;
 }
 
-declare class Window_Message extends Window_Base
-{
+declare class Window_Message extends Window_Base {
     _background: number;
     _positionType: number;
     _waitCount: number;
@@ -919,8 +885,7 @@ declare class Window_Message extends Window_Base
     startPause(): void;
 }
 
-declare class Window_ScrollText extends Window_Base
-{
+declare class Window_ScrollText extends Window_Base {
     _text: string;
     _allTextHeight: number;
 
@@ -937,8 +902,7 @@ declare class Window_ScrollText extends Window_Base
     terminateMessage(): void;
 }
 
-declare class Window_MapName extends Window_Base
-{
+declare class Window_MapName extends Window_Base {
     _showCount: number;
 
     constructor();
@@ -954,8 +918,7 @@ declare class Window_MapName extends Window_Base
     drawBackground(x: number, y: number, width: number, height: number): void;
 }
 
-declare class Window_BattleLog extends Window_Selectable
-{
+declare class Window_BattleLog extends Window_Selectable {
     _lines: string[];
     _methods: { name: string, params: any[] }[];
     _waitCount: number;
@@ -1014,7 +977,7 @@ declare class Window_BattleLog extends Window_Selectable
     animationNextDelay(): number;
     refresh(): void;
     drawBackground(): void;
-    backRect(): {x: number, y: number, width: number, height: number };
+    backRect(): { x: number, y: number, width: number, height: number };
     backColor(): string;
     backPaintOpacity(): number;
     drawLineText(index: number): void;
@@ -1048,8 +1011,7 @@ declare class Window_BattleLog extends Window_Selectable
     makeTpDamageText(target: Game_Battler): void;
 }
 
-declare class Window_PartyCommand extends Window_Command
-{
+declare class Window_PartyCommand extends Window_Command {
     constructor();
     initialize(): void;
     windowWidth(): number;
@@ -1058,8 +1020,7 @@ declare class Window_PartyCommand extends Window_Command
     setup(): void;
 }
 
-declare class Window_ActorCommand extends Window_Command
-{
+declare class Window_ActorCommand extends Window_Command {
     _actor: Game_Actor;
 
     constructor();
@@ -1076,8 +1037,7 @@ declare class Window_ActorCommand extends Window_Command
     selectLast(): void;
 }
 
-declare class Window_BattleStatus extends Window_Selectable
-{
+declare class Window_BattleStatus extends Window_Selectable {
     constructor();
     initialize(): void;
     windowWidth(): number;
@@ -1095,8 +1055,7 @@ declare class Window_BattleStatus extends Window_Selectable
     drawGaugeAreaWithoutTp(rect: { x: number, y: number, width: number, height: number }, actor: Game_Actor): void;
 }
 
-declare class Window_BattleActor extends Window_BattleStatus
-{
+declare class Window_BattleActor extends Window_BattleStatus {
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
@@ -1106,8 +1065,7 @@ declare class Window_BattleActor extends Window_BattleStatus
     actor(): Game_Actor;
 }
 
-declare class Window_BattleEnemy extends Window_Selectable
-{
+declare class Window_BattleEnemy extends Window_Selectable {
     _enemies: Game_Enemy[];
 
     constructor(x?: number, y?: number);
@@ -1127,8 +1085,7 @@ declare class Window_BattleEnemy extends Window_Selectable
     select(index: number): void;
 }
 
-declare class Window_BattleSkill extends Window_SkillList
-{
+declare class Window_BattleSkill extends Window_SkillList {
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
@@ -1136,8 +1093,7 @@ declare class Window_BattleSkill extends Window_SkillList
     hide(): void;
 }
 
-declare class Window_BattleItem extends Window_ItemList
-{
+declare class Window_BattleItem extends Window_ItemList {
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
@@ -1146,8 +1102,7 @@ declare class Window_BattleItem extends Window_ItemList
     hide(): void;
 }
 
-declare class Window_TitleCommand extends Window_Command
-{
+declare class Window_TitleCommand extends Window_Command {
     static _lastCommandSymbol: string;
     static initCommandPosition(): void;
 
@@ -1161,8 +1116,7 @@ declare class Window_TitleCommand extends Window_Command
     selectLast(): void;
 }
 
-declare class Window_GameEnd extends Window_Command
-{
+declare class Window_GameEnd extends Window_Command {
     constructor();
     initialize(): void;
     windowWidth(): number;
@@ -1170,8 +1124,7 @@ declare class Window_GameEnd extends Window_Command
     makeCommandList(): void;
 }
 
-declare class Window_DebugRange extends Window_Selectable
-{
+declare class Window_DebugRange extends Window_Selectable {
     _maxSwitches: number;
     _maxVariables: number;
     _editWindow: Window_DebugEdit;
@@ -1192,8 +1145,7 @@ declare class Window_DebugRange extends Window_Selectable
     setEditWindow(editWindow: Window_DebugEdit): void;
 }
 
-declare class Window_DebugEdit extends Window_Selectable
-{
+declare class Window_DebugEdit extends Window_Selectable {
     _mode: string;
     _topId: number;
 
