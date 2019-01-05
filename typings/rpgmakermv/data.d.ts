@@ -6,7 +6,7 @@
  * @example
  * type IJsonDataState = JsonDataOf<IDataState>;
  */
-declare type JsonDataOf<T> = Pick<T, ({ [P in keyof T]: P } & { [P in "meta"]: never })[keyof T]>;
+// declare type JsonDataOf<T> = Pick<T, ({ [P in keyof T]: P } & { [P in "meta"]: never })[keyof T]>;
 
 /** "id"をもつデータ */
 declare interface IHasId {
