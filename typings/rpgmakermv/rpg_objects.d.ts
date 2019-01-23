@@ -1793,6 +1793,9 @@ declare class Game_Interpreter {
     _eventId: number;
     _list: IDataList[];
     _index: number;
+    _waitCount: number;
+    _waitMode: string;
+    _comments: string;
     _childInterpreter: Game_Interpreter;
     _character: Game_Character;
 
