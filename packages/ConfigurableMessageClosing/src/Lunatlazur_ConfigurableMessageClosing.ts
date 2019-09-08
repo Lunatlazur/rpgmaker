@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/aoitaku/
-// [GitHub] : https://github.com/aoitaku/
+// [Twitter]: https://twitter.com/lunatlazur/
+// [GitHub] : https://github.com/Lunatlazur/
 //=============================================================================
 /*:
  * @plugindesc Keep message window visible
@@ -20,8 +20,9 @@
 /*:ja
  * @plugindesc メッセージ表示継続プラグイン
  * @author あおいたく
- * @help このプラグインはメッセージウィンドウを自動で閉じずに、表示したままにできるよう
- * にします。
+ * @help このプラグインはメッセージの表示後に他のイベントコマンドが実行されても
+ * メッセージウィンドウを自動で閉じずに、表示したままにできるようにします。
+ * メッセージウィンドウを表示したままピクチャを表示・移動するときなどに便利です。
  *
  * == プラグインコマンド一覧 ==
  *
@@ -43,8 +44,6 @@
 (function () {
   const pluginName = 'Lunatlazur_ConfigurableMessageClosing';
 
-  const indentWhenFaceVisible = 168
-
   const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function (command, args) {
     _Game_Interpreter_pluginCommand.apply(this, arguments)
@@ -56,6 +55,7 @@
     if (WindowAutoCloseManager.isAutoCloseEnabled()) {
       _Window_Message_terminateMessage.call(this)
     } else {
+      const indentWhenFaceVisible = this.newLineX()
       $gameMessage.clear()
       this.contents.clearRect(
         indentWhenFaceVisible,

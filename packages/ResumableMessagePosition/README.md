@@ -1,6 +1,10 @@
 # ResumableMessagePosition
 RPGツクールMV用 イベント内メッセージ位置記憶プラグイン
 
+![スクリーンショット](./doc/resumable-message-posistion.png)
+
+このプラグインは自動ではじまるイベントの途中でセーブを行ったときに、表示中のメッセージ位置を保持し、ロード時にその位置から復帰できるようにします。
+
 # 導入方法
 build フォルダ内の Lunatlazur_ResumableMessagePosition.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
@@ -21,7 +25,7 @@ yarn
 ビルドするには
 
 ```
-yarn run build
+yarn build
 ```
 
 を実行してください。

@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/aoitaku/
-// [GitHub] : https://github.com/aoitaku/
+// [Twitter]: https://twitter.com/lunatlazur/
+// [GitHub] : https://github.com/Lunatlazur/
 //=============================================================================
 /*:
  * @plugindesc Manage visual novel style character sprite
@@ -698,9 +698,9 @@ interface ITachieWaitParameter {
         right: width / 5 * 4,
       }
       this.yByDistance = {
-        near: height * 2 + 96,
-        middle: height * 2 - 80,
-        far: height * 2 - 256,
+        near: height / 3 * 4,
+        middle: height / 6 * 7,
+        far: height,
       }
       this.scaleByDistance = {
         near: 100,

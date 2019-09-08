@@ -1,6 +1,11 @@
 # ConfigurableMessageClosing
 RPGツクールMV用 メッセージウィンドウ開閉制御プラグイン
 
+![スクリーンショット](./doc/configurable-message-closing.png)
+
+このプラグインはメッセージの表示後に他のイベントコマンドが実行されてもメッセージウィンドウを自動で閉じずに、表示したままにできるようにします。\
+メッセージウィンドウを表示したままピクチャを表示・移動したいときなどに便利です。
+
 # 導入方法
 build フォルダ内の Lunatlazur_ConfigurableMessageClosing.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
@@ -21,7 +26,7 @@ yarn
 ビルドするには
 
 ```
-yarn run build
+yarn build
 ```
 
 を実行してください。

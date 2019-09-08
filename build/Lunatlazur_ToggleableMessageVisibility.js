@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/aoitaku/
-// [GitHub] : https://github.com/aoitaku/
+// [Twitter]: https://twitter.com/lunatlazur/
+// [GitHub] : https://github.com/Lunatlazur/
 //=============================================================================
 /*:
  * @plugindesc Toggle message window visibility
@@ -26,7 +26,7 @@
  * @author あおいたく
  * @help このプラグインはメッセージウィンドウの表示／非表示を切替できるようにします。
  * 右クリックまたはメッセージウィンドウ右上の✕ボタンをタップすると、ウィンドウを
- * 非表示になります。
+ * 非表示にします。
  * 非表示中に右クリックで再表示します。
  */
 (function () {
