@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/aoitaku/
-// [GitHub] : https://github.com/aoitaku/
+// [Twitter]: https://twitter.com/lunatlazur/
+// [GitHub] : https://github.com/Lunatlazur/
 //=============================================================================
 /*:
  * @plugindesc Show actor name window
@@ -31,6 +31,12 @@
  * メッセージウィンドウの上部に名前ウィンドウを表示するようになります。
  *
  * 名前ウィンドウのフォントはメッセージウィンドウのものが使われます。
+ *
+ * @param テキストカラー
+ * @desc 名前を表示するテキストの色番号を指定します。
+ * @default 1
+ * @type number
+ *
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -44,6 +50,30 @@ var __extends = (this && this.__extends) || (function () {
 })();
 (function () {
     var pluginName = 'Lunatlazur_ActorNameWindow';
+    function getValue(params) {
+        var names = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            names[_i - 1] = arguments[_i];
+        }
+        var found = null;
+        names.forEach(function (name) {
+            if (!!params[name]) {
+                found = params[name];
+            }
+        });
+        return found;
+    }
+    function asNumber(params) {
+        var names = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            names[_i - 1] = arguments[_i];
+        }
+        return parseInt(getValue.apply(void 0, [params].concat(names)), 10);
+    }
+    var parameters = PluginManager.parameters(pluginName);
+    var params = {
+        textColor: asNumber(parameters, 'テキストカラー'),
+    };
     var Window_ActorName = /** @class */ (function (_super) {
         __extends(Window_ActorName, _super);
         function Window_ActorName(_) {
@@ -100,7 +130,7 @@ var __extends = (this && this.__extends) || (function () {
             this.createContents();
             this.contents.clear();
             this.resetFontSettings();
-            this.changeTextColor(this.textColor(1));
+            this.changeTextColor(this.textColor(params.textColor));
             this.drawText(this._text, this.standardPadding() * 2, 0, this.contents.width);
             this.y = this._parentWindow.y - this.windowHeight();
         };

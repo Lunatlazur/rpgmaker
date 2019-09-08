@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/aoitaku/
-// [GitHub] : https://github.com/aoitaku/
+// [Twitter]: https://twitter.com/lunatlazur/
+// [GitHub] : https://github.com/Lunatlazur/
 //=============================================================================
 /*:
  * @plugindesc Fade-in / fade-out with transition
@@ -62,6 +62,7 @@
 interface ColorThresholdFilterUniforms {
   threshold: number
   white: boolean
+  fadingIn: boolean
 }
 
 namespace PIXI {
@@ -73,18 +74,28 @@ namespace PIXI {
 uniform sampler2D uSampler;
 uniform float threshold;
 uniform bool white;
+uniform bool fadingIn;
 void main(void) {
     vec4 color = texture2D(uSampler, vTextureCoord);
     float v = 0.298912 * color.r + 0.586611 * color.g + 0.114478 * color.b;
     if (white) {
-      gl_FragColor = vec4(vec3(threshold - v), 0.0);
+        if (fadingIn) {
+            gl_FragColor = vec4(vec3(threshold - v), 0.0);
+        } else {
+            gl_FragColor = vec4(vec3(1.0 - (v - threshold)), 0.0);
+        }
     } else {
-      gl_FragColor = vec4(vec3(0.0), 1.0 - (v - threshold));
+        if (fadingIn) {
+            gl_FragColor = vec4(vec3(0.0), threshold - v);
+        } else {
+            gl_FragColor = vec4(vec3(0.0), 1.0 - (v - threshold));
+        }
     }
 }`
         const uniforms = {
           threshold: { type: '1f', value: 0.5 },
           white: { type: 'b', value: false },
+          fadingIn: { type: 'b', value: false },
         }
         super(null, fragmentSrc, uniforms)
       }
@@ -180,6 +191,7 @@ interface Game_Screen {
     if (isFadingIn) {
       TransitionManager.fadeSpeed = duration
       if (!$gameMessage.isBusy()) {
+        TransitionManager.setTransition(isFadingIn, isFilledWhite, '', 1)
         $gameScreen.startFadeIn(this.fadeSpeed())
         this.wait(this.fadeSpeed())
       }
@@ -265,6 +277,7 @@ interface Game_Screen {
     private _durationRest: number
     private _isFadingIn: boolean
     private _isFilledWhite: boolean
+    private _fillBitmap: Bitmap
 
     public initialize (...args: any[]): void
     public initialize () {
@@ -278,7 +291,11 @@ interface Game_Screen {
       this._thresholdFilter = new PIXI.filters.ColorThresholdFilter()
       this._thresholdFilter.uniforms.threshold = this._isFadingIn ? 0.0 : 1.0
       this._thresholdFilter.uniforms.white = this._isFilledWhite
+      this._thresholdFilter.uniforms.fadingIn = this._isFadingIn
       this._filters = [this._thresholdFilter]
+      this._fillBitmap = new Bitmap(Graphics.width, Graphics.height)
+      this._fillBitmap.fillAll('white')
+      this.bitmap = this._fillBitmap
     }
 
     public transition () {
@@ -305,7 +322,7 @@ interface Game_Screen {
         this.visible = true
       } else {
         this._transitionName = ''
-        this.bitmap = null
+        this.bitmap = this._fillBitmap
         this.visible = false
       }
     }
@@ -319,6 +336,7 @@ interface Game_Screen {
         this._isFadingIn = transition.isFadingIn
         this._isFilledWhite = transition.isFilledWhite
         this._thresholdFilter.uniforms.white = this._isFilledWhite
+        this._thresholdFilter.uniforms.fadingIn = this._isFadingIn
         if (this._durationRest <= 0) {
           if (!this._isFadingIn) {
             $gameScreen._brightness = 0
@@ -330,7 +348,7 @@ interface Game_Screen {
 
     public updateFilter () {
       if (this._durationRest > 0) {
-        const threshold = this._durationRest / this._duration
+        const threshold = (this._durationRest * 2) / this._duration
         this._thresholdFilter.uniforms.threshold = (this._isFadingIn ? threshold : 1.0 - threshold)
       }
     }
@@ -355,7 +373,6 @@ interface Game_Screen {
       ) {
         const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args)
         if (name) {
-          console.log(`preload ${name}`)
           ImageManager.requestBitmap('img/transitions/', name, 0, true)
         }
       }
