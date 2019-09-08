@@ -5,5 +5,8 @@
     "build": "tsc"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts#feature/separate-dependencies",
+    "typescript": "^2.8.1"
+  }
 }

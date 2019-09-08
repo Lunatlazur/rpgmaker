@@ -1,18 +1,10 @@
 # PauseSignAfterText
 RPGツクールMV用 メッセージ送りアイコン位置変更プラグイン
 
-![スクリーンショット](./doc/pause-sign-after-text.jpg)\
-©KADOKAWA ©Vibrato ©TEDDY-PLAZA
-
-このプラグインはメッセージ送り記号をメッセージの末尾に表示するようにします。
-
 # 導入方法
 build フォルダ内の Lunatlazur_PauseSignAfterText.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
-このプラグインにはプラグインオプション、プラグインコマンドはありません。\
-プラグインを有効化するだけで利用可能です。
-
-スクリーンショットで使われているキャラクター画像、背景画像はプラグインに含まれません。
+プラグインの使い方はプラグインヘルプを参照してください。
 
 # 開発者向け情報
 
@@ -29,7 +21,7 @@ yarn
 ビルドするには
 
 ```
-yarn build
+yarn run build
 ```
 
 を実行してください。

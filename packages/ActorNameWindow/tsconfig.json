@@ -5,7 +5,6 @@
     "baseUrl": "src",
     "outDir": "build",
     "inlineSourceMap": false,
-    "newLine": "LF",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,

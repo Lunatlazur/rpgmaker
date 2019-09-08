@@ -1,11 +1,6 @@
 # ConfigurableMessageWindow
 RPGツクールMV用 メッセージウィンドウカスタマイズプラグイン
 
-![スクリーンショット](./doc/configurable-message-window.jpg)\
-©KADOKAWA
-
-このプラグインはメッセージ行数やフォントを変更できるようにします。
-
 # 導入方法
 build フォルダ内の Lunatlazur_ConfigurableMessageWindow.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
@@ -26,7 +21,7 @@ yarn
 ビルドするには
 
 ```
-yarn build
+yarn run build
 ```
 
 を実行してください。

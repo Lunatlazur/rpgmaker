@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Twitter]: https://twitter.com/aoitaku/
+// [GitHub] : https://github.com/aoitaku/
 //=============================================================================
 /*:
  * @plugindesc Manage visual novel style character sprite
@@ -580,9 +580,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 right: width / 5 * 4,
             };
             this.yByDistance = {
-                near: height / 3 * 4,
-                middle: height / 6 * 7,
-                far: height,
+                near: height * 2 + 96,
+                middle: height * 2 - 80,
+                far: height * 2 - 256,
             };
             this.scaleByDistance = {
                 near: 100,

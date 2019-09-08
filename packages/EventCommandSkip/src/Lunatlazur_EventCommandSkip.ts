@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Twitter]: https://twitter.com/aoitaku/
+// [GitHub] : https://github.com/aoitaku/
 //=============================================================================
 /*:ja
  * @plugindesc イベントコマンドスキッププラグイン

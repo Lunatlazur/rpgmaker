@@ -9,8 +9,8 @@
 // 1.0.0 2018/04/01
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Twitter]: https://twitter.com/aoitaku/
+// [GitHub] : https://github.com/aoitaku/
 //=============================================================================
 /*:
  * @plugindesc Show actor name window
@@ -31,12 +31,6 @@
  * メッセージウィンドウの上部に名前ウィンドウを表示するようになります。
  *
  * 名前ウィンドウのフォントはメッセージウィンドウのものが使われます。
- *
- * @param テキストカラー
- * @desc 名前を表示するテキストの色番号を指定します。
- * @default 1
- * @type number
- *
  */
 
 interface Window_Message {
@@ -50,27 +44,6 @@ interface Window_ActorName extends Window_Base {
 
 (function () {
   const pluginName = 'Lunatlazur_ActorNameWindow'
-
-
-  function getValue (params: { [key: string]: any }, ...names: string[]) {
-    let found: string = null
-    names.forEach((name) => {
-      if (!!params[name]) {
-        found = params[name]
-      }
-    })
-    return found
-  }
-
-  function asNumber (params: { [key: string]: any }, ...names: string[]) {
-    return parseInt(getValue(params, ...names), 10)
-  }
-
-  const parameters = PluginManager.parameters(pluginName)
-
-  const params = {
-    textColor: asNumber(parameters, 'テキストカラー'),
-  }
 
   class Window_ActorName extends Window_Base {
     private _parentWindow: Window_Message
@@ -136,7 +109,7 @@ interface Window_ActorName extends Window_Base {
       this.createContents()
       this.contents.clear()
       this.resetFontSettings()
-      this.changeTextColor(this.textColor(params.textColor))
+      this.changeTextColor(this.textColor(1))
       this.drawText(this._text, this.standardPadding() * 2, 0, this.contents.width)
       this.y = this._parentWindow.y - this.windowHeight()
     }

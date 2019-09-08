@@ -1,11 +1,6 @@
 # MessageAttachmentButton
 RPGツクールMV用 拡張機能ボタン付きメッセージウィンドウプラグイン
 
-![スクリーンショット](./doc/message-attachment-button-1.jpg)\
-©KADOKAWA ©Vibrato ©TEDDY-PLAZA
-
-このプラグインはメッセージウィンドウに任意の機能を実行するためのボタンを追加します。
-
 # 導入方法
 build フォルダ内の Lunatlazur_MessageAttachmentButton.js を導入したいRPGツクールMVのプロジェクト内の js/plugins フォルダにコピーしてください。
 
@@ -26,7 +21,7 @@ yarn
 ビルドするには
 
 ```
-yarn build
+yarn run build
 ```
 
 を実行してください。
