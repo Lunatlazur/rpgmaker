@@ -6,8 +6,7 @@
   "scripts": {
     "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build -- -- --outDir ../../build",
-    "test": ":"
+    "build": "lerna run build -- -- --outDir ../../build"
   },
   "author": "Taku Aoi",
   "license": "Zlib",
