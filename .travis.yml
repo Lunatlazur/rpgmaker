@@ -9,9 +9,6 @@ before_install:
   - chmod 600 ~/.ssh/id_rsa
   - ssh-add ~/.ssh/id_rsa
 
-install:
-  - echo 'KEY' >> $HOME/.ssh/known_hosts
-
 after_success:
   - ssh-keyscan -p $PORT -t rsa $IP >> ~/.ssh/known_hosts
   - bash .travis/deploy.sh
