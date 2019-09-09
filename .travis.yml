@@ -1,6 +1,3 @@
-language: node_js
-os:
-  - linux
 branches:
   only:
     - master
@@ -11,9 +8,7 @@ before_install:
   - eval "$(ssh-agent -s)"
   - chmod 600 ~/.ssh/id_rsa
   - ssh-add ~/.ssh/id_rsa
-
-install:
-  - echo 'KEY' >> $HOME/.ssh/known_hosts
+  - echo -e "Host $IP:$PORT\n\tStrictHostKeyChecking no\nIdentityFile ~/.ssh/id_rsa\n" >> ~/.ssh/config
 
 after_success:
   - ssh-keyscan -p $PORT -t rsa $IP >> ~/.ssh/known_hosts
