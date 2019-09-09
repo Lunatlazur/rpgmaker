@@ -132,7 +132,17 @@ var __extends = (this && this.__extends) || (function () {
             this.resetFontSettings();
             this.changeTextColor(this.textColor(params.textColor));
             this.drawText(this._text, this.standardPadding() * 2, 0, this.contents.width);
-            this.y = this._parentWindow.y - this.windowHeight();
+        };
+        Window_ActorName.prototype.updatePlacement = function () {
+            if (this._parentWindow.y === 0) {
+                this.y = this._parentWindow.y + this._parentWindow.windowHeight();
+            }
+            else {
+                this.y = this._parentWindow.y - this.windowHeight();
+            }
+        };
+        Window_ActorName.prototype.updateBackground = function () {
+            this.setBackgroundType(this._parentWindow._background);
         };
         Window_ActorName.prototype.processActorName = function (text) {
             var _this = this;
@@ -173,5 +183,19 @@ var __extends = (this && this.__extends) || (function () {
         text = Window_Base.prototype.convertEscapeCharacters.call(this, text);
         text = this._nameWindow.processActorName(text);
         return text;
+    };
+    var Window_Message_updatePlacement = Window_Message.prototype.updatePlacement;
+    Window_Message.prototype.updatePlacement = function () {
+        Window_Message_updatePlacement.call(this);
+        if (this._nameWindow.active) {
+            this._nameWindow.updatePlacement();
+        }
+    };
+    var Window_Message_updateBackground = Window_Message.prototype.updateBackground;
+    Window_Message.prototype.updateBackground = function () {
+        Window_Message_updateBackground.call(this);
+        if (this._nameWindow.active) {
+            this._nameWindow.updateBackground();
+        }
     };
 })();

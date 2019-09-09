@@ -46,6 +46,8 @@ interface Window_Message {
 interface Window_ActorName extends Window_Base {
   setText (text: string): void
   processActorName (text: string): string
+  updatePlacement (): void
+  updateBackground (): void
 }
 
 (function () {
@@ -138,7 +140,18 @@ interface Window_ActorName extends Window_Base {
       this.resetFontSettings()
       this.changeTextColor(this.textColor(params.textColor))
       this.drawText(this._text, this.standardPadding() * 2, 0, this.contents.width)
-      this.y = this._parentWindow.y - this.windowHeight()
+    }
+
+    public updatePlacement () {
+      if (this._parentWindow.y === 0) {
+        this.y = this._parentWindow.y + this._parentWindow.windowHeight()
+      } else {
+        this.y = this._parentWindow.y - this.windowHeight()
+      }
+    }
+
+    public updateBackground () {
+      this.setBackgroundType(this._parentWindow._background)
     }
 
     public processActorName (text: string) {
@@ -179,5 +192,21 @@ interface Window_ActorName extends Window_Base {
     text = Window_Base.prototype.convertEscapeCharacters.call(this, text)
     text = this._nameWindow.processActorName(text)
     return text
+  }
+
+  const Window_Message_updatePlacement = Window_Message.prototype.updatePlacement
+  Window_Message.prototype.updatePlacement = function() {
+    Window_Message_updatePlacement.call(this)
+    if (this._nameWindow.active) {
+      this._nameWindow.updatePlacement()
+    }
+  }
+
+  const Window_Message_updateBackground = Window_Message.prototype.updateBackground
+  Window_Message.prototype.updateBackground = function() {
+    Window_Message_updateBackground.call(this)
+    if (this._nameWindow.active) {
+      this._nameWindow.updateBackground()
+    }
   }
 })()
