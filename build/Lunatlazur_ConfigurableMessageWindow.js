@@ -18,13 +18,23 @@
  * @help This plugin makes the message window configurable.
  *
  * @param Number of message rows
- * @desc number of message rows.
+ * @desc Number of message rows.
  * @default 4
+ * @type number
+ *
+ * @param Custom Message wait
+ * @desc Change wait time during character feed.
+ * @default 1
  * @type number
  *
  * @param Custom message font
  * @desc Additional message fonts.
  * @type string[]
+ *
+ * @param Apply custom message font to choice
+ * @desc Apply custom message font to choice if true.
+ * @default true
+ * @type boolean
  */
 /*:ja
  * @plugindesc メッセージウィンドウカスタムプラグイン
@@ -45,6 +55,11 @@
  * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
  * @default ["UD デジタル 教科書体 NP-R", "Klee"]
  * @type string[]
+ *
+ * @param 選択肢に追加のフォント指定を反映
+ * @desc 有効にすると選択肢に追加のフォント指定を反映します。
+ * @default true
+ * @type boolean
  */
 (function () {
     var pluginName = 'Lunatlazur_ConfigurableMessageWindow';
@@ -80,11 +95,18 @@
     var parameters = PluginManager.parameters(pluginName);
     var params = {
         numberOfMessageRows: asNumber(parameters, 'メッセージ行数', 'Number of message rows'),
+        customMessageWait: asNumber(parameters, 'メッセージウェイト', 'Custom Message wait'),
         customMessageFont: JSON.parse(asString(parameters, 'フォント', 'Custom message font')),
-        customMessageWait: asNumber(parameters, 'メッセージウェイト', 'Message wait'),
+        applyCustomMessageFontToChoice: asBoolean(parameters, '選択肢に追加のフォント指定を反映', 'Apply custom message font to choice'),
     };
     var _Window_Base_standardFontFace = Window_Base.prototype.standardFontFace;
     Window_Message.prototype.standardFontFace = function () {
+        var fontfaces = params.customMessageFont.concat([
+            _Window_Base_standardFontFace.call(this),
+        ]).join(',');
+        return fontfaces;
+    };
+    Window_ChoiceList.prototype.standardFontFace = function () {
         var fontfaces = params.customMessageFont.concat([
             _Window_Base_standardFontFace.call(this),
         ]).join(',');
@@ -108,6 +130,7 @@
     };
     var _Window_Message_numVisibleRows = Window_Message.prototype.numVisibleRows;
     Window_Message.prototype.numVisibleRows = function () {
-        return params.numberOfMessageRows || _Window_Message_numVisibleRows.call(this);
+        return params.numberOfMessageRows ||
+            _Window_Message_numVisibleRows.call(this);
     };
 })();
