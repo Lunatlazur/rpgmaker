@@ -16,8 +16,7 @@
 
 (function() {
     let _Scene_Menu_create: Function = Scene_Menu.prototype.create;
-    Scene_Menu.prototype.create = function(this: Scene_Menu): void
-    {
+    Scene_Menu.prototype.create = function(this: Scene_Menu): void {
         _Scene_Menu_create.call(this);
 
         this._statusWindow.x = 0;
@@ -25,45 +24,37 @@
         this._goldWindow.x = Graphics.boxWidth - this._goldWindow.width;
     };
 
-    Window_MenuCommand.prototype.windowWidth = function(): number
-    {
+    Window_MenuCommand.prototype.windowWidth = function(): number {
         return Graphics.boxWidth;
     };
 
-    Window_MenuCommand.prototype.maxCols = function(): number
-    {
+    Window_MenuCommand.prototype.maxCols = function(): number {
         return 4;
     };
 
-    Window_MenuCommand.prototype.numVisibleRows = function(): number
-    {
+    Window_MenuCommand.prototype.numVisibleRows = function(): number {
         return 2;
     };
 
-    Window_MenuStatus.prototype.windowWidth = function(): number
-    {
+    Window_MenuStatus.prototype.windowWidth = function(): number {
         return Graphics.boxWidth;
     };
 
-    Window_MenuStatus.prototype.windowHeight = function(): number
-    {
+    Window_MenuStatus.prototype.windowHeight = function(): number {
         let h1: number = this.fittingHeight(1);
         let h2: number = this.fittingHeight(2);
         return Graphics.boxHeight - h1 - h2;
     };
 
-    Window_MenuStatus.prototype.maxCols = function(): number
-    {
+    Window_MenuStatus.prototype.maxCols = function(): number {
         return 4;
     };
 
-    Window_MenuStatus.prototype.numVisibleRows = function(): number
-    {
+    Window_MenuStatus.prototype.numVisibleRows = function(): number {
         return 1;
     };
 
-    Window_MenuStatus.prototype.drawItemImage = function(this: Window_MenuStatus, index: number): void
-    {
+    Window_MenuStatus.prototype.drawItemImage = function(this: Window_MenuStatus, index: number): void {
         let actor: Game_Actor = $gameParty.members()[index];
         let rect: Rectangle = this.itemRectForText(index);
         let w: number = Math.min(rect.width, 144);
@@ -74,8 +65,7 @@
         this.changePaintOpacity(true);
     };
 
-    Window_MenuStatus.prototype.drawItemStatus = function(this: Window_MenuStatus, index: number): void
-    {
+    Window_MenuStatus.prototype.drawItemStatus = function(this: Window_MenuStatus, index: number): void {
         let actor: Game_Actor = $gameParty.members()[index];
         let rect: Rectangle = this.itemRectForText(index);
         let x: number = rect.x;
@@ -93,8 +83,7 @@
     };
 
     let _Window_MenuActor_initialize: Function = Window_MenuActor.prototype.initialize;
-    Window_MenuActor.prototype.initialize = function(this: Window_MenuActor): void
-    {
+    Window_MenuActor.prototype.initialize = function(this: Window_MenuActor): void {
         _Window_MenuActor_initialize.call(this);
         this.y = this.fittingHeight(2);
     };

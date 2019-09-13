@@ -45,7 +45,7 @@
  *
  * @help このプラグインには、プラグインコマンドはありません。
  */
-(function () {
+(function() {
     let parameters: PluginParameters = PluginManager.parameters("TitleCommandPosition");
     let offsetX: number = Number(parameters["Offset X"] || 0);
     let offsetY: number = Number(parameters["Offset Y"] || 0);
@@ -53,16 +53,14 @@
     let background: number = Number(parameters["Background"] || 0);
 
     let _Window_TitleCommand_updatePlacement: Function = Window_TitleCommand.prototype.updatePlacement;
-    Window_TitleCommand.prototype.updatePlacement = function(this: Window_TitleCommand): void
-    {
+    Window_TitleCommand.prototype.updatePlacement = function(this: Window_TitleCommand): void {
         _Window_TitleCommand_updatePlacement.call(this);
         this.x += offsetX;
         this.y += offsetY;
         this.setBackgroundType(background);
     };
 
-    Window_TitleCommand.prototype.windowWidth = function(): number
-    {
+    Window_TitleCommand.prototype.windowWidth = function(): number {
         return width;
     };
 })();
