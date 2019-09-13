@@ -307,20 +307,19 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            var parameter = args[0], arg = args[1];
-            var option = parseInt(arg, 10);
+            var parameter = args[0];
             switch (parameter) {
                 case '左':
                 case 'left':
-                    return [{ type: 'position', value: 'left' }, true];
+                    return [{ 'position': 'left' }, true];
                 case '右':
                 case 'right':
-                    return [{ type: 'position', value: 'right' }, true];
+                    return [{ 'position': 'right' }, true];
                 case '中':
                 case 'center':
-                    return [{ type: 'position', value: 'center' }, true];
+                    return [{ 'position': 'center' }, true];
             }
-            return [{ type: 'position', value: 'center' }, false];
+            return [{ 'position': 'center' }, false];
         };
         TachieCommandParser.parseDistanceParameter = function () {
             var args = [];
@@ -331,15 +330,15 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             switch (parameter) {
                 case '遠':
                 case 'far':
-                    return [{ type: 'distance', value: 'far' }, true];
+                    return [{ 'distance': 'far' }, true];
                 case '近':
                 case 'near':
-                    return [{ type: 'distance', value: 'near' }, true];
+                    return [{ 'distance': 'near' }, true];
                 case '中':
                 case 'middle':
-                    return [{ type: 'distance', value: 'middle' }, true];
+                    return [{ 'distance': 'middle' }, true];
             }
-            return [{ type: 'distance', value: 'middle' }, false];
+            return [{ 'distance': 'middle' }, false];
         };
         TachieCommandParser.parseOffsetXParameter = function () {
             var args = [];
@@ -352,9 +351,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 case '横':
                 case '横位置調整':
                 case 'x':
-                    return [{ type: 'offsetX', value: value }, true];
+                    return [{ 'offsetX': value }, true];
             }
-            return [{ type: 'offsetX', value: 0 }, false];
+            return [{ 'offsetX': 0 }, false];
         };
         TachieCommandParser.parseOffsetYParameter = function () {
             var args = [];
@@ -367,9 +366,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 case '縦':
                 case '縦位置調整':
                 case 'y':
-                    return [{ type: 'offsetY', value: value }, true];
+                    return [{ 'offsetY': value }, true];
             }
-            return [{ type: 'offsetY', value: 0 }, false];
+            return [{ 'offsetY': 0 }, false];
         };
         TachieCommandParser.parseSlideXParameter = function () {
             var args = [];
@@ -381,9 +380,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             switch (parameter) {
                 case 'スライド横':
                 case 'slide-x':
-                    return [{ type: 'slideX', value: value }, true];
+                    return [{ 'slideX': value }, true];
             }
-            return [{ type: 'slideX', value: 0 }, false];
+            return [{ 'slideX': 0 }, false];
         };
         TachieCommandParser.parseSlideYParameter = function () {
             var args = [];
@@ -395,9 +394,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             switch (parameter) {
                 case 'スライド縦':
                 case 'slide-y':
-                    return [{ type: 'slideY', value: value }, true];
+                    return [{ 'slideY': value }, true];
             }
-            return [{ type: 'slideY', value: 0 }, false];
+            return [{ 'slideY': 0 }, false];
         };
         TachieCommandParser.parseDurationParameter = function () {
             var args = [];
@@ -407,9 +406,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             var parameter = args[0];
             var matched = parameter.match(/^(\d+)フレーム$/);
             if (matched) {
-                return [{ type: 'duration', value: parseInt(matched[1], 10) }, true];
+                return [{ 'duration': parseInt(matched[1], 10) }, true];
             }
-            return [{ type: 'duration', value: 0 }, false];
+            return [{ 'duration': 0 }, false];
         };
         TachieCommandParser.parseWaitParameter = function () {
             var args = [];
@@ -418,25 +417,14 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             }
             var parameter = args[0];
             if (parameter === 'ウェイトあり') {
-                return [{ type: 'wait', value: true }, true];
+                return [{ 'wait': true }, true];
             }
             else if (parameter === 'ウェイトなし') {
-                return [{ type: 'wait', value: false }, true];
+                return [{ 'wait': false }, true];
             }
-            return [{ type: 'wait', value: false }, false];
+            return [{ 'wait': false }, false];
         };
         TachieCommandParser.parseShowCommandParameters = function (parameters) {
-            var parameterObject = {
-                expression: '',
-                position: 'center',
-                distance: 'middle',
-                offsetX: 0,
-                offsetY: 0,
-                slideX: 0,
-                slideY: 0,
-                duration: 0,
-                wait: false,
-            };
             var parsers = [
                 this.parseWaitParameter,
                 this.parseDurationParameter,
@@ -448,13 +436,23 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 this.parsePositionParameter,
             ];
             var index = 1;
-            parsers.forEach(function (parser) {
+            var parameterObject = parsers.reduce(function (prev, parser) {
                 var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
+                var _a = parser(parameter.value, parameter.option), parsed = _a[0], consumed = _a[1];
                 if (consumed) {
                     index++;
                 }
-                parameterObject[type] = value;
+                return __assign({}, prev, parsed);
+            }, {
+                expression: '',
+                position: 'center',
+                distance: 'middle',
+                offsetX: 0,
+                offsetY: 0,
+                slideX: 0,
+                slideY: 0,
+                duration: 0,
+                wait: false,
             });
             var expression = (index === 1 ? parameters : parameters.slice(0, -index + 1))[0];
             if (expression) {
@@ -463,24 +461,23 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             return parameterObject;
         };
         TachieCommandParser.parseChangeCommandParameters = function (parameters) {
-            var parameterObject = {
-                name: '',
-                expression: '',
-                duration: 0,
-                wait: false,
-            };
             var parsers = [
                 this.parseWaitParameter,
                 this.parseDurationParameter,
             ];
             var index = 1;
-            parsers.forEach(function (parser) {
+            var parameterObject = parsers.reduce(function (prev, parser) {
                 var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
+                var _a = parser(parameter.value, parameter.option), parsed = _a[0], consumed = _a[1];
                 if (consumed) {
                     index++;
                 }
-                parameterObject[type] = value;
+                return __assign({}, prev, parsed);
+            }, {
+                name: '',
+                expression: '',
+                duration: 0,
+                wait: false,
             });
             var _a = index === 1 ? parameters : parameters.slice(0, -index + 1), nameOrExpression = _a[0], expression = _a[1];
             if (expression) {
@@ -499,13 +496,6 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             return parameterObject;
         };
         TachieCommandParser.parseMoveCommandParameters = function (parameters) {
-            var parameterObject = {
-                position: 'center',
-                offsetX: 0,
-                offsetY: 0,
-                duration: 0,
-                wait: false,
-            };
             var parsers = [
                 this.parseWaitParameter,
                 this.parseDurationParameter,
@@ -514,23 +504,23 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 this.parsePositionParameter,
             ];
             var index = 1;
-            parsers.forEach(function (parser) {
+            var parameterObject = parsers.reduce(function (prev, parser) {
                 var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
+                var _a = parser(parameter.value, parameter.option), parsed = _a[0], consumed = _a[1];
                 if (consumed) {
                     index++;
                 }
-                parameterObject[type] = value;
+                return __assign({}, prev, parsed);
+            }, {
+                position: 'center',
+                offsetX: 0,
+                offsetY: 0,
+                duration: 0,
+                wait: false,
             });
             return parameterObject;
         };
         TachieCommandParser.parseEraseCommandParameters = function (parameters) {
-            var parameterObject = {
-                slideX: 0,
-                slideY: 0,
-                duration: 0,
-                wait: false,
-            };
             var parsers = [
                 this.parseWaitParameter,
                 this.parseDurationParameter,
@@ -538,13 +528,18 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 this.parseSlideXParameter,
             ];
             var index = 1;
-            parsers.forEach(function (parser) {
+            var parameterObject = parsers.reduce(function (prev, parser) {
                 var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
+                var _a = parser(parameter.value, parameter.option), parsed = _a[0], consumed = _a[1];
                 if (consumed) {
                     index++;
                 }
-                parameterObject[type] = value;
+                return __assign({}, prev, parsed);
+            }, {
+                slideX: 0,
+                slideY: 0,
+                duration: 0,
+                wait: false,
             });
             return parameterObject;
         };

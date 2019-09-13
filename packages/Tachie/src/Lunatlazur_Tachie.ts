@@ -301,43 +301,35 @@ interface IEraseTachieCommandParameters {
 }
 
 interface ITachiePositionParameter {
-  type: 'position'
-  value: CharacterPosition
+  'position': CharacterPosition
 }
 
 interface ITachieDistanceParameter {
-  type: 'distance'
-  value: CharacterDistance
+  'distance': CharacterDistance
 }
 
 interface ITachieOffsetXParameter {
-  type: 'offsetX'
-  value: number
+  'offsetX': number
 }
 
 interface ITachieOffsetYParameter {
-  type: 'offsetY'
-  value: number
+  'offsetY': number
 }
 
 interface ITachieSlideXParameter {
-  type: 'slideX'
-  value: number
+  'slideX': number
 }
 
 interface ITachieSlideYParameter {
-  type: 'slideY'
-  value: number
+  'slideY': number
 }
 
 interface ITachieDurationParameter {
-  type: 'duration'
-  value: number
+  'duration': number
 }
 
 interface ITachieWaitParameter {
-  type: 'wait'
-  value: boolean
+  'wait': boolean
 }
 
 (function () {
@@ -415,15 +407,15 @@ interface ITachieWaitParameter {
       switch (parameter) {
       case '左':
       case 'left':
-        return [{ type: 'position', value: 'left' }, true]
+        return [{ 'position': 'left' }, true]
       case '右':
       case 'right':
-        return [{ type: 'position', value: 'right' }, true]
+        return [{ 'position': 'right' }, true]
       case '中':
       case 'center':
-        return [{ type: 'position', value: 'center' }, true]
+        return [{ 'position': 'center' }, true]
       }
-      return [{ type: 'position', value: 'center' }, false]
+      return [{ 'position': 'center' }, false]
     }
 
     public static parseDistanceParameter (...args: string[]): [ITachieDistanceParameter, boolean] {
@@ -431,15 +423,15 @@ interface ITachieWaitParameter {
       switch (parameter) {
       case '遠':
       case 'far':
-        return [{ type: 'distance', value: 'far' }, true]
+        return [{ 'distance': 'far' }, true]
       case '近':
       case 'near':
-        return [{ type: 'distance', value: 'near' }, true]
+        return [{ 'distance': 'near' }, true]
       case '中':
       case 'middle':
-        return [{ type: 'distance', value: 'middle' }, true]
+        return [{ 'distance': 'middle' }, true]
       }
-      return [{ type: 'distance', value: 'middle' }, false]
+      return [{ 'distance': 'middle' }, false]
     }
 
     public static parseOffsetXParameter (...args: string[]): [ITachieOffsetXParameter, boolean] {
@@ -449,9 +441,9 @@ interface ITachieWaitParameter {
       case '横':
       case '横位置調整':
       case 'x':
-        return [{ type: 'offsetX', value }, true]
+        return [{ 'offsetX': value }, true]
       }
-      return [{ type: 'offsetX', value: 0 }, false]
+      return [{ 'offsetX': 0 }, false]
     }
 
     public static parseOffsetYParameter (...args: string[]): [ITachieOffsetYParameter, boolean] {
@@ -461,9 +453,9 @@ interface ITachieWaitParameter {
       case '縦':
       case '縦位置調整':
       case 'y':
-        return [{ type: 'offsetY', value }, true]
+        return [{ 'offsetY': value }, true]
       }
-      return [{ type: 'offsetY', value: 0 }, false]
+      return [{ 'offsetY': 0 }, false]
     }
 
     public static parseSlideXParameter (...args: string[]): [ITachieSlideXParameter, boolean] {
@@ -472,9 +464,9 @@ interface ITachieWaitParameter {
       switch (parameter) {
       case 'スライド横':
       case 'slide-x':
-        return [{ type: 'slideX', value }, true]
+        return [{ 'slideX': value }, true]
       }
-      return [{ type: 'slideX', value: 0 }, false]
+      return [{ 'slideX': 0 }, false]
     }
 
     public static parseSlideYParameter (...args: string[]): [ITachieSlideYParameter, boolean] {
@@ -483,28 +475,28 @@ interface ITachieWaitParameter {
       switch (parameter) {
       case 'スライド縦':
       case 'slide-y':
-        return [{ type: 'slideY', value }, true]
+        return [{ 'slideY': value }, true]
       }
-      return [{ type: 'slideY', value: 0 }, false]
+      return [{ 'slideY': 0 }, false]
     }
 
     public static parseDurationParameter (...args: string[]): [ITachieDurationParameter, boolean] {
       const [ parameter ] = args
       const matched = parameter.match(/^(\d+)フレーム$/)
       if (matched) {
-        return [{ type: 'duration', value: parseInt(matched[1], 10) }, true]
+        return [{ 'duration': parseInt(matched[1], 10) }, true]
       }
-      return [{ type: 'duration', value: 0 }, false]
+      return [{ 'duration': 0 }, false]
     }
 
     public static parseWaitParameter (...args: string[]): [ITachieWaitParameter, boolean] {
       const [ parameter ] = args
       if (parameter === 'ウェイトあり') {
-        return [{ type: 'wait', value: true }, true]
+        return [{ 'wait': true }, true]
       } else if (parameter === 'ウェイトなし') {
-        return [{ type: 'wait', value: false }, true]
+        return [{ 'wait': false }, true]
       }
-      return [{ type: 'wait', value: false }, false]
+      return [{ 'wait': false }, false]
     }
 
     public static parseShowCommandParameters (parameters: ITachieCommandParameter[]) {
@@ -539,7 +531,7 @@ interface ITachieWaitParameter {
         slideY: 0,
         duration: 0,
         wait: false,
-      })
+      } as IShowTachieCommandParameters)
       const [ expression ] = index === 1 ? parameters : parameters.slice(0, -index + 1)
       if (expression) {
         parameterObject.expression = expression.value
@@ -609,7 +601,7 @@ interface ITachieWaitParameter {
         offsetY: 0,
         duration: 0,
         wait: false,
-      })
+      } as IMoveTachieCommandParameters)
       return parameterObject
     }
 
