@@ -411,8 +411,7 @@ interface ITachieWaitParameter {
   class TachieCommandParser {
 
     public static parsePositionParameter (...args: string[]): [ITachiePositionParameter, boolean] {
-      const [ parameter, arg ] = args
-      const option = parseInt(arg, 10)
+      const [ parameter ] = args
       switch (parameter) {
       case '左':
       case 'left':
@@ -509,17 +508,6 @@ interface ITachieWaitParameter {
     }
 
     public static parseShowCommandParameters (parameters: ITachieCommandParameter[]) {
-      const parameterObject: IShowTachieCommandParameters = {
-        expression: '',
-        position: 'center',
-        distance: 'middle',
-        offsetX: 0,
-        offsetY: 0,
-        slideX: 0,
-        slideY: 0,
-        duration: 0,
-        wait: false,
-      }
       const parsers = [
         this.parseWaitParameter,
         this.parseDurationParameter,
@@ -531,13 +519,26 @@ interface ITachieWaitParameter {
         this.parsePositionParameter,
       ]
       let index = 1
-      parsers.forEach((parser) => {
+      const parameterObject: IShowTachieCommandParameters = parsers.reduce((prev, parser) => {
         const parameter = parameters.slice(-index)[0]
-        const [{ type, value }, consumed] = parser(parameter.value, parameter.option)
+        const [parsed, consumed] = parser(parameter.value, parameter.option)
         if (consumed) {
           index++
         }
-        parameterObject[type] = value
+        return {
+          ...prev,
+          ...parsed,
+        }
+      }, {
+        expression: '',
+        position: 'center',
+        distance: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        slideX: 0,
+        slideY: 0,
+        duration: 0,
+        wait: false,
       })
       const [ expression ] = index === 1 ? parameters : parameters.slice(0, -index + 1)
       if (expression) {
@@ -547,24 +548,26 @@ interface ITachieWaitParameter {
     }
 
     public static parseChangeCommandParameters (parameters: ITachieCommandParameter[]) {
-      const parameterObject: IChangeTachieCommandParameters = {
-        name: '',
-        expression: '',
-        duration: 0,
-        wait: false,
-      }
       const parsers = [
         this.parseWaitParameter,
         this.parseDurationParameter,
       ]
       let index = 1
-      parsers.forEach((parser) => {
+      const parameterObject: IChangeTachieCommandParameters = parsers.reduce((prev, parser) => {
         const parameter = parameters.slice(-index)[0]
-        const [{ type, value }, consumed] = parser(parameter.value, parameter.option)
+        const [parsed, consumed] = parser(parameter.value, parameter.option)
         if (consumed) {
           index++
         }
-        parameterObject[type] = value
+        return {
+          ...prev,
+          ...parsed,
+        }
+      }, {
+        name: '',
+        expression: '',
+        duration: 0,
+        wait: false,
       })
       let [ nameOrExpression, expression ] = index === 1 ? parameters : parameters.slice(0, -index + 1)
       if (expression) {
@@ -582,13 +585,6 @@ interface ITachieWaitParameter {
     }
 
     public static parseMoveCommandParameters (parameters: ITachieCommandParameter[]) {
-      const parameterObject: IMoveTachieCommandParameters = {
-        position: 'center',
-        offsetX: 0,
-        offsetY: 0,
-        duration: 0,
-        wait: false,
-      }
       const parsers = [
         this.parseWaitParameter,
         this.parseDurationParameter,
@@ -597,24 +593,27 @@ interface ITachieWaitParameter {
         this.parsePositionParameter,
       ]
       let index = 1
-      parsers.forEach((parser) => {
+      const parameterObject: IMoveTachieCommandParameters = parsers.reduce((prev, parser) => {
         const parameter = parameters.slice(-index)[0]
-        const [{ type, value }, consumed] = parser(parameter.value, parameter.option)
+        const [parsed, consumed] = parser(parameter.value, parameter.option)
         if (consumed) {
           index++
         }
-        parameterObject[type] = value
+        return {
+          ...prev,
+          ...parsed,
+        }
+      }, {
+        position: 'center',
+        offsetX: 0,
+        offsetY: 0,
+        duration: 0,
+        wait: false,
       })
       return parameterObject
     }
 
     public static parseEraseCommandParameters (parameters: ITachieCommandParameter[]) {
-      const parameterObject: IEraseTachieCommandParameters = {
-        slideX: 0,
-        slideY: 0,
-        duration: 0,
-        wait: false,
-      }
       const parsers = [
         this.parseWaitParameter,
         this.parseDurationParameter,
@@ -622,13 +621,21 @@ interface ITachieWaitParameter {
         this.parseSlideXParameter,
       ]
       let index = 1
-      parsers.forEach((parser) => {
+      const parameterObject: IEraseTachieCommandParameters = parsers.reduce((prev, parser) => {
         const parameter = parameters.slice(-index)[0]
-        const [{ type, value }, consumed] = parser(parameter.value, parameter.option)
+        const [parsed, consumed] = parser(parameter.value, parameter.option)
         if (consumed) {
           index++
         }
-        parameterObject[type] = value
+        return {
+          ...prev,
+          ...parsed,
+        }
+      }, {
+        slideX: 0,
+        slideY: 0,
+        duration: 0,
+        wait: false,
       })
       return parameterObject
     }
