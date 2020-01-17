@@ -6,7 +6,7 @@
 // http://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.1 2019/09/09
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
 // [Twitter]: https://twitter.com/lunatlazur/
@@ -37,6 +37,10 @@
  * @default 1
  * @type number
  *
+ * @param 水平位置
+ * @desc 名前を表示するウインドウの水平位置を画面左端からのpx単位で指定します。
+ * @default 0
+ * @type number
  */
 
 interface Window_Message {
@@ -72,6 +76,7 @@ interface Window_ActorName extends Window_Base {
 
   const params = {
     textColor: asNumber(parameters, 'テキストカラー'),
+    horizontalOffset: asNumber(parameters, '水平位置'),
   }
 
   class Window_ActorName extends Window_Base {
@@ -84,7 +89,8 @@ interface Window_ActorName extends Window_Base {
     public initialize (): void
     public initialize (parentWindow?: Window_Message) {
       this._parentWindow = parentWindow
-      super.initialize(0, 0, 240, this.windowHeight())
+      const x = params.horizontalOffset || 0
+      super.initialize(x, 0, 240, this.windowHeight())
       this._padding = 4
       this._text = ''
       this._openness = 0
@@ -155,6 +161,7 @@ interface Window_ActorName extends Window_Base {
     }
 
     public processActorName (text: string) {
+      this.setText('')
       return text.replace(/\x1bN\<(.*?)\>/gi, (whole: string, ...args: string[]) => {
         this.setText(args[0])
         this.show()

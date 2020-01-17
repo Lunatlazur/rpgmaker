@@ -6,7 +6,7 @@
 // http://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.1 2019/09/09
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
 // [Twitter]: https://twitter.com/lunatlazur/
@@ -37,6 +37,10 @@
  * @default 1
  * @type number
  *
+ * @param 水平位置
+ * @desc 名前を表示するウインドウの水平位置を画面左端からのpx単位で指定します。
+ * @default 0
+ * @type number
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -73,6 +77,7 @@ var __extends = (this && this.__extends) || (function () {
     var parameters = PluginManager.parameters(pluginName);
     var params = {
         textColor: asNumber(parameters, 'テキストカラー'),
+        horizontalOffset: asNumber(parameters, '水平位置'),
     };
     var Window_ActorName = /** @class */ (function (_super) {
         __extends(Window_ActorName, _super);
@@ -83,7 +88,8 @@ var __extends = (this && this.__extends) || (function () {
         }
         Window_ActorName.prototype.initialize = function (parentWindow) {
             this._parentWindow = parentWindow;
-            _super.prototype.initialize.call(this, 0, 0, 240, this.windowHeight());
+            var x = params.horizontalOffset || 0;
+            _super.prototype.initialize.call(this, x, 0, 240, this.windowHeight());
             this._padding = 4;
             this._text = '';
             this._openness = 0;
@@ -146,6 +152,7 @@ var __extends = (this && this.__extends) || (function () {
         };
         Window_ActorName.prototype.processActorName = function (text) {
             var _this = this;
+            this.setText('');
             return text.replace(/\x1bN\<(.*?)\>/gi, function (whole) {
                 var args = [];
                 for (var _i = 1; _i < arguments.length; _i++) {

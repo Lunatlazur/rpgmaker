@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "baseUrl": "src",
+    "outDir": "build",
+    "inlineSourceMap": false,
+    "newLine": "LF",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "removeComments": false,
+    "experimentalDecorators": true,
+    "lib": [
+      "es5"
+    ],
+    "types": [
+      "rpgmakermv_typescript_dts"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

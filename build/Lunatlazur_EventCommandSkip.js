@@ -82,7 +82,6 @@
                 break;
         }
     };
-    var showFast = false;
     var _Window_Message_updateWait = Window_Message.prototype.updateWait;
     Window_Message.prototype.updateWait = function () {
         if (!this.isClosed() && !$gameMessage.isChoice() && this.visible) {

@@ -28,6 +28,10 @@
  * By passing the plug-in command name and arguments as parameter, you can
  * execute the corresponding plug-in command when the button is pressed.
  *
+ * @param Custom button text font
+ * @desc Additional button text fonts.
+ * @type string[]
+ *
  * @param buttons
  * @desc configure the buttons attached to the message window.
  * @type struct<button>[]
@@ -48,6 +52,11 @@
  * command が plugin のとき：
  * パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
  * 押したときに該当のプラグインコマンドを実行することができます。
+ * *
+ * @param フォント
+ * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
+ * @default ["UD デジタル 教科書体 NP-R", "Klee"]
+ * @type string[]
  *
  * @param ボタン
  * @desc メッセージウィンドウに表示するボタンを設定します。
@@ -124,6 +133,19 @@ interface Input {
 
 (function () {
   const pluginName = 'Lunatlazur_MessageAttachmentButton'
+  const attachmentButtonSize = 20
+
+  function getValue (params: { [key: string]: any }, ...names: string[]) {
+    let found: string = null
+    names.forEach((name) => {
+      if (!!params[name]) {
+        found = params[name]
+      }
+    })
+    return found
+  }
+
+  const asString = getValue
 
   function parsePluginParameters () {
     const parameters = PluginManager.parameters(pluginName)
@@ -160,6 +182,16 @@ interface Input {
       }
     }
   })
+
+  const customButtonTextFont = JSON.parse(asString(PluginManager.parameters(pluginName),
+    'フォント',
+    'Custom button text font',
+  ))
+
+  const _Window_Message_windowHeight = Window_Message.prototype.windowHeight
+  Window_Message.prototype.windowHeight = function() {
+    return _Window_Message_windowHeight.call(this) + attachmentButtonSize
+  }
 
   const _Window_Message_initMembers = Window_Message.prototype.initMembers
   Window_Message.prototype.initMembers = function () {
@@ -273,7 +305,7 @@ interface Input {
       this._fontSize = size ? size : 28
       this._text = text
       const bitmap = new Bitmap(this._fontSize, this._fontSize)
-      bitmap.fontFace = 'GameFont'
+      bitmap.fontFace = [...customButtonTextFont, 'GameFont'].join(',')
       bitmap.fontSize = this._fontSize
       bitmap.textColor = '#aaaaaa'
       bitmap.resize(bitmap.measureTextWidth(text), bitmap.height)
@@ -340,7 +372,7 @@ interface Input {
 
     constructor () {
       this._buttons = buttonSettings.map((setting) => {
-        const button = new AttachmentButton(setting.text, 20)
+        const button = new AttachmentButton(setting.text, attachmentButtonSize)
         button.attachFunction(setting.command)
         return button
       })
