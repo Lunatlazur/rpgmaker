@@ -17,6 +17,54 @@
  * @author Taku Aoi
  * @help This plugin makes it possible to set the transition
  * at fade-in / fade-out.
+ * It supports fade-in / fade-out and fade time specification on a white screen.
+ * You can also use it as a custom fade function without using transitions.
+ * 
+ * Please place the transition image in the img/transitions folder.
+ * 
+ * Plug-in command list
+ * ********************
+ *
+ * fadein
+ * ======
+ *
+ *     fadein [color] [transition image name] [duration]
+ *
+ * Perform fade-in.
+ *
+ * [color] white | black
+ *   Color when fading in.
+ *   Specify white to fade in from a white screen, specify black to fade in
+ *   from a black screen.
+ * [transition image name] string
+ *   Image file name in img/transitions folder.
+ * [duration] %dF
+ *   Specify the time to fade by the number of frames.
+ *
+ *
+ * fadeout
+ * =======
+ * 
+ *     fadeout [color] [transition image name] [duration]
+ *
+ * Perform fade-out.
+ *
+ * [color] white | black
+ *   Color when fading out.
+ *   Specify white to fade out from a white screen, specify black to fade out
+ *   from a black screen.
+ * [transition image name] string
+ *   Image file name in img/transitions folder.
+ * [duration] %dF
+ *   Specify the time to fade by the number of frames.
+ *
+ *
+ * History
+ * *******
+ * 
+ * 1.0.0 2018/04/01:
+ *   - Published.
+ * 
  */
 /*:ja
  * @plugindesc トランジションつきフェードイン／フェードアウトプラグイン
@@ -28,35 +76,49 @@
  *
  * トランジション画像は img/transitions フォルダに配置してください。
  *
- * 【プラグインコマンド一覧】
+ * プラグインコマンド一覧
+ * **********************
  *
- * 【フェードイン】
- * フェードイン [色] [トランジション画像名] [フェードにかける時間]
+ * フェードイン
+ * ============
+ * 
+ *     フェードイン [色] [トランジション画像名] [フェードにかける時間]
  *
- * 　フェードインを行います。
+ * フェードインを行います。
  *
- * 　色 白|黒
- * 　　フェードインするときの色
- * 　　白を指定すると白画面からフェードイン、
- * 　　黒を指定する黒画面からフェードインします
- * 　トランジション画像名 文字列
- * 　　img/transitions フォルダ内の画像ファイル名
- * 　フェードにかける時間 nフレーム
- * 　　フェードにかける時間をフレーム数で指定する
+ * [色] 白|黒
+ *   フェードインするときの色
+ *   白を指定すると白画面からフェードイン、
+ *   黒を指定する黒画面からフェードインします
+ * [トランジション画像名] 文字列
+ *   img/transitions フォルダ内の画像ファイル名
+ * [フェードにかける時間] nフレーム
+ *   フェードにかける時間をフレーム数で指定する
+ * 
  *
- * 【フェードアウト】
- * フェードアウト [色] [トランジション画像名] [フェードにかける時間]
+ * フェードアウト
+ * ==============
+ * 
+ *     フェードアウト [色] [トランジション画像名] [フェードにかける時間]
  *
- * 　フェードアウトを行います。
+ * フェードアウトを行います。
  *
- * 　色 白|黒
- * 　　フェードアウトするときの色
- * 　　白を指定すると白画面からフェードアウト、
- * 　　黒を指定する黒画面からフェードアウトします
- * 　トランジション画像名 文字列
- * 　　img/transitions フォルダ内の画像ファイル名
- * 　フェードにかける時間 nフレーム
- * 　　フェードにかける時間をフレーム数で指定する
+ * [色] 白|黒
+ *   フェードアウトするときの色
+ *   白を指定すると白画面からフェードアウト、
+ *   黒を指定する黒画面からフェードアウトします
+ * [トランジション画像名] 文字列
+ *   img/transitions フォルダ内の画像ファイル名
+ * [フェードにかける時間] nフレーム
+ *   フェードにかける時間をフレーム数で指定する
+ * 
+ * 
+ * 変更履歴
+ * ********
+ * 
+ * 1.0.0 2018/04/01:
+ *   - 公開
+ * 
  */
 
 interface ColorThresholdFilterUniforms {

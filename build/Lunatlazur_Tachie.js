@@ -18,7 +18,8 @@
  * @help This plugin provides a function to display the standing picture of the
  * character.
  *
- * [Usage]
+ * Usage
+ * *****
  *
  * 1. Place a standing picture file with the following format in the Picture folder.
  *
@@ -58,11 +59,14 @@
  *    the standing picture. Refer to the following plug-in command list for details
  *    of plug-in commands.
  *
- * [Plug-in command list]
+ * Plug-in command list
+ * ********************
  *
- * [SHOW_TACHIE]
- * SHOW_TACHIE [character name] [expression] [position] [distance]
- *   [x] [y] [slide-x] [slide-y] [duration] [wait]
+ * SHOW_TACHIE
+ * ===========
+ *
+ *     SHOW_TACHIE [character name] [expression] [position] [distance]
+ *     [x] [y] [slide-x] [slide-y] [duration] [wait]
  *
  * Show standing picture.
  *
@@ -96,21 +100,28 @@
  *   If unspecified, set to no wait.
  *   If duration is unspecified, it should be ignored.
  *
- * [Call example]
+ * Call example
+ * ------------
  *
- * SHOW_TACHIE characterA near
- *   Character A is instantly displayed in the center of the screen with expression
- *   numbered in 1 at a near distance.
+ *     SHOW_TACHIE characterA near
  *
- * SHOW_TACHIE characterA expression2 left x:5 y:-5 slide-x:20 60F wait
- *   Character A is displayed with a expression numbered in 2 at the middle distance
- *   for 60 frames, with sliding 20px from right to the position shifted 5px left and
- *   5px upward from left side of screen.
- *   Wait until display is complete.
+ * Character A is instantly displayed in the center of the screen with expression
+ * numbered in 1 at a near distance.
  *
- * [CHANGE_TACHIE]
- * CHANGE_TACHIE [character name before change] [character name after change]
- *   [expression] [duration] [wait]
+ *
+ *     SHOW_TACHIE characterA expression2 left x:5 y:-5 slide-x:20 60F wait
+ *
+ * Character A is displayed with a expression numbered in 2 at the middle distance
+ * for 60 frames, with sliding 20px from right to the position shifted 5px left and
+ * 5px upward from left side of screen.
+ * Wait until display is complete.
+ *
+ *
+ * CHANGE_TACHIE
+ * =============
+ *
+ *     CHANGE_TACHIE [character name before change] [character name after change]
+ *     [expression] [duration] [wait]
  *
  * Change the standing picture.
  * Mainly used to switch between facial expression differences and costume
@@ -132,16 +143,23 @@
  *   If unspecified, set to no wait.
  *   If duration is unspecified, it should be ignored.
  *
- * [Call example]
+ * Call example
+ * ------------
  *
- * CHANGE_TACHIE characterA expression2 30F
- *   Change character A to expression numbered in 2 for 30 frames.
+ *     CHANGE_TACHIE characterA expression2 30F
  *
- * CHANGE_TACHIE characterA characterB 30F
- *   Change character A to expression numbered in 1 of character B for 30 frames.
+ * Change character A to expression numbered in 2 for 30 frames.
  *
- * [MOVE_TACHIE]
- * MOVE_TACHIE [character name] [position] [x] [y] [duration] [wait]
+ *
+ *     CHANGE_TACHIE characterA characterB 30F
+ *
+ * Change character A to expression numbered in 1 of character B for 30 frames.
+ *
+ *
+ * MOVE_TACHIE
+ * ===========
+ *
+ *     MOVE_TACHIE [character name] [position] [x] [y] [duration] [wait]
  *
  * Move the standing picture.
  *
@@ -162,14 +180,19 @@
  *   If unspecified, set to no wait.
  *   If duration is unspecified, it should be ignored.
  *
- * [Call example]
+ * Call example
+ * ------------
  *
- * TACHIE_MOVE characterA right x:-15
- *   Move character A to the position shifted 15px rightward on the right side
- *   of the screen for 30 frames.
+ *     TACHIE_MOVE characterA right x:-15
  *
- * [ERASE_TACHIE]
- * ERASE_TACHIE [character name] [slide-x] [slide-y] [duration] [wait]
+ * Move character A to the position shifted 15px rightward on the right side
+ * of the screen for 30 frames.
+ *
+ *
+ * ERASE_TACHIE
+ * ============
+ *
+ *     ERASE_TACHIE [character name] [slide-x] [slide-y] [duration] [wait]
  *
  * Erase standing picture.
  *
@@ -189,22 +212,25 @@
  *   If unspecified, set to no wait.
  *   If duration is unspecified, it should be ignored.
  *
- * [Call example]
+ * Call example
+ * ------------
  *
- * ERASE_TACHIE characterA 30f
- *   Delete characterA for 30 frames.
+ *     ERASE_TACHIE characterA 30f
  *
- * [FAQ]
+ * Delete characterA for 30 frames.
+ *
+ * FAQ
+ * ***
  *
  * Q. Standing picture is not displayed even though the plug-in command is correct.
  * A. Even if the plugin is enabled, the plugin command will not be recognized
  *    unless the project is saved. Save the project and try again.
  *
  * Q. I want to change character's expression.
- * A. Use CHANGE_TACHIE command.
+ * A. Use ``CHANGE_TACHIE`` command.
  *
  * Q. I want to change the distance of the displayed character.
- * A. Combine ERASE_TACHIE and CHANGE_TACHIE.
+ * A. Combine ``ERASE_TACHIE`` and CHANGE_TACHIE.
  *
  * Q. Can't specify transparency.
  * A. Unimplemented function. See upcoming implementation plans.
@@ -215,7 +241,10 @@
  * Q. I want to control the display order of characters.
  * A. Unimplemented function. See upcoming implementation plans.
  *
- * [Upcoming implementation plans]
+ *
+ * Upcoming implementation plans
+ * *****************************
+ *
  * - Transparency specification when displaying and moving
  *   Transparency can be specified by SHOW_TACHIE / MOVE_TACHIE command.
  *
@@ -233,13 +262,20 @@
  *   The picture number etc. used in the standing picture plug-in can be
  *   specified by the plug-in parameter.
  *
+ * History
+ * *******
+ *
+ * 1.0.0 2018/04/01:
+ *   - Published.
+ *
  */
 /*:ja
  * @plugindesc 立ち絵プラグイン
  * @author あおいたく
  * @help このプラグインはキャラクターの立ち絵を表示できるようにします。
  *
- * 【使い方】
+ * 使い方
+ * ******
  *
  * 1. 以下形式の名前の立ち絵画像ファイルを Picture フォルダに配置します。
  *
@@ -261,15 +297,15 @@
  *    :
  *    :
  *
- *  ・一列目は Picture フォルダに配置した立ち絵画像ファイル名から拡張子と
+ *  - 一列目は Picture フォルダに配置した立ち絵画像ファイル名から拡張子と
  *    末尾の数字を取り除いた部分です
- *  ・二列目はキャラクターの名前です
+ *  - 二列目はキャラクターの名前です
  *    プラグインコマンドから立ち絵画像ファイルを指定するときに、この名前で
  *    指定します
- *  ・三列目以降は、立ち絵画像ファイルの表情の名前です
+ *  - 三列目以降は、立ち絵画像ファイルの表情の名前です
  *    プラグインコマンドから表情を指定するときに、この名前で指定します
- *    *キャラクター名2 以降の表情差分に名前をつけてください
- *   （*キャラクター名1 は表情未指定時に使われます）
+ *    {キャラクター名}2 以降の表情差分に名前をつけてください
+ *   （{キャラクター名}1 は表情未指定時に使われます）
  *
  *    上記例では characterA2.png が キャラA の 笑い、characterA3.png が
  *    キャラA の 怒り という設定になっています
@@ -278,136 +314,160 @@
  *    プラグインコマンドの詳細は下記のプラグインコマンド一覧を参照してください。
  *
  *
- * 【プラグインコマンド一覧】
+ * プラグインコマンド一覧
+ * **********************
  *
- * 【立ち絵表示】
- * 立ち絵表示 [キャラクター名] [表情] [位置] [距離] [横位置調整] [縦位置調整]
- *   [スライド横] [スライド縦] [表示にかける時間] [完了までウェイト]
+ * 立ち絵表示
+ * ==========
  *
- *   立ち絵を表示します
+ *     立ち絵表示 [キャラクター名] [表情] [位置] [距離] [横位置調整] [縦位置調整]
+ *     [スライド横] [スライド縦] [表示にかける時間] [完了までウェイト]
  *
- *   キャラクター名 文字列
- *     立ち絵定義ファイルで設定したキャラクターの名前
- *   表情 文字列
- *     立ち絵定義ファイルで設定したキャラクターの表情
- *     未指定で1番目の表情
- *   位置 左|中|右
- *     立ち絵の X 座標を位置に応じた値にする
- *     未指定で中央
- *   距離 近|中|遠
- *     立ち絵の拡大率と Y 座標を距離に応じた値にする
- *     未指定で中距離
- *   横位置調整 横位置調整:n|横:n
- *     立ち絵の X 座標に指定した数値を加える
- *   縦位置調整 縦位置調整:n|縦:n
- *     立ち絵の Y 座標に指定した数値を加える
- *   スライド横 スライド横:n
- *     立ち絵の表示開始時の X 座標から指定した数値を引く
- *   スライド縦 スライド縦:n
- *     立ち絵の表示開始時の Y 座標から指定した数値を引く
- *   表示にかける時間 nフレーム
- *     表示にかける時間をフレーム数で指定する
- *   　未指定で瞬間表示
- *   表示完了までウェイト ウェイトあり|ウェイトなし
- *     表示が完了するまでウェイトする
- *     未指定でウェイトなし
- *     瞬間表示の場合は無視される
+ * 立ち絵を表示します
  *
- * 【呼び出し例】
- *
- * 立ち絵表示 キャラA 近
- *   キャラAを表情1で画面中央、近距離に瞬間表示
- *
- * 立ち絵表示 キャラA 表情2 左 横:5 縦:-5 スライド横:20 60フレーム ウェイトあり
- *   キャラAを表情2で画面左、中距離、左に5px、上に5pxずらした位置に
- *   20px左にスライドしながら60フレームかけて表示する
+ * [キャラクター名] 文字列
+ *   立ち絵定義ファイルで設定したキャラクターの名前
+ * [表情] 文字列
+ *   立ち絵定義ファイルで設定したキャラクターの表情
+ *   未指定で1番目の表情
+ * [位置] 左|中|右
+ *   立ち絵の X 座標を位置に応じた値にする
+ *   未指定で中央
+ * [距離] 近|中|遠
+ *   立ち絵の拡大率と Y 座標を距離に応じた値にする
+ *   未指定で中距離
+ * [横位置調整] 横位置調整:n|横:n
+ *   立ち絵の X 座標に指定した数値を加える
+ * [縦位置調整] 縦位置調整:n|縦:n
+ *   立ち絵の Y 座標に指定した数値を加える
+ * [スライド横] スライド横:n
+ *   立ち絵の表示開始時の X 座標から指定した数値を引く
+ * [スライド縦] スライド縦:n
+ *   立ち絵の表示開始時の Y 座標から指定した数値を引く
+ * [表示にかける時間] nフレーム
+ *   表示にかける時間をフレーム数で指定する
+ * 　未指定で瞬間表示
+ * [完了までウェイト] ウェイトあり|ウェイトなし
  *   表示が完了するまでウェイトする
+ *   未指定でウェイトなし
+ *   瞬間表示の場合は無視される
  *
- * 【立ち絵変更】
- * 立ち絵変更 [変更前キャラクター名] [変更後キャラクター名] [表情]
- *   [変更にかける時間] [完了までウェイト]
+ * 呼び出し例
+ * ----------
  *
- *   立ち絵を変更します
- *   主に、表情差分や衣装差分の切り替えを行うためのコマンドです
+ *     立ち絵表示 キャラA 近
  *
- *   変更前キャラクター名 文字列
- *     立ち絵定義ファイルで設定したキャラクターの名前
- *   変更後キャラクター名 文字列
- *     立ち絵定義ファイルで設定したキャラクターの名前
- *     未指定で現在と同じキャラクターの表情セットを使う
- *   表情 文字列
- *     立ち絵定義ファイルで設定したキャラクターの表情
- *     未指定で1番目の表情
- *   表示にかける時間 nフレーム
- *     表示にかける時間をフレーム数で指定する
- *   　未指定で瞬間表示
- *   表示完了までウェイト ウェイトあり|ウェイトなし
- *     表示が完了するまでウェイトする
- *     未指定でウェイトなし
- *     瞬間表示の場合は無視される
+ * キャラAを表情1で画面中央、近距離に瞬間表示
  *
- * 【呼び出し例】
+ *     立ち絵表示 キャラA 表情2 左 横:5 縦:-5 スライド横:20 60フレーム ウェイトあり
  *
- * 立ち絵変更 キャラA 表情2 30フレーム
- *   キャラAを表情2に30フレームかけて変更する
+ * キャラAを表情2で画面左、中距離、左に5px、上に5pxずらした位置に
+ * 20px左にスライドしながら60フレームかけて表示する
+ * 表示が完了するまでウェイトする
  *
- * 立ち絵変更 キャラA キャラB 30フレーム
- *   キャラAをキャラBの表情1に30フレームかけて変更する
+ * 立ち絵変更
+ * ==========
  *
- * 【立ち絵移動】
- * 立ち絵移動 [キャラクター名] [位置] [横位置調整] [縦位置調整]
- *   [移動にかける時間] [完了までウェイト]
+ *     立ち絵変更 [変更前キャラクター名] [変更後キャラクター名] [表情]
+ *     [変更にかける時間] [完了までウェイト]
  *
- *   立ち絵を移動します
+ * 立ち絵を変更します
+ * 主に、表情差分や衣装差分の切り替えを行うためのコマンドです
  *
- *   キャラクター名 文字列
- *     立ち絵定義ファイルで設定したキャラクターの名前
- *   位置 左|中|右
- *     立ち絵の X 座標を位置に応じた値にする
- *     未指定で中央
- *   横位置調整 横位置調整:n|横:n
- *     立ち絵の X 座標に指定した数値を加える
- *   縦位置調整 縦位置調整:n|縦:n
- *     立ち絵の Y 座標に指定した数値を加える
- *   表示にかける時間 nフレーム
- *     表示にかける時間をフレーム数で指定する
- *   　未指定で瞬間表示
- *   表示完了までウェイト ウェイトあり|ウェイトなし
- *     表示が完了するまでウェイトする
- *     未指定でウェイトなし
- *     瞬間表示の場合は無視される
+ * [変更前キャラクター名] 文字列
+ *   立ち絵定義ファイルで設定したキャラクターの名前
+ * [変更後キャラクター名] 文字列
+ *   立ち絵定義ファイルで設定したキャラクターの名前
+ *   未指定で現在と同じキャラクターの表情セットを使う
+ * [表情] 文字列
+ *   立ち絵定義ファイルで設定したキャラクターの表情
+ *   未指定で1番目の表情
+ * [表示にかける時間] nフレーム
+ *   表示にかける時間をフレーム数で指定する
+ * 　未指定で瞬間表示
+ * [完了までウェイト] ウェイトあり|ウェイトなし
+ *   表示が完了するまでウェイトする
+ *   未指定でウェイトなし
+ *   瞬間表示の場合は無視される
  *
- * 【呼び出し例】
+ * 呼び出し例
+ * ----------
  *
- * 立ち絵移動 キャラA 右 横:-15
- *   キャラAを画面右、右に15pxずらした位置に30フレームかけて移動させる
+ *     立ち絵変更 キャラA 表情2 30フレーム
  *
- * 【立ち絵消去】
- * 立ち絵消去 [キャラクター名] [スライド横] [スライド縦] [消去にかける時間]
- *   [完了までウェイト]
+ * キャラAを表情2に30フレームかけて変更する
  *
- *   立ち絵を消去します
  *
- *   キャラクター名 文字列
- *     立ち絵定義ファイルで設定したキャラクターの名前
- *   スライド横 スライド横:n
- *     立ち絵の表示開始時の X 座標から指定した数値を引く
- *   スライド縦 スライド縦:n
- *     立ち絵の表示開始時の Y 座標から指定した数値を引く
- *   表示にかける時間 nフレーム
- *     表示にかける時間をフレーム数で指定する
- *   　未指定で瞬間表示
- *   表示完了までウェイト ウェイトあり|ウェイトなし
- *     表示が完了するまでウェイトする
- *     未指定でウェイトなし
- *     瞬間表示の場合は無視される
+ *     立ち絵変更 キャラA キャラB 30フレーム
  *
- * 【呼び出し例】
+ * キャラAをキャラBの表情1に30フレームかけて変更する
  *
- * 立ち絵消去 キャラA 30フレーム
- *   キャラAを30フレームかけて消去する
  *
- * 【FAQ】
+ * 立ち絵移動
+ * ==========
+ *
+ *     立ち絵移動 [キャラクター名] [位置] [横位置調整] [縦位置調整]
+ *     [移動にかける時間] [完了までウェイト]
+ *
+ * 立ち絵を移動します
+ *
+ * [キャラクター名] 文字列
+ *   立ち絵定義ファイルで設定したキャラクターの名前
+ * [位置] 左|中|右
+ *   立ち絵の X 座標を位置に応じた値にする
+ *   未指定で中央
+ * [横位置調整] 横位置調整:n|横:n
+ *   立ち絵の X 座標に指定した数値を加える
+ * [縦位置調整] 縦位置調整:n|縦:n
+ *   立ち絵の Y 座標に指定した数値を加える
+ * [表示にかける時間] nフレーム
+ *   表示にかける時間をフレーム数で指定する
+ * 　未指定で瞬間表示
+ * [完了までウェイト] ウェイトあり|ウェイトなし
+ *   表示が完了するまでウェイトする
+ *   未指定でウェイトなし
+ *   瞬間表示の場合は無視される
+ *
+ * 呼び出し例
+ * ----------
+ *
+ *     立ち絵移動 キャラA 右 横:-15
+ *
+ * キャラAを画面右、右に15pxずらした位置に30フレームかけて移動させる
+ *
+ *
+ * 立ち絵消去
+ * ==========
+ *
+ *     立ち絵消去 [キャラクター名] [スライド横] [スライド縦] [消去にかける時間]
+ *     [完了までウェイト]
+ *
+ * 立ち絵を消去します
+ *
+ * [キャラクター名] 文字列
+ *   立ち絵定義ファイルで設定したキャラクターの名前
+ * [スライド横] スライド横:n
+ *   立ち絵の表示開始時の X 座標から指定した数値を引く
+ * [スライド縦] スライド縦:n
+ *   立ち絵の表示開始時の Y 座標から指定した数値を引く
+ * [表示にかける時間] nフレーム
+ *   表示にかける時間をフレーム数で指定する
+ * 　未指定で瞬間表示
+ * [完了までウェイト] ウェイトあり|ウェイトなし
+ *   表示が完了するまでウェイトする
+ *   未指定でウェイトなし
+ *   瞬間表示の場合は無視される
+ *
+ * 呼び出し例
+ * ----------
+ *
+ *     立ち絵消去 キャラA 30フレーム
+ *
+ * キャラAを30フレームかけて消去する
+ *
+ *
+ * FAQ
+ * ***
  *
  * Q. プラグインコマンドは間違ってないのに立ち絵が表示されない
  * A. プラグインを有効化しても、プロジェクトを保存しないとプラグインコマンドが
@@ -429,23 +489,31 @@
  * A. 未実装の機能です。今後の実装予定を参照してください。
  *
  *
- * 【今後の実装予定】
+ * 今後の実装予定
+ * **************
  *
- * ・表示、移動時の透明度指定
+ * - 表示、移動時の透明度指定
  *   表示、移動コマンドで透明度を指定できるように
  *
- * ・同距離、同位置の複数キャラクター表示
+ * - 同距離、同位置の複数キャラクター表示
  *   同じ距離、同じ位置に複数のキャラクターを配置できるように
  *
- * ・重なり順の制御
+ * - 重なり順の制御
  *   キャラクターの重なり順を明示的に指定できるように
  *
- * ・プラグインコマンドで指定した画像のプリロード対応
+ * - プラグインコマンドで指定した画像のプリロード対応
  *   プラグインコマンドで指定した画像をマップ遷移時にプリロードするように
  *
- * ・プラグインパラメータによる各種の値の設定
+ * - プラグインパラメータによる各種の値の設定
  *   立ち絵プラグインで使用するピクチャ番号などをプラグインパラメータで
  *   指定できるように
+ *
+ *
+ * 変更履歴
+ * ********
+ *
+ * 1.0.0 2018/04/01:
+ *   - 公開
  *
  */
 (function () {
@@ -617,7 +685,7 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign({}, prev, parsed);
+                return Object.assign(Object.assign({}, prev), parsed);
             }, {
                 expression: '',
                 position: 'center',
@@ -647,7 +715,7 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign({}, prev, parsed);
+                return Object.assign(Object.assign({}, prev), parsed);
             }, {
                 name: '',
                 expression: '',
@@ -685,7 +753,7 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign({}, prev, parsed);
+                return Object.assign(Object.assign({}, prev), parsed);
             }, {
                 position: 'center',
                 offsetX: 0,
@@ -709,7 +777,7 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign({}, prev, parsed);
+                return Object.assign(Object.assign({}, prev), parsed);
             }, {
                 slideX: 0,
                 slideY: 0,
@@ -879,8 +947,8 @@
                 return;
             }
             const { expression, position, offsetX, offsetY, slideX, slideY, distance, duration, wait, } = TachieCommandParser.parseShowCommandParameters(args);
-            const chara = Object.assign({ id: TachieManager.config.pictureNumber(position, distance), name,
-                expression, filename: Tachie_CommandProcessor.filenameWithExpression(charaData, expression) }, TachieManager.config.picturePosition(position, distance), { scale: TachieManager.config.scaleByDistance[distance], position,
+            const chara = Object.assign(Object.assign({ id: TachieManager.config.pictureNumber(position, distance), name,
+                expression, filename: Tachie_CommandProcessor.filenameWithExpression(charaData, expression) }, TachieManager.config.picturePosition(position, distance)), { scale: TachieManager.config.scaleByDistance[distance], position,
                 distance });
             chara.x += offsetX;
             chara.y += offsetY;

@@ -16,6 +16,14 @@
  * @plugindesc Keep message window visible
  * @author Taku Aoi
  * @help This plugin keeps message window visible while close command called.
+ *
+ *
+ * History
+ * *******
+ *
+ * 1.0.0 2018/04/01:
+ *   - Published.
+ *
  */
 /*:ja
  * @plugindesc メッセージ表示継続プラグイン
@@ -24,21 +32,42 @@
  * メッセージウィンドウを自動で閉じずに、表示したままにできるようにします。
  * メッセージウィンドウを表示したままピクチャを表示・移動するときなどに便利です。
  *
- * [プラグインコマンド一覧]
+ * プラグインコマンド一覧
+ * **********************
  *
- * KEEP_MESSAGE_VISIBLE ON|OFF
- * メッセージの表示を継続 ON|OFF
+ * メッセージの表示を継続
+ * ======================
  *
- * 例: KEEP_MESSAGE_VISIBLE ON
+ *     メッセージの表示を継続 [ON|OFF]
+ *     KEEP_MESSAGE_VISIBLE [ON|OFF]
  *
- *   ON でメッセージウィンドウを自動で閉じないようにします。
- *   OFF にしたときにメッセージが存在しなければ、メッセージウィンドウは即座に閉じ
- *   られます。
+ * ON でメッセージウィンドウを自動で閉じないようにします。
+ * OFF にしたときにメッセージが存在しなければ、メッセージウィンドウは即座に閉じ
+ * られます。
  *
- * CLOSE_MESSAGE
+ * 呼び出し例
+ * ----------
+ *
+ *     メッセージの表示を継続 ON
+ *
+ * メッセージウィンドウを自動で閉じないようにします。
+ *
+ *
  * メッセージを閉じる
+ * ==================
  *
- *   メッセージウィンドウを閉じます。
+ *     メッセージを閉じる
+ *     CLOSE_MESSAGE
+ *
+ * メッセージウィンドウを閉じます。
+ *
+ *
+ * 変更履歴
+ * ********
+ *
+ * 1.0.0 2018/04/01:
+ *   - 公開
+ *
  */
 (function () {
     const pluginName = 'Lunatlazur_ConfigurableMessageClosing';

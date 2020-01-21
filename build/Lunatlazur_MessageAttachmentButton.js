@@ -18,6 +18,7 @@
  * @help This plugin adds some functional button to the message window.
  *
  * Command parameters
+ * ******************
  *
  * In case that the command is 'scene':
  * By passing the "XXX" part of "Scene_XXX" (for example, Save, Load, Menu,
@@ -27,6 +28,13 @@
  * In case that the command is 'plugin':
  * By passing the plug-in command name and arguments as parameter, you can
  * execute the corresponding plug-in command when the button is pressed.
+ *
+ *
+ * History
+ * *******
+ *
+ * 1.0.0 2018/04/01:
+ *   - Published.
  *
  * @param Custom button text font
  * @desc Additional button text fonts.
@@ -44,6 +52,7 @@
  * 追加します。
  *
  * コマンドのパラメータについて
+ * ****************************
  *
  * command が scene のとき：
  * パラメータにScene_XXX の XXX の部分（Save, Load, Menu, Title など）を
@@ -52,7 +61,14 @@
  * command が plugin のとき：
  * パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
  * 押したときに該当のプラグインコマンドを実行することができます。
- * *
+ *
+ *
+ * 変更履歴
+ * ********
+ *
+ * 1.0.0 2018/04/01:
+ *   - 公開
+ *
  * @param フォント
  * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
  * @default ["UD デジタル 教科書体 NP-R", "Klee"]
@@ -226,6 +242,21 @@
         return found;
     }
     class AttachmentButton {
+        constructor(text, size) {
+            this._fontSize = size ? size : 28;
+            this._text = text;
+            const bitmap = new Bitmap(this._fontSize, this._fontSize);
+            bitmap.fontFace = [...customButtonTextFont, 'GameFont'].join(',');
+            bitmap.fontSize = this._fontSize;
+            bitmap.textColor = '#aaaaaa';
+            bitmap.resize(bitmap.measureTextWidth(text), bitmap.height);
+            bitmap.drawText(this._text, 0, 0, bitmap.width, this._fontSize);
+            this._sprite = new Sprite(bitmap);
+            this._sprite.x = 0;
+            this._sprite.y = 0;
+            this._sprite.visible = false;
+            SceneManager._scene.addChild(this._sprite);
+        }
         get x() {
             return this._sprite.x;
         }
@@ -243,21 +274,6 @@
         }
         get height() {
             return this._sprite.height;
-        }
-        constructor(text, size) {
-            this._fontSize = size ? size : 28;
-            this._text = text;
-            const bitmap = new Bitmap(this._fontSize, this._fontSize);
-            bitmap.fontFace = [...customButtonTextFont, 'GameFont'].join(',');
-            bitmap.fontSize = this._fontSize;
-            bitmap.textColor = '#aaaaaa';
-            bitmap.resize(bitmap.measureTextWidth(text), bitmap.height);
-            bitmap.drawText(this._text, 0, 0, bitmap.width, this._fontSize);
-            this._sprite = new Sprite(bitmap);
-            this._sprite.x = 0;
-            this._sprite.y = 0;
-            this._sprite.visible = false;
-            SceneManager._scene.addChild(this._sprite);
         }
         hide() {
             this._sprite.visible = false;

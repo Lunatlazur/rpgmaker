@@ -20,6 +20,13 @@
  * right-click to hide the message window.
  * If you right-click with the message window not displayed, the message window
  * will be displayed again.
+ *
+ * History
+ * *******
+ *
+ * 1.0.0 2018/04/01:
+ *   - Published.
+ *
  */
 /*:ja
  * @plugindesc メッセージウィンドウ表示切り替えプラグイン
@@ -28,6 +35,13 @@
  * 右クリックまたはメッセージウィンドウ右上の✕ボタンをタップすると、ウィンドウを
  * 非表示にします。
  * 非表示中に右クリックで再表示します。
+ *
+ * 変更履歴
+ * ********
+ *
+ * 1.0.0 2018/04/01:
+ *   - 公開
+ *
  */
 (function () {
     const pluginName = 'Lunatlazur_ToggleableMessageVisibility';
@@ -183,6 +197,18 @@
     WindowVisibilityManager._hide = false;
     WindowVisibilityManager._toggle = false;
     class HideMessageButton {
+        constructor(size) {
+            const bitmap = new Bitmap(size, size);
+            bitmap.fontFace = 'GameFont';
+            bitmap.fontSize = size;
+            bitmap.textColor = '#ffffff';
+            bitmap.drawText('✕', 0, 0, size, size);
+            this._sprite = new Sprite(bitmap);
+            this._sprite.x = 0;
+            this._sprite.y = 0;
+            this._sprite.visible = false;
+            SceneManager._scene.addChild(this._sprite);
+        }
         get x() {
             return this._sprite.x;
         }
@@ -201,18 +227,6 @@
         get height() {
             return this._sprite.height;
         }
-        constructor(size) {
-            const bitmap = new Bitmap(size, size);
-            bitmap.fontFace = 'GameFont';
-            bitmap.fontSize = size;
-            bitmap.textColor = '#ffffff';
-            bitmap.drawText('✕', 0, 0, size, size);
-            this._sprite = new Sprite(bitmap);
-            this._sprite.x = 0;
-            this._sprite.y = 0;
-            this._sprite.visible = false;
-            SceneManager._scene.addChild(this._sprite);
-        }
         hide() {
             this._sprite.visible = false;
         }
@@ -228,6 +242,13 @@
         }
     }
     class HideMessageManager {
+        constructor() {
+            this._hiddenSubWindows = [];
+            this._hideMessageButton = null;
+            this._isOpened = false;
+            this._isHidden = false;
+            this._isButtonAvailable = false;
+        }
         get isHidden() {
             return this._isHidden;
         }
@@ -236,13 +257,6 @@
         }
         get isButtonAvailable() {
             return this._isButtonAvailable;
-        }
-        constructor() {
-            this._hiddenSubWindows = [];
-            this._hideMessageButton = null;
-            this._isOpened = false;
-            this._isHidden = false;
-            this._isButtonAvailable = false;
         }
         createHideMessageButton(size) {
             this._hideMessageButton = new HideMessageButton(size);

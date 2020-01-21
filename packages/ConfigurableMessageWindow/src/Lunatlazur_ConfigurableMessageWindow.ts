@@ -6,7 +6,7 @@
 // http://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.1 2019/09/09
+// 1.1.0 2019/09/09
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
 // [Twitter]: https://twitter.com/lunatlazur/
@@ -17,6 +17,14 @@
  * @author Taku Aoi
  * @help This plugin makes the message window configurable.
  *
+ * History
+ * *******
+ * 
+ * 1.1.0 2019/09/09:
+ *   - Added option for applying custom message font to choice.
+ * 1.0.0 2018/04/01:
+ *   - Published.
+ * 
  * @param Number of message rows
  * @desc Number of message rows.
  * @default 4
@@ -40,6 +48,14 @@
  * @plugindesc メッセージウィンドウカスタムプラグイン
  * @author あおいたく
  * @help このプラグインはメッセージ行数やフォントを変更できるようにします。
+ * 
+ * 変更履歴
+ * ********
+ * 
+ * 1.1.0 2019/09/09:
+ *   - 選択肢に追加のフォント指定を反映するかどうか設定できるように
+ * 1.0.0 2018/04/01:
+ *   - 公開
  *
  * @param メッセージ行数
  * @desc メッセージの行数です。

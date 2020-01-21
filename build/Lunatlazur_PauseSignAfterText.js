@@ -21,6 +21,13 @@
  * @plugindesc メッセージ送り記号位置変更プラグイン
  * @author あおいたく
  * @help このプラグインはメッセージ送り記号をメッセージの末尾に表示するようにします。
+ *
+ * 変更履歴
+ * ********
+ *
+ * 1.0.0 2018/04/01:
+ *   - 公開
+ *
  */
 (function () {
     const pluginName = 'Lunatlazur_PauseSignAfterText';

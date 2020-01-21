@@ -20,6 +20,13 @@
  * right-click to hide the message window.
  * If you right-click with the message window not displayed, the message window
  * will be displayed again.
+ * 
+ * History
+ * *******
+ * 
+ * 1.0.0 2018/04/01:
+ *   - Published.
+ * 
  */
 /*:ja
  * @plugindesc メッセージウィンドウ表示切り替えプラグイン
@@ -28,6 +35,13 @@
  * 右クリックまたはメッセージウィンドウ右上の✕ボタンをタップすると、ウィンドウを
  * 非表示にします。
  * 非表示中に右クリックで再表示します。
+ * 
+ * 変更履歴
+ * ********
+ * 
+ * 1.0.0 2018/04/01:
+ *   - 公開
+ * 
  */
 
 interface HideMessageManager {

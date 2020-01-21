@@ -18,6 +18,7 @@
  * @help This plugin adds some functional button to the message window.
  *
  * Command parameters
+ * ******************
  *
  * In case that the command is 'scene':
  * By passing the "XXX" part of "Scene_XXX" (for example, Save, Load, Menu,
@@ -28,6 +29,13 @@
  * By passing the plug-in command name and arguments as parameter, you can
  * execute the corresponding plug-in command when the button is pressed.
  *
+ * 
+ * History
+ * *******
+ * 
+ * 1.0.0 2018/04/01:
+ *   - Published.
+ * 
  * @param Custom button text font
  * @desc Additional button text fonts.
  * @type string[]
@@ -44,6 +52,7 @@
  * 追加します。
  *
  * コマンドのパラメータについて
+ * ****************************
  *
  * command が scene のとき：
  * パラメータにScene_XXX の XXX の部分（Save, Load, Menu, Title など）を
@@ -52,7 +61,14 @@
  * command が plugin のとき：
  * パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
  * 押したときに該当のプラグインコマンドを実行することができます。
- * *
+ * 
+ * 
+ * 変更履歴
+ * ********
+ * 
+ * 1.0.0 2018/04/01:
+ *   - 公開
+ * 
  * @param フォント
  * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
  * @default ["UD デジタル 教科書体 NP-R", "Klee"]

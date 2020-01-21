@@ -23,15 +23,17 @@
  * The same font as the message window is used for this window.
  * 
  * History
+ * *******
+ * 
  * 1.1.0 2020/01/22:
- * - Added option to specify horizontal position of name window.
- * - Fixed the name not being displayed correctly on the backlog
- *   when using the backlog plugin.
+ *   - Added option to specify horizontal position of name window.
+ *   - Fixed the name not being displayed correctly on the backlog
+ *     when using the backlog plugin.
  * 1.0.1 2019/09/09:
- * - Fixed that the name window was not displayed correctly when
- *   the display position of the message window was not at the bottom.
+ *   - Fixed that the name window was not displayed correctly when
+ *     the display position of the message window was not at the bottom.
  * 1.0.0 2018/04/01:
- * - Published.
+ *   - Published.
  * 
  * @param textColor
  * @desc Text color index for actor name window.
@@ -54,14 +56,16 @@
  * 名前ウィンドウのフォントはメッセージウィンドウのものが使われます。
  *
  * 変更履歴
+ * ********
+ * 
  * 1.1.0 2020/01/22:
- * - 名前ウインドウの水平位置を指定するオプションを追加
- * - バックログプラグイン利用時、バックログ上で名前が正しく表示されないのを修正
+ *   - 名前ウインドウの水平位置を指定するオプションを追加
+ *   - バックログプラグイン利用時、バックログ上で名前が正しく表示されないのを修正
  * 1.0.1 2019/09/09:
- * - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示
- *   されないのを修正
+ *   - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示
+ *     されないのを修正
  * 1.0.0 2018/04/01:
- * - 公開
+ *   - 公開
  *
  * @param テキストカラー
  * @desc 名前を表示するテキストの色番号を指定します。
