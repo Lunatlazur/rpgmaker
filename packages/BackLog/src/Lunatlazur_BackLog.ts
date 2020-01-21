@@ -49,14 +49,9 @@ interface Window_ActorName extends Window_Base {
   _text: string
 }
 
-interface Window_Message {
-  _nameWindow?: Window_ActorName
-  _hideMessageManager?: any
-}
-
 interface Scene_Map {
   _backLogWindow: Window_BackLog
-} 
+}
 
 (function () {
   const pluginName = 'Lunatlazur_BackLog'
