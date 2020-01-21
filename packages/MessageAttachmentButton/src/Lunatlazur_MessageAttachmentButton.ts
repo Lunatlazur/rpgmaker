@@ -114,6 +114,7 @@ interface AttachmentButton {
 
 interface Window_Message {
   _attachmentButtonManager: AttachmentButtonManager
+  _imageReservationId: number
 }
 
 interface IButtonParameter {
@@ -190,7 +191,7 @@ interface Input {
 
   const _Window_Message_windowHeight = Window_Message.prototype.windowHeight
   Window_Message.prototype.windowHeight = function() {
-    return _Window_Message_windowHeight.call(this) + attachmentButtonSize
+    return _Window_Message_windowHeight.call(this) + attachmentButtonSize - this.standardPadding() / 2
   }
 
   const _Window_Message_initMembers = Window_Message.prototype.initMembers
@@ -260,6 +261,18 @@ interface Input {
     }
     return false
   }
+
+  const _Window_Message_drawMessageFace = Window_Message.prototype.drawMessageFace
+  Window_Message.prototype.drawMessageFace = function() {
+    if (this._attachmentButtonManager.isButtonAvailable) {
+      const offsetY = (this.contentsHeight() - Window_Base._faceHeight) / 2
+      this.drawFace($gameMessage.faceName(), $gameMessage.faceIndex(), 0, offsetY);
+      ImageManager.releaseReservation(this._imageReservationId);
+    } else {
+      _Window_Message_drawMessageFace.call(this)
+    }
+  };
+
 
   function find<T> (items: T[], predicate: (item: T) => boolean): T {
     let found: T

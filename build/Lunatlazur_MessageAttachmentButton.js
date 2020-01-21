@@ -147,7 +147,7 @@
     var customButtonTextFont = JSON.parse(asString(PluginManager.parameters(pluginName), 'フォント', 'Custom button text font'));
     var _Window_Message_windowHeight = Window_Message.prototype.windowHeight;
     Window_Message.prototype.windowHeight = function () {
-        return _Window_Message_windowHeight.call(this) + attachmentButtonSize;
+        return _Window_Message_windowHeight.call(this) + attachmentButtonSize - this.standardPadding() / 2;
     };
     var _Window_Message_initMembers = Window_Message.prototype.initMembers;
     Window_Message.prototype.initMembers = function () {
@@ -209,6 +209,17 @@
         }
         return false;
     }
+    var _Window_Message_drawMessageFace = Window_Message.prototype.drawMessageFace;
+    Window_Message.prototype.drawMessageFace = function () {
+        if (this._attachmentButtonManager.isButtonAvailable) {
+            var offsetY = (this.contentsHeight() - Window_Base._faceHeight) / 2;
+            this.drawFace($gameMessage.faceName(), $gameMessage.faceIndex(), 0, offsetY);
+            ImageManager.releaseReservation(this._imageReservationId);
+        }
+        else {
+            _Window_Message_drawMessageFace.call(this);
+        }
+    };
     function find(items, predicate) {
         var found;
         items.forEach(function (item) {
