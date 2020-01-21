@@ -44,6 +44,13 @@ interface Window_BackLog extends Window_Base {
   refresh: () => void
   offset: number
 }
+interface Window_Message {
+  _nameWindow: Window_ActorName
+  _hideMessageManager: HideMessageManager
+}
+
+interface HideMessageManager {
+}
 
 interface Window_ActorName extends Window_Base {
   _text: string
