@@ -23,8 +23,8 @@
  * @help このプラグインはメッセージ送り記号をメッセージの末尾に表示するようにします。
  */
 (function () {
-    var pluginName = 'Lunatlazur_PauseSignAfterText';
-    var _Window_Message_initMembers = Window_Message.prototype.initMembers;
+    const pluginName = 'Lunatlazur_PauseSignAfterText';
+    const _Window_Message_initMembers = Window_Message.prototype.initMembers;
     Window_Message.prototype.initMembers = function () {
         this._endOfTextPosition = { x: 0, y: 0 };
         _Window_Message_initMembers.call(this);
@@ -38,7 +38,7 @@
         }
         return this._pauseSignOffset;
     };
-    var _Window_Message_onEndOfText = Window_Message.prototype.onEndOfText;
+    const _Window_Message_onEndOfText = Window_Message.prototype.onEndOfText;
     Window_Message.prototype.onEndOfText = function () {
         if (this._textState) {
             this._endOfTextPosition.x = this._textState.x + this.pauseSignOffset().x;

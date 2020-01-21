@@ -30,10 +30,10 @@
  * 非表示中に右クリックで再表示します。
  */
 (function () {
-    var pluginName = 'Lunatlazur_ToggleableMessageVisibility';
+    const pluginName = 'Lunatlazur_ToggleableMessageVisibility';
     // スペースキーを OK でなくスペースキーとして割り当てる
     Input.keyMapper[32] = 'space';
-    var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
+    const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         _Game_Interpreter_pluginCommand.apply(this, arguments);
         switch ((command || '').toUpperCase()) {
@@ -59,7 +59,7 @@
             this.hide();
         }
     }
-    var _Window_Message_initMembers = Window_Message.prototype.initMembers;
+    const _Window_Message_initMembers = Window_Message.prototype.initMembers;
     Window_Message.prototype.initMembers = function () {
         this._hideMessageManager = new HideMessageManager;
         _Window_Message_initMembers.call(this);
@@ -67,12 +67,12 @@
             this._hideMessageManager.createHideMessageButton(28);
         }
     };
-    var _Window_Message_show = Window_Message.prototype.show;
+    const _Window_Message_show = Window_Message.prototype.show;
     Window_Message.prototype.show = function () {
         _Window_Message_show.call(this);
         this._hideMessageManager.handleShow();
     };
-    var _Window_Message_hide = Window_Message.prototype.hide;
+    const _Window_Message_hide = Window_Message.prototype.hide;
     Window_Message.prototype.hide = function () {
         _Window_Message_hide.call(this);
         this._hideMessageManager.handleHide(this.subWindows());
@@ -83,7 +83,7 @@
         }
         return false;
     }
-    var _Window_Message_updateInput = Window_Message.prototype.updateInput;
+    const _Window_Message_updateInput = Window_Message.prototype.updateInput;
     Window_Message.prototype.updateInput = function () {
         if (this._hideMessageManager.isHidden) {
             return true;
@@ -94,14 +94,14 @@
         }
         return _Window_Message_updateInput.apply(this, arguments);
     };
-    var _Window_Message_update = Window_Message.prototype.update;
+    const _Window_Message_update = Window_Message.prototype.update;
     Window_Message.prototype.update = function () {
         if (this._hideMessageManager.isButtonAvailable) {
             this._hideMessageManager.handleOpennessChanged(this.isOpen(), this.x, this.y, this.width, this.height);
         }
         _Window_Message_update.call(this);
     };
-    var _Window_Message_updateWait = Window_Message.prototype.updateWait;
+    const _Window_Message_updateWait = Window_Message.prototype.updateWait;
     Window_Message.prototype.updateWait = function () {
         if (!this.isClosed() && !$gameMessage.isChoice()) {
             if (Input.isTriggered('space') || TouchInput.isCancelled()) {
@@ -122,13 +122,13 @@
                 }
             }
         }
-        var isWaiting = _Window_Message_updateWait.apply(this, arguments);
+        const isWaiting = _Window_Message_updateWait.apply(this, arguments);
         if (this._hideMessageManager.isHidden && this.visible) {
             this.hide();
         }
         return isWaiting;
     };
-    var _Window_Message_updateBackground = Window_Message.prototype.updateBackground;
+    const _Window_Message_updateBackground = Window_Message.prototype.updateBackground;
     Window_Message.prototype.updateBackground = function () {
         _Window_Message_updateBackground.call(this);
         if (this._background === 0) {
@@ -138,56 +138,71 @@
             this._hideMessageManager.disableButton();
         }
     };
-    var _Window_ChoiceList_update = Window_ChoiceList.prototype.update;
+    const _Window_ChoiceList_update = Window_ChoiceList.prototype.update;
     Window_ChoiceList.prototype.update = function () {
         if (!this.visible) {
             return;
         }
         _Window_ChoiceList_update.apply(this, arguments);
     };
-    var _Window_NumberInput_update = Window_NumberInput.prototype.update;
+    const _Window_NumberInput_update = Window_NumberInput.prototype.update;
     Window_NumberInput.prototype.update = function () {
         if (!this.visible) {
             return;
         }
         _Window_NumberInput_update.apply(this, arguments);
     };
-    var _Window_EventItem_update = Window_EventItem.prototype.update;
+    const _Window_EventItem_update = Window_EventItem.prototype.update;
     Window_EventItem.prototype.update = function () {
         if (!this.visible) {
             return;
         }
         _Window_EventItem_update.apply(this, arguments);
     };
-    var WindowVisibilityManager = /** @class */ (function () {
-        function WindowVisibilityManager() {
-        }
-        WindowVisibilityManager.setShowing = function (show) {
+    class WindowVisibilityManager {
+        static setShowing(show) {
             this._show = show;
-        };
-        WindowVisibilityManager.setHiding = function (hide) {
+        }
+        static setHiding(hide) {
             this._hide = hide;
-        };
-        WindowVisibilityManager.setToggling = function (toggle) {
+        }
+        static setToggling(toggle) {
             this._toggle = toggle;
-        };
-        WindowVisibilityManager.isShowing = function () {
+        }
+        static isShowing() {
             return this._show;
-        };
-        WindowVisibilityManager.isHiding = function () {
+        }
+        static isHiding() {
             return this._hide;
-        };
-        WindowVisibilityManager.isToggling = function () {
+        }
+        static isToggling() {
             return this._toggle;
-        };
-        WindowVisibilityManager._show = false;
-        WindowVisibilityManager._hide = false;
-        WindowVisibilityManager._toggle = false;
-        return WindowVisibilityManager;
-    }());
-    var HideMessageButton = /** @class */ (function () {
-        function HideMessageButton(size) {
-            var bitmap = new Bitmap(size, size);
+        }
+    }
+    WindowVisibilityManager._show = false;
+    WindowVisibilityManager._hide = false;
+    WindowVisibilityManager._toggle = false;
+    class HideMessageButton {
+        get x() {
+            return this._sprite.x;
+        }
+        set x(x) {
+            this._sprite.x = x;
+        }
+        get y() {
+            return this._sprite.y;
+        }
+        set y(y) {
+            this._sprite.y = y;
+        }
+        get width() {
+            return this._sprite.width;
+        }
+        get height() {
+            return this._sprite.height;
+        }
+        constructor(size) {
+            const bitmap = new Bitmap(size, size);
             bitmap.fontFace = 'GameFont';
             bitmap.fontSize = size;
             bitmap.textColor = '#ffffff';
@@ -198,118 +213,70 @@
             this._sprite.visible = false;
             SceneManager._scene.addChild(this._sprite);
         }
-        Object.defineProperty(HideMessageButton.prototype, "x", {
-            get: function () {
-                return this._sprite.x;
-            },
-            set: function (x) {
-                this._sprite.x = x;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(HideMessageButton.prototype, "y", {
-            get: function () {
-                return this._sprite.y;
-            },
-            set: function (y) {
-                this._sprite.y = y;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(HideMessageButton.prototype, "width", {
-            get: function () {
-                return this._sprite.width;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(HideMessageButton.prototype, "height", {
-            get: function () {
-                return this._sprite.height;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        HideMessageButton.prototype.hide = function () {
+        hide() {
             this._sprite.visible = false;
-        };
-        HideMessageButton.prototype.show = function () {
+        }
+        show() {
             this._sprite.visible = true;
-        };
-        HideMessageButton.prototype.adjust = function (right, top) {
+        }
+        adjust(right, top) {
             this.x = right - this.width - 4;
             this.y = top + 4;
-        };
-        HideMessageButton.prototype.isPointInside = function (x, y) {
+        }
+        isPointInside(x, y) {
             return !!(x >= this.x && x < this.x + this.width && y >= this.y && y < this.y + this.height);
-        };
-        return HideMessageButton;
-    }());
-    var HideMessageManager = /** @class */ (function () {
-        function HideMessageManager() {
+        }
+    }
+    class HideMessageManager {
+        get isHidden() {
+            return this._isHidden;
+        }
+        get isOpened() {
+            return this._isOpened;
+        }
+        get isButtonAvailable() {
+            return this._isButtonAvailable;
+        }
+        constructor() {
             this._hiddenSubWindows = [];
             this._hideMessageButton = null;
             this._isOpened = false;
             this._isHidden = false;
             this._isButtonAvailable = false;
         }
-        Object.defineProperty(HideMessageManager.prototype, "isHidden", {
-            get: function () {
-                return this._isHidden;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(HideMessageManager.prototype, "isOpened", {
-            get: function () {
-                return this._isOpened;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(HideMessageManager.prototype, "isButtonAvailable", {
-            get: function () {
-                return this._isButtonAvailable;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        HideMessageManager.prototype.createHideMessageButton = function (size) {
+        createHideMessageButton(size) {
             this._hideMessageButton = new HideMessageButton(size);
             this.enableButton();
-        };
-        HideMessageManager.prototype.enableButton = function () {
+        }
+        enableButton() {
             this._isButtonAvailable = true;
-        };
-        HideMessageManager.prototype.disableButton = function () {
+        }
+        disableButton() {
             this._isButtonAvailable = false;
-        };
-        HideMessageManager.prototype.handleShow = function () {
+        }
+        handleShow() {
             if (this.isButtonAvailable) {
                 this._hideMessageButton.show();
             }
-            this._hiddenSubWindows.forEach(function (subWindow) { return subWindow.show(); });
+            this._hiddenSubWindows.forEach((subWindow) => subWindow.show());
             this._hiddenSubWindows = [];
             this._isHidden = false;
-        };
-        HideMessageManager.prototype.handleHide = function (subWindows) {
-            var _this = this;
+        }
+        handleHide(subWindows) {
             if (this.isButtonAvailable) {
                 this._hideMessageButton.hide();
             }
-            subWindows.forEach(function (subWindow) {
+            subWindows.forEach((subWindow) => {
                 if (subWindow.visible) {
                     subWindow.hide();
-                    if (_this._hiddenSubWindows.indexOf(subWindow) === -1) {
-                        _this._hiddenSubWindows.push(subWindow);
+                    if (this._hiddenSubWindows.indexOf(subWindow) === -1) {
+                        this._hiddenSubWindows.push(subWindow);
                     }
                 }
             });
             this._isHidden = true;
-        };
-        HideMessageManager.prototype.handleOpennessChanged = function (opened, x, y, width, height) {
+        }
+        handleOpennessChanged(opened, x, y, width, height) {
             if (!this.isButtonAvailable) {
                 return;
             }
@@ -323,26 +290,25 @@
                     this.handleClosing();
                 }
             }
-        };
-        HideMessageManager.prototype.handleOpened = function (x, y, width, height) {
+        }
+        handleOpened(x, y, width, height) {
             this._isOpened = true;
             if (this.isButtonAvailable) {
                 this._hideMessageButton.adjust(width, y);
                 this._hideMessageButton.show();
             }
-        };
-        HideMessageManager.prototype.handleClosing = function () {
+        }
+        handleClosing() {
             this._isOpened = false;
             if (this.isButtonAvailable) {
                 this._hideMessageButton.hide();
             }
-        };
-        HideMessageManager.prototype.isHidingTriggered = function () {
+        }
+        isHidingTriggered() {
             if (this.isButtonAvailable && this._hideMessageButton.width) {
                 return this._hideMessageButton.isPointInside(TouchInput.x, TouchInput.y);
             }
             return false;
-        };
-        return HideMessageManager;
-    }());
+        }
+    }
 })();
