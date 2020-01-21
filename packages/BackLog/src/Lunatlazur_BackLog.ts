@@ -21,6 +21,9 @@
  * @plugindesc バックログ表示プラグイン
  * @author あおいたく
  * @help このプラグインはバックログを表示できるようにします。
+ *
+ * 名前ウィンドウ表示プラグイン、メッセージ表示継続プラグインと同時に使う場合は、
+ * 本プラグインを上記プラグインよりも下に配置してください。
  */
 
 interface IBackLogRow {
@@ -59,6 +62,39 @@ interface Scene_Map {
   const pluginName = 'Lunatlazur_BackLog'
   const maxNumberOfMessages = 100
 
+  function getValue (params: { [key: string]: any }, ...names: string[]) {
+    let found: string = null
+    names.forEach((name) => {
+      if (!!params[name]) {
+        found = params[name]
+      }
+    })
+    return found
+  }
+
+  function asNumber (params: { [key: string]: any }, ...names: string[]) {
+    return parseInt(getValue(params, ...names), 10)
+  }
+
+  const actorNameWindowPlugin: {
+    enabled: boolean
+    params?: {
+      textColor: number
+      horizontalOffset: number
+    }
+  } = {
+    enabled: false,
+  }
+
+  if (PluginManager._scripts.indexOf('Lunatlazur_ActorNameWindow') > 0) {
+    actorNameWindowPlugin.enabled = true
+    const parameters = PluginManager.parameters('Lunatlazur_ActorNameWindow') 
+    actorNameWindowPlugin.params = {
+      textColor: asNumber(parameters, 'テキストカラー'),
+      horizontalOffset: asNumber(parameters, '水平位置'),
+    }
+  }
+
   const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
     _Game_Interpreter_pluginCommand.apply(this, arguments)
@@ -79,9 +115,27 @@ interface Scene_Map {
       rows: [],
     }
     private static _hiddenWindows: Window_Base[] = []
-    public static backLogWindow: Window_BackLog | null = null
-    private static _enabled = true;
-    private static _acceptable = true;
+    private static _enabled = true
+    private static _busy = false
+
+    public static initialize () {
+      this._backLog = { rows: [] }
+      this._hiddenWindows = []
+      this._enabled = true
+      this._busy = false
+    }
+
+    public static makeSaveContents () {
+      return {
+        enabled: this._enabled,
+      }
+    }
+
+    public static extractSaveContents (contents: ISaveContents & { backLogState?: { enabled: boolean } }) {
+      if (contents.backLogState) {
+        this._enabled = contents.backLogState.enabled
+      }
+    }
 
     public static get numberOfRows () {
       return this._backLog.rows.length
@@ -126,15 +180,34 @@ interface Scene_Map {
       return [...this._backLog.rows].reverse().slice(offset, offset + length)
     }
 
-    public static isAcceptable () {
-      return this._acceptable
+    public static isBusy () {
+      return this._busy
     }
 
     public static setBusy (busy: boolean) {
-      this._acceptable = busy
+      this._busy = busy
     }
   }
 
+  const DataManager_createGameObjects = DataManager.createGameObjects 
+  DataManager.createGameObjects = function() {
+    DataManager_createGameObjects.apply(this, arguments)
+    BackLogManager.initialize()
+  }
+
+  const DataManager_makeSaveContents = DataManager.makeSaveContents
+  DataManager.makeSaveContents = function() {
+    const contents = DataManager_makeSaveContents.call(this)
+    contents.backLogState = BackLogManager.makeSaveContents()
+    return contents
+  }
+
+  const DataManager_extractSaveContents = DataManager.extractSaveContents
+  DataManager.extractSaveContents = function(contents) {
+    DataManager_extractSaveContents.apply(this, arguments)
+    BackLogManager.extractSaveContents(contents)
+  }
+  
   const Scene_Map_createDisplayObjects = Scene_Map.prototype.createDisplayObjects
   Scene_Map.prototype.createDisplayObjects = function() {
     Scene_Map_createDisplayObjects.call(this)
@@ -184,7 +257,7 @@ interface Scene_Map {
   const Window_Message_startMessage = Window_Message.prototype.startMessage
   Window_Message.prototype.startMessage = function () {
     Window_Message_startMessage.call(this)
-    if (BackLogManager.isAcceptable()) {
+    if (BackLogManager.isBusy()) {
       return
     }
     BackLogManager.setBusy(true)
@@ -244,7 +317,12 @@ interface Scene_Map {
 
     public rowHeight () {
       const padding = 18
-      const rowsPerMessage = this.messageWindow().numVisibleRows() + (this.messageWindow()._nameWindow ? 1 : 0)
+      /* 2カラムレイアウト
+      const rowsPerMessage = this.messageWindow().numVisibleRows()
+      */
+      //* シングルカラムレイアウト
+      const rowsPerMessage = this.messageWindow().numVisibleRows() + (actorNameWindowPlugin.enabled ? 1 : 0)
+      //*/
       return this.lineHeight() * rowsPerMessage + padding * 2
     }
 
@@ -407,10 +485,24 @@ interface Scene_Map {
       rows.forEach ((row, index) => {
         const y = this.contentsHeight() - marginY - this.rowHeight() * (index + 1)
         this.contents.fillRect(0, y + marginY, this.contentsWidth(), 2, this.textColor(8))
-        if (this.messageWindow()._nameWindow) {
-          this.drawTextEx(row.actorName, x, y + this.lineHeight())
+        /* 2カラムレイアウト
+        if (actorNameWindowPlugin.enabled) {
+          if (row.actorName) {
+            this.changeTextColor(this.textColor(actorNameWindowPlugin.params.textColor))
+            this.drawText(row.actorName, x, y + this.lineHeight())
+          }
+          this.drawTextEx(row.text, x + 168, y + this.lineHeight())
+        } else {
+          this.drawTextEx(row.text, x, y + this.lineHeight())
         }
-        this.drawTextEx(row.text, x, y + this.lineHeight() * (this.messageWindow()._nameWindow ? 2 : 1))
+        /*/
+        //* シングルカラムレイアウト
+        if (actorNameWindowPlugin.enabled && row.actorName) {
+          this.changeTextColor(this.textColor(actorNameWindowPlugin.params.textColor))
+          this.drawText(row.actorName, x, y + this.lineHeight())
+        }
+        this.drawTextEx(row.text, x, y + this.lineHeight() * (actorNameWindowPlugin.enabled ? 2 : 1))
+        //*/
       })
     }
   }

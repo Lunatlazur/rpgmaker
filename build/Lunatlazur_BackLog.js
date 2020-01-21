@@ -21,6 +21,9 @@
  * @plugindesc バックログ表示プラグイン
  * @author あおいたく
  * @help このプラグインはバックログを表示できるようにします。
+ *
+ * 名前ウィンドウ表示プラグイン、メッセージ表示継続プラグインと同時に使う場合は、
+ * 本プラグインを上記プラグインよりも下に配置してください。
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -35,6 +38,37 @@ var __extends = (this && this.__extends) || (function () {
 (function () {
     var pluginName = 'Lunatlazur_BackLog';
     var maxNumberOfMessages = 100;
+    function getValue(params) {
+        var names = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            names[_i - 1] = arguments[_i];
+        }
+        var found = null;
+        names.forEach(function (name) {
+            if (!!params[name]) {
+                found = params[name];
+            }
+        });
+        return found;
+    }
+    function asNumber(params) {
+        var names = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            names[_i - 1] = arguments[_i];
+        }
+        return parseInt(getValue.apply(void 0, [params].concat(names)), 10);
+    }
+    var actorNameWindowPlugin = {
+        enabled: false,
+    };
+    if (PluginManager._scripts.indexOf('Lunatlazur_ActorNameWindow') > 0) {
+        actorNameWindowPlugin.enabled = true;
+        var parameters = PluginManager.parameters('Lunatlazur_ActorNameWindow');
+        actorNameWindowPlugin.params = {
+            textColor: asNumber(parameters, 'テキストカラー'),
+            horizontalOffset: asNumber(parameters, '水平位置'),
+        };
+    }
     var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         _Game_Interpreter_pluginCommand.apply(this, arguments);
@@ -52,6 +86,22 @@ var __extends = (this && this.__extends) || (function () {
     var BackLogManager = /** @class */ (function () {
         function BackLogManager() {
         }
+        BackLogManager.initialize = function () {
+            this._backLog = { rows: [] };
+            this._hiddenWindows = [];
+            this._enabled = true;
+            this._busy = false;
+        };
+        BackLogManager.makeSaveContents = function () {
+            return {
+                enabled: this._enabled,
+            };
+        };
+        BackLogManager.extractSaveContents = function (contents) {
+            if (contents.backLogState) {
+                this._enabled = contents.backLogState.enabled;
+            }
+        };
         Object.defineProperty(BackLogManager, "numberOfRows", {
             get: function () {
                 return this._backLog.rows.length;
@@ -102,21 +152,36 @@ var __extends = (this && this.__extends) || (function () {
         BackLogManager.scrolledContent = function (offset, length) {
             return this._backLog.rows.slice().reverse().slice(offset, offset + length);
         };
-        BackLogManager.isAcceptable = function () {
-            return this._acceptable;
+        BackLogManager.isBusy = function () {
+            return this._busy;
         };
         BackLogManager.setBusy = function (busy) {
-            this._acceptable = busy;
+            this._busy = busy;
         };
         BackLogManager._backLog = {
             rows: [],
         };
         BackLogManager._hiddenWindows = [];
-        BackLogManager.backLogWindow = null;
         BackLogManager._enabled = true;
-        BackLogManager._acceptable = true;
+        BackLogManager._busy = false;
         return BackLogManager;
     }());
+    var DataManager_createGameObjects = DataManager.createGameObjects;
+    DataManager.createGameObjects = function () {
+        DataManager_createGameObjects.apply(this, arguments);
+        BackLogManager.initialize();
+    };
+    var DataManager_makeSaveContents = DataManager.makeSaveContents;
+    DataManager.makeSaveContents = function () {
+        var contents = DataManager_makeSaveContents.call(this);
+        contents.backLogState = BackLogManager.makeSaveContents();
+        return contents;
+    };
+    var DataManager_extractSaveContents = DataManager.extractSaveContents;
+    DataManager.extractSaveContents = function (contents) {
+        DataManager_extractSaveContents.apply(this, arguments);
+        BackLogManager.extractSaveContents(contents);
+    };
     var Scene_Map_createDisplayObjects = Scene_Map.prototype.createDisplayObjects;
     Scene_Map.prototype.createDisplayObjects = function () {
         Scene_Map_createDisplayObjects.call(this);
@@ -165,7 +230,7 @@ var __extends = (this && this.__extends) || (function () {
     Window_Message.prototype.startMessage = function () {
         var _this = this;
         Window_Message_startMessage.call(this);
-        if (BackLogManager.isAcceptable()) {
+        if (BackLogManager.isBusy()) {
             return;
         }
         BackLogManager.setBusy(true);
@@ -212,7 +277,12 @@ var __extends = (this && this.__extends) || (function () {
         };
         Window_BackLog.prototype.rowHeight = function () {
             var padding = 18;
-            var rowsPerMessage = this.messageWindow().numVisibleRows() + (this.messageWindow()._nameWindow ? 1 : 0);
+            /* 2カラムレイアウト
+            const rowsPerMessage = this.messageWindow().numVisibleRows()
+            */
+            //* シングルカラムレイアウト
+            var rowsPerMessage = this.messageWindow().numVisibleRows() + (actorNameWindowPlugin.enabled ? 1 : 0);
+            //*/
             return this.lineHeight() * rowsPerMessage + padding * 2;
         };
         Window_BackLog.prototype.numVisibleRows = function () {
@@ -364,10 +434,24 @@ var __extends = (this && this.__extends) || (function () {
             rows.forEach(function (row, index) {
                 var y = _this.contentsHeight() - marginY - _this.rowHeight() * (index + 1);
                 _this.contents.fillRect(0, y + marginY, _this.contentsWidth(), 2, _this.textColor(8));
-                if (_this.messageWindow()._nameWindow) {
-                    _this.drawTextEx(row.actorName, x, y + _this.lineHeight());
+                /* 2カラムレイアウト
+                if (actorNameWindowPlugin.enabled) {
+                  if (row.actorName) {
+                    this.changeTextColor(this.textColor(actorNameWindowPlugin.params.textColor))
+                    this.drawText(row.actorName, x, y + this.lineHeight())
+                  }
+                  this.drawTextEx(row.text, x + 168, y + this.lineHeight())
+                } else {
+                  this.drawTextEx(row.text, x, y + this.lineHeight())
                 }
-                _this.drawTextEx(row.text, x, y + _this.lineHeight() * (_this.messageWindow()._nameWindow ? 2 : 1));
+                /*/
+                //* シングルカラムレイアウト
+                if (actorNameWindowPlugin.enabled && row.actorName) {
+                    _this.changeTextColor(_this.textColor(actorNameWindowPlugin.params.textColor));
+                    _this.drawText(row.actorName, x, y + _this.lineHeight());
+                }
+                _this.drawTextEx(row.text, x, y + _this.lineHeight() * (actorNameWindowPlugin.enabled ? 2 : 1));
+                //*/
             });
         };
         return Window_BackLog;
