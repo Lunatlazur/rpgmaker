@@ -24,10 +24,10 @@
  * メッセージウィンドウを自動で閉じずに、表示したままにできるようにします。
  * メッセージウィンドウを表示したままピクチャを表示・移動するときなどに便利です。
  *
- * == プラグインコマンド一覧 ==
+ * [プラグインコマンド一覧]
  *
- * KEEP_MESSAGE_VISIBLE [ON|OFF]
- * メッセージの表示を継続 [ON|OFF]
+ * KEEP_MESSAGE_VISIBLE ON|OFF
+ * メッセージの表示を継続 ON|OFF
  *
  * 例: KEEP_MESSAGE_VISIBLE ON
  *
