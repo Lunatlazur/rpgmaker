@@ -99,8 +99,6 @@ interface Game_Screen {
     }
   }
 
-  let showFast = false
-
   const _Window_Message_updateWait = Window_Message.prototype.updateWait
   Window_Message.prototype.updateWait = function() {
     if (!this.isClosed() && !$gameMessage.isChoice() && this.visible) {

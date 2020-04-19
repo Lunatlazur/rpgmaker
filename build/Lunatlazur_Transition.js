@@ -58,41 +58,48 @@
  * 　フェードにかける時間 nフレーム
  * 　　フェードにかける時間をフレーム数で指定する
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var PIXI;
 (function (PIXI) {
-    var filters;
+    let filters;
     (function (filters) {
-        var ColorThresholdFilter = /** @class */ (function (_super) {
-            __extends(ColorThresholdFilter, _super);
-            function ColorThresholdFilter() {
-                var _this = this;
-                var fragmentSrc = "varying vec2 vTextureCoord;\nuniform sampler2D uSampler;\nuniform float threshold;\nuniform bool white;\nuniform bool fadingIn;\nvoid main(void) {\n    vec4 color = texture2D(uSampler, vTextureCoord);\n    float v = 0.298912 * color.r + 0.586611 * color.g + 0.114478 * color.b;\n    if (white) {\n        if (fadingIn) {\n            gl_FragColor = vec4(vec3(threshold - v), 0.0);\n        } else {\n            gl_FragColor = vec4(vec3(1.0 - (v - threshold)), 0.0);\n        }\n    } else {\n        if (fadingIn) {\n            gl_FragColor = vec4(vec3(0.0), threshold - v);\n        } else {\n            gl_FragColor = vec4(vec3(0.0), 1.0 - (v - threshold));\n        }\n    }\n}";
-                var uniforms = {
+        class ColorThresholdFilter extends PIXI.Filter {
+            constructor() {
+                const fragmentSrc = `varying vec2 vTextureCoord;
+uniform sampler2D uSampler;
+uniform float threshold;
+uniform bool white;
+uniform bool fadingIn;
+void main(void) {
+    vec4 color = texture2D(uSampler, vTextureCoord);
+    float v = 0.298912 * color.r + 0.586611 * color.g + 0.114478 * color.b;
+    if (white) {
+        if (fadingIn) {
+            gl_FragColor = vec4(vec3(threshold - v), 0.0);
+        } else {
+            gl_FragColor = vec4(vec3(1.0 - (v - threshold)), 0.0);
+        }
+    } else {
+        if (fadingIn) {
+            gl_FragColor = vec4(vec3(0.0), threshold - v);
+        } else {
+            gl_FragColor = vec4(vec3(0.0), 1.0 - (v - threshold));
+        }
+    }
+}`;
+                const uniforms = {
                     threshold: { type: '1f', value: 0.5 },
                     white: { type: 'b', value: false },
                     fadingIn: { type: 'b', value: false },
                 };
-                _this = _super.call(this, null, fragmentSrc, uniforms) || this;
-                return _this;
+                super(null, fragmentSrc, uniforms);
             }
-            return ColorThresholdFilter;
-        }(PIXI.Filter));
+        }
         filters.ColorThresholdFilter = ColorThresholdFilter;
     })(filters = PIXI.filters || (PIXI.filters = {}));
 })(PIXI || (PIXI = {}));
 (function () {
-    var pluginName = 'Lunatlazur_Transition';
-    var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
+    const pluginName = 'Lunatlazur_Transition';
+    const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         _Game_Interpreter_pluginCommand.call(this, command, args);
         switch (command) {
@@ -105,8 +112,8 @@ var PIXI;
         }
     };
     function _Game_Interpreter_processTransitionCommand(isFadingIn, args) {
-        var _a = _Game_Interpreter_parseTransitionParameters.call(this, args), isFilledWhite = _a.isFilledWhite, name = _a.name, duration = _a.duration;
-        var spriteset = SceneManager._scene._spriteset;
+        const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args);
+        const spriteset = SceneManager._scene._spriteset;
         if (spriteset) {
             if (isFilledWhite) {
                 spriteset._fadeSprite.setWhite();
@@ -127,12 +134,12 @@ var PIXI;
         }
     }
     function _Game_Interpreter_parseTransitionParameters(args) {
-        var fillOrNameOrDurationOrNone = args[0], nameOrDurationOrNone = args[1], durationOrNone = args[2];
-        var parameters = {
+        let [fillOrNameOrDurationOrNone, nameOrDurationOrNone, durationOrNone] = args;
+        const parameters = {
             isFilledWhite: false,
             duration: _Game_Interpreter_defaultFadeSpeed.call(this),
         };
-        var fill = fillOrNameOrDurationOrNone;
+        const fill = fillOrNameOrDurationOrNone;
         if (fill === '白' || fill === 'white') {
             parameters.isFilledWhite = true;
         }
@@ -140,8 +147,8 @@ var PIXI;
             nameOrDurationOrNone = fillOrNameOrDurationOrNone;
             fillOrNameOrDurationOrNone = null;
         }
-        var duration = durationOrNone || nameOrDurationOrNone;
-        var matched = duration.match(/(\d+)(?:フレーム)?/);
+        const duration = durationOrNone || nameOrDurationOrNone;
+        const matched = duration.match(/(\d+)(?:フレーム)?/);
         if (matched) {
             parameters.duration = parseInt(matched[1], 10);
             if (durationOrNone) {
@@ -178,7 +185,7 @@ var PIXI;
             TransitionManager.fadeSpeed = null;
         }
     }
-    var _Game_Interpreter_defaultFadeSpeed = Game_Interpreter.prototype.fadeSpeed;
+    const _Game_Interpreter_defaultFadeSpeed = Game_Interpreter.prototype.fadeSpeed;
     Game_Interpreter.prototype.fadeSpeed = function () {
         if (TransitionManager.fadeSpeed !== null) {
             return TransitionManager.fadeSpeed;
@@ -188,52 +195,44 @@ var PIXI;
     Game_Screen.prototype.startTransition = function (isFadingIn, isFilledWhite, name, duration) {
         TransitionManager.setTransition(isFadingIn, isFilledWhite, name, duration);
     };
-    var _Spriteset_Base_createUpperLayer = Spriteset_Base.prototype.createUpperLayer;
+    const _Spriteset_Base_createUpperLayer = Spriteset_Base.prototype.createUpperLayer;
     Spriteset_Base.prototype.createUpperLayer = function () {
         _Spriteset_Base_createUpperLayer.call(this);
         this._transitionSprite = new Sprite_Transition();
         this.addChild(this._transitionSprite);
     };
-    var TransitionManager = /** @class */ (function () {
-        function TransitionManager() {
-        }
-        TransitionManager.transition = function () {
+    class TransitionManager {
+        static transition() {
             return this._transition;
-        };
-        TransitionManager.setTransition = function (isFadingIn, isFilledWhite, name, duration) {
+        }
+        static setTransition(isFadingIn, isFilledWhite, name, duration) {
             this._transition = new Game_Transition(isFadingIn, isFilledWhite, name, duration);
-        };
-        TransitionManager.clearTransition = function () {
+        }
+        static clearTransition() {
             this._transition = null;
-        };
-        TransitionManager.load = function (filename, hue) {
+        }
+        static load(filename, hue) {
             return ImageManager.loadBitmap('img/transitions/', filename, hue, true);
-        };
-        TransitionManager.fadeSpeed = null;
-        return TransitionManager;
-    }());
-    var Game_Transition = /** @class */ (function () {
-        function Game_Transition(isFadingIn, isFilledWhite, name, duration) {
+        }
+    }
+    TransitionManager.fadeSpeed = null;
+    class Game_Transition {
+        constructor(isFadingIn, isFilledWhite, name, duration) {
             this.isFadingIn = isFadingIn;
             this.isFilledWhite = isFilledWhite;
             this.name = name;
             this.duration = duration;
             this.durationRest = duration;
         }
-        Game_Transition.prototype.update = function () {
+        update() {
             if (this.durationRest > 0) {
                 this.durationRest -= 1;
             }
-        };
-        return Game_Transition;
-    }());
-    var Sprite_Transition = /** @class */ (function (_super) {
-        __extends(Sprite_Transition, _super);
-        function Sprite_Transition() {
-            return _super !== null && _super.apply(this, arguments) || this;
         }
-        Sprite_Transition.prototype.initialize = function () {
-            _super.prototype.initialize.call(this);
+    }
+    class Sprite_Transition extends Sprite_Base {
+        initialize() {
+            super.initialize();
             this._duration = 0;
             this._durationRest = 0;
             this._transitionName = '';
@@ -248,22 +247,22 @@ var PIXI;
             this._fillBitmap = new Bitmap(Graphics.width, Graphics.height);
             this._fillBitmap.fillAll('white');
             this.bitmap = this._fillBitmap;
-        };
-        Sprite_Transition.prototype.transition = function () {
+        }
+        transition() {
             return TransitionManager.transition();
-        };
-        Sprite_Transition.prototype.update = function () {
-            _super.prototype.update.call(this);
+        }
+        update() {
+            super.update();
             this.updateBitmap();
             if (this.visible) {
                 this.updateTransition();
                 this.updateFilter();
             }
-        };
-        Sprite_Transition.prototype.updateBitmap = function () {
-            var transition = this.transition();
+        }
+        updateBitmap() {
+            const transition = this.transition();
             if (transition) {
-                var transitionName = transition.name;
+                const transitionName = transition.name;
                 if (this._transitionName !== transitionName) {
                     this._transitionName = transitionName;
                     this.loadBitmap();
@@ -275,9 +274,9 @@ var PIXI;
                 this.bitmap = this._fillBitmap;
                 this.visible = false;
             }
-        };
-        Sprite_Transition.prototype.updateTransition = function () {
-            var transition = this.transition();
+        }
+        updateTransition() {
+            const transition = this.transition();
             if (transition) {
                 transition.update();
                 this._duration = transition.duration;
@@ -293,38 +292,32 @@ var PIXI;
                     TransitionManager.clearTransition();
                 }
             }
-        };
-        Sprite_Transition.prototype.updateFilter = function () {
+        }
+        updateFilter() {
             if (this._durationRest > 0) {
-                var threshold = (this._durationRest * 2) / this._duration;
+                const threshold = (this._durationRest * 2) / this._duration;
                 this._thresholdFilter.uniforms.threshold = (this._isFadingIn ? threshold : 1.0 - threshold);
             }
-        };
-        Sprite_Transition.prototype.loadBitmap = function () {
+        }
+        loadBitmap() {
             this.bitmap = TransitionManager.load(this._transitionName);
-        };
-        return Sprite_Transition;
-    }(Sprite_Base));
-    var Game_Interpreter_requestImages = Game_Interpreter.requestImages;
+        }
+    }
+    const Game_Interpreter_requestImages = Game_Interpreter.requestImages;
     Game_Interpreter.requestImages = function (list, commonList) {
-        var _this = this;
         if (!list) {
             return;
         }
-        list.filter(function (_a) {
-            var code = _a.code;
-            return code === 356;
-        }).forEach(function (_a) {
-            var parameters = _a.parameters;
-            var args = parameters[0].split(' ');
-            var command = args.shift();
+        list.filter(({ code }) => code === 356).forEach(({ parameters }) => {
+            const args = parameters[0].split(' ');
+            const command = args.shift();
             if (command === 'fadein' ||
                 command === 'フェードイン' ||
                 command === 'fadeout' ||
                 command === 'フェードアウト') {
-                var _b = _Game_Interpreter_parseTransitionParameters.call(_this, args), isFilledWhite = _b.isFilledWhite, name_1 = _b.name, duration = _b.duration;
-                if (name_1) {
-                    ImageManager.requestBitmap('img/transitions/', name_1, 0, true);
+                const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args);
+                if (name) {
+                    ImageManager.requestBitmap('img/transitions/', name, 0, true);
                 }
             }
         });

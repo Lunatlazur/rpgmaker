@@ -15,7 +15,224 @@
 /*:
  * @plugindesc Manage visual novel style character sprite
  * @author Taku Aoi
- * @help
+ * @help This plugin provides a function to display the standing picture of the
+ * character.
+ *
+ * [Usage]
+ *
+ * 1. Place a standing picture file with the following format in the Picture folder.
+ *
+ *    characterA1.png
+ *    characterA2.png
+ *    characterA3.png
+ *    characterA4.png
+ *    characterA5.png
+ *    characterB1.png
+ *    characterB2.png
+ *    :
+ *    :
+ * 2. Create a standing picture definition file in the Data folder namedTachie.csv
+ *    in the following format.
+ *
+ *    characterA, CharactarA, smile, anger, disapointment, discontent
+ *    characterB, CharacterB, smile, anger, disapointment, discontent
+ *    :
+ *    :
+ *
+ *  - In the 1st column, specify the part obtained by removing the extension and
+ *    the number at the end from the standing picture image file name placed in the
+ *    Picture folder.
+ *  - The 2nd column is the name of the character.
+ *    Use this name when specifying the standing picture file from the plugin
+ *    command.
+ *  - The 3rd and subsequent columns are the names of the expressions in the
+ *    standing picture image file.
+ *    Use this name when specifying facial expressions from plugin commands.
+ *    Please name the expression difference after character image numbered in 2.
+ *    (Character image numbered in 1 is used when expression is not specified.)
+ *
+ *    In the above example, characterA2.png is set to smile for character A,
+ *    and characterA3.png is set to anger for character A.
+ *
+ * 3. Input the standing picture display command to the plug-in command to display
+ *    the standing picture. Refer to the following plug-in command list for details
+ *    of plug-in commands.
+ *
+ * [Plug-in command list]
+ *
+ * [SHOW_TACHIE]
+ * SHOW_TACHIE [character name] [expression] [position] [distance]
+ *   [x] [y] [slide-x] [slide-y] [duration] [wait]
+ *
+ * Show standing picture.
+ *
+ * [character name] string
+ *   The name of the character set in the standing picture definition file.
+ * [expression] string
+ *   Expression of character set in standing picture definition file.
+ *   If unspecified, the expression of the character numbered 1 will be used.
+ * [position] left | center | right
+ *   Set X coordinate of standing picture according to position parameter.
+ *   If unspecified, set to center position.
+ * [distance] near | middle | far
+ *   Set the magnification and Y coordinate of the standing picture to values
+ *   ​​according to the distance parameter.
+ *   If unspecified, set to middle distance.
+ * [x] x:%d
+ *   Add specified value to X coordinate of standing picture.
+ * [y] y:%d
+ *   Add specified number to Y coordinate of standing picture.
+ * [slide-x] slide-x:%d
+ *   Subtract the specified value from the X coordinate at the start of standing
+ *   picture display.
+ * [slide-y] slide-y:%d
+ *   Subtract  the specified value from the Y coordinate at the start of standing
+ *   picture display.
+ * [duration] %dF
+ *   Specify the display time in frames.
+ *   If unspecified, it will be displayed instantly.
+ * [wait] wait | no-wait
+ *   Wait until display is complete.
+ *   If unspecified, set to no wait.
+ *   If duration is unspecified, it should be ignored.
+ *
+ * [Call example]
+ *
+ * SHOW_TACHIE characterA near
+ *   Character A is instantly displayed in the center of the screen with expression
+ *   numbered in 1 at a near distance.
+ *
+ * SHOW_TACHIE characterA expression2 left x:5 y:-5 slide-x:20 60F wait
+ *   Character A is displayed with a expression numbered in 2 at the middle distance
+ *   for 60 frames, with sliding 20px from right to the position shifted 5px left and
+ *   5px upward from left side of screen.
+ *   Wait until display is complete.
+ *
+ * [CHANGE_TACHIE]
+ * CHANGE_TACHIE [character name before change] [character name after change]
+ *   [expression] [duration] [wait]
+ *
+ * Change the standing picture.
+ * Mainly used to switch between facial expression differences and costume
+ * differences.
+ *
+ * [character name before change] string
+ *   The name of the character set in the standing picture definition file.
+ * [character name after change] string
+ *   The name of the character set in the standing picture definition file.
+ *   Use the same expression set as the current character if not specified.
+ * [expression] string
+ *   Expression of character set in standing picture definition file
+ *   If unspecified, set to expression numbered in 1.
+ * [duration] n%d
+ *   Specify the display time in frames.
+ *   If unspecified, it will be displayed instantly.
+ * [wait] wait | no-wait
+ *   Wait until display is complete.
+ *   If unspecified, set to no wait.
+ *   If duration is unspecified, it should be ignored.
+ *
+ * [Call example]
+ *
+ * CHANGE_TACHIE characterA expression2 30F
+ *   Change character A to expression numbered in 2 for 30 frames.
+ *
+ * CHANGE_TACHIE characterA characterB 30F
+ *   Change character A to expression numbered in 1 of character B for 30 frames.
+ *
+ * [MOVE_TACHIE]
+ * MOVE_TACHIE [character name] [position] [x] [y] [duration] [wait]
+ *
+ * Move the standing picture.
+ *
+ * [character name] String
+ *   The name of the character set in the standing picture definition file
+ * [position] Left | Middle | Right
+ *   Set X coordinate of standing picture according to position
+ *   If unspecified, set to center
+ * [x] x:%d
+ *   Add specified value to X coordinate of standing picture.
+ * [y] y:%d
+ *   Add specified number to Y coordinate of standing picture.
+ * [duration] %dF
+ *   Specify the display time in frames.
+ *   If unspecified, it will be moved instantly.
+ * [wait] wait | no-wait
+ *   Wait until display is complete.
+ *   If unspecified, set to no wait.
+ *   If duration is unspecified, it should be ignored.
+ *
+ * [Call example]
+ *
+ * TACHIE_MOVE characterA right x:-15
+ *   Move character A to the position shifted 15px rightward on the right side
+ *   of the screen for 30 frames.
+ *
+ * [ERASE_TACHIE]
+ * ERASE_TACHIE [character name] [slide-x] [slide-y] [duration] [wait]
+ *
+ * Erase standing picture.
+ *
+ * [character name] String
+ *   The name of the character set in the standing picture definition file
+ * [slide-x] slide-x:%d
+ *   Subtract the specified value from the X coordinate at the start of standing
+ *   picture display.
+ * [slide-y] slide-y:%d
+ *   Subtract the specified value from the Y coordinate at the start of standing
+ *   picture display.
+ * [duration] %dF
+ *   Specify the display time in frames.
+ *   If unspecified, it will be moved instantly.
+ * [wait] wait | no-wait
+ *   Wait until display is complete.
+ *   If unspecified, set to no wait.
+ *   If duration is unspecified, it should be ignored.
+ *
+ * [Call example]
+ *
+ * ERASE_TACHIE characterA 30f
+ *   Delete characterA for 30 frames.
+ *
+ * [FAQ]
+ *
+ * Q. Standing picture is not displayed even though the plug-in command is correct.
+ * A. Even if the plugin is enabled, the plugin command will not be recognized
+ *    unless the project is saved. Save the project and try again.
+ *
+ * Q. I want to change character's expression.
+ * A. Use CHANGE_TACHIE command.
+ *
+ * Q. I want to change the distance of the displayed character.
+ * A. Combine ERASE_TACHIE and CHANGE_TACHIE.
+ *
+ * Q. Can't specify transparency.
+ * A. Unimplemented function. See upcoming implementation plans.
+ *
+ * Q. I want to display multiple characters at the same distance and position.
+ * A. Unimplemented function. See upcoming implementation plans.
+ *
+ * Q. I want to control the display order of characters.
+ * A. Unimplemented function. See upcoming implementation plans.
+ *
+ * [Upcoming implementation plans]
+ * - Transparency specification when displaying and moving
+ *   Transparency can be specified by SHOW_TACHIE / MOVE_TACHIE command.
+ *
+ * - Display multiple characters at the same distance and same position
+ *   Multiple characters can be placed at the same distance and in the same
+ *   position.
+ *
+ * - Control of display order
+ *   Character display order can be explicitly specified.
+ *
+ * - Supports preloading of images specified by plug-in commands.
+ *   Preload images specified by plug-in commands at map transition.
+ *
+ * - Set various values by plug-in parameters
+ *   The picture number etc. used in the standing picture plug-in can be
+ *   specified by the plug-in parameter.
+ *
  */
 /*:ja
  * @plugindesc 立ち絵プラグイン
@@ -194,7 +411,7 @@
  *
  * Q. プラグインコマンドは間違ってないのに立ち絵が表示されない
  * A. プラグインを有効化しても、プロジェクトを保存しないとプラグインコマンドが
- *    認識されないようです。一度プロジェクトを保存してからやり直してみてください。
+ *    認識されないようです。一度プロジェクトを保存してやり直してみてください。
  *
  * Q. 表情を変更したい
  * A. 立ち絵変更コマンドを使ってください。
@@ -231,43 +448,35 @@
  *   指定できるように
  *
  */
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 (function () {
-    var pluginName = 'Lunatlazur_Tachie';
-    var _DataManager_createGameObjects = DataManager.createGameObjects;
+    const pluginName = 'Lunatlazur_Tachie';
+    const _DataManager_createGameObjects = DataManager.createGameObjects;
     DataManager.createGameObjects = function () {
         _DataManager_createGameObjects.call(this);
         TachieManager.characters = [];
     };
-    var _DataManager_makeSaveContents = DataManager.makeSaveContents;
+    const _DataManager_makeSaveContents = DataManager.makeSaveContents;
     DataManager.makeSaveContents = function () {
-        var contents = _DataManager_makeSaveContents.call(this);
+        const contents = _DataManager_makeSaveContents.call(this);
         contents.tachieCharacters = TachieManager.characters;
         return contents;
     };
-    var _DataManager_extractSaveContents = DataManager.extractSaveContents;
+    const _DataManager_extractSaveContents = DataManager.extractSaveContents;
     DataManager.extractSaveContents = function (contents) {
         _DataManager_extractSaveContents.apply(this, arguments);
         TachieManager.characters = contents.tachieCharacters || [];
     };
-    var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
+    const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         if (TachieManager.isTachieCommand(command)) {
-            var commandProcessor = new Tachie_CommandProcessor(this);
+            const commandProcessor = new Tachie_CommandProcessor(this);
             if (commandProcessor.processPluginCommand(command, args)) {
                 return;
             }
         }
         _Game_Interpreter_pluginCommand.apply(this, arguments);
     };
-    var _Sprite_Picture_updateOrigin = Sprite_Picture.prototype.updateOrigin;
+    const _Sprite_Picture_updateOrigin = Sprite_Picture.prototype.updateOrigin;
     Sprite_Picture.prototype.updateOrigin = function () {
         if (this.picture().origin() === 2) {
             this.anchor.x = TachieManager.config.anchorX;
@@ -277,7 +486,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             _Sprite_Picture_updateOrigin.call(this);
         }
     };
-    var _Game_Picture_updateMove = Game_Picture.prototype.updateMove;
+    const _Game_Picture_updateMove = Game_Picture.prototype.updateMove;
     Game_Picture.prototype.updateMove = function () {
         _Game_Picture_updateMove.call(this);
         if (this._onMoveCompleted && this._duration === 0) {
@@ -285,159 +494,113 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             this._onMoveCompleted = null;
         }
     };
-    var _Scene_Boot_create = Scene_Boot.prototype.create;
+    const _Scene_Boot_create = Scene_Boot.prototype.create;
     Scene_Boot.prototype.create = function () {
         _Scene_Boot_create.call(this);
         TachieManager.loadDataFile();
     };
     function find(items, predicate) {
-        var found;
-        items.forEach(function (item) {
+        let found;
+        items.forEach((item) => {
             if (predicate(item)) {
                 found = item;
             }
         });
         return found;
     }
-    var TachieCommandParser = /** @class */ (function () {
-        function TachieCommandParser() {
-        }
-        TachieCommandParser.parsePositionParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var parameter = args[0], arg = args[1];
-            var option = parseInt(arg, 10);
+    class TachieCommandParser {
+        static parsePositionParameter(...args) {
+            const [parameter] = args;
             switch (parameter) {
                 case '左':
                 case 'left':
-                    return [{ type: 'position', value: 'left' }, true];
+                    return [{ 'position': 'left' }, true];
                 case '右':
                 case 'right':
-                    return [{ type: 'position', value: 'right' }, true];
+                    return [{ 'position': 'right' }, true];
                 case '中':
                 case 'center':
-                    return [{ type: 'position', value: 'center' }, true];
+                    return [{ 'position': 'center' }, true];
             }
-            return [{ type: 'position', value: 'center' }, false];
-        };
-        TachieCommandParser.parseDistanceParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var parameter = args[0];
+            return [{ 'position': 'center' }, false];
+        }
+        static parseDistanceParameter(...args) {
+            const [parameter] = args;
             switch (parameter) {
                 case '遠':
                 case 'far':
-                    return [{ type: 'distance', value: 'far' }, true];
+                    return [{ 'distance': 'far' }, true];
                 case '近':
                 case 'near':
-                    return [{ type: 'distance', value: 'near' }, true];
+                    return [{ 'distance': 'near' }, true];
                 case '中':
                 case 'middle':
-                    return [{ type: 'distance', value: 'middle' }, true];
+                    return [{ 'distance': 'middle' }, true];
             }
-            return [{ type: 'distance', value: 'middle' }, false];
-        };
-        TachieCommandParser.parseOffsetXParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var parameter = args[0], arg = args[1];
-            var value = parseInt(arg, 10);
+            return [{ 'distance': 'middle' }, false];
+        }
+        static parseOffsetXParameter(...args) {
+            const [parameter, arg] = args;
+            const value = parseInt(arg, 10);
             switch (parameter) {
                 case '横':
                 case '横位置調整':
                 case 'x':
-                    return [{ type: 'offsetX', value: value }, true];
+                    return [{ 'offsetX': value }, true];
             }
-            return [{ type: 'offsetX', value: 0 }, false];
-        };
-        TachieCommandParser.parseOffsetYParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var parameter = args[0], arg = args[1];
-            var value = parseInt(arg, 10);
+            return [{ 'offsetX': 0 }, false];
+        }
+        static parseOffsetYParameter(...args) {
+            const [parameter, arg] = args;
+            const value = parseInt(arg, 10);
             switch (parameter) {
                 case '縦':
                 case '縦位置調整':
                 case 'y':
-                    return [{ type: 'offsetY', value: value }, true];
+                    return [{ 'offsetY': value }, true];
             }
-            return [{ type: 'offsetY', value: 0 }, false];
-        };
-        TachieCommandParser.parseSlideXParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var parameter = args[0], arg = args[1];
-            var value = parseInt(arg, 10);
+            return [{ 'offsetY': 0 }, false];
+        }
+        static parseSlideXParameter(...args) {
+            const [parameter, arg] = args;
+            const value = parseInt(arg, 10);
             switch (parameter) {
                 case 'スライド横':
                 case 'slide-x':
-                    return [{ type: 'slideX', value: value }, true];
+                    return [{ 'slideX': value }, true];
             }
-            return [{ type: 'slideX', value: 0 }, false];
-        };
-        TachieCommandParser.parseSlideYParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var parameter = args[0], arg = args[1];
-            var value = parseInt(arg, 10);
+            return [{ 'slideX': 0 }, false];
+        }
+        static parseSlideYParameter(...args) {
+            const [parameter, arg] = args;
+            const value = parseInt(arg, 10);
             switch (parameter) {
                 case 'スライド縦':
                 case 'slide-y':
-                    return [{ type: 'slideY', value: value }, true];
+                    return [{ 'slideY': value }, true];
             }
-            return [{ type: 'slideY', value: 0 }, false];
-        };
-        TachieCommandParser.parseDurationParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var parameter = args[0];
-            var matched = parameter.match(/^(\d+)フレーム$/);
+            return [{ 'slideY': 0 }, false];
+        }
+        static parseDurationParameter(...args) {
+            const [parameter] = args;
+            const matched = parameter.match(/^(\d+)(フレーム|F)$/);
             if (matched) {
-                return [{ type: 'duration', value: parseInt(matched[1], 10) }, true];
+                return [{ 'duration': parseInt(matched[1], 10) }, true];
             }
-            return [{ type: 'duration', value: 0 }, false];
-        };
-        TachieCommandParser.parseWaitParameter = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
+            return [{ 'duration': 0 }, false];
+        }
+        static parseWaitParameter(...args) {
+            const [parameter] = args;
+            if (parameter === 'ウェイトあり' || parameter === 'wait') {
+                return [{ 'wait': true }, true];
             }
-            var parameter = args[0];
-            if (parameter === 'ウェイトあり') {
-                return [{ type: 'wait', value: true }, true];
+            else if (parameter === 'ウェイトなし' || parameter === 'no-wait') {
+                return [{ 'wait': false }, true];
             }
-            else if (parameter === 'ウェイトなし') {
-                return [{ type: 'wait', value: false }, true];
-            }
-            return [{ type: 'wait', value: false }, false];
-        };
-        TachieCommandParser.parseShowCommandParameters = function (parameters) {
-            var parameterObject = {
-                expression: '',
-                position: 'center',
-                distance: 'middle',
-                offsetX: 0,
-                offsetY: 0,
-                slideX: 0,
-                slideY: 0,
-                duration: 0,
-                wait: false,
-            };
-            var parsers = [
+            return [{ 'wait': false }, false];
+        }
+        static parseShowCommandParameters(parameters) {
+            const parsers = [
                 this.parseWaitParameter,
                 this.parseDurationParameter,
                 this.parseSlideYParameter,
@@ -447,48 +610,57 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 this.parseDistanceParameter,
                 this.parsePositionParameter,
             ];
-            var index = 1;
-            parsers.forEach(function (parser) {
-                var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
+            let index = 1;
+            const parameterObject = parsers.reduce((prev, parser) => {
+                const parameter = parameters.slice(-index)[0];
+                const [parsed, consumed] = parser(parameter.value, parameter.option);
                 if (consumed) {
                     index++;
                 }
-                parameterObject[type] = value;
+                return Object.assign({}, prev, parsed);
+            }, {
+                expression: '',
+                position: 'center',
+                distance: 'middle',
+                offsetX: 0,
+                offsetY: 0,
+                slideX: 0,
+                slideY: 0,
+                duration: 0,
+                wait: false,
             });
-            var expression = (index === 1 ? parameters : parameters.slice(0, -index + 1))[0];
+            const [expression] = index === 1 ? parameters : parameters.slice(0, -index + 1);
             if (expression) {
                 parameterObject.expression = expression.value;
             }
             return parameterObject;
-        };
-        TachieCommandParser.parseChangeCommandParameters = function (parameters) {
-            var parameterObject = {
+        }
+        static parseChangeCommandParameters(parameters) {
+            const parsers = [
+                this.parseWaitParameter,
+                this.parseDurationParameter,
+            ];
+            let index = 1;
+            const parameterObject = parsers.reduce((prev, parser) => {
+                const parameter = parameters.slice(-index)[0];
+                const [parsed, consumed] = parser(parameter.value, parameter.option);
+                if (consumed) {
+                    index++;
+                }
+                return Object.assign({}, prev, parsed);
+            }, {
                 name: '',
                 expression: '',
                 duration: 0,
                 wait: false,
-            };
-            var parsers = [
-                this.parseWaitParameter,
-                this.parseDurationParameter,
-            ];
-            var index = 1;
-            parsers.forEach(function (parser) {
-                var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
-                if (consumed) {
-                    index++;
-                }
-                parameterObject[type] = value;
             });
-            var _a = index === 1 ? parameters : parameters.slice(0, -index + 1), nameOrExpression = _a[0], expression = _a[1];
+            let [nameOrExpression, expression] = index === 1 ? parameters : parameters.slice(0, -index + 1);
             if (expression) {
                 parameterObject.name = nameOrExpression.value;
                 parameterObject.expression = expression.value;
             }
             else if (nameOrExpression) {
-                var chara = TachieManager.findCharacterData(nameOrExpression.value);
+                const chara = TachieManager.findCharacterData(nameOrExpression.value);
                 if (chara) {
                     parameterObject.name = nameOrExpression.value;
                 }
@@ -497,81 +669,74 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 }
             }
             return parameterObject;
-        };
-        TachieCommandParser.parseMoveCommandParameters = function (parameters) {
-            var parameterObject = {
-                position: 'center',
-                offsetX: 0,
-                offsetY: 0,
-                duration: 0,
-                wait: false,
-            };
-            var parsers = [
+        }
+        static parseMoveCommandParameters(parameters) {
+            const parsers = [
                 this.parseWaitParameter,
                 this.parseDurationParameter,
                 this.parseOffsetYParameter,
                 this.parseOffsetXParameter,
                 this.parsePositionParameter,
             ];
-            var index = 1;
-            parsers.forEach(function (parser) {
-                var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
+            let index = 1;
+            const parameterObject = parsers.reduce((prev, parser) => {
+                const parameter = parameters.slice(-index)[0];
+                const [parsed, consumed] = parser(parameter.value, parameter.option);
                 if (consumed) {
                     index++;
                 }
-                parameterObject[type] = value;
-            });
-            return parameterObject;
-        };
-        TachieCommandParser.parseEraseCommandParameters = function (parameters) {
-            var parameterObject = {
-                slideX: 0,
-                slideY: 0,
+                return Object.assign({}, prev, parsed);
+            }, {
+                position: 'center',
+                offsetX: 0,
+                offsetY: 0,
                 duration: 0,
                 wait: false,
-            };
-            var parsers = [
+            });
+            return parameterObject;
+        }
+        static parseEraseCommandParameters(parameters) {
+            const parsers = [
                 this.parseWaitParameter,
                 this.parseDurationParameter,
                 this.parseSlideYParameter,
                 this.parseSlideXParameter,
             ];
-            var index = 1;
-            parsers.forEach(function (parser) {
-                var parameter = parameters.slice(-index)[0];
-                var _a = parser(parameter.value, parameter.option), _b = _a[0], type = _b.type, value = _b.value, consumed = _a[1];
+            let index = 1;
+            const parameterObject = parsers.reduce((prev, parser) => {
+                const parameter = parameters.slice(-index)[0];
+                const [parsed, consumed] = parser(parameter.value, parameter.option);
                 if (consumed) {
                     index++;
                 }
-                parameterObject[type] = value;
+                return Object.assign({}, prev, parsed);
+            }, {
+                slideX: 0,
+                slideY: 0,
+                duration: 0,
+                wait: false,
             });
             return parameterObject;
-        };
-        return TachieCommandParser;
-    }());
-    var TachieDataLoader = /** @class */ (function () {
-        function TachieDataLoader() {
         }
-        TachieDataLoader.load = function () {
-            var _this = this;
-            var xhr = new XMLHttpRequest();
-            var url = 'data/Tachie.csv';
+    }
+    class TachieDataLoader {
+        static load() {
+            const xhr = new XMLHttpRequest();
+            const url = 'data/Tachie.csv';
             xhr.open('GET', url);
-            xhr.onload = (function () {
+            xhr.onload = (() => {
                 if (xhr.status < 400) {
                     TachieManager.onDataLoaded(xhr.responseText);
                 }
             });
-            xhr.onerror = (function () {
-                _this._errorUrl = _this._errorUrl || url;
+            xhr.onerror = (() => {
+                this._errorUrl = this._errorUrl || url;
             });
             xhr.send();
-        };
-        return TachieDataLoader;
-    }());
-    var Tachie_Config = /** @class */ (function () {
-        function Tachie_Config(width, height) {
+        }
+    }
+    class Tachie_Config {
+        constructor(width, height) {
             this.anchorX = 0.5;
             this.anchorY = 1.0;
             this.xByPosition = {
@@ -600,45 +765,30 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 center: 0,
             };
         }
-        Tachie_Config.prototype.picturePosition = function (position, distance) {
+        picturePosition(position, distance) {
             return {
                 x: this.xByPosition[position],
                 y: this.yByDistance[distance],
             };
-        };
-        Tachie_Config.prototype.pictureNumber = function (position, distance) {
-            return this.pictureNumberForDistance[distance] + this.pictureNumberForPosition[position];
-        };
-        return Tachie_Config;
-    }());
-    var TachieManager = /** @class */ (function () {
-        function TachieManager() {
         }
-        Object.defineProperty(TachieManager, "data", {
-            get: function () {
-                return this._data;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(TachieManager, "characters", {
-            get: function () {
-                return this._characters;
-            },
-            set: function (characters) {
-                this._characters = characters;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(TachieManager, "config", {
-            get: function () {
-                return this._config;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        TachieManager.isTachieCommand = function (command) {
+        pictureNumber(position, distance) {
+            return this.pictureNumberForDistance[distance] + this.pictureNumberForPosition[position];
+        }
+    }
+    class TachieManager {
+        static get data() {
+            return this._data;
+        }
+        static get characters() {
+            return this._characters;
+        }
+        static set characters(characters) {
+            this._characters = characters;
+        }
+        static get config() {
+            return this._config;
+        }
+        static isTachieCommand(command) {
             switch ((command || '').toUpperCase()) {
                 case 'SHOW_TACHIE':
                 case '立ち絵表示':
@@ -651,92 +801,87 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                     return true;
             }
             return false;
-        };
-        TachieManager.loadDataFile = function () {
+        }
+        static loadDataFile() {
             TachieDataLoader.load();
-        };
-        TachieManager.onDataLoaded = function (response) {
-            this._data = response.trim().split("\n").map(function (row) {
-                var _a = row.split(',').map(function (column) {
+        }
+        static onDataLoaded(response) {
+            this._data = response.trim().split("\n").map((row) => {
+                const [filename, name, ...expressions] = row.split(',').map((column) => {
                     return column.trim();
-                }), filename = _a[0], name = _a[1], expressions = _a.slice(2);
+                });
                 return {
-                    filename: filename,
-                    name: name,
-                    expressions: expressions,
+                    filename,
+                    name,
+                    expressions,
                 };
             });
             this.setup();
-        };
-        TachieManager.setup = function () {
+        }
+        static setup() {
             this._config = new Tachie_Config(Graphics.width, Graphics.height);
-        };
-        TachieManager.findCharacterData = function (name) {
-            return find(this.data, function (chara) { return chara.name === name; });
-        };
-        TachieManager.findCharacter = function (name) {
-            return find(this.characters, function (chara) { return chara.name === name; });
-        };
-        TachieManager.addCharacter = function (character) {
+        }
+        static findCharacterData(name) {
+            return find(this.data, (chara) => chara.name === name);
+        }
+        static findCharacter(name) {
+            return find(this.characters, (chara) => chara.name === name);
+        }
+        static addCharacter(character) {
             this._characters.push(character);
-        };
-        TachieManager.removeCharacter = function (character) {
+        }
+        static removeCharacter(character) {
             this._characters.splice(this._characters.indexOf(character), 1);
-        };
-        TachieManager._characters = [];
-        return TachieManager;
-    }());
-    var Tachie_CommandProcessor = /** @class */ (function () {
-        function Tachie_CommandProcessor(interpreter) {
+        }
+    }
+    TachieManager._characters = [];
+    class Tachie_CommandProcessor {
+        constructor(interpreter) {
             this._interpreter = interpreter;
         }
-        Tachie_CommandProcessor.normalizeParameters = function (parameters) {
+        static normalizeParameters(parameters) {
             return parameters.join(' ').trim().replace(/\s+/g, ' ').replace(/: /g, ':').split(' ');
-        };
-        Tachie_CommandProcessor.transformParameters = function (parameters) {
-            return parameters.map(function (parameter) {
-                var _a = parameter.split(':'), value = _a[0], option = _a[1];
-                return { value: value, option: option };
+        }
+        static transformParameters(parameters) {
+            return parameters.map((parameter) => {
+                const [value, option] = parameter.split(':');
+                return { value, option };
             });
-        };
-        Tachie_CommandProcessor.prototype.processPluginCommand = function (command, args) {
-            var name = args[0], rawParameters = args.slice(1);
-            var parameters = Tachie_CommandProcessor.transformParameters(Tachie_CommandProcessor.normalizeParameters(rawParameters));
+        }
+        processPluginCommand(command, args) {
+            const [name, ...rawParameters] = args;
+            const parameters = Tachie_CommandProcessor.transformParameters(Tachie_CommandProcessor.normalizeParameters(rawParameters));
             switch ((command || '').toUpperCase()) {
                 case 'SHOW_TACHIE':
                 case '立ち絵表示':
-                    this.processShowCommand.apply(this, [name].concat(parameters));
+                    this.processShowCommand(name, ...parameters);
                     break;
                 case 'CHANGE_TACHIE':
                 case '立ち絵変更':
-                    this.processChangeCommand.apply(this, [name].concat(parameters));
+                    this.processChangeCommand(name, ...parameters);
                     break;
                 case 'MOVE_TACHIE':
                 case '立ち絵移動':
-                    this.processMoveCommand.apply(this, [name].concat(parameters));
+                    this.processMoveCommand(name, ...parameters);
                     break;
                 case 'ERASE_TACHIE':
                 case '立ち絵消去':
-                    this.processEraseCommand.apply(this, [name].concat(parameters));
+                    this.processEraseCommand(name, ...parameters);
                     break;
                 default:
                     return false;
             }
             return true;
-        };
-        Tachie_CommandProcessor.prototype.processShowCommand = function (name) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            var charaData = TachieManager.findCharacterData(name);
+        }
+        processShowCommand(name, ...args) {
+            const charaData = TachieManager.findCharacterData(name);
             if (!charaData) {
                 return;
             }
-            var _a = TachieCommandParser.parseShowCommandParameters(args), expression = _a.expression, position = _a.position, offsetX = _a.offsetX, offsetY = _a.offsetY, slideX = _a.slideX, slideY = _a.slideY, distance = _a.distance, duration = _a.duration, wait = _a.wait;
-            var chara = __assign({ id: TachieManager.config.pictureNumber(position, distance), name: name,
-                expression: expression, filename: Tachie_CommandProcessor.filenameWithExpression(charaData, expression) }, TachieManager.config.picturePosition(position, distance), { scale: TachieManager.config.scaleByDistance[distance], position: position,
-                distance: distance });
+            const { expression, position, offsetX, offsetY, slideX, slideY, distance, duration, wait, } = TachieCommandParser.parseShowCommandParameters(args);
+            const chara = Object.assign({ id: TachieManager.config.pictureNumber(position, distance), name,
+                expression, filename: Tachie_CommandProcessor.filenameWithExpression(charaData, expression) }, TachieManager.config.picturePosition(position, distance), { scale: TachieManager.config.scaleByDistance[distance], position,
+                distance });
             chara.x += offsetX;
             chara.y += offsetY;
             TachieManager.addCharacter(chara);
@@ -750,21 +895,16 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             else {
                 this._showPicture(chara.id, chara.filename, chara.x, chara.y, chara.scale, chara.scale, 255);
             }
-        };
-        Tachie_CommandProcessor.prototype.processChangeCommand = function (target) {
-            var _this = this;
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            var chara = TachieManager.findCharacter(target);
+        }
+        processChangeCommand(target, ...args) {
+            const chara = TachieManager.findCharacter(target);
             if (!chara) {
                 return;
             }
-            var _a = TachieCommandParser.parseChangeCommandParameters(args), name = _a.name, expression = _a.expression, duration = _a.duration, wait = _a.wait;
-            var charaData = name !== '' ? TachieManager.findCharacterData(name) : TachieManager.findCharacterData(chara.name);
-            var filename = Tachie_CommandProcessor.filenameWithExpression(charaData, expression);
-            var pictureId = chara.id;
+            const { name, expression, duration, wait, } = TachieCommandParser.parseChangeCommandParameters(args);
+            const charaData = name !== '' ? TachieManager.findCharacterData(name) : TachieManager.findCharacterData(chara.name);
+            const filename = Tachie_CommandProcessor.filenameWithExpression(charaData, expression);
+            const pictureId = chara.id;
             if (duration > 0) {
                 this._showPicture(pictureId + 1, filename, chara.x, chara.y, chara.scale, chara.scale, 0);
                 this._movePicture(pictureId + 1, chara.x, chara.y, chara.scale, chara.scale, 255, duration);
@@ -777,50 +917,45 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                 this._showPicture(pictureId + 1, filename, chara.x, chara.y, chara.scale, chara.scale, 255);
                 this._movePicture(pictureId + 1, chara.x, chara.y, chara.scale, chara.scale, 255, 1);
             }
-            this._setHandlerForPictureMoveCompleted(pictureId + 1, function () {
-                _this._showPicture(pictureId, filename, chara.x, chara.y, chara.scale, chara.scale, 255);
-                _this._erasePicture(pictureId + 1);
+            this._setHandlerForPictureMoveCompleted(pictureId + 1, () => {
+                this._showPicture(pictureId, filename, chara.x, chara.y, chara.scale, chara.scale, 255);
+                this._erasePicture(pictureId + 1);
             });
             if (name !== '') {
                 chara.name = name;
             }
-        };
-        Tachie_CommandProcessor.prototype.processMoveCommand = function (name) {
-            var _this = this;
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            var chara = TachieManager.findCharacter(name);
+        }
+        processMoveCommand(name, ...args) {
+            const chara = TachieManager.findCharacter(name);
             if (!chara) {
                 return;
             }
-            var _a = TachieCommandParser.parseMoveCommandParameters(args), position = _a.position, offsetX = _a.offsetX, offsetY = _a.offsetY, duration = _a.duration, wait = _a.wait;
+            const { position, offsetX, offsetY, duration, wait, } = TachieCommandParser.parseMoveCommandParameters(args);
             if (chara.position !== position) {
-                var oldId_1 = chara.id;
+                const oldId = chara.id;
                 chara.id = TachieManager.config.pictureNumber(position, chara.distance);
-                var pictureId_1 = chara.id;
-                var _b = TachieManager.config.picturePosition(position, chara.distance), x = _b.x, y = _b.y;
+                const pictureId = chara.id;
+                const { x, y } = TachieManager.config.picturePosition(position, chara.distance);
                 chara.x = x + offsetX;
                 chara.y = y + offsetY;
                 chara.position = position;
                 if (duration > 0) {
-                    this._movePicture(oldId_1, chara.x, chara.y, chara.scale, chara.scale, 255, duration);
-                    this._setHandlerForPictureMoveCompleted(oldId_1, function () {
-                        _this._showPicture(pictureId_1, chara.filename, chara.x, chara.y, chara.scale, chara.scale, 255);
-                        _this._erasePicture(oldId_1);
+                    this._movePicture(oldId, chara.x, chara.y, chara.scale, chara.scale, 255, duration);
+                    this._setHandlerForPictureMoveCompleted(oldId, () => {
+                        this._showPicture(pictureId, chara.filename, chara.x, chara.y, chara.scale, chara.scale, 255);
+                        this._erasePicture(oldId);
                     });
                     if (wait) {
                         this._wait(duration);
                     }
                 }
                 else {
-                    this._showPicture(pictureId_1, chara.filename, chara.x, chara.y, chara.scale, chara.scale, 255);
-                    this._erasePicture(oldId_1);
+                    this._showPicture(pictureId, chara.filename, chara.x, chara.y, chara.scale, chara.scale, 255);
+                    this._erasePicture(oldId);
                 }
             }
             else {
-                var pictureId = chara.id;
+                const pictureId = chara.id;
                 chara.x += offsetX;
                 chara.y += offsetY;
                 this._movePicture(pictureId, chara.x, chara.y, chara.scale, chara.scale, 255, duration);
@@ -828,24 +963,19 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
                     this._wait(duration);
                 }
             }
-        };
-        Tachie_CommandProcessor.prototype.processEraseCommand = function (name) {
-            var _this = this;
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            var chara = TachieManager.findCharacter(name);
+        }
+        processEraseCommand(name, ...args) {
+            const chara = TachieManager.findCharacter(name);
             if (!chara) {
                 return;
             }
-            var _a = TachieCommandParser.parseEraseCommandParameters(args), slideX = _a.slideX, slideY = _a.slideY, duration = _a.duration, wait = _a.wait;
-            var pictureId = chara.id;
+            const { slideX, slideY, duration, wait, } = TachieCommandParser.parseEraseCommandParameters(args);
+            const pictureId = chara.id;
             TachieManager.removeCharacter(chara);
             if (duration > 0) {
                 this._movePicture(pictureId, chara.x + slideX, chara.y + slideX, chara.scale, chara.scale, 0, duration);
-                this._setHandlerForPictureMoveCompleted(pictureId, function () {
-                    _this._erasePicture(pictureId);
+                this._setHandlerForPictureMoveCompleted(pictureId, () => {
+                    this._erasePicture(pictureId);
                 });
                 if (wait) {
                     this._wait(duration);
@@ -854,60 +984,55 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
             else {
                 this._erasePicture(pictureId);
             }
-        };
-        Tachie_CommandProcessor.prototype._wait = function (duration) {
+        }
+        _wait(duration) {
             this._interpreter.wait(duration);
-        };
-        Tachie_CommandProcessor.prototype._showPicture = function (id, name, x, y, scaleX, scaleY, opacity) {
+        }
+        _showPicture(id, name, x, y, scaleX, scaleY, opacity) {
             $gameScreen.showPicture(id, name, 2, x, y, scaleX, scaleX, opacity, 0);
-        };
-        Tachie_CommandProcessor.prototype._movePicture = function (id, x, y, scaleX, scaleY, opacity, duration) {
+        }
+        _movePicture(id, x, y, scaleX, scaleY, opacity, duration) {
             $gameScreen.movePicture(id, 2, x, y, scaleX, scaleX, opacity, 0, duration);
-        };
-        Tachie_CommandProcessor.prototype._erasePicture = function (id) {
+        }
+        _erasePicture(id) {
             $gameScreen.erasePicture(id);
-        };
-        Tachie_CommandProcessor.filenameWithExpression = function (chara, expression) {
-            var expressionId = chara.expressions.indexOf(expression);
-            return "" + chara.filename + (expressionId + 2);
-        };
-        Tachie_CommandProcessor.prototype._setHandlerForPictureMoveCompleted = function (pictureId, handler) {
-            var picture = $gameScreen.picture(pictureId);
+        }
+        static filenameWithExpression(chara, expression) {
+            const expressionId = chara.expressions.indexOf(expression);
+            return `${chara.filename}${expressionId + 2}`;
+        }
+        _setHandlerForPictureMoveCompleted(pictureId, handler) {
+            const picture = $gameScreen.picture(pictureId);
             if (picture) {
                 picture._onMoveCompleted = handler;
             }
-        };
-        return Tachie_CommandProcessor;
-    }());
-    var Game_Interpreter_requestImages = Game_Interpreter.requestImages;
+        }
+    }
+    const Game_Interpreter_requestImages = Game_Interpreter.requestImages;
     Game_Interpreter.requestImages = function (list, commonList) {
         if (!list) {
             return;
         }
-        list.filter(function (_a) {
-            var code = _a.code;
-            return code === 356;
-        }).forEach(function (_a) {
-            var parameters = _a.parameters;
-            var args = parameters[0].split(' ');
-            var command = args.shift().toUpperCase();
+        list.filter(({ code }) => code === 356).forEach(({ parameters }) => {
+            const args = parameters[0].split(' ');
+            const command = args.shift().toUpperCase();
             if (command === 'SHOW_TACHIE' ||
                 command === '立ち絵表示' ||
                 command === 'CHANGE_TACHIE' ||
                 command === '立ち絵変更') {
-                var filename = null;
-                var charaName = args[0], rawParameters = args.slice(1);
-                var parameters_1 = Tachie_CommandProcessor.transformParameters(Tachie_CommandProcessor.normalizeParameters(rawParameters));
+                let filename = null;
+                const [charaName, ...rawParameters] = args;
+                const parameters = Tachie_CommandProcessor.transformParameters(Tachie_CommandProcessor.normalizeParameters(rawParameters));
                 if (command === 'SHOW_TACHIE' || command === '立ち絵表示') {
-                    var expression = TachieCommandParser.parseShowCommandParameters(parameters_1).expression;
-                    var character = TachieManager.findCharacterData(charaName);
+                    const { expression } = TachieCommandParser.parseShowCommandParameters(parameters);
+                    const character = TachieManager.findCharacterData(charaName);
                     if (character) {
                         filename = Tachie_CommandProcessor.filenameWithExpression(character, expression);
                     }
                 }
                 else {
-                    var _b = TachieCommandParser.parseChangeCommandParameters(parameters_1), name_1 = _b.name, expression = _b.expression;
-                    var character = name_1 ? TachieManager.findCharacterData(name_1) : TachieManager.findCharacterData(charaName);
+                    const { name, expression } = TachieCommandParser.parseChangeCommandParameters(parameters);
+                    const character = name ? TachieManager.findCharacterData(name) : TachieManager.findCharacterData(charaName);
                     if (character) {
                         filename = Tachie_CommandProcessor.filenameWithExpression(character, expression);
                     }

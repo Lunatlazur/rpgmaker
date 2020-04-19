@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "baseUrl": "src",
     "outDir": "build",
@@ -11,7 +11,7 @@
     "removeComments": false,
     "experimentalDecorators": true,
     "lib": [
-      "es5"
+      "es6"
     ],
     "types": [
       "rpgmakermv_typescript_dts"

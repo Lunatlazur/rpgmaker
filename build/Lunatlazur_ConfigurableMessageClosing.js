@@ -24,10 +24,10 @@
  * メッセージウィンドウを自動で閉じずに、表示したままにできるようにします。
  * メッセージウィンドウを表示したままピクチャを表示・移動するときなどに便利です。
  *
- * == プラグインコマンド一覧 ==
+ * [プラグインコマンド一覧]
  *
- * KEEP_MESSAGE_VISIBLE [ON|OFF]
- * メッセージの表示を継続 [ON|OFF]
+ * KEEP_MESSAGE_VISIBLE ON|OFF
+ * メッセージの表示を継続 ON|OFF
  *
  * 例: KEEP_MESSAGE_VISIBLE ON
  *
@@ -41,24 +41,24 @@
  *   メッセージウィンドウを閉じます。
  */
 (function () {
-    var pluginName = 'Lunatlazur_ConfigurableMessageClosing';
-    var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
+    const pluginName = 'Lunatlazur_ConfigurableMessageClosing';
+    const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         _Game_Interpreter_pluginCommand.apply(this, arguments);
         WindowAutoCloseManager.processPluginCommand(command, args);
     };
-    var _Window_Message_terminateMessage = Window_Message.prototype.terminateMessage;
+    const _Window_Message_terminateMessage = Window_Message.prototype.terminateMessage;
     Window_Message.prototype.terminateMessage = function () {
         if (WindowAutoCloseManager.isAutoCloseEnabled()) {
             _Window_Message_terminateMessage.call(this);
         }
         else {
-            var indentWhenFaceVisible = this.newLineX();
+            const indentWhenFaceVisible = this.newLineX();
             $gameMessage.clear();
             this.contents.clearRect(indentWhenFaceVisible, 0, this.contentsWidth() - indentWhenFaceVisible, this.contentsHeight());
         }
     };
-    var _Window_Message_update = Window_Message.prototype.update;
+    const _Window_Message_update = Window_Message.prototype.update;
     Window_Message.prototype.update = function () {
         if (WindowAutoCloseManager.isForceClosing()) {
             _Window_Message_terminateMessage.call(this);
@@ -66,14 +66,12 @@
         }
         _Window_Message_update.call(this);
     };
-    var WindowAutoCloseManager = /** @class */ (function () {
-        function WindowAutoCloseManager() {
-        }
-        WindowAutoCloseManager.processPluginCommand = function (command, args) {
+    class WindowAutoCloseManager {
+        static processPluginCommand(command, args) {
             switch ((command || '').toUpperCase()) {
                 case 'KEEP_MESSAGE_VISIBLE':
                 case 'メッセージの表示を継続':
-                    var arg = (args[0] || '').toUpperCase();
+                    const arg = (args[0] || '').toUpperCase();
                     if (arg === 'TRUE' || arg === 'ON') {
                         this.disableAutoClose();
                     }
@@ -91,27 +89,26 @@
                 default:
                     break;
             }
-        };
-        WindowAutoCloseManager.enableAutoClose = function () {
+        }
+        static enableAutoClose() {
             this._autoClose = true;
-        };
-        WindowAutoCloseManager.disableAutoClose = function () {
+        }
+        static disableAutoClose() {
             this._autoClose = false;
-        };
-        WindowAutoCloseManager.isAutoCloseEnabled = function () {
+        }
+        static isAutoCloseEnabled() {
             return this._autoClose;
-        };
-        WindowAutoCloseManager.setForceClose = function () {
+        }
+        static setForceClose() {
             this._forceClose = true;
-        };
-        WindowAutoCloseManager.cancelForceClose = function () {
+        }
+        static cancelForceClose() {
             this._forceClose = false;
-        };
-        WindowAutoCloseManager.isForceClosing = function () {
+        }
+        static isForceClosing() {
             return this._forceClose;
-        };
-        WindowAutoCloseManager._autoClose = true;
-        WindowAutoCloseManager._forceClose = false;
-        return WindowAutoCloseManager;
-    }());
+        }
+    }
+    WindowAutoCloseManager._autoClose = true;
+    WindowAutoCloseManager._forceClose = false;
 })();

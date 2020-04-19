@@ -6,7 +6,7 @@
 // http://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.1.0 2020/01/22
 // ----------------------------------------------------------------------------
 // [Web]    : https://lunatlazur.com/
 // [Twitter]: https://twitter.com/lunatlazur/
@@ -21,6 +21,27 @@
  * to display the speaker's name window.
  *
  * The same font as the message window is used for this window.
+ *
+ * History
+ * 1.1.0 2020/01/22:
+ * - Added option to specify horizontal position of name window.
+ * - Fixed the name not being displayed correctly on the backlog
+ *   when using the backlog plugin.
+ * 1.0.1 2019/09/09:
+ * - Fixed that the name window was not displayed correctly when
+ *   the display position of the message window was not at the bottom.
+ * 1.0.0 2018/04/01:
+ * - Published.
+ *
+ * @param textColor
+ * @desc Text color index for actor name window.
+ * @default 1
+ * @type number
+ *
+ * @param horizontalPosition
+ * @desc Horizontal position for actor name window.
+ * @default 0
+ * @type number
  */
 /*:ja
  * @plugindesc 名前ウィンドウ表示プラグイン
@@ -32,87 +53,83 @@
  *
  * 名前ウィンドウのフォントはメッセージウィンドウのものが使われます。
  *
+ * 変更履歴
+ * 1.1.0 2020/01/22:
+ * - 名前ウインドウの水平位置を指定するオプションを追加
+ * - バックログプラグイン利用時、バックログ上で名前が正しく表示されないのを修正
+ * 1.0.1 2019/09/09:
+ * - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示
+ *   されないのを修正
+ * 1.0.0 2018/04/01:
+ * - 公開
+ *
  * @param テキストカラー
  * @desc 名前を表示するテキストの色番号を指定します。
  * @default 1
  * @type number
  *
+ * @param 水平位置
+ * @desc 名前を表示するウインドウの水平位置を画面左端からのpx単位で指定します。
+ * @default 0
+ * @type number
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 (function () {
-    var pluginName = 'Lunatlazur_ActorNameWindow';
-    function getValue(params) {
-        var names = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            names[_i - 1] = arguments[_i];
-        }
-        var found = null;
-        names.forEach(function (name) {
+    const pluginName = 'Lunatlazur_ActorNameWindow';
+    function getValue(params, ...names) {
+        let found = null;
+        names.forEach((name) => {
             if (!!params[name]) {
                 found = params[name];
             }
         });
         return found;
     }
-    function asNumber(params) {
-        var names = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            names[_i - 1] = arguments[_i];
-        }
-        return parseInt(getValue.apply(void 0, [params].concat(names)), 10);
+    function asNumber(params, ...names) {
+        return parseInt(getValue(params, ...names), 10);
     }
-    var parameters = PluginManager.parameters(pluginName);
-    var params = {
-        textColor: asNumber(parameters, 'テキストカラー'),
+    const parameters = PluginManager.parameters(pluginName);
+    const params = {
+        textColor: asNumber(parameters, 'テキストカラー', 'textColor'),
+        horizontalPosition: asNumber(parameters, '水平位置', 'horizontalPosition'),
     };
-    var Window_ActorName = /** @class */ (function (_super) {
-        __extends(Window_ActorName, _super);
-        function Window_ActorName(_) {
-            var _this = _super.call(this) || this;
-            _this.initialize.apply(_this, arguments);
-            return _this;
+    class Window_ActorName extends Window_Base {
+        constructor(_) {
+            super();
+            this.initialize.apply(this, arguments);
         }
-        Window_ActorName.prototype.initialize = function (parentWindow) {
+        initialize(parentWindow) {
             this._parentWindow = parentWindow;
-            _super.prototype.initialize.call(this, 0, 0, 240, this.windowHeight());
+            const x = params.horizontalPosition || 0;
+            super.initialize(x, 0, 240, this.windowHeight());
             this._padding = 4;
             this._text = '';
             this._openness = 0;
             this.deactivate();
             this.hide();
-        };
-        Window_ActorName.prototype.standardFontFace = function () {
+        }
+        standardFontFace() {
             if (this._parentWindow) {
                 return this._parentWindow.standardFontFace();
             }
             else {
-                return _super.prototype.standardFontFace.call(this);
+                return super.standardFontFace();
             }
-        };
-        Window_ActorName.prototype.windowWidth = function () {
+        }
+        windowWidth() {
             this.resetFontSettings();
             return Math.ceil(this.textWidth(this._text) + this.padding * 2 + this.standardPadding() * 4);
-        };
-        Window_ActorName.prototype.windowHeight = function () {
+        }
+        windowHeight() {
             return this.lineHeight() + this.padding * 2;
-        };
-        Window_ActorName.prototype.contentsWidth = function () {
+        }
+        contentsWidth() {
             return this.width - this.padding * 2;
-        };
-        Window_ActorName.prototype.contentsHeight = function () {
+        }
+        contentsHeight() {
             return this.lineHeight();
-        };
-        Window_ActorName.prototype.update = function () {
-            _super.prototype.update.call(this);
+        }
+        update() {
+            super.update();
             if (this.active || this.isClosed() || this.isClosing()) {
                 return;
             }
@@ -120,61 +137,56 @@ var __extends = (this && this.__extends) || (function () {
                 this._openness = this._parentWindow.openness;
             }
             this.close();
-        };
-        Window_ActorName.prototype.setText = function (text) {
+        }
+        setText(text) {
             this._text = text;
             this.refresh();
-        };
-        Window_ActorName.prototype.refresh = function () {
+        }
+        refresh() {
             this.width = this.windowWidth();
             this.createContents();
             this.contents.clear();
             this.resetFontSettings();
             this.changeTextColor(this.textColor(params.textColor));
             this.drawText(this._text, this.standardPadding() * 2, 0, this.contents.width);
-        };
-        Window_ActorName.prototype.updatePlacement = function () {
+        }
+        updatePlacement() {
             if (this._parentWindow.y === 0) {
                 this.y = this._parentWindow.y + this._parentWindow.windowHeight();
             }
             else {
                 this.y = this._parentWindow.y - this.windowHeight();
             }
-        };
-        Window_ActorName.prototype.updateBackground = function () {
+        }
+        updateBackground() {
             this.setBackgroundType(this._parentWindow._background);
-        };
-        Window_ActorName.prototype.processActorName = function (text) {
-            var _this = this;
-            return text.replace(/\x1bN\<(.*?)\>/gi, function (whole) {
-                var args = [];
-                for (var _i = 1; _i < arguments.length; _i++) {
-                    args[_i - 1] = arguments[_i];
-                }
-                _this.setText(args[0]);
-                _this.show();
-                _this.open();
-                _this.activate();
+        }
+        processActorName(text) {
+            this.setText('');
+            return text.replace(/\x1bN\<(.*?)\>/gi, (whole, ...args) => {
+                this.setText(args[0]);
+                this.show();
+                this.open();
+                this.activate();
                 return '';
             });
-        };
-        return Window_ActorName;
-    }(Window_Base));
-    var Window_Message_createSubWindows = Window_Message.prototype.createSubWindows;
+        }
+    }
+    const Window_Message_createSubWindows = Window_Message.prototype.createSubWindows;
     Window_Message.prototype.createSubWindows = function () {
         Window_Message_createSubWindows.call(this);
         this._nameWindow = new Window_ActorName(this);
     };
-    var Window_Message_subWindows = Window_Message.prototype.subWindows;
+    const Window_Message_subWindows = Window_Message.prototype.subWindows;
     Window_Message.prototype.subWindows = function () {
-        return Window_Message_subWindows.call(this).concat([this._nameWindow]);
+        return [...Window_Message_subWindows.call(this), this._nameWindow];
     };
-    var Window_Message_startMessage = Window_Message.prototype.startMessage;
+    const Window_Message_startMessage = Window_Message.prototype.startMessage;
     Window_Message.prototype.startMessage = function () {
         this._nameWindow.deactivate();
         Window_Message_startMessage.call(this);
     };
-    var Window_Message_terminateMessage = Window_Message.prototype.terminateMessage;
+    const Window_Message_terminateMessage = Window_Message.prototype.terminateMessage;
     Window_Message.prototype.terminateMessage = function () {
         this._nameWindow.deactivate();
         Window_Message_terminateMessage.call(this);
@@ -184,14 +196,14 @@ var __extends = (this && this.__extends) || (function () {
         text = this._nameWindow.processActorName(text);
         return text;
     };
-    var Window_Message_updatePlacement = Window_Message.prototype.updatePlacement;
+    const Window_Message_updatePlacement = Window_Message.prototype.updatePlacement;
     Window_Message.prototype.updatePlacement = function () {
         Window_Message_updatePlacement.call(this);
         if (this._nameWindow.active) {
             this._nameWindow.updatePlacement();
         }
     };
-    var Window_Message_updateBackground = Window_Message.prototype.updateBackground;
+    const Window_Message_updateBackground = Window_Message.prototype.updateBackground;
     Window_Message.prototype.updateBackground = function () {
         Window_Message_updateBackground.call(this);
         if (this._nameWindow.active) {

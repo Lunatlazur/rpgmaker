@@ -1,0 +1,9 @@
+{
+  "name": "variable-observer",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

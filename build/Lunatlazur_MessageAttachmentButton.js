@@ -28,6 +28,10 @@
  * By passing the plug-in command name and arguments as parameter, you can
  * execute the corresponding plug-in command when the button is pressed.
  *
+ * @param Custom button text font
+ * @desc Additional button text fonts.
+ * @type string[]
+ *
  * @param buttons
  * @desc configure the buttons attached to the message window.
  * @type struct<button>[]
@@ -48,6 +52,11 @@
  * command が plugin のとき：
  * パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
  * 押したときに該当のプラグインコマンドを実行することができます。
+ * *
+ * @param フォント
+ * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
+ * @default ["UD デジタル 教科書体 NP-R", "Klee"]
+ * @type string[]
  *
  * @param ボタン
  * @desc メッセージウィンドウに表示するボタンを設定します。
@@ -85,57 +94,73 @@
  * 詳細はプラグインヘルプを参照してください。
  */
 (function () {
-    var pluginName = 'Lunatlazur_MessageAttachmentButton';
+    const pluginName = 'Lunatlazur_MessageAttachmentButton';
+    const attachmentButtonSize = 20;
+    function getValue(params, ...names) {
+        let found = null;
+        names.forEach((name) => {
+            if (!!params[name]) {
+                found = params[name];
+            }
+        });
+        return found;
+    }
+    const asString = getValue;
     function parsePluginParameters() {
-        var parameters = PluginManager.parameters(pluginName);
-        var buttons = parameters['ボタン'] || parameters.buttons;
+        const parameters = PluginManager.parameters(pluginName);
+        const buttons = parameters['ボタン'] || parameters.buttons;
         if (!buttons) {
             return [];
         }
-        var rawItems = JSON.parse(buttons);
-        return rawItems.map(function (rawItem) { return JSON.parse(rawItem); });
+        const rawItems = JSON.parse(buttons);
+        return rawItems.map((rawItem) => JSON.parse(rawItem));
     }
-    var buttonSettings = parsePluginParameters().map(function (button) {
+    const buttonSettings = parsePluginParameters().map((button) => {
         switch (button.command) {
             case 'scene':
-                var sceneName = button.parameters.charAt(0).toUpperCase() + button.parameters.slice(1).toLowerCase();
-                var scene_1 = window["Scene_" + sceneName];
-                if (!scene_1) {
-                    console.error("Scene_" + sceneName + " \u306F\u5B58\u5728\u3057\u306A\u3044\u30B7\u30FC\u30F3\u3067\u3059");
+                const sceneName = button.parameters.charAt(0).toUpperCase() + button.parameters.slice(1).toLowerCase();
+                const scene = window[`Scene_${sceneName}`];
+                if (!scene) {
+                    console.error(`Scene_${sceneName} は存在しないシーンです`);
                     return;
                 }
                 return {
                     text: button.text,
-                    command: function () {
-                        SceneManager.push(scene_1);
+                    command() {
+                        SceneManager.push(scene);
                     }
                 };
             case 'plugin':
                 return {
                     text: button.text,
-                    command: function (interpreter) {
-                        var _a = button.parameters.split(" "), name = _a[0], args = _a.slice(1);
+                    command(interpreter) {
+                        const [name, ...args] = button.parameters.split(" ");
                         interpreter.pluginCommand(name, args);
                     }
                 };
         }
     });
-    var _Window_Message_initMembers = Window_Message.prototype.initMembers;
+    const customButtonTextFont = JSON.parse(asString(PluginManager.parameters(pluginName), 'フォント', 'Custom button text font'));
+    const _Window_Message_windowHeight = Window_Message.prototype.windowHeight;
+    Window_Message.prototype.windowHeight = function () {
+        return _Window_Message_windowHeight.call(this) + attachmentButtonSize - this.standardPadding() / 2;
+    };
+    const _Window_Message_initMembers = Window_Message.prototype.initMembers;
     Window_Message.prototype.initMembers = function () {
         this._attachmentButtonManager = new AttachmentButtonManager;
         _Window_Message_initMembers.call(this);
     };
-    var _Window_Message_show = Window_Message.prototype.show;
+    const _Window_Message_show = Window_Message.prototype.show;
     Window_Message.prototype.show = function () {
         _Window_Message_show.call(this);
         this._attachmentButtonManager.handleShow();
     };
-    var _Window_Message_hide = Window_Message.prototype.hide;
+    const _Window_Message_hide = Window_Message.prototype.hide;
     Window_Message.prototype.hide = function () {
         _Window_Message_hide.call(this);
         this._attachmentButtonManager.handleHide();
     };
-    var _Window_Message_update = Window_Message.prototype.update;
+    const _Window_Message_update = Window_Message.prototype.update;
     Window_Message.prototype.update = function () {
         if (this._attachmentButtonManager.isButtonAvailable) {
             this._attachmentButtonManager.handleOpennessChanged(this.isOpen(), this.x, this.y, this.width, this.height);
@@ -143,11 +168,11 @@
         _Window_Message_update.call(this);
     };
     TouchInput._onMouseMove = function (event) {
-        var x = Graphics.pageToCanvasX(event.pageX);
-        var y = Graphics.pageToCanvasY(event.pageY);
+        const x = Graphics.pageToCanvasX(event.pageX);
+        const y = Graphics.pageToCanvasY(event.pageY);
         this._onMove(x, y);
     };
-    var _Window_Message_updateInput = Window_Message.prototype.updateInput;
+    const _Window_Message_updateInput = Window_Message.prototype.updateInput;
     Window_Message.prototype.updateInput = function () {
         if (this._attachmentButtonManager.isButtonAvailable && _Window_Message_isButtonTouched.call(this)) {
             return true;
@@ -160,7 +185,7 @@
             this._attachmentButtonManager.handleMouseMove();
         }
     }
-    var _Window_Message_updateBackground = Window_Message.prototype.updateBackground;
+    const _Window_Message_updateBackground = Window_Message.prototype.updateBackground;
     Window_Message.prototype.updateBackground = function () {
         _Window_Message_updateBackground.call(this);
         if (this._background === 0) {
@@ -172,7 +197,7 @@
     };
     function _Window_Message_isButtonTouched() {
         if (this.isOpen() && this.active && TouchInput.isTriggered()) {
-            var button = this._attachmentButtonManager.triggeredButton();
+            const button = this._attachmentButtonManager.triggeredButton();
             if (button) {
                 button.exec();
                 return true;
@@ -180,21 +205,50 @@
         }
         return false;
     }
+    const _Window_Message_drawMessageFace = Window_Message.prototype.drawMessageFace;
+    Window_Message.prototype.drawMessageFace = function () {
+        if (this._attachmentButtonManager.isButtonAvailable) {
+            const offsetY = (this.contentsHeight() - Window_Base._faceHeight) / 2;
+            this.drawFace($gameMessage.faceName(), $gameMessage.faceIndex(), 0, offsetY);
+            ImageManager.releaseReservation(this._imageReservationId);
+        }
+        else {
+            _Window_Message_drawMessageFace.call(this);
+        }
+    };
     function find(items, predicate) {
-        var found;
-        items.forEach(function (item) {
+        let found;
+        items.forEach((item) => {
             if (predicate(item)) {
                 found = item;
             }
         });
         return found;
     }
-    var AttachmentButton = /** @class */ (function () {
-        function AttachmentButton(text, size) {
+    class AttachmentButton {
+        get x() {
+            return this._sprite.x;
+        }
+        set x(x) {
+            this._sprite.x = x;
+        }
+        get y() {
+            return this._sprite.y;
+        }
+        set y(y) {
+            this._sprite.y = y;
+        }
+        get width() {
+            return this._sprite.width;
+        }
+        get height() {
+            return this._sprite.height;
+        }
+        constructor(text, size) {
             this._fontSize = size ? size : 28;
             this._text = text;
-            var bitmap = new Bitmap(this._fontSize, this._fontSize);
-            bitmap.fontFace = 'GameFont';
+            const bitmap = new Bitmap(this._fontSize, this._fontSize);
+            bitmap.fontFace = [...customButtonTextFont, 'GameFont'].join(',');
             bitmap.fontSize = this._fontSize;
             bitmap.textColor = '#aaaaaa';
             bitmap.resize(bitmap.measureTextWidth(text), bitmap.height);
@@ -205,110 +259,67 @@
             this._sprite.visible = false;
             SceneManager._scene.addChild(this._sprite);
         }
-        Object.defineProperty(AttachmentButton.prototype, "x", {
-            get: function () {
-                return this._sprite.x;
-            },
-            set: function (x) {
-                this._sprite.x = x;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AttachmentButton.prototype, "y", {
-            get: function () {
-                return this._sprite.y;
-            },
-            set: function (y) {
-                this._sprite.y = y;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AttachmentButton.prototype, "width", {
-            get: function () {
-                return this._sprite.width;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AttachmentButton.prototype, "height", {
-            get: function () {
-                return this._sprite.height;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        AttachmentButton.prototype.hide = function () {
+        hide() {
             this._sprite.visible = false;
-        };
-        AttachmentButton.prototype.show = function () {
+        }
+        show() {
             this._sprite.visible = true;
-        };
-        AttachmentButton.prototype.setPosition = function (x, y) {
+        }
+        setPosition(x, y) {
             this.x = x;
             this.y = y;
-        };
-        AttachmentButton.prototype.isPointInside = function (x, y) {
+        }
+        isPointInside(x, y) {
             return !!(x >= this.x && x < this.x + this.width && y >= this.y && y < this.y + this.height);
-        };
-        AttachmentButton.prototype.attachFunction = function (func) {
+        }
+        attachFunction(func) {
             this._func = func;
-        };
-        AttachmentButton.prototype.isVisible = function () {
+        }
+        isVisible() {
             return !!this._sprite.visible;
-        };
-        AttachmentButton.prototype.isTouchable = function () {
+        }
+        isTouchable() {
             return !!(this.isVisible() && this.width > 0);
-        };
-        AttachmentButton.prototype.exec = function () {
+        }
+        exec() {
             this._func($gameMap._interpreter);
-        };
-        AttachmentButton.prototype.onMouseOver = function () {
+        }
+        onMouseOver() {
             this._sprite.bitmap.clear();
             this._sprite.bitmap.textColor = '#ffffff';
             this._sprite.bitmap.drawText(this._text, 0, 0, this._sprite.bitmap.width, this._fontSize);
-        };
-        AttachmentButton.prototype.onMouseLeave = function () {
+        }
+        onMouseLeave() {
             this._sprite.bitmap.clear();
             this._sprite.bitmap.textColor = '#aaaaaa';
             this._sprite.bitmap.drawText(this._text, 0, 0, this._sprite.bitmap.width, this._fontSize);
-        };
-        return AttachmentButton;
-    }());
-    var AttachmentButtonManager = /** @class */ (function () {
-        function AttachmentButtonManager() {
-            this._buttons = buttonSettings.map(function (setting) {
-                var button = new AttachmentButton(setting.text, 20);
+        }
+    }
+    class AttachmentButtonManager {
+        constructor() {
+            this._buttons = buttonSettings.map((setting) => {
+                const button = new AttachmentButton(setting.text, attachmentButtonSize);
                 button.attachFunction(setting.command);
                 return button;
             });
             this._isOpened = false;
             this._isButtonAvailable = false;
         }
-        Object.defineProperty(AttachmentButtonManager.prototype, "isOpened", {
-            get: function () {
-                return this._isOpened;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AttachmentButtonManager.prototype, "isButtonAvailable", {
-            get: function () {
-                return this._isButtonAvailable;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        AttachmentButtonManager.prototype.enableButton = function () {
+        get isOpened() {
+            return this._isOpened;
+        }
+        get isButtonAvailable() {
+            return this._isButtonAvailable;
+        }
+        enableButton() {
             this._isButtonAvailable = true;
-        };
-        AttachmentButtonManager.prototype.disableButton = function () {
+        }
+        disableButton() {
             this._isButtonAvailable = false;
-        };
-        AttachmentButtonManager.prototype.handleMouseMove = function () {
+        }
+        handleMouseMove() {
             if (this.isButtonAvailable) {
-                var selectedButton = this.selectedButton();
+                const selectedButton = this.selectedButton();
                 if (selectedButton) {
                     if (selectedButton !== this._lastSelectedButton) {
                         if (this._lastSelectedButton) {
@@ -325,18 +336,18 @@
                     }
                 }
             }
-        };
-        AttachmentButtonManager.prototype.handleShow = function () {
+        }
+        handleShow() {
             if (this.isButtonAvailable) {
-                this._buttons.forEach(function (button) { return button.show(); });
+                this._buttons.forEach((button) => button.show());
             }
-        };
-        AttachmentButtonManager.prototype.handleHide = function () {
+        }
+        handleHide() {
             if (this.isButtonAvailable) {
-                this._buttons.forEach(function (button) { return button.hide(); });
+                this._buttons.forEach((button) => button.hide());
             }
-        };
-        AttachmentButtonManager.prototype.handleOpennessChanged = function (opened, x, y, width, height) {
+        }
+        handleOpennessChanged(opened, x, y, width, height) {
             if (!this.isButtonAvailable) {
                 return;
             }
@@ -350,13 +361,13 @@
                     this.handleClosing();
                 }
             }
-        };
-        AttachmentButtonManager.prototype.handleOpened = function (x, y, width, height) {
+        }
+        handleOpened(x, y, width, height) {
             this._isOpened = true;
             if (this.isButtonAvailable) {
-                var right = width;
-                for (var i = this._buttons.length - 1; i >= 0; i--) {
-                    var button = this._buttons[i];
+                let right = width;
+                for (let i = this._buttons.length - 1; i >= 0; i--) {
+                    const button = this._buttons[i];
                     button.setPosition(right - button.width - 8, y + height - button.height - 8);
                     if (button.isPointInside(TouchInput.x, TouchInput.y)) {
                         this._lastSelectedButton = button;
@@ -366,24 +377,23 @@
                     button.show();
                 }
             }
-        };
-        AttachmentButtonManager.prototype.handleClosing = function () {
+        }
+        handleClosing() {
             this._isOpened = false;
             if (this.isButtonAvailable) {
-                this._buttons.forEach(function (button) { return button.hide(); });
+                this._buttons.forEach((button) => button.hide());
             }
-        };
-        AttachmentButtonManager.prototype.triggeredButton = function () {
+        }
+        triggeredButton() {
             if (this.isButtonAvailable) {
                 return this.selectedButton();
             }
             return null;
-        };
-        AttachmentButtonManager.prototype.selectedButton = function () {
-            return find(this._buttons, function (button) {
+        }
+        selectedButton() {
+            return find(this._buttons, (button) => {
                 return button.isTouchable() && button.isPointInside(TouchInput.x, TouchInput.y);
             });
-        };
-        return AttachmentButtonManager;
-    }());
+        }
+    }
 })();

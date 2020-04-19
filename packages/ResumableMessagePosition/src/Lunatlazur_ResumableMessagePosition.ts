@@ -117,8 +117,9 @@ interface ISavefileInfo {
       info.lastMessage = this.convertEscapeCharacters(info.lastMessage)
         .replace(/\x1bn<([^>]+)>/, '$1')
         .replace(/\x1b([\$\.\|\^!><\{\}\\]|[A-Z]+)/i, '')
-      if (info.lastMessage.length >= 27) {
-        info.lastMessage = info.lastMessage.substr(0, 26) + '…'
+      const maxLength = (this.width - this.standardPadding() * 2) / this.standardFontSize() - 4
+      if (info.lastMessage.length >= maxLength) {
+        info.lastMessage = info.lastMessage.substr(0, maxLength - 1) + '…'
       }
       this.drawText(info.lastMessage, 8, y - 32)
     } else {

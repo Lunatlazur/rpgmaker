@@ -1,0 +1,9 @@
+{
+  "name": "back-log",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
