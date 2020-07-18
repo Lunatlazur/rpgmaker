@@ -27,49 +27,49 @@ declare namespace RPGMakerMV {
 }
 
 /** アクターのデータ */
-declare var $dataActors: RPGMakerMV.DataActor[];
+declare var $dataActors: RPGMakerMV.DataActor[] | null;
 /** 職業のデータ */
-declare var $dataClasses: RPGMakerMV.DataClass[];
+declare var $dataClasses: RPGMakerMV.DataClass[] | null;
 /** スキルのデータ */
-declare var $dataSkills: RPGMakerMV.DataSkill[];
+declare var $dataSkills: RPGMakerMV.DataSkill[] | null;
 /** アイテムのデータ */
-declare var $dataItems: RPGMakerMV.DataItem[];
+declare var $dataItems: RPGMakerMV.DataItem[] | null;
 /** 武器のデータ */
-declare var $dataWeapons: RPGMakerMV.DataWeapon[];
+declare var $dataWeapons: RPGMakerMV.DataWeapon[] | null;
 /** 防具のデータ */
-declare var $dataArmors: RPGMakerMV.DataArmor[];
+declare var $dataArmors: RPGMakerMV.DataArmor[] | null;
 /** 敵のデータ */
-declare var $dataEnemies: RPGMakerMV.DataEnemy[];
+declare var $dataEnemies: RPGMakerMV.DataEnemy[] | null;
 /** 敵グループのデータ */
-declare var $dataTroops: RPGMakerMV.DataTroop[];
+declare var $dataTroops: RPGMakerMV.DataTroop[] | null;
 /** ステートのデータ */
-declare var $dataStates: RPGMakerMV.DataState[];
+declare var $dataStates: RPGMakerMV.DataState[] | null;
 /** アニメーションのデータ */
-declare var $dataAnimations: RPGMakerMV.DataAnimation[];
+declare var $dataAnimations: RPGMakerMV.DataAnimation[] | null;
 /** タイルセットのデータ */
-declare var $dataTilesets: RPGMakerMV.DataTileset[];
+declare var $dataTilesets: RPGMakerMV.DataTileset[] | null;
 /** コモンイベントのデータ */
-declare var $dataCommonEvents: RPGMakerMV.DataCommonEvent[];
+declare var $dataCommonEvents: RPGMakerMV.DataCommonEvent[] | null;
 /** システムのデータ */
-declare var $dataSystem: RPGMakerMV.DataSystem;
+declare var $dataSystem: RPGMakerMV.DataSystem | null;
 /** マップ情報のデータ */
-declare var $dataMapInfos: RPGMakerMV.DataMapInfo[];
+declare var $dataMapInfos: RPGMakerMV.DataMapInfo[] | null;
 /** マップのデータ */
-declare var $dataMap: RPGMakerMV.DataMap;
-declare var $gameTemp: Game_Temp;
-declare var $gameSystem: Game_System;
-declare var $gameScreen: Game_Screen;
-declare var $gameTimer: Game_Timer;
-declare var $gameMessage: Game_Message;
-declare var $gameSwitches: Game_Switches;
-declare var $gameVariables: Game_Variables;
-declare var $gameSelfSwitches: Game_SelfSwitches;
-declare var $gameMap: Game_Map;
-declare var $gameActors: Game_Actors;
-declare var $gameParty: Game_Party;
-declare var $gameTroop: Game_Troop;
-declare var $gamePlayer: Game_Player;
-declare var $testEvent: RPGMakerMV.EventCommand;
+declare var $dataMap: RPGMakerMV.DataMap | null;
+declare var $gameTemp: Game_Temp | null;
+declare var $gameSystem: Game_System | null;
+declare var $gameScreen: Game_Screen | null;
+declare var $gameTimer: Game_Timer | null;
+declare var $gameMessage: Game_Message | null;
+declare var $gameSwitches: Game_Switches | null;
+declare var $gameVariables: Game_Variables | null;
+declare var $gameSelfSwitches: Game_SelfSwitches | null;
+declare var $gameMap: Game_Map | null;
+declare var $gameActors: Game_Actors | null;
+declare var $gameParty: Game_Party | null;
+declare var $gameTroop: Game_Troop | null;
+declare var $gamePlayer: Game_Player | null;
+declare var $testEvent: RPGMakerMV.EventCommand | null;
 
 declare interface ISavefileInfo {
     globalId?: number;
