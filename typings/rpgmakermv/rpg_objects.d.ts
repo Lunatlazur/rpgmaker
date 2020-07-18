@@ -5,7 +5,7 @@ declare class Game_Temp {
     reserveCommonEvent(commonEventId: number): void;
     clearCommonEvent(): void;
     isCommonEventReserved(): boolean;
-    reservedCommonEvent(): IDataCommonEvent;
+    reservedCommonEvent(): RPGMakerMV.DataCommonEvent;
     setDestination(x: number, y: number): void;
     clearDestination(): void;
     isDestinationValid(): void;
@@ -32,11 +32,11 @@ declare class Game_System {
     _bgmOnSave: IAudioObject;
     _bgsOnSave: IAudioObject;
     _windowTone: number[];
-    _battleBgm: IDataSound;
-    _victoryMe: IDataSound;
-    _defeatMe: IDataSound;
-    _savedBgm: IDataSound;
-    _walkingBgm: IDataSound;
+    _battleBgm: RPGMakerMV.Sound;
+    _victoryMe: RPGMakerMV.Sound;
+    _defeatMe: RPGMakerMV.Sound;
+    _savedBgm: RPGMakerMV.Sound;
+    _walkingBgm: RPGMakerMV.Sound;
 
     constructor();
     initialize(): void;
@@ -65,12 +65,12 @@ declare class Game_System {
     versionId(): number;
     windowTone(): number[];
     setWindowTone(value: number[]): void;
-    battleBgm(): IDataSound;
-    setBattleBgm(value: IDataSound): void;
-    victoryMe(): IDataSound;
-    setVictoryMe(value: IDataSound): void;
-    defeatMe(): IDataSound;
-    setDefeatMe(value: IDataSound): void;
+    battleBgm(): RPGMakerMV.Sound;
+    setBattleBgm(value: RPGMakerMV.Sound): void;
+    victoryMe(): RPGMakerMV.Sound;
+    setVictoryMe(value: RPGMakerMV.Sound): void;
+    defeatMe(): RPGMakerMV.Sound;
+    setDefeatMe(value: RPGMakerMV.Sound): void;
     onBattleStart(): void;
     onBattleWin(): void;
     onBattleEscape(): void;
@@ -317,8 +317,8 @@ declare class Game_Item {
     _dataClass: string;
     _itemId: number;
 
-    constructor(item?: IDataItem);
-    initialize(item: IDataItem): void;
+    constructor(item?: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill);
+    initialize(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
     isSkill(): boolean;
     isItem(): boolean;
     isUsableItem(): boolean;
@@ -327,8 +327,8 @@ declare class Game_Item {
     isEquipItem(): boolean;
     isNull(): boolean;
     itemId(): number;
-    object(): IDataItem;
-    setObject(item: IDataItem): void;
+    object(): RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill;
+    setObject(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
     setEquip(isWeapon: boolean, itemId: number): void;
 }
 
@@ -371,9 +371,9 @@ declare class Game_Action {
     setGuard(): void;
     setSkill(skillId: number): void;
     setItem(itemId: number): void;
-    setItemObject(object: IDataItem): void
+    setItemObject(object: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void
     setTarget(targetIndex: number): void;
-    item(): IDataItem;
+    item(): RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill;
     isSkill(): boolean;
     isItem(): boolean;
     numRepeats(): number;
@@ -416,7 +416,7 @@ declare class Game_Action {
     evaluateWithTarget(target: Game_Battler): number;
     testApply(target: Game_Battler): boolean;
     hasItemAnyValidEffects(target: Game_Battler): number;
-    testItemEffect(target: Game_Battler, effect: IDataEffect): number;
+    testItemEffect(target: Game_Battler, effect: RPGMakerMV.Effect): number;
     itemCnt(target: Game_Battler): number;
     itemMrf(target: Game_Battler): number;
     itemHit(target: Game_Battler): number;
@@ -435,22 +435,22 @@ declare class Game_Action {
     executeMpDamage(target: Game_Battler, value: number): void;
     gainDrainedHp(value: number): void;
     gainDrainedMp(value: number): void;
-    applyItemEffect(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectRecoverHp(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectRecoverMp(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectGainTp(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectAddState(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectAddAttackState(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectAddNormalState(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectRemoveState(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectAddBuff(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectAddDebuff(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectRemoveBuff(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectRemoveDebuff(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectSpecial(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectGrow(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectLearnSkill(target: Game_Battler, effect: IDataEffect): void;
-    itemEffectCommonEvent(target: Game_Battler, effect: IDataEffect): void;
+    applyItemEffect(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectRecoverHp(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectRecoverMp(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectGainTp(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectAddState(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectAddAttackState(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectAddNormalState(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectRemoveState(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectAddBuff(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectAddDebuff(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectRemoveBuff(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectRemoveDebuff(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectSpecial(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectGrow(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectLearnSkill(target: Game_Battler, effect: RPGMakerMV.Effect): void;
+    itemEffectCommonEvent(target: Game_Battler, effect: RPGMakerMV.Effect): void;
     makeSuccess(target: Game_Battler): void;
     applyItemUserEffect(target: Game_Battler): void;
     lukEffectRate(target: Game_Battler): number;
@@ -469,8 +469,8 @@ declare class Game_ActionResult {
     hpDamage: number;
     mpDamage: number;
     tpDamage: number;
-    addedStates: IDataState[];
-    removedStates: IDataState[];
+    addedStates: RPGMakerMV.DataState[];
+    removedStates: RPGMakerMV.DataState[];
     addedBuffs: number[];
     addedDebuffs: number[];
     removedBuffs: number[];
@@ -478,8 +478,8 @@ declare class Game_ActionResult {
     constructor();
     initialize(): void;
     clear(): void;
-    addedStateObjects(): IDataState[];
-    removedStateObjects(): IDataState[];
+    addedStateObjects(): RPGMakerMV.DataState[];
+    removedStateObjects(): RPGMakerMV.DataState[];
     isStatusAffected(): boolean;
     isHit(): boolean;
     isStateAdded(stateId: number): boolean;
@@ -597,15 +597,15 @@ declare class Game_BattlerBase {
     updateBuffTurns(): void;
     die(): void;
     revive(): void;
-    states(): IDataState[];
+    states(): RPGMakerMV.DataState[];
     stateIcons(): number[];
     buffIcons(): number[];
     buffIconIndex(buffLevel: number, paramId: number): number;
     allIcons(): number[];
-    traitObjects(): IDataState[];
-    allTraits(): IDataTrait[];
-    traits(code: number): IDataTrait[];
-    traitsWithId(code: number, id: number): IDataTrait[];
+    traitObjects(): RPGMakerMV.DataState[];
+    allTraits(): RPGMakerMV.Trait[];
+    traits(code: number): RPGMakerMV.Trait[];
+    traitsWithId(code: number, id: number): RPGMakerMV.Trait[];
     traitsPi(code: number, id: number): number;
     traitsSum(code: number, id: number): number;
     traitsSumAll(code: number): number;
@@ -678,19 +678,19 @@ declare class Game_BattlerBase {
     mostImportantStateText(): string;
     stateMotionIndex(): number;
     stateOverlayIndex(): number;
-    isSkillWtypeOk(skill: IDataSkill): boolean;
-    skillMpCost(skill: IDataSkill): number;
-    skillTpCost(skill: IDataSkill): number;
-    canPaySkillCost(skill: IDataSkill): boolean;
-    paySkillCost(skill: IDataSkill): void;
-    isOccasionOk(item: IDataAllItem): boolean;
-    meetsUsableItemConditions(item: IDataAllItem): boolean;
-    meetsSkillConditions(skill: IDataSkill): boolean;
-    meetsItemConditions(skill: IDataSkill): boolean;
-    canUse(item: IDataAllItem): boolean;
-    canEquip(item: IDataAllItem): boolean;
-    canEquipWeapon(item: IDataAllItem): boolean;
-    canEquipArmor(item: IDataAllItem): boolean;
+    isSkillWtypeOk(skill: RPGMakerMV.DataSkill): boolean;
+    skillMpCost(skill: RPGMakerMV.DataSkill): number;
+    skillTpCost(skill: RPGMakerMV.DataSkill): number;
+    canPaySkillCost(skill: RPGMakerMV.DataSkill): boolean;
+    paySkillCost(skill: RPGMakerMV.DataSkill): void;
+    isOccasionOk(item: RPGMakerMV.DataAnyItem): boolean;
+    meetsUsableItemConditions(item: RPGMakerMV.DataAnyItem): boolean;
+    meetsSkillConditions(skill: RPGMakerMV.DataSkill): boolean;
+    meetsItemConditions(skill: RPGMakerMV.DataSkill): boolean;
+    canUse(item: RPGMakerMV.DataAnyItem): boolean;
+    canEquip(item: RPGMakerMV.DataAnyItem): boolean;
+    canEquipWeapon(item: RPGMakerMV.DataWeapon): boolean;
+    canEquipArmor(item: RPGMakerMV.DataArmor): boolean;
     attackSkillId(): number;
     guardSkillId(): number;
     canAttack(): boolean;
@@ -773,8 +773,8 @@ declare class Game_Battler extends Game_BattlerBase {
     removeCurrentAction(): void;
     setLastTarnget(target: Game_Battler): void
     forceAction(skillId: number, targetIndex: number): void;
-    useItem(item: IDataAllItem): void;
-    consumeItem(item: IDataAllItem): void;
+    useItem(item: RPGMakerMV.DataAnyItem): void;
+    consumeItem(item: RPGMakerMV.DataAnyItem): void;
     gainHp(value: number): void;
     gainMp(value: number): void;
     gainTp(value: number): void;
@@ -842,7 +842,7 @@ declare class Game_Actor extends Game_Battler {
     initMembers(): void;
     setup(actorId: number): void;
     actorId(): number;
-    actor(): IDataActor;
+    actor(): RPGMakerMV.DataActor;
     name(): string;
     setName(name: string): void;
     nickname(): string;
@@ -870,23 +870,23 @@ declare class Game_Actor extends Game_Battler {
     initEquips(equips: number[]): void;
     equipSlots(): number[];
     equips(): Game_Item[];
-    weapons(): IDataWeapon[];
-    armors(): IDataArmor[];
-    hasWeapon(weapon: IDataWeapon): boolean;
-    hasArmor(armor: IDataArmor): boolean;
+    weapons(): RPGMakerMV.DataWeapon[];
+    armors(): RPGMakerMV.DataArmor[];
+    hasWeapon(weapon: RPGMakerMV.DataWeapon): boolean;
+    hasArmor(armor: RPGMakerMV.DataArmor): boolean;
     isEquipChangeOk(slotId: number): boolean;
-    changeEquip(slotId: number, item: IDataEquipItem): void;
-    forceChangeEquip(slotId: number, item: IDataEquipItem): void;
-    tradeItemWithParty(newItem: IDataEquipItem, oldItem: IDataEquipItem): boolean;
+    changeEquip(slotId: number, item: RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor): void;
+    forceChangeEquip(slotId: number, item: RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor): void;
+    tradeItemWithParty(newItem: RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor, oldItem: RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor): boolean;
     changeEquipById(etypeId: number, itemId: number): void;
-    isEquipped(item: IDataAllItem): boolean;
-    discardEquip(item: IDataEquipItem): void;
+    isEquipped(item: RPGMakerMV.DataAnyItem): boolean;
+    discardEquip(item: RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor): void;
     releaseUnequippableItems(forcing: boolean): void;
     clearEquipments(): void;
     optimizeEquipments(): void;
-    bestEquipItem(slotId: number): IDataEquipItem;
-    calcEquipItemPerformance(item: IDataEquipItem): number;
-    isSkillWtypeOk(skill: IDataSkill): boolean;
+    bestEquipItem(slotId: number): RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor;
+    calcEquipItemPerformance(item: RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor): number;
+    isSkillWtypeOk(skill: RPGMakerMV.DataSkill): boolean;
     isWtypeEquipped(wtypeId: number): boolean;
     refresh(): void;
     isActor(): boolean;
@@ -895,11 +895,11 @@ declare class Game_Actor extends Game_Battler {
     index(): number;
     isBattleMember(): boolean;
     isFormationChangeOk(): boolean;
-    currentClass(): IDataClass;
-    isClass(gameClass: IDataClass): boolean;
-    skills(): IDataSkill[];
-    usableSkills(): IDataSkill[];
-    traitObjects(): IDataState[];
+    currentClass(): RPGMakerMV.DataClass;
+    isClass(gameClass: RPGMakerMV.DataClass): boolean;
+    skills(): RPGMakerMV.DataSkill[];
+    usableSkills(): RPGMakerMV.DataSkill[];
+    traitObjects(): RPGMakerMV.DataState[];
     attackElements(): number[];
     hasNoWeapons(): boolean;
     bareHandsElementId(): number;
@@ -912,8 +912,8 @@ declare class Game_Actor extends Game_Battler {
     changeExp(exp: number, show: boolean): void;
     levelUp(): void;
     levelDown(): void;
-    findNewSkills(lastSkills: IDataSkill[]): IDataSkill[];
-    displayLevelUp(newSkills: IDataSkill[]): void;
+    findNewSkills(lastSkills: RPGMakerMV.DataSkill[]): RPGMakerMV.DataSkill[];
+    displayLevelUp(newSkills: RPGMakerMV.DataSkill[]): void;
     gainExp(exp: number): void;
     finalExpRate(): number;
     benchMembersExpRate(): number;
@@ -945,7 +945,7 @@ declare class Game_Actor extends Game_Battler {
     makeConfusionActions(): void;
     makeActions(): void;
     onPlayerWalk(): void;
-    updateStateSteps(state: IDataState): void;
+    updateStateSteps(state: RPGMakerMV.DataState): void;
     showAddedStates(): void;
     showRemovedStates(): void;
     stepsForTurn(): number;
@@ -959,14 +959,14 @@ declare class Game_Actor extends Game_Battler {
     inputtingAction(): Game_Action;
     selectNextCommand(): boolean;
     selectPreviousCommand(): boolean;
-    lastMenuSkill(): IDataSkill;
-    setLastMenuSkill(skill: IDataSkill): void;
-    lastBattleSkill(): IDataSkill;
-    setLastBattleSkill(skill: IDataSkill): void;
+    lastMenuSkill(): RPGMakerMV.DataSkill;
+    setLastMenuSkill(skill: RPGMakerMV.DataSkill): void;
+    lastBattleSkill(): RPGMakerMV.DataSkill;
+    setLastBattleSkill(skill: RPGMakerMV.DataSkill): void;
     lastCommandSymbol(): string;
     setLastCommandSymbol(symbol: string): void;
-    testEscape(item: IDataAllItem): boolean;
-    meetsUsableItemConditions(item: IDataAllItem): boolean;
+    testEscape(item: RPGMakerMV.DataAnyItem): boolean;
+    meetsUsableItemConditions(item: RPGMakerMV.DataAnyItem): boolean;
 }
 
 declare class Game_Enemy extends Game_Battler {
@@ -987,14 +987,14 @@ declare class Game_Enemy extends Game_Battler {
     index(): number;
     isBattleMember(): boolean;
     enemyId(): number;
-    enemy(): IDataEnemy;
-    traitObjects(): IDataState[];
+    enemy(): RPGMakerMV.DataEnemy;
+    traitObjects(): RPGMakerMV.DataState[];
     paramBase(paramId: number): number;
     exp(): number;
     gold(): number;
-    makeDropItems(): IDataAllItem[];
+    makeDropItems(): RPGMakerMV.DataAnyItem[];
     dropItemRate(): number;
-    itemObject(kind: number, dataId: number): IDataAllItem;
+    itemObject(kind: number, dataId: number): RPGMakerMV.DataAnyItem;
     isSpriteVisible(): boolean;
     screenX(): number;
     screenY(): number;
@@ -1011,16 +1011,16 @@ declare class Game_Enemy extends Game_Battler {
     performDamage(): void;
     performCollapse(): void;
     transform(enemyId: number): void;
-    meetsCondition(action: IDataAction): boolean;
+    meetsCondition(action: RPGMakerMV.Action): boolean;
     meetsTurnCondition(param1: number, param2: number): boolean;
     meetsHpCondition(param1: number, param2: number): boolean;
     meetsMpCondition(param1: number, param2: number): boolean;
     meetsStateCondition(param: number): boolean;
     meetsPartyLevelCondition(param: number): boolean;
     meetsSwitchCondition(param: number): boolean;
-    isActionValid(action: IDataAction): boolean;
-    selectAction(actionList: IDataAction[], ratingZero: number): IDataAction;
-    selectAllActions(actionList: IDataAction[]): void;
+    isActionValid(action: RPGMakerMV.Action): boolean;
+    selectAction(actionList: RPGMakerMV.Action[], ratingZero: number): RPGMakerMV.Action;
+    selectAllActions(actionList: RPGMakerMV.Action[]): void;
     makeActions(): void;
 }
 
@@ -1089,12 +1089,12 @@ declare class Game_Party extends Game_Unit {
     maxBattleMembers(): number;
     leader(): Game_Actor;
     reviveBattleMembers(): Game_Actor[];
-    items(): IDataItem[];
-    weapons(): IDataWeapon[];
-    armors(): IDataArmor[];
-    equipItems(): IDataEquipItem[];
-    allItems(): IDataAllItem[];
-    itemContainer(item: IDataAllItem): IDataItem[] | IDataWeapon[] | IDataArmor[];
+    items(): RPGMakerMV.DataItem[];
+    weapons(): RPGMakerMV.DataWeapon[];
+    armors(): RPGMakerMV.DataArmor[];
+    equipItems(): Array<RPGMakerMV.DataWeapon | RPGMakerMV.DataArmor>;
+    allItems(): RPGMakerMV.DataAnyItem[];
+    itemContainer(item: RPGMakerMV.DataAnyItem): RPGMakerMV.DataItem[] | RPGMakerMV.DataWeapon[] | RPGMakerMV.DataArmor[];
     setupStartingMembers(): void;
     name(): string;
     setupBattleTest(): void;
@@ -1109,16 +1109,16 @@ declare class Game_Party extends Game_Unit {
     maxGold(): number;
     steps(): number;
     increaseSteps(): void;
-    numItems(item: IDataAllItem): number;
-    maxItems(item: IDataAllItem): number;
-    hasMaxItems(item: IDataAllItem): boolean;
-    hasItem(item: IDataAllItem, includeEquip?: boolean): boolean;
-    isAnyMemberEquipped(item: IDataAllItem): boolean;
-    gainItem(item: IDataAllItem, amount: number, includeEquip: boolean): void;
-    discardMembersEquip(item: IDataAllItem, amount: number): void;
-    loseItem(item: IDataAllItem, amount: number, includeEquip: boolean): void;
-    consumeItem(item: IDataAllItem): void;
-    canUse(item: IDataAllItem): boolean;
+    numItems(item: RPGMakerMV.DataAnyItem): number;
+    maxItems(item: RPGMakerMV.DataAnyItem): number;
+    hasMaxItems(item: RPGMakerMV.DataAnyItem): boolean;
+    hasItem(item: RPGMakerMV.DataAnyItem, includeEquip?: boolean): boolean;
+    isAnyMemberEquipped(item: RPGMakerMV.DataAnyItem): boolean;
+    gainItem(item: RPGMakerMV.DataAnyItem, amount: number, includeEquip: boolean): void;
+    discardMembersEquip(item: RPGMakerMV.DataAnyItem, amount: number): void;
+    loseItem(item: RPGMakerMV.DataAnyItem, amount: number, includeEquip: boolean): void;
+    consumeItem(item: RPGMakerMV.DataAnyItem): void;
+    canUse(item: RPGMakerMV.DataAnyItem): boolean;
     canInput(): boolean;
     isAllDead(): boolean;
     onPlayerWalk(): void;
@@ -1128,8 +1128,8 @@ declare class Game_Party extends Game_Unit {
     makeMenuActorPrevious(): void;
     targetActor(): Game_Actor;
     setTargetActor(actor: Game_Actor): void;
-    lastItem(): IDataAllItem;
-    setLastItem(item: IDataAllItem): void;
+    lastItem(): RPGMakerMV.DataAnyItem;
+    setLastItem(item: RPGMakerMV.DataAnyItem): void;
     swapOrder(index1: number, index2: number): void;
     charactersForSavefile(): [string, number];
     facesForSavefile(): [string, number];
@@ -1166,18 +1166,18 @@ declare class Game_Troop extends Game_Unit {
     turnCount(): number;
     members(): Game_Enemy[];
     clear(): void;
-    troop(): IDataTroop;
+    troop(): RPGMakerMV.DataTroop;
     setup(troopId: number): void;
     makeUniqueNames(): void;
     letterTable(): string[];
     enemyNames(): string[];
-    meetsConditions(page: IDataPage): boolean;
+    meetsConditions(page: RPGMakerMV.BattleEventPage): boolean;
     setupBattleEvent(): void;
     increaseTurn(): void;
     expTotal(): number;
     goldTotal(): number;
     goldRate(): number;
-    makeDropItems(): IDataItem[];
+    makeDropItems(): RPGMakerMV.DataAnyItem[];
 }
 
 declare class Game_Map {
@@ -1240,7 +1240,7 @@ declare class Game_Map {
     setDisplayPos(x: number, y: number): void;
     parallaxOx(): number;
     parallaxOy(): number;
-    tileset(): IDataTileset;
+    tileset(): RPGMakerMV.DataTileset;
     tilesetFlags(): number[];
     displayName(): string;
     width(): number;
@@ -1249,7 +1249,7 @@ declare class Game_Map {
     isLoopHorizontal(): boolean;
     isLoopVertical(): boolean;
     isDashDisabled(): boolean;
-    encounterList(): IDataEncounterList;
+    encounterList(): RPGMakerMV.Encounter[];
     encounterStep(): number;
     isOverworld(): boolean;
     screenTileX(): number;
@@ -1323,8 +1323,8 @@ declare class Game_CommonEvent {
 
     constructor(commonEventId: number);
     initialize(commonEventId: number): void;
-    event(): IDataCommonEvent;
-    list(): IDataList;
+    event(): RPGMakerMV.DataCommonEvent;
+    list(): RPGMakerMV.EventCommand[];
     refresh(): void;
     isActive(): boolean;
     update(): void;
@@ -1515,9 +1515,9 @@ declare class Game_Character extends Game_CharacterBase {
     static ROUTE_SCRIPT: number;
 
     _moveRouteForcing: boolean;
-    _moveRoute: IDataMoveRoute;
+    _moveRoute: RPGMakerMV.MoveRoute;
     _moveRouteIndex: number;
-    _originalMoveRoute: IDataMoveRoute;
+    _originalMoveRoute: RPGMakerMV.MoveRoute;
     _originalMoveRouteIndex: number;
     _waitCount: number;
 
@@ -1527,11 +1527,11 @@ declare class Game_Character extends Game_CharacterBase {
     memorizeMoveRoute(): void;
     restoreMoveRoute(): void;
     isMoveRouteForcing(): boolean;
-    setMoveRoute(moveRoute: IDataMoveRoute): void;
-    forceMoveRoute(moveRoute: IDataMoveRoute): void;
+    setMoveRoute(moveRoute: RPGMakerMV.MoveRoute): void;
+    forceMoveRoute(moveRoute: RPGMakerMV.MoveRoute): void;
     updateStop(): void;
     updateRoutineMove(): void;
-    processMoveCommand(command: IDataMoveRouteCommand): void
+    processMoveCommand(command: RPGMakerMV.MoveCommand): void
     deltaXFrom(x: number): number;
     deltaYFrom(y: number): number;
     moveRandom(): void;
@@ -1585,7 +1585,7 @@ declare class Game_Player extends Game_Character {
     fadeType(): number;
     performTransfer(): void;
     isMapPassable(x: number, y: number, d: number): boolean;
-    vehicle(): IVehicle;
+    vehicle(): RPGMakerMV.Vehicle;
     isInBoat(): boolean;
     isInShip(): boolean;
     isInAirship(): boolean;
@@ -1601,7 +1601,7 @@ declare class Game_Player extends Game_Character {
     increaseSteps(): void;
     makeEncounterCount(): void;
     makeEncounterTroopId(): number;
-    meetsEncounterConditions(encounter: IDataEncounterList): boolean;
+    meetsEncounterConditions(encounter: RPGMakerMV.Encounter): boolean;
     executeEncounter(): boolean;
     startMapEvent(x: number, y: number, triggers: number[], normal: boolean): void;
     moveByInput(): void;
@@ -1745,9 +1745,9 @@ declare class Game_Event extends Game_Character {
     initialize(mapId: number, eventId: number): void;
     initMembers(): void;
     eventId(): number;
-    event(): IDataMapEvent;
-    page(): IDataMapEventPage;
-    list(): IDataList;
+    event(): RPGMakerMV.MapEvent;
+    page(): RPGMakerMV.MapEventPage;
+    list(): RPGMakerMV.EventCommand[];
     isCollidedWithCharacters(): boolean;
     isCollidedWithEvents(): boolean;
     isCollidedWithPlayerCharacters(): boolean;
@@ -1767,7 +1767,7 @@ declare class Game_Event extends Game_Character {
     erase(): void;
     refresh(): void;
     findProperPageIndex(): number;
-    meetsConditions(page: IDataMapEventPage): boolean;
+    meetsConditions(page: RPGMakerMV.MapEventPage): boolean;
     setupPage(): void;
     clearPageSettings(): void;
     setupPageSettings(): void;
@@ -1779,7 +1779,7 @@ declare class Game_Event extends Game_Character {
     update(): void;
     updateParallel(): void;
     locate(x: number, y: number): void;
-    forceMoveRoute(moveRoute: IDataMoveRoute): void;
+    forceMoveRoute(moveRoute: RPGMakerMV.MoveRoute): void;
 }
 
 declare class Game_Interpreter {
@@ -1791,7 +1791,7 @@ declare class Game_Interpreter {
     _freezeChecker: number;
     _mapId: number;
     _eventId: number;
-    _list: IDataList[];
+    _list: RPGMakerMV.EventCommand[];
     _index: number;
     _waitCount: number;
     _waitMode: string;
@@ -1803,7 +1803,7 @@ declare class Game_Interpreter {
     initialize(depth?: number): void;
     checkOverflow(): void;
     clear(): void;
-    setup(list: IDataList[], eventId?: number): void;
+    setup(list: RPGMakerMV.EventCommand[], eventId?: number): void;
     eventId(): number;
     isOnCurrentMap(): boolean;
     setupReservedCommonEvent(): boolean;
@@ -1820,7 +1820,7 @@ declare class Game_Interpreter {
     checkFreeze(): boolean;
     terminate(): void;
     skipBranch(): void;
-    currentCommand(): IDataList;
+    currentCommand(): RPGMakerMV.EventCommand;
     nextEventCode(): number;
     iterateActorId(param: number, callback: Function): void;
     iterateActorEx(param1: number, param2: number, callback: Function): void;
@@ -1848,7 +1848,7 @@ declare class Game_Interpreter {
     command113(): boolean;
     command115(): boolean;
     command117(): boolean;
-    setupChild(list: IDataList[], eventId: number): void;
+    setupChild(list: RPGMakerMV.EventCommand[], eventId: number): void;
     command118(): boolean;
     command119(): boolean;
     jumpTo(index: number): void;
@@ -1951,5 +1951,5 @@ declare class Game_Interpreter {
     command355(): boolean;
     command356(): boolean;
     pluginCommand(command: string, args: string[]): void;
-    static requestImages(list: IDataList[], commonList: number[]): void;
+    static requestImages(list: RPGMakerMV.EventCommand[], commonList: number[]): void;
 }

@@ -1,33 +1,61 @@
+declare namespace RPGMakerMV {
+    /**
+     * @description バトル報酬
+     */
+    interface Rewards {
+        /** ゴールド */
+        gold: number;
+        /** 経験値 */
+        exp: number;
+        /** アイテム */
+        items: RPGMakerMV.DataAnyItem[];
+    }
+
+    /**
+     * @description プラグイン指定
+     */
+    interface Plugin {
+        /** 名前 */
+        name: string;
+        /** 状態(ON/OFF) */
+        status: boolean;
+        /** 説明 */
+        description: string;
+        /** プラグインパラメーター */
+        parameters: PluginParameters;
+    }
+}
+
 /** アクターのデータ */
-declare var $dataActors: IDataActor[];
+declare var $dataActors: RPGMakerMV.DataActor[];
 /** 職業のデータ */
-declare var $dataClasses: IDataClass[];
+declare var $dataClasses: RPGMakerMV.DataClass[];
 /** スキルのデータ */
-declare var $dataSkills: IDataSkill[];
+declare var $dataSkills: RPGMakerMV.DataSkill[];
 /** アイテムのデータ */
-declare var $dataItems: IDataItem[];
+declare var $dataItems: RPGMakerMV.DataItem[];
 /** 武器のデータ */
-declare var $dataWeapons: IDataWeapon[];
+declare var $dataWeapons: RPGMakerMV.DataWeapon[];
 /** 防具のデータ */
-declare var $dataArmors: IDataArmor[];
+declare var $dataArmors: RPGMakerMV.DataArmor[];
 /** 敵のデータ */
-declare var $dataEnemies: IDataEnemy[];
+declare var $dataEnemies: RPGMakerMV.DataEnemy[];
 /** 敵グループのデータ */
-declare var $dataTroops: IDataTroop[];
+declare var $dataTroops: RPGMakerMV.DataTroop[];
 /** ステートのデータ */
-declare var $dataStates: IDataState[];
+declare var $dataStates: RPGMakerMV.DataState[];
 /** アニメーションのデータ */
-declare var $dataAnimations: IDataAnimation[];
+declare var $dataAnimations: RPGMakerMV.DataAnimation[];
 /** タイルセットのデータ */
-declare var $dataTilesets: IDataTileset[];
+declare var $dataTilesets: RPGMakerMV.DataTileset[];
 /** コモンイベントのデータ */
-declare var $dataCommonEvents: IDataCommonEvent[];
+declare var $dataCommonEvents: RPGMakerMV.DataCommonEvent[];
 /** システムのデータ */
-declare var $dataSystem: IDataSystem;
+declare var $dataSystem: RPGMakerMV.DataSystem;
 /** マップ情報のデータ */
-declare var $dataMapInfos: IDataMapInfo[];
+declare var $dataMapInfos: RPGMakerMV.DataMapInfo[];
 /** マップのデータ */
-declare var $dataMap: IDataMap;
+declare var $dataMap: RPGMakerMV.DataMap;
 declare var $gameTemp: Game_Temp;
 declare var $gameSystem: Game_System;
 declare var $gameScreen: Game_Screen;
@@ -41,7 +69,7 @@ declare var $gameActors: Game_Actors;
 declare var $gameParty: Game_Party;
 declare var $gameTroop: Game_Troop;
 declare var $gamePlayer: Game_Player;
-declare var $testEvent: any; // TODO
+declare var $testEvent: RPGMakerMV.EventCommand;
 
 declare interface ISavefileInfo {
     globalId?: number;
@@ -99,14 +127,46 @@ declare class DataManager {
      */
     static makeEmptyMap(): void;
     static isMapLoaded(): boolean;
-    static onLoad(object: IDataActor[] | IDataClass[] | IDataSkill[] | IDataItem[] | IDataWeapon[] | IDataArmor[] | IDataEnemy[] | IDataTroop[] | IDataState[] | IDataAnimation[] | IDataTileset[] | IDataCommonEvent[] | IDataSystem[] | IDataMapInfo[] | IDataMap[]): void;
+    static onLoad(
+        object: RPGMakerMV.DataActor[]
+            | RPGMakerMV.DataClass[]
+            | RPGMakerMV.DataSkill[]
+            | RPGMakerMV.DataItem[]
+            | RPGMakerMV.DataWeapon[]
+            | RPGMakerMV.DataArmor[]
+            | RPGMakerMV.DataEnemy[]
+            | RPGMakerMV.DataTroop[]
+            | RPGMakerMV.DataState[]
+            | RPGMakerMV.DataAnimation[]
+            | RPGMakerMV.DataTileset[]
+            | RPGMakerMV.DataCommonEvent[]
+            | RPGMakerMV.DataSystem[]
+            | RPGMakerMV.DataMapInfo[]
+            | RPGMakerMV.DataMap[]
+    ): void;
     /**
      * メタ情報を展開し、metaプロパティに入れる
      *
      * `<foo>`は`{foo: true}`, `<foo:bar>`は`{foo: "bar"}`と展開される
      * @param data データ
      */
-    static extractMetadata(data: IDataActor[] | IDataClass[] | IDataSkill[] | IDataItem[] | IDataWeapon[] | IDataArmor[] | IDataEnemy[] | IDataTroop[] | IDataState[] | IDataAnimation[] | IDataTileset[] | IDataCommonEvent[] | IDataSystem[] | IDataMapInfo[] | IDataMap[]): void;
+    static extractMetadata(
+        data: RPGMakerMV.DataActor[]
+            | RPGMakerMV.DataClass[]
+            | RPGMakerMV.DataSkill[]
+            | RPGMakerMV.DataItem[]
+            | RPGMakerMV.DataWeapon[]
+            | RPGMakerMV.DataArmor[]
+            | RPGMakerMV.DataEnemy[]
+            | RPGMakerMV.DataTroop[]
+            | RPGMakerMV.DataState[]
+            | RPGMakerMV.DataAnimation[]
+            | RPGMakerMV.DataTileset[]
+            | RPGMakerMV.DataCommonEvent[]
+            | RPGMakerMV.DataSystem[]
+            | RPGMakerMV.DataMapInfo[]
+            | RPGMakerMV.DataMap[]
+    ): void;
     /**
      * _errorUrlがあれば例外を投げる
      */
@@ -123,10 +183,10 @@ declare class DataManager {
      * クエリに"etest"が存在するか
      */
     static isEventTest(): boolean;
-    static isSkill(item: IDataSkill): boolean;
-    static isItem(item: IDataItem): boolean;
-    static isWeapon(item: IDataWeapon): boolean;
-    static isArmor(item: IDataArmor): boolean;
+    static isSkill(item: RPGMakerMV.DataSkill): boolean;
+    static isItem(item: RPGMakerMV.DataAnyItem): item is RPGMakerMV.DataItem;
+    static isWeapon(item: RPGMakerMV.DataAnyItem): item is RPGMakerMV.DataWeapon;
+    static isArmor(item: RPGMakerMV.DataAnyItem): item is RPGMakerMV.DataArmor;
     /**
      * ゲームオブジェクト(`$game*`)を初期化する
      */
@@ -565,16 +625,16 @@ declare class AudioManager {
     static stopBgs(): void;
     static fadeOutBgs(duration: number): void;
     static fadeInBgs(duration: number): void;
-    static playMe(me: IDataSound): void;
-    static updateMeParameters(me: IDataSound): void;
+    static playMe(me: RPGMakerMV.Sound): void;
+    static updateMeParameters(me: RPGMakerMV.Sound): void;
     static fadeOutMe(duration: number): void;
     static stopMe(): void;
-    static playSe(se: IDataSound): void;
-    static updateSeParameters(buffer: WebAudio | Html5Audio, se: IDataSound): void;
+    static playSe(se: RPGMakerMV.Sound): void;
+    static updateSeParameters(buffer: WebAudio | Html5Audio, se: RPGMakerMV.Sound): void;
     static stopSe(): void;
-    static playStaticSe(se: IDataSound): void;
-    static loadStaticSe(se: IDataSound): void;
-    static isStaticSe(se: IDataSound): boolean;
+    static playStaticSe(se: RPGMakerMV.Sound): void;
+    static loadStaticSe(se: RPGMakerMV.Sound): void;
+    static isStaticSe(se: RPGMakerMV.Sound): boolean;
     static stopAll(): void;
     static saveBgm(): IAudioObject;
     static saveBgs(): IAudioObject;
@@ -971,16 +1031,6 @@ declare class SceneManager {
     static resume(): void;
 }
 
-/** バトル報酬 */
-declare interface IDataRewards {
-    /** ゴールド */
-    gold: number;
-    /** 経験値 */
-    exp: number;
-    /** アイテム */
-    items: IDataAllItem[];
-}
-
 /** バトルマネージャー */
 declare class BattleManager {
     private constructor();
@@ -1005,7 +1055,7 @@ declare class BattleManager {
     static _spriteset: Spriteset_Battle;
     static _escapeRatio: number;
     static _escaped: boolean;
-    static _rewards: IDataRewards;
+    static _rewards: RPGMakerMV.Rewards;
 
     static setup(troopId: number, canEscape: boolean, canLose: boolean): void;
     static initMembers(): void;
@@ -1091,17 +1141,6 @@ declare class BattleManager {
     static gainDropItems(): void;
 }
 
-/** プラグイン指定 */
-declare interface IDataPlugin {
-    /** 名前 */
-    name: string;
-    /** 状態(ON/OFF) */
-    status: boolean;
-    /** 説明 */
-    description: string;
-    /** プラグインパラメーター */
-    parameters: PluginParameters;
-}
 
 /** プラグインパラメーター */
 declare type PluginParameters = { [key: string]: string; };
@@ -1116,7 +1155,7 @@ declare class PluginManager {
     static _parameters: PluginParameters;
 
     /** プラグインを読み込む */
-    static setup(plugins: IDataPlugin[]): void;
+    static setup(plugins: RPGMakerMV.Plugin[]): void;
     /** 読み込みエラーがあれば例外 */
     static checkErrors(): void;
     /**

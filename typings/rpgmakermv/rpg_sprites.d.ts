@@ -12,7 +12,7 @@ declare class Sprite_Base extends Sprite {
     show(): void;
     updateVisibility(): void;
     updateAnimationSprites(): void;
-    startAnimation(animation: IDataAnimation, mirror: boolean, delay: number): void;
+    startAnimation(animation: RPGMakerMV.DataAnimation, mirror: boolean, delay: number): void;
     isAnimationPlaying(): boolean;
 }
 
@@ -222,7 +222,7 @@ declare class Sprite_Enemy extends Sprite_Battler {
 declare class Sprite_Animation extends Sprite {
     _reduceArtifacts: boolean;
     _target: Sprite_Base;
-    _animation: IDataAnimation;
+    _animation: RPGMakerMV.DataAnimation;
     _mirror: boolean;
     _delay: number;
     _rate: number;
@@ -240,7 +240,7 @@ declare class Sprite_Animation extends Sprite {
     constructor();
     initialize(): void;
     initMembers(): void;
-    setup(target: Sprite_Base, animation: IDataAnimation, mirror: boolean, delay: number): void;
+    setup(target: Sprite_Base, animation: RPGMakerMV.DataAnimation, mirror: boolean, delay: number): void;
     remove(): void;
     setupRate(): void;
     setupDuration(): void;
@@ -262,7 +262,7 @@ declare class Sprite_Animation extends Sprite {
     currentFrameIndex(): void;
     updateAllCellSprites(frame: number[][]): void;
     updateCellSprite(sprite: Sprite, cell: number[]): void;
-    processTimingData(timing: IDataAnimationTiming): void;
+    processTimingData(timing: RPGMakerMV.AnimationTiming): void;
     startFlash(color: number[], duration: number): void;
     startScreenFlash(color: number[], duration: number): void;
     startHiding(duration: number): void;
@@ -437,7 +437,7 @@ declare class Spriteset_Map extends Spriteset_Base {
     _parallax: TilingSprite;
     _parallaxName: string;
     _tilemap: Tilemap;
-    _tileset: IDataTileset;
+    _tileset: RPGMakerMV.DataTileset;
     _characterSprites: Sprite_Character[];
     _shadowSprite: Sprite;
     _destinationSprite: Sprite_Destination;

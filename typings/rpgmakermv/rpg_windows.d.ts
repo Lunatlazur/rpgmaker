@@ -103,7 +103,7 @@ declare class Window_Base extends Window {
     drawActorMp(actor: Game_Actor, x: number, y: number, width?: number): void;
     drawActorTp(actor: Game_Actor, x: number, y: number, width?: number): void;
     drawActorSimpleStatus(actor: Game_Actor, x: number, y: number, width: number): void;
-    drawItemName(item: IDataAllItem, x: number, y: number, width?: number): void;
+    drawItemName(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill, x: number, y: number, width?: number): void;
     drawCurrencyValue(value: number, unit: string, x: number, y: number, width: number): void;
     paramchangeTextColor(change: number): string;
     setBackgroundType(type: number): void;
@@ -208,7 +208,7 @@ declare class Window_Selectable extends Window_Base {
     ensureCursorVisible(): void;
     callUpdateHelp(): void;
     updateHelp(): void;
-    setHelpWindowItem(item: IDataAllItem): void;
+    setHelpWindowItem(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
     isCurrentItemEnabled(): boolean;
     drawAllItems(): void;
     drawItem(index: number): void;
@@ -273,7 +273,7 @@ declare class Window_Help extends Window_Base {
     initialize(numLines?: number): void;
     setText(text: string): void;
     clear(): void;
-    setItem(item: IDataAllItem): void;
+    setItem(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
     refresh(): void;
 }
 
@@ -347,7 +347,7 @@ declare class Window_MenuActor extends Window_MenuStatus {
     initialize(): void;
     processOk(): void;
     selectLast(): void;
-    selectForItem(item: IDataAllItem): void;
+    selectForItem(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
 }
 
 declare class Window_ItemCategory extends Window_HorzCommand {
@@ -364,7 +364,7 @@ declare class Window_ItemCategory extends Window_HorzCommand {
 
 declare class Window_ItemList extends Window_Selectable {
     _category: string;
-    _data: IDataAllItem[];
+    _data: RPGMakerMV.DataAnyItem[];
 
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
@@ -372,16 +372,16 @@ declare class Window_ItemList extends Window_Selectable {
     setCategory(category: string): void;
     spacing(): number;
     maxItems(): number;
-    item(): IDataAllItem;
+    item(): RPGMakerMV.DataAnyItem;
     isCurrentItemEnabled(): boolean;
-    includes(item: IDataAllItem): boolean;
+    includes(item: RPGMakerMV.DataAnyItem): boolean;
     needsNumber(): number;
-    isEnabled(item: IDataAllItem): boolean;
+    isEnabled(item: RPGMakerMV.DataAnyItem): boolean;
     makeItemList(): void;
     selectLast(): void;
     drawItem(index: number): void;
     numberWidth(): number;
-    drawItemNumber(item: IDataAllItem, x: number, y: number, width: number): void;
+    drawItemNumber(item: RPGMakerMV.DataAnyItem, x: number, y: number, width: number): void;
     updateHelp(): void;
     refresh(): void;
 }
@@ -415,7 +415,7 @@ declare class Window_SkillStatus extends Window_Base {
 declare class Window_SkillList extends Window_Selectable {
     _actor: Game_Actor;
     _stypeId: number;
-    _data: IDataAllItem[];
+    _data: RPGMakerMV.DataSkill[];
 
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
@@ -425,15 +425,15 @@ declare class Window_SkillList extends Window_Selectable {
     maxCols(): number;
     spacing(): number;
     maxItems(): number;
-    item(): IDataAllItem;
+    item(): RPGMakerMV.DataSkill;
     isCurrentItemEnabled(): boolean;
-    includes(item: IDataAllItem): boolean;
-    isEnabled(item: IDataAllItem): boolean;
+    includes(item: RPGMakerMV.DataSkill): boolean;
+    isEnabled(item: RPGMakerMV.DataSkill): boolean;
     makeItemList(): void;
     selectLast(): void;
     drawItem(index: number): void;
     costWidth(): number;
-    drawSkillCost(skill: IDataSkill, x: number, y: number, width: number): void;
+    drawSkillCost(skill: RPGMakerMV.DataSkill, x: number, y: number, width: number): void;
     updateHelp(): void;
     refresh(): void;
 }
@@ -480,7 +480,7 @@ declare class Window_EquipSlot extends Window_Selectable {
     setActor(actor: Game_Actor): void;
     update(): void;
     maxItems(): number;
-    item(): IDataAllItem;
+    item(): RPGMakerMV.DataSkill;
     drawItem(index: number): void;
     slotName(index: number): string;
     isEnabled(index: number): boolean;
@@ -500,8 +500,8 @@ declare class Window_EquipItem extends Window_ItemList {
     initialize(x?: number, y?: number, width?: number, height?: number): void;
     setActor(actor: Game_Actor): void;
     setSlotId(slotId: number): void;
-    includes(item: IDataAllItem): boolean;
-    isEnabled(item: IDataAllItem): boolean;
+    includes(item: RPGMakerMV.DataAnyItem): boolean;
+    isEnabled(item: RPGMakerMV.DataAnyItem): boolean;
     selectLast(): void;
     setStatusWindow(statusWindow: Window_EquipStatus): void;
     updateHelp(): void;
@@ -587,7 +587,7 @@ declare class Window_ShopCommand extends Window_HorzCommand {
 declare class Window_ShopBuy extends Window_Selectable {
     _shopGoods: any[][];
     _money: number;
-    _data: IDataAllItem[];
+    _data: RPGMakerMV.DataAnyItem[];
     _price: number[];
     _statusWindow: Window_EquipStatus;
 
@@ -596,11 +596,11 @@ declare class Window_ShopBuy extends Window_Selectable {
     initialize(x?: number, y?: number, height?: number, shopGoods?: any[][]): void;
     windowWidth(): number;
     maxItems(): number;
-    item(): IDataAllItem;
+    item(): RPGMakerMV.DataAnyItem;
     setMoney(money: number): void;
     isCurrentItemEnabled(): boolean;
-    price(item: IDataAllItem): number;
-    isEnabled(item: IDataAllItem): boolean;
+    price(item: RPGMakerMV.DataAnyItem): number;
+    isEnabled(item: RPGMakerMV.DataAnyItem): boolean;
     refresh(): void;
     makeItemList(): void;
     drawItem(index: number): void;
@@ -612,11 +612,11 @@ declare class Window_ShopSell extends Window_ItemList {
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
-    isEnabled(item: IDataAllItem): boolean;
+    isEnabled(item: RPGMakerMV.DataAnyItem): boolean;
 }
 
 declare class Window_ShopNumber extends Window_Selectable {
-    _item: IDataAllItem;
+    _item: RPGMakerMV.DataAnyItem;
     _max: number;
     _price: number;
     _number: number;
@@ -628,7 +628,7 @@ declare class Window_ShopNumber extends Window_Selectable {
     initialize(x?: number, y?: number, height?: number): void;
     windowWidth(): number;
     number(): number;
-    setup(item: IDataAllItem, max: number, price: number): void;
+    setup(item: RPGMakerMV.DataAnyItem, max: number, price: number): void;
     setCurrencyUnit(currencyUnit: string): void;
     createButtons(): void;
     placeButtons(): void;
@@ -659,14 +659,14 @@ declare class Window_ShopNumber extends Window_Selectable {
 }
 
 declare class Window_ShopStatus extends Window_Base {
-    _item: IDataAllItem;
+    _item: RPGMakerMV.DataAnyItem;
     _pageIndex: number;
 
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
     refresh(): void;
-    setItem(item: IDataAllItem): void;
+    setItem(item: RPGMakerMV.DataAnyItem): void;
     isEquipItem(): boolean;
     drawPossession(x: number, y: number): void;
     drawEquipInfo(x: number, y: number): void;
@@ -674,8 +674,8 @@ declare class Window_ShopStatus extends Window_Base {
     pageSize(): number;
     maxPages(): number;
     drawActorEquipInfo(x: number, y: number, actor: Game_Actor): void;
-    drawActorParamChange(x: number, y: number, actor: Game_Actor, item1: IDataAllItem): void;
-    currentEquippedItem(actor: Game_Actor, etypeId: number): IDataAllItem;
+    drawActorParamChange(x: number, y: number, actor: Game_Actor, item1: RPGMakerMV.DataAnyItem): void;
+    currentEquippedItem(actor: Game_Actor, etypeId: number): RPGMakerMV.DataAnyItem;
     update(): void;
     updatePage(): void;
     isPageChangeEnabled(): boolean;
@@ -825,8 +825,8 @@ declare class Window_EventItem extends Window_ItemList {
     numVisibleRows(): number;
     start(): void;
     updatePlacement(): void;
-    includes(item: IDataAllItem): boolean;
-    isEnabled(item: IDataAllItem): boolean;
+    includes(item: RPGMakerMV.DataAnyItem): boolean;
+    isEnabled(item: RPGMakerMV.DataAnyItem): boolean;
     onOk(): void;
     onCancel(): void;
 }
@@ -986,7 +986,7 @@ declare class Window_BattleLog extends Window_Selectable {
     endAction(subject: Game_Battler): void;
     displayCurrentState(subject: Game_Battler): void;
     displayRegeneration(subject: Game_Battler): void;
-    displayAction(subject: Game_Battler, item: IDataItem): void;
+    displayAction(subject: Game_Battler, item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
     displayCounter(target: Game_Battler): void;
     displayReflection(target: Game_Battler): void;
     displaySubstitute(substitute: Game_Battler, target: Game_Battler): void;
@@ -1097,7 +1097,7 @@ declare class Window_BattleItem extends Window_ItemList {
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
-    includes(item: IDataAllItem): boolean;
+    includes(item: RPGMakerMV.DataAnyItem): boolean;
     show(): void;
     hide(): void;
 }

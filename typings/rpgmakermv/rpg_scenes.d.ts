@@ -181,7 +181,7 @@ declare class Scene_ItemBase extends Scene_MenuBase {
     initialize(): void;
     create(): void;
     createActorWindow(): void;
-    item(): IDataAllItem;
+    item(): RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill;
     user(): Game_Actor;
     isCursorLeft(): boolean;
     showSubWindow(window: Window_Base): void;
@@ -340,7 +340,7 @@ declare class Scene_GameEnd extends Scene_MenuBase {
 declare class Scene_Shop extends Scene_MenuBase {
     _goods: any[][];
     _purchaseOnly: boolean;
-    _item: IDataAllItem;
+    _item: RPGMakerMV.DataAnyItem;
     _goldWindow: Window_Gold;
     _commandWindow: Window_ShopCommand;
     _dummyWindow: Window_Base;
