@@ -538,9 +538,6 @@ declare class Bitmap {
     _requestImage(url: string): void;
 }
 
-declare var waitForLoading: boolean;
-declare var register: boolean;
-
 declare class Graphics {
     private constructor();
 
