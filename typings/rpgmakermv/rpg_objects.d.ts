@@ -1,3 +1,17 @@
+declare namespace RPGMakerMV {
+    type ActorIteratorCallback = (actor: DataActor, index?: number, partyMembers?: DataActor[]) => void
+    type EnemyIteratorCallback = (actor: DataEnemy, index?: number, troopMembers?: DataEnemy[]) => void
+
+    type DefaultLetterTableHalf = [
+        ' A',' B',' C',' D',' E',' F',' G',' H',' I',' J',' K',' L',' M',
+        ' N',' O',' P',' Q',' R',' S',' T',' U',' V',' W',' X',' Y',' Z'
+    ]
+    type DefaultLetterTableFull = [
+        'Ａ','Ｂ','Ｃ','Ｄ','Ｅ','Ｆ','Ｇ','Ｈ','Ｉ','Ｊ','Ｋ','Ｌ','Ｍ',
+        'Ｎ','Ｏ','Ｐ','Ｑ','Ｒ','Ｓ','Ｔ','Ｕ','Ｖ','Ｗ','Ｘ','Ｙ','Ｚ'
+    ]
+}
+
 declare class Game_Temp {
     constructor();
     initialize(): void;
@@ -186,7 +200,7 @@ declare class Game_SelfSwitches {
     initialize(): void;
     clear(): void;
     value(key: number[]): boolean;
-    setValue(key: (number | string)[], value: boolean): void;
+    setValue(key: Array<number | string>, value: boolean): void;
     onChange(): void;
 
     _data: { [key: string]: boolean };
@@ -335,23 +349,23 @@ declare class Game_Item {
 declare class Game_Action {
     constructor(subject: Game_Battler, forcing: boolean);
 
-    static EFFECT_RECOVER_HP: number;
-    static EFFECT_RECOVER_MP: number;
-    static EFFECT_GAIN_TP: number;
-    static EFFECT_ADD_STATE: number;
-    static EFFECT_REMOVE_STATE: number;
-    static EFFECT_ADD_BUFF: number;
-    static EFFECT_ADD_DEBUFF: number;
-    static EFFECT_REMOVE_BUFF: number;
-    static EFFECT_REMOVE_DEBUFF: number;
-    static EFFECT_SPECIAL: number;
-    static EFFECT_GROW: number;
-    static EFFECT_LEARN_SKILL: number;
-    static EFFECT_COMMON_EVENT: number;
-    static SPECIAL_EFFECT_ESCAPE: number;
-    static HITTYPE_CERTAIN: number;
-    static HITTYPE_PHYSICAL: number;
-    static HITTYPE_MAGICAL: number;
+    static EFFECT_RECOVER_HP: 11;
+    static EFFECT_RECOVER_MP: 12;
+    static EFFECT_GAIN_TP: 13;
+    static EFFECT_ADD_STATE: 21;
+    static EFFECT_REMOVE_STATE: 22;
+    static EFFECT_ADD_BUFF: 31;
+    static EFFECT_ADD_DEBUFF: 32;
+    static EFFECT_REMOVE_BUFF: 33;
+    static EFFECT_REMOVE_DEBUFF: 34;
+    static EFFECT_SPECIAL: 41;
+    static EFFECT_GROW: 42;
+    static EFFECT_LEARN_SKILL: 43;
+    static EFFECT_COMMON_EVENT: 44;
+    static SPECIAL_EFFECT_ESCAPE: 0;
+    static HITTYPE_CERTAIN: 0;
+    static HITTYPE_PHYSICAL: 1;
+    static HITTYPE_MAGICAL: 2;
 
     _subjectActorId: number;
     _subjectEnemyIndex: number;
@@ -495,36 +509,36 @@ declare class Game_ActionResult {
 }
 
 declare class Game_BattlerBase {
-    static TRAIT_ELEMENT_RATE: number;
-    static TRAIT_DEBUFF_RATE: number;
-    static TRAIT_STATE_RATE: number;
-    static TRAIT_STATE_RESIST: number;
-    static TRAIT_PARAM: number;
-    static TRAIT_XPARAM: number;
-    static TRAIT_SPARAM: number;
-    static TRAIT_ATTACK_ELEMENT: number;
-    static TRAIT_ATTACK_STATE: number;
-    static TRAIT_ATTACK_SPEED: number;
-    static TRAIT_ATTACK_TIMES: number;
-    static TRAIT_STYPE_ADD: number;
-    static TRAIT_STYPE_SEAL: number;
-    static TRAIT_SKILL_ADD: number;
-    static TRAIT_SKILL_SEAL: number;
-    static TRAIT_EQUIP_WTYPE: number;
-    static TRAIT_EQUIP_ATYPE: number;
-    static TRAIT_EQUIP_LOCK: number;
-    static TRAIT_EQUIP_SEAL: number;
-    static TRAIT_SLOT_TYPE: number;
-    static TRAIT_ACTION_PLUS: number;
-    static TRAIT_SPECIAL_FLAG: number;
-    static TRAIT_COLLAPSE_TYPE: number;
-    static TRAIT_PARTY_ABILITY: number;
-    static FLAG_ID_AUTO_BATTLE: number;
-    static FLAG_ID_GUARD: number;
-    static FLAG_ID_SUBSTITUTE: number;
-    static FLAG_ID_PRESERVE_TP: number;
-    static ICON_BUFF_START: number;
-    static ICON_DEBUFF_START: number;
+    static TRAIT_ELEMENT_RATE: 11;
+    static TRAIT_DEBUFF_RATE: 12;
+    static TRAIT_STATE_RATE: 13;
+    static TRAIT_STATE_RESIST: 14;
+    static TRAIT_PARAM: 21;
+    static TRAIT_XPARAM: 22;
+    static TRAIT_SPARAM: 23;
+    static TRAIT_ATTACK_ELEMENT: 31;
+    static TRAIT_ATTACK_STATE: 32;
+    static TRAIT_ATTACK_SPEED: 33;
+    static TRAIT_ATTACK_TIMES: 34;
+    static TRAIT_STYPE_ADD: 41;
+    static TRAIT_STYPE_SEAL: 42;
+    static TRAIT_SKILL_ADD: 43;
+    static TRAIT_SKILL_SEAL: 44;
+    static TRAIT_EQUIP_WTYPE: 51;
+    static TRAIT_EQUIP_ATYPE: 52;
+    static TRAIT_EQUIP_LOCK: 53;
+    static TRAIT_EQUIP_SEAL: 54;
+    static TRAIT_SLOT_TYPE: 55;
+    static TRAIT_ACTION_PLUS: 61;
+    static TRAIT_SPECIAL_FLAG: 62;
+    static TRAIT_COLLAPSE_TYPE: 63;
+    static TRAIT_PARTY_ABILITY: 64;
+    static FLAG_ID_AUTO_BATTLE: 0;
+    static FLAG_ID_GUARD: 1;
+    static FLAG_ID_SUBSTITUTE: 2;
+    static FLAG_ID_PRESERVE_TP: 3;
+    static ICON_BUFF_START: 32;
+    static ICON_DEBUFF_START: 48;
 
     hp: number;
     mp: number;
@@ -1059,12 +1073,12 @@ declare class Game_Unit {
 }
 
 declare class Game_Party extends Game_Unit {
-    static ABILITY_ENCOUNTER_HALF: number;
-    static ABILITY_ENCOUNTER_NONE: number;
-    static ABILITY_CANCEL_SURPRISE: number;
-    static ABILITY_RAISE_PREEMPTIVE: number;
-    static ABILITY_GOLD_DOUBLE: number;
-    static ABILITY_DROP_ITEM_DOUBLE: number;
+    static ABILITY_ENCOUNTER_HALF: 0;
+    static ABILITY_ENCOUNTER_NONE: 1;
+    static ABILITY_CANCEL_SURPRISE: 2;
+    static ABILITY_RAISE_PREEMPTIVE: 3;
+    static ABILITY_GOLD_DOUBLE: 4;
+    static ABILITY_DROP_ITEM_DOUBLE: 5;
 
     _gold: number;
     _steps: number;
@@ -1149,8 +1163,8 @@ declare class Game_Party extends Game_Unit {
 }
 
 declare class Game_Troop extends Game_Unit {
-    static LETTER_TABLE_HALF: string[];
-    static LETTER_TABLE_FULL: string[];
+    static LETTER_TABLE_HALF: RPGMakerMV.DefaultLetterTableHalf;
+    static LETTER_TABLE_FULL: RPGMakerMV.DefaultLetterTableFull;
 
     _interpreter: Game_Interpreter;
     _turnCount: number;
@@ -1467,52 +1481,52 @@ declare class Game_CharacterBase {
 }
 
 declare class Game_Character extends Game_CharacterBase {
-    static ROUTE_END: number;
-    static ROUTE_MOVE_DOWN: number;
-    static ROUTE_MOVE_LEFT: number;
-    static ROUTE_MOVE_RIGHT: number;
-    static ROUTE_MOVE_UP: number;
-    static ROUTE_MOVE_LOWER_L: number;
-    static ROUTE_MOVE_LOWER_R: number;
-    static ROUTE_MOVE_UPPER_L: number;
-    static ROUTE_MOVE_UPPER_R: number;
-    static ROUTE_MOVE_RANDOM: number;
-    static ROUTE_MOVE_TOWARD: number;
-    static ROUTE_MOVE_AWAY: number;
-    static ROUTE_MOVE_FORWARD: number;
-    static ROUTE_MOVE_BACKWARD: number;
-    static ROUTE_JUMP: number;
-    static ROUTE_WAIT: number;
-    static ROUTE_TURN_DOWN: number;
-    static ROUTE_TURN_LEFT: number;
-    static ROUTE_TURN_RIGHT: number;
-    static ROUTE_TURN_UP: number;
-    static ROUTE_TURN_90D_R: number;
-    static ROUTE_TURN_90D_L: number;
-    static ROUTE_TURN_180D: number;
-    static ROUTE_TURN_90D_R_L: number;
-    static ROUTE_TURN_RANDOM: number;
-    static ROUTE_TURN_TOWARD: number;
-    static ROUTE_TURN_AWAY: number;
-    static ROUTE_SWITCH_ON: number;
-    static ROUTE_SWITCH_OFF: number;
-    static ROUTE_CHANGE_SPEED: number;
-    static ROUTE_CHANGE_FREQ: number;
-    static ROUTE_WALK_ANIME_ON: number;
-    static ROUTE_WALK_ANIME_OFF: number;
-    static ROUTE_STEP_ANIME_ON: number;
-    static ROUTE_STEP_ANIME_OFF: number;
-    static ROUTE_DIR_FIX_ON: number;
-    static ROUTE_DIR_FIX_OFF: number;
-    static ROUTE_THROUGH_ON: number;
-    static ROUTE_THROUGH_OFF: number;
-    static ROUTE_TRANSPARENT_ON: number;
-    static ROUTE_TRANSPARENT_OFF: number;
-    static ROUTE_CHANGE_IMAGE: number;
-    static ROUTE_CHANGE_OPACITY: number;
-    static ROUTE_CHANGE_BLEND_MODE: number;
-    static ROUTE_PLAY_SE: number;
-    static ROUTE_SCRIPT: number;
+    static ROUTE_END: 0;
+    static ROUTE_MOVE_DOWN: 1;
+    static ROUTE_MOVE_LEFT: 2;
+    static ROUTE_MOVE_RIGHT: 3;
+    static ROUTE_MOVE_UP: 4;
+    static ROUTE_MOVE_LOWER_L: 5;
+    static ROUTE_MOVE_LOWER_R: 6;
+    static ROUTE_MOVE_UPPER_L: 7;
+    static ROUTE_MOVE_UPPER_R: 8;
+    static ROUTE_MOVE_RANDOM: 9;
+    static ROUTE_MOVE_TOWARD: 10;
+    static ROUTE_MOVE_AWAY: 11;
+    static ROUTE_MOVE_FORWARD: 12;
+    static ROUTE_MOVE_BACKWARD: 13;
+    static ROUTE_JUMP: 14;
+    static ROUTE_WAIT: 15;
+    static ROUTE_TURN_DOWN: 16;
+    static ROUTE_TURN_LEFT: 17;
+    static ROUTE_TURN_RIGHT: 18;
+    static ROUTE_TURN_UP: 19;
+    static ROUTE_TURN_90D_R: 20;
+    static ROUTE_TURN_90D_L: 21;
+    static ROUTE_TURN_180D: 22;
+    static ROUTE_TURN_90D_R_L: 23;
+    static ROUTE_TURN_RANDOM: 24;
+    static ROUTE_TURN_TOWARD: 25;
+    static ROUTE_TURN_AWAY: 26;
+    static ROUTE_SWITCH_ON: 27;
+    static ROUTE_SWITCH_OFF: 28;
+    static ROUTE_CHANGE_SPEED: 29;
+    static ROUTE_CHANGE_FREQ: 30;
+    static ROUTE_WALK_ANIME_ON: 31;
+    static ROUTE_WALK_ANIME_OFF: 32;
+    static ROUTE_STEP_ANIME_ON: 33;
+    static ROUTE_STEP_ANIME_OFF: 34;
+    static ROUTE_DIR_FIX_ON: 35;
+    static ROUTE_DIR_FIX_OFF: 36;
+    static ROUTE_THROUGH_ON: 37;
+    static ROUTE_THROUGH_OFF: 38;
+    static ROUTE_TRANSPARENT_ON: 39;
+    static ROUTE_TRANSPARENT_OFF: 40;
+    static ROUTE_CHANGE_IMAGE: 41;
+    static ROUTE_CHANGE_OPACITY: 42;
+    static ROUTE_CHANGE_BLEND_MODE: 43;
+    static ROUTE_PLAY_SE: 44;
+    static ROUTE_SCRIPT: 45;
 
     _moveRouteForcing: boolean;
     _moveRoute: RPGMakerMV.MoveRoute;
@@ -1822,23 +1836,23 @@ declare class Game_Interpreter {
     skipBranch(): void;
     currentCommand(): RPGMakerMV.EventCommand;
     nextEventCode(): number;
-    iterateActorId(param: number, callback: Function): void;
-    iterateActorEx(param1: number, param2: number, callback: Function): void;
-    iterateActorIndex(param: number, callback: Function): void;
-    iterateEnemyIndex(param: number, callback: Function): void;
+    iterateActorId(param: number, callback: RPGMakerMV.ActorIteratorCallback): void;
+    iterateActorEx(param1: number, param2: number, callback: RPGMakerMV.ActorIteratorCallback): void;
+    iterateActorIndex(param: number, callback: RPGMakerMV.ActorIteratorCallback): void;
+    iterateEnemyIndex(param: number, callback: RPGMakerMV.EnemyIteratorCallback): void;
     iterateBattler(param1: number, param2: number, callback: Function): void;
     character(param: number): Game_Character;
     operateValue(operation: number, operandType: number, operand: number): number;
     changeHp(target: Game_Battler, value: number, allowDeath: boolean): void;
     command101(): boolean;
     command102(): boolean;
-    setupChoices(params: (number | string)[]): void;
+    setupChoices(params: [string[], number, number?, number?, number?]): void;
     command402(): boolean;
     command403(): boolean;
     command103(): boolean;
-    setupNumInput(params: (number | string)[]): void;
+    setupNumInput(params: [number, number]): void;
     command104(): boolean;
-    setupItemChoice(params: (number | string)[]): void;
+    setupItemChoice(params: [number, number]): void;
     command105(): boolean;
     command108(): boolean;
     command111(): boolean;
