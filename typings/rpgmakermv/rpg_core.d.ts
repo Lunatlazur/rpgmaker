@@ -1,3 +1,11 @@
+declare namespace RPGMakerMV {
+    interface ImageCacheItem {
+        bitmap: Bitmap;
+        touch: number;
+        key: string;
+    }
+}
+
 declare class JsExtensions {
     private constructor();
 }
@@ -175,12 +183,6 @@ declare class Utils {
     static _supportPassiveEvent: boolean;
 }
 
-declare interface IImageCacheItem {
-    bitmap: Bitmap;
-    touch: number;
-    key: string;
-}
-
 declare class ImageCache {
     static limit: number;
 
@@ -193,7 +195,7 @@ declare class ImageCache {
     getErrorBitmap(): Bitmap;
 
     _truncateCache(): void;
-    _mustBeHeld(item: IImageCacheItem): boolean;
+    _mustBeHeld(item: RPGMakerMV.ImageCacheItem): boolean;
 }
 
 declare class RequestQueue {
