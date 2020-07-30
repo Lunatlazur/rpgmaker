@@ -99,7 +99,7 @@ declare interface Math {
 declare class Utils {
     private constructor();
 
-    static RPGMAKER_NAME: "MV";
+    static RPGMAKER_NAME: 'MV';
     static RPGMAKER_VERSION: string;
     /**
      * Checks whether the option is in the query string.
