@@ -498,9 +498,9 @@ declare class Bitmap {
     getAlphaPixel(x: number, y: number): string;
     clearRect(x: number, y: number, width: number, height: number): void;
     clear(): void;
-    fillRect(x: number, y: number, width: number, height: number, color: String): void;
+    fillRect(x: number, y: number, width: number, height: number, color: string): void;
     fillAll(color: string): void;
-    gradientFillRect(x: number, y: number, width: number, height: number, color1: String, color2: string, vertical: boolean): void;
+    gradientFillRect(x: number, y: number, width: number, height: number, color1: string, color2: string, vertical: boolean): void;
     drawCircle(x: number, y: number, radius: number, color: string): void;
     drawText(text: string, x: number, y: number, maxWidth?: number, lineHeight?: number, align?: string): void;
     measureTextWidth(text: string): number;
