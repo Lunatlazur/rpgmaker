@@ -1,9 +1,24 @@
 declare namespace RPGMakerMV {
+    type ProgressListener = (countLoaded: number, countLoading: number) => void
+
     interface ImageCacheItem {
         bitmap: Bitmap;
         touch: number;
         key: string;
     }
+}
+
+declare class ProgressWatcher {
+    static _countLoaded: number
+    static _countLoading: number
+    static _progressListener: RPGMakerMV.ProgressListener
+    private constructor();
+    static initialize(): void;
+    static _bitmapListener(bitmap: Bitmap): void;
+    static _audioListener(audio: WebAudio): void;
+    static setProgressListener(progressListener: RPGMakerMV.ProgressListener): void;
+    static clearProgress(): void;
+    static truncateProgress(): void;
 }
 
 declare class JsExtensions {
@@ -109,6 +124,8 @@ declare class Utils {
 
     static RPGMAKER_NAME: 'MV';
     static RPGMAKER_VERSION: string;
+    static RPGMAKER_ENGINE: string;
+
     /**
      * Checks whether the option is in the query string.
      *
