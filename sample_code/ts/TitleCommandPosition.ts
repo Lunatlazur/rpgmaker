@@ -45,22 +45,22 @@
  *
  * @help このプラグインには、プラグインコマンドはありません。
  */
-(function() {
-    let parameters: PluginParameters = PluginManager.parameters("TitleCommandPosition");
-    let offsetX: number = Number(parameters["Offset X"] || 0);
-    let offsetY: number = Number(parameters["Offset Y"] || 0);
-    let width: number = Number(parameters["Width"] || 240);
-    let background: number = Number(parameters["Background"] || 0);
+{
+    const parameters: PluginParameters = PluginManager.parameters("TitleCommandPosition")
+    const offsetX = Number(parameters["Offset X"] || 0)
+    const offsetY = Number(parameters["Offset Y"] || 0)
+    const width = Number(parameters["Width"] || 240)
+    const background = Number(parameters["Background"] || 0)
 
-    let _Window_TitleCommand_updatePlacement: Function = Window_TitleCommand.prototype.updatePlacement;
+    const _Window_TitleCommand_updatePlacement = Window_TitleCommand.prototype.updatePlacement
     Window_TitleCommand.prototype.updatePlacement = function(this: Window_TitleCommand): void {
-        _Window_TitleCommand_updatePlacement.call(this);
-        this.x += offsetX;
-        this.y += offsetY;
-        this.setBackgroundType(background);
-    };
+        _Window_TitleCommand_updatePlacement.call(this)
+        this.x += offsetX
+        this.y += offsetY
+        this.setBackgroundType(background)
+    }
 
     Window_TitleCommand.prototype.windowWidth = function(): number {
         return width;
-    };
-})();
+    }
+}

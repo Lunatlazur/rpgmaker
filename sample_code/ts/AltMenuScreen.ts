@@ -13,9 +13,8 @@
  *
  * @help このプラグインには、プラグインコマンドはありません。
  */
-
-(function() {
-    let _Scene_Menu_create: Function = Scene_Menu.prototype.create;
+{
+    const _Scene_Menu_create = Scene_Menu.prototype.create;
     Scene_Menu.prototype.create = function(this: Scene_Menu): void {
         _Scene_Menu_create.call(this);
 
@@ -41,8 +40,8 @@
     };
 
     Window_MenuStatus.prototype.windowHeight = function(): number {
-        let h1: number = this.fittingHeight(1);
-        let h2: number = this.fittingHeight(2);
+        const h1: number = this.fittingHeight(1);
+        const h2: number = this.fittingHeight(2);
         return Graphics.boxHeight - h1 - h2;
     };
 
@@ -55,24 +54,24 @@
     };
 
     Window_MenuStatus.prototype.drawItemImage = function(this: Window_MenuStatus, index: number): void {
-        let actor: Game_Actor = $gameParty.members()[index];
-        let rect: Rectangle = this.itemRectForText(index);
-        let w: number = Math.min(rect.width, 144);
-        let h: number = Math.min(rect.height, 144);
-        let lineHeight: number = this.lineHeight();
+        const actor: Game_Actor = $gameParty.members()[index];
+        const rect: Rectangle = this.itemRectForText(index);
+        const w: number = Math.min(rect.width, 144);
+        const h: number = Math.min(rect.height, 144);
+        const lineHeight: number = this.lineHeight();
         this.changePaintOpacity(actor.isBattleMember());
         this.drawActorFace(actor, rect.x, rect.y + lineHeight * 2.5, w, h);
         this.changePaintOpacity(true);
     };
 
     Window_MenuStatus.prototype.drawItemStatus = function(this: Window_MenuStatus, index: number): void {
-        let actor: Game_Actor = $gameParty.members()[index];
-        let rect: Rectangle = this.itemRectForText(index);
-        let x: number = rect.x;
-        let y: number = rect.y;
-        let width: number = rect.width;
-        let bottom: number = y + rect.height;
-        let lineHeight: number = this.lineHeight();
+        const actor: Game_Actor = $gameParty.members()[index];
+        const rect: Rectangle = this.itemRectForText(index);
+        const x: number = rect.x;
+        const y: number = rect.y;
+        const width: number = rect.width;
+        const bottom: number = y + rect.height;
+        const lineHeight: number = this.lineHeight();
 
         this.drawActorName(actor, x, y + lineHeight * 0, width);
         this.drawActorLevel(actor, x, y + lineHeight * 1);
@@ -82,9 +81,9 @@
         this.drawActorIcons(actor, x, bottom - lineHeight * 1, width);
     };
 
-    let _Window_MenuActor_initialize: Function = Window_MenuActor.prototype.initialize;
+    const _Window_MenuActor_initialize = Window_MenuActor.prototype.initialize;
     Window_MenuActor.prototype.initialize = function(this: Window_MenuActor): void {
         _Window_MenuActor_initialize.call(this);
         this.y = this.fittingHeight(2);
     };
-})();
+}

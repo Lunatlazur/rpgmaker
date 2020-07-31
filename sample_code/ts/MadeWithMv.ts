@@ -28,8 +28,8 @@
  *
  * @param Custom Image
  * @desc The image to use when showing "Made with MV"
- * Default: 
- * @default 
+ * Default:
+ * @default
  * @require 1
  * @dir img/system/
  * @type file
@@ -59,7 +59,7 @@
 * @help  このプラグインにはプラグインコマンドはありません。
 *
 * @param Show Made With MV
-* @desc "Made with MV"のスプラッシュ画面を表示できる/できないようにします。 
+* @desc "Made with MV"のスプラッシュ画面を表示できる/できないようにします。
 * OFF - false     ON - true
 * デフォルト: ON
 * @default true
@@ -73,15 +73,15 @@
 * @type file
 *
 * @param Show Custom Splash
-* @desc "Made with MV"のスプラッシュ画面を表示できる/できないようにします。 
+* @desc "Made with MV"のスプラッシュ画面を表示できる/できないようにします。
 * OFF - false     ON - true
 * デフォルト: OFF
 * @default false
 *
 * @param Custom Image
 * @desc "Made with MV"を表示する際に使用する画像
-* デフォルト: 
-* @default 
+* デフォルト:
+* @default
 * @require 1
 * @dir img/system/
 * @type file
@@ -103,54 +103,55 @@
 *
 */
 
-namespace Liquidize {
-    export class MadeWithMV {
-        public static Parameters: PluginParameters;
-        public static ShowMV: any;
-        public static MVImage: string;
-        public static ShowCustom: any;
-        public static CustomImage: string;
-        public static FadeOutTime: number;
-        public static FadeInTime: number;
-        public static WaitTime: number;
+interface Liquidize {
+    MadeWithMV?: {
+        Parameters: PluginParameters
+        ShowMV: boolean
+        MVImage: string
+        ShowCustom: boolean
+        CustomImage: string
+        FadeOutTime: number
+        FadeInTime: number
+        WaitTime: number
     }
 }
+const Liquidize: Liquidize = {}
 
-Liquidize.MadeWithMV.Parameters = PluginManager.parameters("MadeWithMv");
-Liquidize.MadeWithMV.ShowMV = JSON.parse(Liquidize.MadeWithMV.Parameters["Show Made With MV"]);
-Liquidize.MadeWithMV.MVImage = String(Liquidize.MadeWithMV.Parameters["Made with MV Image"]);
-Liquidize.MadeWithMV.ShowCustom = JSON.parse(Liquidize.MadeWithMV.Parameters["Show Custom Splash"]);
-Liquidize.MadeWithMV.CustomImage = String(Liquidize.MadeWithMV.Parameters["Custom Image"]);
-Liquidize.MadeWithMV.FadeOutTime = Number(Liquidize.MadeWithMV.Parameters["Fade Out Time"]) || 120;
-Liquidize.MadeWithMV.FadeInTime = Number(Liquidize.MadeWithMV.Parameters["Fade In Time"]) || 120;
-Liquidize.MadeWithMV.WaitTime = Number(Liquidize.MadeWithMV.Parameters["Wait Time"]) || 160;
+Liquidize.MadeWithMV.Parameters = PluginManager.parameters("MadeWithMv")
+Liquidize.MadeWithMV.ShowMV = JSON.parse(Liquidize.MadeWithMV.Parameters["Show Made With MV"])
+Liquidize.MadeWithMV.MVImage = String(Liquidize.MadeWithMV.Parameters["Made with MV Image"])
+Liquidize.MadeWithMV.ShowCustom = JSON.parse(Liquidize.MadeWithMV.Parameters["Show Custom Splash"])
+Liquidize.MadeWithMV.CustomImage = String(Liquidize.MadeWithMV.Parameters["Custom Image"])
+Liquidize.MadeWithMV.FadeOutTime = Number(Liquidize.MadeWithMV.Parameters["Fade Out Time"]) || 120
+Liquidize.MadeWithMV.FadeInTime = Number(Liquidize.MadeWithMV.Parameters["Fade In Time"]) || 120
+Liquidize.MadeWithMV.WaitTime = Number(Liquidize.MadeWithMV.Parameters["Wait Time"]) || 160
 
-(function() {
+{
 
     //-----------------------------------------------------------------------------
     // Scene_Boot
     //
     // The scene class for dealing with the game boot.
-    let _Scene_Boot_loadSystemImages: Function = Scene_Boot.loadSystemImages;
+    const _Scene_Boot_loadSystemImages = Scene_Boot.loadSystemImages
     Scene_Boot.loadSystemImages = function(): void {
-        _Scene_Boot_loadSystemImages.call(this);
+        _Scene_Boot_loadSystemImages.call(this)
         if (Liquidize.MadeWithMV.ShowMV) {
-            ImageManager.loadSystem(Liquidize.MadeWithMV.MVImage);
+            ImageManager.loadSystem(Liquidize.MadeWithMV.MVImage)
         }
         if (Liquidize.MadeWithMV.ShowCustom) {
-            ImageManager.loadSystem(Liquidize.MadeWithMV.CustomImage);
+            ImageManager.loadSystem(Liquidize.MadeWithMV.CustomImage)
         }
-    };
+    }
 
-    let _Scene_Boot_start: Function = Scene_Boot.prototype.start;
+    const _Scene_Boot_start = Scene_Boot.prototype.start
     Scene_Boot.prototype.start = function(): void {
         if ((Liquidize.MadeWithMV.ShowMV || Liquidize.MadeWithMV.ShowCustom) && !DataManager.isBattleTest() && !DataManager.isEventTest()) {
-            SceneManager.goto(Scene_Splash);
+            SceneManager.goto(Scene_Splash)
         }
         else {
-            _Scene_Boot_start.call(this);
+            _Scene_Boot_start.call(this)
         }
-    };
+    }
 
     //-----------------------------------------------------------------------------
     // Scene_Splash
@@ -158,107 +159,107 @@ Liquidize.MadeWithMV.WaitTime = Number(Liquidize.MadeWithMV.Parameters["Wait Tim
     // The scene class for dealing with the splash screens.
 
     class Scene_Splash extends Scene_Base {
-        public _mvSplash: Sprite;
-        public _customSplash: Sprite;
-        public _mvWaitTime: number;
-        public _customWaitTime: number;
-        public _mvFadeOut: boolean;
-        public _mvFadeIn: boolean;
-        public _customFadeOut: boolean;
-        public _customFadeIn: boolean;
+        public _mvSplash: Sprite
+        public _customSplash: Sprite
+        public _mvWaitTime: number
+        public _customWaitTime: number
+        public _mvFadeOut: boolean
+        public _mvFadeIn: boolean
+        public _customFadeOut: boolean
+        public _customFadeIn: boolean
 
         public createSplashes(): void {
             if (Liquidize.MadeWithMV.ShowMV) {
-                this._mvSplash = new Sprite(ImageManager.loadSystem(Liquidize.MadeWithMV.MVImage));
-                this.addChild(this._mvSplash);
+                this._mvSplash = new Sprite(ImageManager.loadSystem(Liquidize.MadeWithMV.MVImage))
+                this.addChild(this._mvSplash)
             }
             if (Liquidize.MadeWithMV.ShowCustom) {
-                this._customSplash = new Sprite(ImageManager.loadSystem(Liquidize.MadeWithMV.CustomImage));
-                this._customSplash.opacity = 0;
-                this.addChild(this._customSplash);
+                this._customSplash = new Sprite(ImageManager.loadSystem(Liquidize.MadeWithMV.CustomImage))
+                this._customSplash.opacity = 0
+                this.addChild(this._customSplash)
             }
-        };
+        }
 
         public centerSprite(sprite: Sprite): void {
-            sprite.x = Graphics.width / 2;
-            sprite.y = Graphics.height / 2;
-            sprite.anchor.x = 0.5;
-            sprite.anchor.y = 0.5;
-        };
+            sprite.x = Graphics.width / 2
+            sprite.y = Graphics.height / 2
+            sprite.anchor.x = 0.5
+            sprite.anchor.y = 0.5
+        }
 
         public gotoTitleOrTest(): void {
-            super.start();
-            SoundManager.preloadImportantSounds();
+            super.start()
+            SoundManager.preloadImportantSounds()
             if (DataManager.isBattleTest()) {
-                DataManager.setupBattleTest();
-                SceneManager.goto(Scene_Battle);
+                DataManager.setupBattleTest()
+                SceneManager.goto(Scene_Battle)
             }
             else if (DataManager.isEventTest()) {
-                DataManager.setupEventTest();
-                SceneManager.goto(Scene_Map);
+                DataManager.setupEventTest()
+                SceneManager.goto(Scene_Map)
             }
             else {
-                this.checkPlayerLocation();
-                DataManager.setupNewGame();
-                SceneManager.goto(Scene_Title);
-                Window_TitleCommand.initCommandPosition();
+                this.checkPlayerLocation()
+                DataManager.setupNewGame()
+                SceneManager.goto(Scene_Title)
+                Window_TitleCommand.initCommandPosition()
             }
-            this.updateDocumentTitle();
-        };
+            this.updateDocumentTitle()
+        }
 
         public updateDocumentTitle(): void {
-            document.title = $dataSystem.gameTitle;
-        };
+            document.title = $dataSystem.gameTitle
+        }
 
         public checkPlayerLocation(): void {
             if ($dataSystem.startMapId === 0) {
-                throw new Error("Player\"s starting position is not set");
+                throw new Error("Player\"s starting position is not set")
             }
-        };
+        }
 
         public initialize(): void {
-            super.initialize();
+            super.initialize()
 
-            this._mvSplash = null;
-            this._customSplash = null;
-            this._mvWaitTime = Liquidize.MadeWithMV.WaitTime;
-            this._customWaitTime = Liquidize.MadeWithMV.WaitTime;
-            this._mvFadeOut = false;
-            this._mvFadeIn = false;
-            this._customFadeOut = false;
-            this._customFadeIn = false;
-        };
+            this._mvSplash = null
+            this._customSplash = null
+            this._mvWaitTime = Liquidize.MadeWithMV.WaitTime
+            this._customWaitTime = Liquidize.MadeWithMV.WaitTime
+            this._mvFadeOut = false
+            this._mvFadeIn = false
+            this._customFadeOut = false
+            this._customFadeIn = false
+        }
 
         public create(): void {
-            super.create();
-            this.createSplashes();
-        };
+            super.create()
+            this.createSplashes()
+        }
 
         public start(): void {
-            super.start();
-            SceneManager.clearStack();
+            super.start()
+            SceneManager.clearStack()
             if (this._mvSplash !== null) {
-                this.centerSprite(this._mvSplash);
+                this.centerSprite(this._mvSplash)
             }
             if (this._customSplash !== null) {
-                this.centerSprite(this._customSplash);
+                this.centerSprite(this._customSplash)
             }
-        };
+        }
 
         public update(): void {
             if (Liquidize.MadeWithMV.ShowMV) {
                 if (!this._mvFadeIn) {
-                    this.startFadeIn(Liquidize.MadeWithMV.FadeInTime, false);
-                    this._mvFadeIn = true;
+                    this.startFadeIn(Liquidize.MadeWithMV.FadeInTime, false)
+                    this._mvFadeIn = true
                 }
                 else {
                     if (this._mvWaitTime > 0 && this._mvFadeOut === false) {
-                        this._mvWaitTime--;
+                        this._mvWaitTime--
                     }
                     else {
                         if (this._mvFadeOut === false) {
-                            this._mvFadeOut = true;
-                            this.startFadeOut(Liquidize.MadeWithMV.FadeOutTime, false);
+                            this._mvFadeOut = true
+                            this.startFadeOut(Liquidize.MadeWithMV.FadeOutTime, false)
                         }
                     }
                 }
@@ -267,37 +268,37 @@ Liquidize.MadeWithMV.WaitTime = Number(Liquidize.MadeWithMV.Parameters["Wait Tim
             if (Liquidize.MadeWithMV.ShowCustom) {
                 if (Liquidize.MadeWithMV.ShowMV && this._mvFadeOut === true) {
                     if (!this._customFadeIn && this._fadeDuration === 0) {
-                        this._customSplash.opacity = 255;
-                        this._customWaitTime = Liquidize.MadeWithMV.WaitTime;
-                        this.startFadeIn(Liquidize.MadeWithMV.FadeInTime, false);
-                        this._customFadeIn = true;
+                        this._customSplash.opacity = 255
+                        this._customWaitTime = Liquidize.MadeWithMV.WaitTime
+                        this.startFadeIn(Liquidize.MadeWithMV.FadeInTime, false)
+                        this._customFadeIn = true
                     }
                     else {
                         if (this._customWaitTime > 0 && this._customFadeOut === false) {
-                            this._customWaitTime--;
+                            this._customWaitTime--
                         }
                         else {
                             if (this._customFadeOut === false) {
-                                this._customFadeOut = true;
-                                this.startFadeOut(Liquidize.MadeWithMV.FadeOutTime, false);
+                                this._customFadeOut = true
+                                this.startFadeOut(Liquidize.MadeWithMV.FadeOutTime, false)
                             }
                         }
                     }
                 }
                 else if (!Liquidize.MadeWithMV.ShowMV) {
                     if (!this._customFadeIn) {
-                        this._customSplash.opacity = 255;
-                        this.startFadeIn(Liquidize.MadeWithMV.FadeInTime, false);
-                        this._customFadeIn = true;
+                        this._customSplash.opacity = 255
+                        this.startFadeIn(Liquidize.MadeWithMV.FadeInTime, false)
+                        this._customFadeIn = true
                     }
                     else {
                         if (this._customWaitTime > 0 && this._customFadeOut === false) {
-                            this._customWaitTime--;
+                            this._customWaitTime--
                         }
                         else {
                             if (this._customFadeOut === false) {
-                                this._customFadeOut = true;
-                                this.startFadeOut(Liquidize.MadeWithMV.FadeOutTime, false);
+                                this._customFadeOut = true
+                                this.startFadeOut(Liquidize.MadeWithMV.FadeOutTime, false)
                             }
                         }
                     }
@@ -306,19 +307,19 @@ Liquidize.MadeWithMV.WaitTime = Number(Liquidize.MadeWithMV.Parameters["Wait Tim
 
             if (Liquidize.MadeWithMV.ShowCustom) {
                 if (Liquidize.MadeWithMV.ShowMV && this._mvFadeOut === true && this._customFadeOut === true) {
-                    this.gotoTitleOrTest();
+                    this.gotoTitleOrTest()
                 }
                 else if (!Liquidize.MadeWithMV.ShowMV && this._customFadeOut === true) {
-                    this.gotoTitleOrTest();
+                    this.gotoTitleOrTest()
                 }
             }
             else {
                 if (this._mvFadeOut === true) {
-                    this.gotoTitleOrTest();
+                    this.gotoTitleOrTest()
                 }
             }
 
-            super.update();
-        };
+            super.update()
+        }
     }
-})();
+}
