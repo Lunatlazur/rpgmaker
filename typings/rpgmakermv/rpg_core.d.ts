@@ -1090,6 +1090,9 @@ declare class Window extends PIXI.Container {
     updateTransform(): void;
 
     _createAllParts(): void;
+    _downArrowSprite: Sprite;
+    _upArrowSprite: Sprite;
+
     _onWindowskinLoad(): void;
     _refreshAllParts(): void;
     _refreshBack(): void;
