@@ -7,6 +7,20 @@ declare namespace RPGMakerMV {
         key: string;
     }
 
+    /**
+     * Bitmap states(Bitmap._loadingState)
+     */
+    type BitmapLoadingState =
+        'none' |
+        'pending' |
+        'purged' |
+        'requesting' |
+        'requestCompleted' |
+        'decrypting' |
+        'decryptCompleted' |
+        'loaded' |
+        'error';
+
     type EventError = (CommonEventError | BattleEventError | TestEventError | MapEventError) & {
         eventCommand:
             'set_route_script' |
@@ -367,20 +381,6 @@ declare class Rectangle extends PIXI.Rectangle {
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(x?: number, y?: number, width?: number, height?: number): void;
 }
-
-/**
- * Bitmap states(Bitmap._loadingState)
- */
-declare type BitmapLoadingState =
-    "none" |
-    "pending" |
-    "purged" |
-    "requesting" |
-    "requestCompleted" |
-    "decrypting" |
-    "decryptCompleted" |
-    "loaded" |
-    "error";
 
 /**
  * The basic object that represents an image.
