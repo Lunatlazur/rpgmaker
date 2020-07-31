@@ -31,7 +31,7 @@ declare namespace RPGMakerMV {
             'plugin_command' |
             'other';
         content: string;
-}
+    }
 
     type CommonEventError = Error & {
         eventType: 'common_event';
@@ -91,14 +91,6 @@ declare interface Number {
      * @return {Number} A modulo value
      */
     mod(n: number): number;
-    /**
-     * Makes a number string with leading zeros.
-     *
-     * @method Number.prototype.padZero
-     * @param {Number} length The length of the output string
-     * @return {String} A string with leading zeros
-     */
-    padZero(length: number): string;
 }
 
 declare interface String {
@@ -118,14 +110,17 @@ declare interface String {
      * @return {String} A string with leading zeros
      */
     padZero(length: number): string;
+}
+
+declare interface Number {
     /**
-     * Checks whether the string contains a given string.
+     * Makes a number string with leading zeros.
      *
-     * @method String.prototype.contains
-     * @param {String} string The string to search for
-     * @return {Boolean} True if the string contains a given string
+     * @method Number.prototype.padZero
+     * @param {Number} length The length of the output string
+     * @return {String} A string with leading zeros
      */
-    contains(string: string): boolean;
+    padZero(length: number): string;
 }
 
 declare interface Array<T> {
@@ -152,6 +147,17 @@ declare interface Array<T> {
      * @return {Boolean} True if the array contains a given element
      */
     contains(element: T): boolean;
+}
+
+declare interface String {
+    /**
+     * Checks whether the string contains a given string.
+     *
+     * @method String.prototype.contains
+     * @param {String} string The string to search for
+     * @return {Boolean} True if the string contains a given string
+     */
+    contains(string: string): boolean;
 }
 
 declare interface Math {
@@ -233,7 +239,11 @@ declare class Utils {
      * @return {String} CSS color string
      */
     static rgbToCssColor(r: number, g: number, b: number): string;
+
+    static _id: number;
     static generateRuntimeId(): number;
+
+    static _supportPassiveEvent: boolean;
     /**
      * Test this browser support passive event feature
      *
@@ -242,39 +252,18 @@ declare class Utils {
      * @return {Boolean} this browser support passive event or not
      */
     static isSupportPassiveEvent(): boolean;
-
-    static _id: number;
-    static _supportPassiveEvent: boolean;
-}
-
-declare class ImageCache {
-    static limit: number;
-
-    initialize(): void;
-    add(key: string, value: Bitmap): void;
-    get(key: string): Bitmap;
-    reserve(key: string, value: Bitmap, reservationId: number): void;
-    releaseReservation(reservationId: number): void;
-    isReady(): boolean;
-    getErrorBitmap(): Bitmap;
-
-    _truncateCache(): void;
-    _mustBeHeld(item: RPGMakerMV.ImageCacheItem): boolean;
-}
-
-declare class RequestQueue {
-    constructor();
-    initialize(): void;
-    enqueue(key: string, value: Bitmap): void;
-    update(): void;
-    raisePriority(key: string): void;
-    clear(): void;
 }
 
 /**
  * The resource class. Allows to be collected as a garbage if not use for some time or ticks
  */
 declare class CacheEntry {
+    /**
+     * @param {CacheMap} cache manager
+     * @param {string} key, url of the resource
+     * @param {string} item - Bitmap, HTML5Audio, WebAudio - whatever you want to store in the cache
+     */
+    constructor(cache: CacheMap, key: string, item: Bitmap | Html5Audio | WebAudio);
     cache: CacheMap;
     key: string;
     item: Bitmap | Html5Audio | WebAudio;
@@ -285,12 +274,6 @@ declare class CacheEntry {
     ttlSeconds: number;
     freedByTTL: boolean;
 
-    /**
-     * @param {CacheMap} cache manager
-     * @param {string} key, url of the resource
-     * @param {string} item - Bitmap, HTML5Audio, WebAudio - whatever you want to store in the cache
-     */
-    constructor(cache: CacheMap, key: string, item: Bitmap | Html5Audio | WebAudio);
     /**
      * frees the resource
      */
@@ -319,20 +302,19 @@ declare class CacheEntry {
  * Cache for images, audio, or any other kind of resource
  */
 declare class CacheMap {
-    _inner: { [key: string]: CacheEntry };
-    _lastRemovedEntries: CacheEntry[];
-
-    manager: typeof DataManager | typeof ConfigManager | typeof StorageManager | typeof ImageManager | typeof AudioManager | typeof SoundManager | typeof TextManager | typeof SceneManager | typeof BattleManager | typeof PluginManager;
-    updateTicks: number;
-    lastCheckTTL: number;
-    delayCheckTTL: number;
-    updateSeconds: number;
-
     /**
      * @param manager
      * @constructor
      */
     constructor(manager: typeof DataManager | typeof ConfigManager | typeof StorageManager | typeof ImageManager | typeof AudioManager | typeof SoundManager | typeof TextManager | typeof SceneManager | typeof BattleManager | typeof PluginManager);
+    manager: typeof DataManager | typeof ConfigManager | typeof StorageManager | typeof ImageManager | typeof AudioManager | typeof SoundManager | typeof TextManager | typeof SceneManager | typeof BattleManager | typeof PluginManager;
+    _inner: { [key: string]: CacheEntry };
+    _lastRemovedEntries: CacheEntry[];
+    updateTicks: number;
+    lastCheckTTL: number;
+    delayCheckTTL: number;
+    updateSeconds: number;
+
     /**
      * checks ttl of all elements and removes dead ones
      */
@@ -346,6 +328,29 @@ declare class CacheMap {
     clear(): void;
     setItem(key: string, item: any): CacheEntry;
     update(ticks: number, delta: number): void;
+}
+
+declare class ImageCache {
+    constructor();
+    static limit: number;
+    initialize(): void;
+    add(key: string, value: Bitmap): void;
+    get(key: string): Bitmap;
+    reserve(key: string, value: Bitmap, reservationId: number): void;
+    releaseReservation(reservationId: number): void;
+    _truncateCache(): void;
+    _mustBeHeld(item: RPGMakerMV.ImageCacheItem): boolean;
+    isReady(): boolean;
+    getErrorBitmap(): Bitmap;
+}
+
+declare class RequestQueue {
+    constructor();
+    initialize(): void;
+    enqueue(key: string, value: Bitmap): void;
+    update(): void;
+    raisePriority(key: string): void;
+    clear(): void;
 }
 
 /**
@@ -365,14 +370,6 @@ declare class Point extends PIXI.Point {
  */
 declare class Rectangle extends PIXI.Rectangle {
     /**
-     * @static
-     * @property emptyRectangle
-     * @type Rectangle
-     * @private
-     */
-    static emptyRectangle: Rectangle;
-
-    /**
      * @param {Number} x The x coordinate for the upper-left corner
      * @param {Number} y The y coordinate for the upper-left corner
      * @param {Number} width The width of the rectangle
@@ -380,13 +377,89 @@ declare class Rectangle extends PIXI.Rectangle {
      */
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(x?: number, y?: number, width?: number, height?: number): void;
+    /**
+     * @static
+     * @property emptyRectangle
+     * @type Rectangle
+     * @private
+     */
+    static emptyRectangle: Rectangle;
 }
 
 /**
  * The basic object that represents an image.
  */
 declare class Bitmap {
+    /**
+     * @param {Number} width The width of the bitmap
+     * @param {Number} height The height of the bitmap
+     */
+    constructor(width?: number, height?: number);
     static _reuseImages: HTMLImageElement[];
+    _createCanvas(width: number, height: number): void;
+    _createBaseTexture(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void;
+    _clearImgInstance(): void;
+    _canvas: HTMLCanvasElement;
+    _context: CanvasRenderingContext2D;
+    _baseTexture: PIXI.BaseTexture;
+    _renewCanvas(): void;
+
+    initialize(width?: number, height?: number): void;
+    _image: HTMLImageElement;
+    _url: string;
+    _paintOpacity: number;
+    _smooth: boolean;
+    _loadListeners: Function[];
+    _loadingState: RPGMakerMV.BitmapLoadingState;
+    _decodeAfterRequest: boolean;
+    /**
+     * Cache entry, for images. In all cases _url is the same as cacheEntry.key
+     * @type CacheEntry
+     */
+    cacheEntry: CacheEntry;
+    /**
+     * The face name of the font.
+     *
+     * @property fontFace
+     * @type String
+     */
+    fontFace: string;
+    /**
+     * The size of the font in pixels.
+     *
+     * @property fontSize
+     * @type Number
+     */
+    fontSize: number;
+    /**
+     * Whether the font is italic.
+     *
+     * @property fontItalic
+     * @type Boolean
+     */
+    fontItalic: boolean;
+    /**
+     * The color of the text in CSS format.
+     *
+     * @property textColor
+     * @type String
+     */
+    textColor: string;
+    /**
+     * The color of the outline of the text in CSS format.
+     *
+     * @property outlineColor
+     * @type String
+     */
+    outlineColor: string;
+    /**
+     * The width of the outline of the text.
+     *
+     * @property outlineWidth
+     * @type Number
+     */
+    outlineWidth: number;
+
     /**
      * Loads a image file and returns a new bitmap object.
      *
@@ -405,7 +478,26 @@ declare class Bitmap {
      * @return Bitmap
      */
     static snap(stage: Stage): Bitmap;
-    static request(url: string): Bitmap;
+
+    /**
+     * Checks whether the bitmap is ready to render.
+     *
+     * @method isReady
+     * @return {Boolean} True if the bitmap is ready to render
+     */
+    isReady(): boolean;
+    /**
+     * Checks whether a loading error has occurred.
+     *
+     * @method isError
+     * @return {Boolean} True if a loading error has occurred
+     */
+    isError(): boolean;
+    /**
+     * touch the resource
+     * @method touch
+     */
+    touch(): void;
 
     /**
      * [read-only] The url of the image file.
@@ -470,79 +562,7 @@ declare class Bitmap {
      * @type Number
      */
     paintOpacity: number;
-    /**
-     * Cache entry, for images. In all cases _url is the same as cacheEntry.key
-     * @type CacheEntry
-     */
-    cacheEntry: CacheEntry;
-    /**
-     * The face name of the font.
-     *
-     * @property fontFace
-     * @type String
-     */
-    fontFace: string;
-    /**
-     * The size of the font in pixels.
-     *
-     * @property fontSize
-     * @type Number
-     */
-    fontSize: number;
-    /**
-     * Whether the font is italic.
-     *
-     * @property fontItalic
-     * @type Boolean
-     */
-    fontItalic: boolean;
-    /**
-     * The color of the text in CSS format.
-     *
-     * @property textColor
-     * @type String
-     */
-    textColor: string;
-    /**
-     * The color of the outline of the text in CSS format.
-     *
-     * @property outlineColor
-     * @type String
-     */
-    outlineColor: string;
-    /**
-     * The width of the outline of the text.
-     *
-     * @property outlineWidth
-     * @type Number
-     */
-    outlineWidth: number;
 
-    /**
-     * @param {Number} width The width of the bitmap
-     * @param {Number} height The height of the bitmap
-     */
-    constructor(width?: number, height?: number);
-    initialize(width?: number, height?: number): void;
-    /**
-     * Checks whether the bitmap is ready to render.
-     *
-     * @method isReady
-     * @return {Boolean} True if the bitmap is ready to render
-     */
-    isReady(): boolean;
-    /**
-     * Checks whether a loading error has occurred.
-     *
-     * @method isError
-     * @return {Boolean} True if a loading error has occurred
-     */
-    isError(): boolean;
-    /**
-     * touch the resource
-     * @method touch
-     */
-    touch(): void;
     resize(width: number, height: number): void;
     blt(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw?: number, dh?: number): void;
     bltImage(source: Bitmap, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw?: number, dh?: number): void;
@@ -555,85 +575,37 @@ declare class Bitmap {
     gradientFillRect(x: number, y: number, width: number, height: number, color1: string, color2: string, vertical: boolean): void;
     drawCircle(x: number, y: number, radius: number, color: string): void;
     drawText(text: string, x: number, y: number, maxWidth?: number, lineHeight?: number, align?: string): void;
+    drawSmallText(text: string, x: number, y: number, maxWidth?: number, lineHeight?: number, align?: string): void;
     measureTextWidth(text: string): number;
     adjustTone(r: number, g: number, b: number): void;
     rotateHue(offset: number): void;
     blur(): void;
     addLoadListener(listener: Function): void;
-    checkDirty(): void;
-    isRequestOnly(): boolean;
-    isRequestReady(): boolean;
-    startRequest(): void;
-
-    _canvas: HTMLCanvasElement;
-    _context: CanvasRenderingContext2D;
-    _baseTexture: PIXI.BaseTexture;
-    _image: HTMLImageElement;
-    _url: string;
-    _paintOpacity: number;
-    _smooth: boolean;
-    _loadListeners: Function[];
-    _loadingState: BitmapLoadingState;
-    _decodeAfterRequest: boolean;
-
     _makeFontNameText(): string;
     _drawTextOutline(text: string, tx: number, ty: number, maxWidth: number): void;
     _drawTextBody(text: string, tx: number, ty: number, maxWidth: number): void;
     _onLoad(): void;
+    decode(): void;
     _callLoadListeners(): void;
     _onError(): void;
     _setDirty(): void;
-    _createCanvas(width: number, height: number): void;
-    _createBaseTexture(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void;
-    _clearImgInstance(): void;
-    _renewCanvas(): void;
+    checkDirty(): void;
+    static request(url: string): Bitmap;
     _requestImage(url: string): void;
+    isRequestOnly(): boolean;
+    isRequestReady(): boolean;
+    startRequest(): void;
+    minFontSize: number;
+    drawSmallTextBitmap: Bitmap;
 }
 
 declare class Graphics {
     private constructor();
-
-    static frameCount: number;
-    static BLEND_NORMAL: number;
-    static BLEND_ADD: number;
-    static BLEND_MULTIPLY: number;
-    static BLEND_SCREEN: number;
-    static width: number;
-    static height: number;
-    static boxWidth: number;
-    static boxHeight: number;
-    static scale: number;
+    static _cssFontLoading: boolean;
+    static _fontLoaded: any; // FontFaceSet
+    static _videoVolume: number;
 
     static initialize(width?: number, height?: number, type?: string): void;
-    static tickStart(): void;
-    static tickEnd(): void;
-    static render(stage: Stage): void;
-    static isWebGL(): boolean;
-    static hasWebGL(): boolean;
-    static canUseDifferenceBlend(): boolean;
-    static canUseSaturationBlend(): boolean;
-    static setLoadingImage(src: string): void;
-    static startLoading(): void;
-    static updateLoading(): void;
-    static printError(name: string, message: string): void;
-    static showFps(): void;
-    static hideFps(): void;
-    static loadFont(name: string, url: string): void;
-    static isFontLoaded(name: string): boolean;
-    static playVideo(src: string): void;
-    static isVideoPlaying(): boolean;
-    static canPlayVideoType(type: string): boolean;
-    static pageToCanvasX(x: number): number;
-    static pageToCanvasY(y: number): number;
-    static isInsideCanvas(x: number, y: number): boolean;
-    static callGC(): void;
-    static canUseCssFontLoading(): boolean;
-    static printLoadingError(url: string): void;
-    static eraseLoadingError(): void;
-    static setVideoVolume(value: number): void;
-    static _setupCssFontLoading(): void;
-    static _onTouchEnd(event: TouchEvent): void;
-
     static _width: number;
     static _height: number;
     static _rendererType: string;
@@ -661,9 +633,58 @@ declare class Graphics {
     static _canUseDifferenceBlend: boolean;
     static _canUseSaturationBlend: boolean;
     static _hiddenCanvas: HTMLCanvasElement;
-    static _cssFontLoading: boolean;
-    static _fontLoaded: any; // FontFaceSet
-    static _videoVolume: number;
+
+    static _setupCssFontLoading(): void;
+    static canUseCssFontLoading(): boolean;
+
+    static frameCount: number;
+    static BLEND_NORMAL: 0;
+    static BLEND_ADD: 1;
+    static BLEND_MULTIPLY: 2;
+    static BLEND_SCREEN: 3;
+
+    static tickStart(): void;
+    static tickEnd(): void;
+    static render(stage: Stage): void;
+    static isWebGL(): boolean;
+    static hasWebGL(): boolean;
+    static canUseDifferenceBlend(): boolean;
+    static canUseSaturationBlend(): boolean;
+    static setLoadingImage(src: string): void;
+    static setProgressEnabled(enable: boolean): void;
+    static startLoading(): void;
+    static _setupProgress(): void;
+    static _showProgress(): void;
+    static _hideProgress(): void;
+    static _updateProgressCount(countLoaded: number, countLoading: number): void;
+    static _updateProgress(): void;
+    static updateLoading(): void;
+    static endLoading(): void;
+    static printLoadingError(url: string): void;
+    static eraseLoadingError(): void;
+    static printError(name: string, message: string): void;
+    static printErrorDetail(error: RPGMakerMV.EventError): void;
+    static setErrorMessage(message: string): void;
+    static setShowErrorDetail(showErrorDetail: boolean): void
+    static showFps(): void;
+    static hideFps(): void;
+    static loadFont(name: string, url: string): void;
+    static isFontLoaded(name: string): boolean;
+    static playVideo(src: string): void;
+    static _playVideo(src: string): void;
+    static isVideoPlaying(): boolean;
+    static canPlayVideoType(type: string): boolean;
+    static setVideoVolume(value: number): void;
+    static pageToCanvasX(x: number): number;
+    static pageToCanvasY(y: number): number;
+    static isInsideCanvas(x: number, y: number): boolean;
+    static callGC(): void;
+
+    static width: number;
+    static height: number;
+    static boxWidth: number;
+    static boxHeight: number;
+    static scale: number;
 
     static _createAllElements(): void;
     static _updateAllElements(): void;
@@ -705,6 +726,7 @@ declare class Graphics {
     static _setupEventHandlers(): void;
     static _onWindowResize(): void;
     static _onKeyDown(event: KeyboardEvent): void;
+    static _onTouchEnd(event: TouchEvent): void;
     static _switchFPSMeter(): void;
     static _switchStretchMode(): void;
     static _switchFullScreen(): void;
@@ -715,24 +737,14 @@ declare class Graphics {
 
 declare class Input {
     private constructor();
+    static initialize(): void;
 
     static keyRepeatWait: number;
     static keyRepeatInterval: number;
     static keyMapper: { [key: number]: string };
     static gamepadMapper: { [key: number]: string };
 
-    static initialize(): void;
     static clear(): void;
-    static update(): void;
-    static isPressed(keyName: string): boolean;
-    static isTriggered(keyName: string): boolean;
-    static isRepeated(keyName: string): boolean;
-    static isLongPressed(keyName: string): boolean;
-
-    static dir4: number;
-    static dir8: number;
-    static date: number;
-
     static _currentState: { [key: string]: boolean };
     static _previousState: { [key: string]: boolean };
     static _gamepadStates: boolean[][];
@@ -742,6 +754,16 @@ declare class Input {
     static _dir8: number;
     static _preferredAxis: string;
     static _date: number
+
+    static update(): void;
+    static isPressed(keyName: string): boolean;
+    static isTriggered(keyName: string): boolean;
+    static isRepeated(keyName: string): boolean;
+    static isLongPressed(keyName: string): boolean;
+
+    static dir4: number;
+    static dir8: number;
+    static date: number;
 
     static _wrapNwjsAlert(): void;
     static _setupEventHandlers(): void;
@@ -769,25 +791,12 @@ declare interface IDataTouchInput {
 
 declare class TouchInput {
     private constructor();
+    static initialize(): void;
 
     static keyRepeatWait: number;
     static keyRepeatInterval: number;
 
-    static initialize(): void;
     static clear(): void;
-    static update(): void;
-    static isPressed(): boolean;
-    static isTriggered(): boolean;
-    static isRepeated(): boolean;
-    static isLongPressed(): boolean;
-    static isCancelled(): boolean;
-    static isMoved(): boolean;
-    static isReleased(): boolean;
-
-    static wheelX: number;
-    static wheelY: number;
-    static x: number;
-    static y: number;
     static date: number;
     static _mousePressed: boolean;
     static _screenPressed: boolean;
@@ -802,6 +811,20 @@ declare class TouchInput {
     static _x: number;
     static _y: number;
     static _date: number;
+
+    static update(): void;
+    static isPressed(): boolean;
+    static isTriggered(): boolean;
+    static isRepeated(): boolean;
+    static isLongPressed(): boolean;
+    static isCancelled(): boolean;
+    static isMoved(): boolean;
+    static isReleased(): boolean;
+
+    static wheelX: number;
+    static wheelY: number;
+    static x: number;
+    static y: number;
 
     static _setupEventHandlers(): void;
     static _onMouseDown(event: MouseEvent): void;
@@ -823,24 +846,10 @@ declare class TouchInput {
 }
 
 declare class Sprite extends PIXI.Sprite {
-    static _counter: number;
-
-    bitmap: Bitmap;
-    width: number;
-    height: number;
-    opacity: number;
-
     constructor(bitmap?: Bitmap);
-    initialize(bitmap?: Bitmap): void;
-    update(): void;
-    move(x: number, y: number): void;
-    setFrame(x: number, y: number, width: number, height: number): void;
-    getBlendColor(): number[];
-    setBlendColor(color: number[]): void;
-    getColorTone(): number[];
-    setColorTone(tone: number[]): void;
-    // 1.3.2で削除 updateTransform(): void;
+    voidFilter: PIXI.filters.VoidFilter;
 
+    initialize(bitmap?: Bitmap): void;
     _bitmap: Bitmap;
     _frame: Rectangle;
     _realFrame: Rectangle;
@@ -850,6 +859,26 @@ declare class Sprite extends PIXI.Sprite {
     _canvas: HTMLCanvasElement;
     _context: CanvasRenderingContext2D;
     _tintTexture: PIXI.BaseTexture;
+
+    _isPicture: boolean
+
+    spriteId: number
+    opaque: boolean
+
+    static _counter: number;
+
+    bitmap: Bitmap;
+    width: number;
+    height: number;
+    opacity: number;
+
+    update(): void;
+    move(x: number, y: number): void;
+    setFrame(x: number, y: number, width: number, height: number): void;
+    getBlendColor(): number[];
+    setBlendColor(color: number[]): void;
+    getColorTone(): number[];
+    setColorTone(tone: number[]): void;
 
     _onBitmapLoad(bitmapLoaded: Bitmap): void;
     _refresh(): void;
@@ -865,27 +894,8 @@ declare class Sprite extends PIXI.Sprite {
 }
 
 declare class Tilemap extends PIXI.Container {
-    width: number;
-    height: number;
-    tileWidth: number;
-    tileHeight: number;
-    bitmaps: Bitmap[];
-    origin: Point;
-    flags: { [key: number]: boolean };
-    animationCount: number;
-    animationFrame: number;
-    horizontalWrap: boolean;
-    verticalWrap: boolean;
-
     constructor();
     initialize(): void;
-    setData(width: number, height: number, data: number[]): void;
-    isReady(): boolean;
-    update(): void;
-    refresh(): void;
-    refreshTileset(): void;
-    updateTransform(): void;
-
     _margin: number;
     _width: number;
     _height: number;
@@ -897,17 +907,38 @@ declare class Tilemap extends PIXI.Container {
     _layerWidth: number;
     _layerHeight: number;
     _lastTiles: number[][][][];
+
+    bitmaps: Bitmap[];
+    origin: Point;
+    flags: { [key: number]: boolean };
+    animationCount: number;
+    animationFrame: number;
+    horizontalWrap: boolean;
+    verticalWrap: boolean;
+
+    width: number;
+    height: number;
+    tileWidth: number;
+    tileHeight: number;
+
+    setData(width: number, height: number, data: number[]): void;
+    isReady(): boolean;
+    update(): void;
+    refresh(): void;
+    refreshTileset(): void;
+    updateTransform(): void;
     _needsRepaint: boolean;
     _lastAnimationFrame: number;
     _lastStartX: number;
     _lastStartY: number;
     _frameUpdated: boolean;
+
+    _createLayers(): void;
     _lowerBitmap: Bitmap;
     _upperBitmap: Bitmap;
     _lowerLayer: Sprite;
     _upperLayer: Sprite;
 
-    _createLayers(): void;
     _updateLayerPositions(startX: number, startY: number): void;
     _paintAllTiles(startX: number, startY: number): void;
     _paintTiles(startX: number, startY: number, x: number, y: number): void;
@@ -958,28 +989,65 @@ declare class Tilemap extends PIXI.Container {
     static isFloorTypeAutotile(tileId: number): boolean;
     static isWallTypeAutotile(tileId: number): boolean;
     static isWaterfallTypeAutotile(tileId: number): boolean;
-    static FLOOR_AUTOTILE_TABLE: number[][][];
-    static WALL_AUTOTILE_TABLE: number[][][];
-    static WATERFALL_AUTOTILE_TABLE: number[][][];
+    static FLOOR_AUTOTILE_TABLE: [
+        [[2,4],[1,4],[2,3],[1,3]],[[2,0],[1,4],[2,3],[1,3]],
+        [[2,4],[3,0],[2,3],[1,3]],[[2,0],[3,0],[2,3],[1,3]],
+        [[2,4],[1,4],[2,3],[3,1]],[[2,0],[1,4],[2,3],[3,1]],
+        [[2,4],[3,0],[2,3],[3,1]],[[2,0],[3,0],[2,3],[3,1]],
+        [[2,4],[1,4],[2,1],[1,3]],[[2,0],[1,4],[2,1],[1,3]],
+        [[2,4],[3,0],[2,1],[1,3]],[[2,0],[3,0],[2,1],[1,3]],
+        [[2,4],[1,4],[2,1],[3,1]],[[2,0],[1,4],[2,1],[3,1]],
+        [[2,4],[3,0],[2,1],[3,1]],[[2,0],[3,0],[2,1],[3,1]],
+        [[0,4],[1,4],[0,3],[1,3]],[[0,4],[3,0],[0,3],[1,3]],
+        [[0,4],[1,4],[0,3],[3,1]],[[0,4],[3,0],[0,3],[3,1]],
+        [[2,2],[1,2],[2,3],[1,3]],[[2,2],[1,2],[2,3],[3,1]],
+        [[2,2],[1,2],[2,1],[1,3]],[[2,2],[1,2],[2,1],[3,1]],
+        [[2,4],[3,4],[2,3],[3,3]],[[2,4],[3,4],[2,1],[3,3]],
+        [[2,0],[3,4],[2,3],[3,3]],[[2,0],[3,4],[2,1],[3,3]],
+        [[2,4],[1,4],[2,5],[1,5]],[[2,0],[1,4],[2,5],[1,5]],
+        [[2,4],[3,0],[2,5],[1,5]],[[2,0],[3,0],[2,5],[1,5]],
+        [[0,4],[3,4],[0,3],[3,3]],[[2,2],[1,2],[2,5],[1,5]],
+        [[0,2],[1,2],[0,3],[1,3]],[[0,2],[1,2],[0,3],[3,1]],
+        [[2,2],[3,2],[2,3],[3,3]],[[2,2],[3,2],[2,1],[3,3]],
+        [[2,4],[3,4],[2,5],[3,5]],[[2,0],[3,4],[2,5],[3,5]],
+        [[0,4],[1,4],[0,5],[1,5]],[[0,4],[3,0],[0,5],[1,5]],
+        [[0,2],[3,2],[0,3],[3,3]],[[0,2],[1,2],[0,5],[1,5]],
+        [[0,4],[3,4],[0,5],[3,5]],[[2,2],[3,2],[2,5],[3,5]],
+        [[0,2],[3,2],[0,5],[3,5]],[[0,0],[1,0],[0,1],[1,1]]
+    ];
+    static WALL_AUTOTILE_TABLE: [
+        [[2,2],[1,2],[2,1],[1,1]],[[0,2],[1,2],[0,1],[1,1]],
+        [[2,0],[1,0],[2,1],[1,1]],[[0,0],[1,0],[0,1],[1,1]],
+        [[2,2],[3,2],[2,1],[3,1]],[[0,2],[3,2],[0,1],[3,1]],
+        [[2,0],[3,0],[2,1],[3,1]],[[0,0],[3,0],[0,1],[3,1]],
+        [[2,2],[1,2],[2,3],[1,3]],[[0,2],[1,2],[0,3],[1,3]],
+        [[2,0],[1,0],[2,3],[1,3]],[[0,0],[1,0],[0,3],[1,3]],
+        [[2,2],[3,2],[2,3],[3,3]],[[0,2],[3,2],[0,3],[3,3]],
+        [[2,0],[3,0],[2,3],[3,3]],[[0,0],[3,0],[0,3],[3,3]]
+    ];
+    static WATERFALL_AUTOTILE_TABLE: [
+        [[2,0],[1,0],[2,1],[1,1]],[[0,0],[1,0],[0,1],[1,1]],
+        [[2,0],[3,0],[2,1],[3,1]],[[0,0],[3,0],[0,1],[3,1]]
+    ];
 }
 
 declare class ShaderTilemap extends Tilemap {
-    roundPixels: boolean;
-    animationFrame: number;
-    lowerZLayer: PIXI.tilemap.ZLayer;
-    upperZLayer: PIXI.tilemap.ZLayer;
-
-    _lastBitmapLength: number;
-
     constructor();
+    roundPixels: boolean;
+
+    _hackRenderer(renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     renderCanvas(renderer: PIXI.CanvasRenderer): void;
     renderWebGL(renderer: PIXI.WebGLRenderer): void;
     refresh(): void;
+    _lastBitmapLength: number;
+
     refreshTileset(): void;
     updateTransform(): void;
 
-    _hackRenderer(renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     _createLayers(): void;
+    lowerZLayer: PIXI.tilemap.ZLayer;
+    upperZLayer: PIXI.tilemap.ZLayer;
+
     _updateLayerPositions(startX: number, startY: number): void;
     _paintAllTiles(startX: number, startY: number): void;
     _paintTiles(startX: number, startY: number, x: number, y: number): void;
@@ -996,36 +1064,35 @@ declare class ShaderTilemap extends Tilemap {
 }
 
 declare class TilingSprite extends PIXI.extras.TilingSprite {
-    bitmap: Bitmap;
-    opacity: number;
-    spriteId: number;
-    origin: Point;
-
+    constructor(bitmap: Bitmap);
+    initialize(bitmap: Bitmap): void;
     _bitmap: Bitmap;
     _width: number;
     _height: number;
     _frame: Rectangle;
+    spriteId: number;
+    origin: Point;
 
     _renderCanvas_PIXI(renderer: PIXI.CanvasRenderer): void;
     _renderWebGL_PIXI(renderer: PIXI.WebGLRenderer): void;
     _renderCanvas(renderer: PIXI.CanvasRenderer): void;
-    _renderWebGL(renderer: PIXI.WebGLRenderer): void;
-    _onBitmapLoad(): void;
-    _refresh(): void;
 
-    constructor(bitmap: Bitmap);
-    initialize(bitmap: Bitmap): void;
+    bitmap: Bitmap;
+    opacity: number;
+
     update(): void;
     move(x?: number, y?: number, width?: number, height?: number): void;
     setFrame(x: number, y: number, width: number, height: number): void;
     updateTransform(): void;
     updateTransformTS(): void;
+    _onBitmapLoad(): void;
+    _refresh(): void;
+    _renderWebGL(renderer: PIXI.WebGLRenderer): void;
 }
 
 declare class ScreenSprite extends PIXI.Container {
-    static YEPWarned: boolean;
-    static warnYep(): void;
-
+    constructor();
+    initialize(): void;
     _graphics: PIXI.Graphics;
     _red: number;
     _green: number;
@@ -1033,17 +1100,22 @@ declare class ScreenSprite extends PIXI.Container {
     _colorText: string;
 
     opacity: number;
+
+    static YEPWarned: boolean;
+    static warnYep(): void;
+
     anchor: number;
     blendMode: number;
 
-    constructor();
-    initialize(): void;
     setBlack(): void;
     setWhite(): void;
     setColor(r?: number, g?: number, b?: number): void;
 }
 
 declare class Window extends PIXI.Container {
+    constructor();
+
+    initialize(): void;
     _isWindow: boolean;
     _windowskin: Bitmap;
     _width: number;
@@ -1062,7 +1134,12 @@ declare class Window extends PIXI.Container {
     _windowArrowSprites: Sprite[];
     _windowPauseSignSprite: Sprite;
 
+    origin: Point;
     active: boolean;
+    downArrowVisible: boolean;
+    upArrowVisible: boolean;
+    pause: boolean;
+
     windowskin: Bitmap;
     contents: Bitmap;
     width: number;
@@ -1073,13 +1150,7 @@ declare class Window extends PIXI.Container {
     backOpacity: number;
     contentsOpacity: number;
     openness: number;
-    origin: Point;
-    downArrowVisible: boolean;
-    upArrowVisible: boolean;
-    pause: boolean;
 
-    constructor();
-    initialize(): void;
     update(): void;
     move(x?: number, y?: number, width?: number, height?: number): void;
     isOpen(): boolean;
@@ -1108,7 +1179,8 @@ declare class Window extends PIXI.Container {
 }
 
 declare class WindowLayer extends PIXI.Container {
-    static voidFilter: PIXI.filters.VoidFilter;
+    constructor();
+    initialize(): void;
 
     _width: number;
     _height: number;
@@ -1118,23 +1190,24 @@ declare class WindowLayer extends PIXI.Container {
     _windowRect: PIXI.Rectangle;
     _renderSprite: Sprite;
 
+    onRemoveAsAChild(): void;
+    static voidFilter: PIXI.filters.VoidFilter;
+
     width: number;
     height: number;
     filterArea: PIXI.Rectangle;
 
-    constructor();
-    initialize(): void;
     move(x: number, y: number, width: number, height: number): void;
     update(): void;
     renderCanvas(renderer: PIXI.CanvasRenderer): void;
-    renderWebGL(renderer: PIXI.WebGLRenderer): void;
-    onRemoveAsAChild(): void;
-
     _canvasClearWindowRect(renderSession: PIXI.CanvasRenderer, window: Window): void;
+    renderWebGL(renderer: PIXI.WebGLRenderer): void;
     _maskWindow(window: Window, shift: PIXI.Point): void;
 }
 
 declare class Weather extends PIXI.Container {
+    constructor();
+    initialize(): void;
     _width: number;
     _height: number;
     _sprites: Sprite[];
@@ -1147,8 +1220,6 @@ declare class Weather extends PIXI.Container {
     power: number;
     origin: Point;
 
-    constructor();
-    initialize(): void;
     update(): void;
 
     _createBitmaps(): void;
@@ -1174,13 +1245,13 @@ declare class ToneFilter extends PIXI.filters.ColorMatrixFilter {
 declare class ToneSprite extends PIXI.Container {
     constructor();
     initialize(): void;
-    clear(): void;
-    setTone(r?: number, g?: number, b?: number, gray?: number): void;
-
     _red: number;
     _green: number;
     _blue: number;
     _gray: number;
+
+    clear(): void;
+    setTone(r?: number, g?: number, b?: number, gray?: number): void;
 
     _renderCanvas(renderer: PIXI.CanvasRenderer): void;
     _renderWebGL(renderer: PIXI.WebGLRenderer): void;
@@ -1192,22 +1263,25 @@ declare class Stage extends PIXI.Container {
 }
 
 declare class WebAudio {
+    constructor(url: string);
+    static _standAlone: typeof ResourceHandler;
+
+    initialize(url: string): void;
+
     static _masterVolume: number;
     static _context: AudioContext;
     static _masterGainNode: GainNode;
     static _initialized: boolean;
     static _unlocked: boolean;
-    static _canPlayOgg: boolean;
-    static _canPlayM4a: boolean;
-    static _standAlone: typeof ResourceHandler;
 
     static initialize(noAudio: boolean): boolean;
     static canPlayOgg(): boolean;
     static canPlayM4a(): boolean;
     static setMasterVolume(value: number): void;
-
     static _createContext(): void;
     static _detectCodecs(): void;
+    static _canPlayOgg: boolean;
+    static _canPlayM4a: boolean;
     static _createMasterGainNode(): void;
     static _setupEventHandlers(): void;
     static _onTouchStart(): void;
@@ -1218,25 +1292,7 @@ declare class WebAudio {
     static _fadeIn(duration: number): void;
     static _fadeOut(duration: number): void;
 
-    url: string;
-    volume: number;
-    pitch: number;
-    pan: number;
-
-    constructor(url: string);
-    initialize(url: string): void;
     clear(): void;
-    isReady(): boolean;
-    isError(): boolean;
-    isPlaying(): boolean;
-    play(loop: boolean, offset: number): void;
-    stop(): void;
-    fadeIn(duration: number): void;
-    fadeOut(duration: number): void;
-    seek(): number;
-    addLoadListener(listener: Function): void;
-    addStopListener(listener: Function): void;
-
     _url: string;
     _buffer: AudioBuffer;
     _sourceNode: AudioBufferSourceNode;
@@ -1255,6 +1311,22 @@ declare class WebAudio {
     _stopListeners: Function[];
     _hasError: boolean;
     _autoPlay: boolean;
+
+    url: string;
+    volume: number;
+    pitch: number;
+    pan: number;
+
+    isReady(): boolean;
+    isError(): boolean;
+    isPlaying(): boolean;
+    play(loop: boolean, offset: number): void;
+    stop(): void;
+    fadeIn(duration: number): void;
+    fadeOut(duration: number): void;
+    seek(): number;
+    addLoadListener(listener: Function): void;
+    addStopListener(listener: Function): void;
 
     _load(url: string): void;
     _onXhrLoad(xhr: XMLHttpRequest): void;
@@ -1278,7 +1350,6 @@ declare class WebAudio {
 declare class Html5Audio {
     private constructor();
 
-    static _url: string;
     static _initialized: boolean;
     static _unlocked: boolean;
     static _audioElement: HTMLAudioElement;
@@ -1287,20 +1358,9 @@ declare class Html5Audio {
     static _tweenTargetGain: number;
     static _tweenGainStep: number;
     static _staticSePath: string;
-    static _buffered: boolean;
-    static _hasError: boolean;
-    static _autoPlay: boolean;
-    static _isLoading: boolean;
-    static _loadListeners: Function[];
-    static _volume: number;
-
-    static url: string;
-    static volume: string;
 
     static setup(url: string): void;
     static initialize(): boolean;
-    static clear(): void;
-    static setStaticSe(url: string): void;
 
     static _setupEventHandlers(): void;
     static _onTouchStart(): void;
@@ -1310,6 +1370,20 @@ declare class Html5Audio {
     static _onEnded(): void;
     static _onHide(): void;
     static _onShow(): void;
+
+    static clear(): void;
+    static _url: string;
+    static _buffered: boolean;
+    static _hasError: boolean;
+    static _autoPlay: boolean;
+    static _isLoading: boolean;
+    static _loadListeners: Function[];
+    static _volume: number;
+
+    static setStaticSe(url: string): void;
+
+    static url: string;
+    static volume: string;
 
     static isReady(): boolean;
     static isError(): boolean;
@@ -1332,20 +1406,20 @@ declare class JsonEx {
     private constructor();
 
     static maxDepth: number;
-    static stringify(object: any): string;
-    static parse(json: string): any;
-    static makeDeepCopy(object: any): any;
-
     static _id: number;
 
+    static _generateId(): number;
+    static _restoreCircularReference(circulars: any[]): void;
+
+    static stringify(object: any): string;
+    static parse(json: string): any;
+    static _linkCircularReference(contents: any, circulars: any[], registry: any[]): void;
+    static _cleanMetadata(object: any): void;
+    static makeDeepCopy(object: any): any;
     static _encode(value: any, circular: any[], depth: number): any;
     static _decode(value: any, circular: any[], registry: any): any;
     static _getConstructorName(value: any): any;
     static _resetPrototype(value: any, prototype: any): any;
-    static _generateId(): number;
-    static _restoreCircularReference(circulars: any[]): void;
-    static _linkCircularReference(contents: any, circulars: any[], registry: any[]): void;
-    static _cleanMetadata(object: any): void;
 }
 
 declare class Decrypter {
@@ -1353,15 +1427,16 @@ declare class Decrypter {
 
     static hasEncryptedImages: boolean;
     static hasEncryptedAudio: boolean;
-    static SIGNATURE: string;
-    static VER: string;
-    static REMAIN: string;
 
     static _requestImgFile: any[]; // TODO おそらく未使用なので具体的な型が分からない。
     static _headerlength: number;
     static _xhrOk: number;
     static _encryptionKey: string;
     static _ignoreList: string[];
+
+    static SIGNATURE: string;
+    static VER: string;
+    static REMAIN: string;
 
     static checkImgIgnore(url: string): boolean;
     static decryptImg(url: string, bitmap: Bitmap): void;
