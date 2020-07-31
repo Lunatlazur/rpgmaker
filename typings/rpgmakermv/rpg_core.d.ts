@@ -6,6 +6,39 @@ declare namespace RPGMakerMV {
         touch: number;
         key: string;
     }
+
+    type EventError = (CommonEventError | BattleEventError | TestEventError | MapEventError) & {
+        eventCommand:
+            'set_route_script' |
+            'auto_route_script' |
+            'conditional_branch_script' |
+            'control_variables' |
+            'script' |
+            'plugin_command' |
+            'other';
+        content: string;
+}
+
+    type CommonEventError = Error & {
+        eventType: 'common_event';
+        commonEventId: number;
+    }
+
+    type BattleEventError = Error & {
+        eventType: 'battle_event';
+        troopId: number;
+    }
+
+    type TestEventError = Error & {
+        eventType: 'test_event';
+    }
+
+    type MapEventError = Error & {
+        eventType: "map_event";
+        mapId: number;
+        mapEventId: number;
+        page: number;
+    }
 }
 
 declare class ProgressWatcher {
@@ -641,6 +674,11 @@ declare class Graphics {
     static _modifyExistingElements(): void;
     static _createErrorPrinter(): void;
     static _updateErrorPrinter(): void;
+    static _makeErrorMessage(): void;
+    static _makeErrorDetail(info: string, stack: string): void;
+    static _formatEventInfo(error: RPGMakerMV.EventError): void;
+    static _formatEventCommandInfo(error: RPGMakerMV.EventError): void;
+    static _formatStackTrace(error: RPGMakerMV.EventError): void;
     static _createCanvas(): void;
     static _updateCanvas(): void;
     static _createVideo(): void;
