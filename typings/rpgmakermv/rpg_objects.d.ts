@@ -10,12 +10,23 @@ declare namespace RPGMakerMV {
         'Ａ','Ｂ','Ｃ','Ｄ','Ｅ','Ｆ','Ｇ','Ｈ','Ｉ','Ｊ','Ｋ','Ｌ','Ｍ',
         'Ｎ','Ｏ','Ｐ','Ｑ','Ｒ','Ｓ','Ｔ','Ｕ','Ｖ','Ｗ','Ｘ','Ｙ','Ｚ'
     ]
+
+    interface BattlerAnimation {
+        animationId: string;
+        mirror: boolean;
+        delay: number;
+    }
 }
 
 declare class Game_Temp {
     constructor();
     initialize(): void;
     isPlaytest(): boolean;
+    _isPlaytest: boolean;
+    _commonEventId: number;
+    _destinationX: number;
+    _destinationY: number;
+
     reserveCommonEvent(commonEventId: number): void;
     clearCommonEvent(): void;
     isCommonEventReserved(): boolean;
@@ -25,14 +36,11 @@ declare class Game_Temp {
     isDestinationValid(): void;
     destinationX(): number;
     destinationY(): number;
-
-    _isPlaytest: boolean;
-    _commonEventId: number;
-    _destinationX: number;
-    _destinationY: number;
 }
 
 declare class Game_System {
+    constructor();
+    initialize(): void;
     _saveEnabled: boolean;
     _menuEnabled: boolean;
     _encounterEnabled: boolean;
@@ -43,8 +51,8 @@ declare class Game_System {
     _saveCount: number;
     _versionId: number;
     _framesOnSave: number;
-    _bgmOnSave: IAudioObject;
-    _bgsOnSave: IAudioObject;
+    _bgmOnSave: RPGMakerMV.AudioObject;
+    _bgsOnSave: RPGMakerMV.AudioObject;
     _windowTone: number[];
     _battleBgm: RPGMakerMV.Sound;
     _victoryMe: RPGMakerMV.Sound;
@@ -52,8 +60,6 @@ declare class Game_System {
     _savedBgm: RPGMakerMV.Sound;
     _walkingBgm: RPGMakerMV.Sound;
 
-    constructor();
-    initialize(): void;
     isJapanese(): boolean;
     isChinese(): boolean;
     isKorean(): boolean;
@@ -100,11 +106,11 @@ declare class Game_System {
 }
 
 declare class Game_Timer {
+    constructor();
+    initialize(): void;
     _frames: number;
     _working: boolean;
 
-    constructor();
-    initialize(): void;
     update(sceneActive: boolean): void;
     start(count: number): void;
     stop(): void;
@@ -114,6 +120,9 @@ declare class Game_Timer {
 }
 
 declare class Game_Message {
+    constructor();
+    initialize(): void;
+    clear(): void;
     _texts: string[];
     _choices: string[];
     _faceName: string;
@@ -133,9 +142,6 @@ declare class Game_Message {
     _scrollNoFast: boolean;
     _choiceCallback: Function;
 
-    constructor();
-    initialize(): void;
-    clear(): void;
     choices(): string[];
     faceName(): string;
     faceIndex(): number;
@@ -177,80 +183,76 @@ declare class Game_Switches {
     constructor();
     initialize(): void;
     clear(): void;
+    _data: boolean[];
     value(switchId: number): boolean;
     setValue(switchId: number, value: boolean): void;
     onChange(): void;
-
-    _data: boolean[];
 }
 
 declare class Game_Variables {
     constructor();
     initialize(): void;
     clear(): void;
+    _data: number[];
     value(variableId: number): number;
     setValue(variableId: number, value: number): number;
     onChange(): void;
-
-    _data: number[];
 }
 
 declare class Game_SelfSwitches {
     constructor();
     initialize(): void;
     clear(): void;
+    _data: { [key: string]: boolean };
     value(key: number[]): boolean;
     setValue(key: Array<number | string>, value: boolean): void;
     onChange(): void;
-
-    _data: { [key: string]: boolean };
 }
 
 declare class Game_Screen {
-    _brightness: number;
-    _zoomX: number;
-    _zoomY: number;
-    _zoomScale: number;
-    _zoomScaleTarget: number;
-    _zoomDuration: number;
-    _weatherType: string;
-    _weatherPower: number;
-    _weatherPowerTarget: number;
-    _weatherDuration: number;
-    _pictures: Game_Picture[];
-    _fadeOutDuration: number;
-    _fadeInDuration: number;
-    _tone: number[];
-    _toneTarget: number[];
-    _toneDuration: number;
-    _flashColor: number[];
-    _flashDuration: number;
-    _shake: number;
-    _shakePower: number;
-    _shakeSpeed: number;
-    _shakeDuration: number;
-
     constructor();
     initialize(): void;
     clear(): void;
     onBattleStart(): void;
     brightness(): number;
+    _brightness: number;
     tone(): number[];
+    _tone: number[];
     flashColor(): number[];
+    _flashColor: number[];
     shake(): number;
+    _shake: number;
     zoomX(): number;
+    _zoomX: number;
     zoomY(): number;
+    _zoomY: number;
     zoomScale(): number;
+    _zoomScale: number;
     weatherType(): string;
+    _weatherType: string;
     weatherPower(): number;
+    _weatherPower: number;
     picture(pictureId: number): Game_Picture;
+    _pictures: Game_Picture[];
     realPictureId(pictureId: number): number;
     clearFade(): void;
+    _fadeOutDuration: number;
+    _fadeInDuration: number;
     clearTone(): void;
+    _toneTarget: number[];
+    _toneDuration: number;
     clearFlash(): void;
+    _flashDuration: number;
     clearShake(): void;
+    _shakePower: number;
+    _shakeSpeed: number;
+    _shakeDuration: number;
     clearZoom(): void;
+    _zoomScaleTarget: number;
+    _zoomDuration: number;
     clearWeather(): void;
+    _weatherPowerTarget: number;
+    _weatherDuration: number;
     clearPictures(): void;
     eraseBattlePictures(): void;
     maxPictures(): number;
@@ -280,42 +282,42 @@ declare class Game_Screen {
 }
 
 declare class Game_Picture {
+    constructor();
+    initialize(): void;
+    name(): string;
     _name: string;
+    origin(): number;
     _origin: number;
+    x(): number;
     _x: number;
+    y(): number;
     _y: number;
+    scaleX(): number;
     _scaleX: number;
+    scaleY(): number;
     _scaleY: number;
+    opacity(): number;
     _opacity: number;
+    blendMode(): number;
     _blendMode: number;
+    tone(): number[];
     _tone: number[];
-    _toneTarget: number[];
-    _toneDuration: number;
+    angle(): number;
     _angle: number;
-    _rotationSpeed: number;
+
+    initBasic(): void;
+    initTarget(): void;
     _targetX: number;
     _targetY: number;
     _targetScaleX: number;
     _targetScaleY: number;
     _targetOpacity: number;
     _duration: number;
-
-    constructor();
-    initialize(): void;
-    name(): string;
-    origin(): number;
-    x(): number;
-    y(): number;
-    scaleX(): number;
-    scaleY(): number;
-    opacity(): number;
-    blendMode(): number;
-    tone(): number[];
-    angle(): number;
-    initBasic(): void;
-    initTarget(): void;
     initTone(): void;
+    _toneTarget: number[];
+    _toneDuration: number;
     initRotation(): void;
+    _rotationSpeed: number;
     show(name: string, origin: number, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number): void;
     move(origin: number, x: number, y: number, scaleX: number, scaleY: number, opacity: number, blendMode: number, duration: number): void;
     rotate(speed: number): void;
@@ -328,11 +330,10 @@ declare class Game_Picture {
 }
 
 declare class Game_Item {
-    _dataClass: string;
-    _itemId: number;
-
     constructor(item?: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill);
     initialize(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
+    _dataClass: string;
+    _itemId: number;
     isSkill(): boolean;
     isItem(): boolean;
     isUsableItem(): boolean;
@@ -347,8 +348,7 @@ declare class Game_Item {
 }
 
 declare class Game_Action {
-    constructor(subject: Game_Battler, forcing: boolean);
-
+    constructor(subject: Game_Battler, forcing?: boolean);
     static EFFECT_RECOVER_HP: 11;
     static EFFECT_RECOVER_MP: 12;
     static EFFECT_GAIN_TP: 13;
@@ -367,15 +367,14 @@ declare class Game_Action {
     static HITTYPE_PHYSICAL: 1;
     static HITTYPE_MAGICAL: 2;
 
+    initialize(subject: Game_Battler, forcing: boolean): void;
     _subjectActorId: number;
     _subjectEnemyIndex: number;
     _forcing: boolean;
+    clear(): void;
     _item: Game_Item;
     _targetIndex: number;
 
-    constructor(subject: Game_Battler, forcing?: boolean);
-    initialize(subject: Game_Battler, forcing: boolean): void;
-    clear(): void;
     setSubject(subject: Game_Battler): void;
     subject(): Game_Battler;
     friendsUnit(): Game_Unit;
@@ -472,6 +471,9 @@ declare class Game_Action {
 }
 
 declare class Game_ActionResult {
+    constructor();
+    initialize(): void;
+    clear(): void;
     used: boolean;
     missed: boolean;
     evaded: boolean;
@@ -489,9 +491,6 @@ declare class Game_ActionResult {
     addedDebuffs: number[];
     removedBuffs: number[];
 
-    constructor();
-    initialize(): void;
-    clear(): void;
     addedStateObjects(): RPGMakerMV.DataState[];
     removedStateObjects(): RPGMakerMV.DataState[];
     isStatusAffected(): boolean;
@@ -509,6 +508,7 @@ declare class Game_ActionResult {
 }
 
 declare class Game_BattlerBase {
+    constructor();
     static TRAIT_ELEMENT_RATE: 11;
     static TRAIT_DEBUFF_RATE: 12;
     static TRAIT_STATE_RATE: 13;
@@ -582,7 +582,6 @@ declare class Game_BattlerBase {
     _buffs: number[];
     _buffTurns: number[];
 
-    constructor();
     initialize(): void;
     initMembers(): void;
     clearParamPlus(): void;
@@ -711,19 +710,16 @@ declare class Game_BattlerBase {
     canGuard(): boolean;
 }
 
-declare interface IGame_BattlerAnimation {
-    animationId: string;
-    mirror: boolean;
-    delay: number;
-}
-
 declare class Game_Battler extends Game_BattlerBase {
+    constructor();
+    initialize(): void;
+    initMembers(): void;
     _actions: Game_Action[];
     _speed: number;
     _result: Game_ActionResult;
     _actionState: string;
     _lastTargetIndex: number;
-    _animations: IGame_BattlerAnimation[];
+    _animations: RPGMakerMV.BattlerAnimation[];
     _damagePopup: boolean;
     _effectType: string;
     _motionType: string;
@@ -731,9 +727,6 @@ declare class Game_Battler extends Game_BattlerBase {
     _motionRefresh: boolean;
     _selected: boolean;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     clearAnimations(): void;
     clearDamagePopup(): void;
     clearWeaponAnimation(): void;
@@ -754,7 +747,7 @@ declare class Game_Battler extends Game_BattlerBase {
     effectType(): string;
     motionType(): string;
     weaponImageId(): number;
-    shiftAnimation(): IGame_BattlerAnimation;
+    shiftAnimation(): RPGMakerMV.BattlerAnimation;
     startAnimation(animationId: number, mirror: boolean, delay: number): void;
     startDamagePopup(): void;
     startWeaponAnimation(weaponImageId: number): void;
@@ -828,7 +821,11 @@ declare class Game_Battler extends Game_BattlerBase {
 }
 
 declare class Game_Actor extends Game_Battler {
+    constructor();
     level: number;
+    initialize(): void;
+    initialize(actorId: number): void;
+    initMembers(): void;
 
     _actorId: number;
     _name: string;
@@ -847,14 +844,10 @@ declare class Game_Actor extends Game_Battler {
     _lastMenuSkill: Game_Item;
     _lastBattleSkill: Game_Item;
     _lastCommandSymbol: string;
-    _profile: string;
-    _stateSteps: { [key: number]: number };
 
-    constructor();
-    initialize(): void;
-    initialize(actorId: number): void;
-    initMembers(): void;
     setup(actorId: number): void;
+    _profile: string;
+
     actorId(): number;
     actor(): RPGMakerMV.DataActor;
     name(): string;
@@ -868,7 +861,10 @@ declare class Game_Actor extends Game_Battler {
     faceName(): string;
     faceIndex(): number;
     battlerName(): string;
+
     clearStates(): void;
+    _stateSteps: { [key: number]: number };
+
     eraseState(stateId: number): void;
     resetStateCounts(stateId: number): void;
     initImages(): void;
@@ -984,16 +980,17 @@ declare class Game_Actor extends Game_Battler {
 }
 
 declare class Game_Enemy extends Game_Battler {
+    constructor();
+    initialize(): void;
+    initialize(enemyId: number, x: number, y: number): void;
+
+    initMembers(): void;
     _enemyId: number;
     _letter: string;
     _plural: boolean;
     _screenX: number;
     _screenY: number;
 
-    constructor();
-    initialize(): void;
-    initialize(enemyId: number, x: number, y: number): void;
-    initMembers(): void;
     setup(enemyId: number, x: number, y: number): void;
     isEnemy(): boolean;
     friendsUnit(): Game_Troop;
@@ -1039,18 +1036,18 @@ declare class Game_Enemy extends Game_Battler {
 }
 
 declare class Game_Actors {
-    _data: Game_Actor[];
-
     constructor();
     initialize(): void;
+    _data: Game_Actor[];
+
     actor(actorId: number): Game_Actor;
 }
 
 declare class Game_Unit {
-    _inBattle: boolean;
-
     constructor();
     initialize(): void;
+    _inBattle: boolean;
+
     inBattle(): boolean;
     members(): Game_Battler[];
     aliveMembers(): Game_Battler[];
@@ -1073,6 +1070,8 @@ declare class Game_Unit {
 }
 
 declare class Game_Party extends Game_Unit {
+    constructor();
+
     static ABILITY_ENCOUNTER_HALF: 0;
     static ABILITY_ENCOUNTER_NONE: 1;
     static ABILITY_CANCEL_SURPRISE: 2;
@@ -1080,6 +1079,7 @@ declare class Game_Party extends Game_Unit {
     static ABILITY_GOLD_DOUBLE: 4;
     static ABILITY_DROP_ITEM_DOUBLE: 5;
 
+    initialize(): void;
     _gold: number;
     _steps: number;
     _lastItem: Game_Item;
@@ -1087,13 +1087,11 @@ declare class Game_Party extends Game_Unit {
     _targetActorId: number;
     _actors: number[];
 
+    initAllItems(): void;
     _items: { [key: number]: number };
     _weapons: { [key: number]: number };
     _armors: { [key: number]: number };
 
-    constructor();
-    initialize(): void;
-    initAllItems(): void;
     exists(): boolean;
     size(): number;
     isEmpty(): boolean;
@@ -1163,23 +1161,24 @@ declare class Game_Party extends Game_Unit {
 }
 
 declare class Game_Troop extends Game_Unit {
+    constructor();
+
     static LETTER_TABLE_HALF: RPGMakerMV.DefaultLetterTableHalf;
     static LETTER_TABLE_FULL: RPGMakerMV.DefaultLetterTableFull;
 
+    initialize(): void;
     _interpreter: Game_Interpreter;
+    isEventRunning(): boolean;
+    updateInterpreter(): void;
+    turnCount(): number;
     _turnCount: number;
+    members(): Game_Enemy[];
     _enemies: Game_Enemy[];
+    clear(): void;
     _troopId: number;
     _eventFlags: { [key: number]: boolean };
     _namesCount: { [key: string]: number };
 
-    constructor();
-    initialize(): void;
-    isEventRunning(): boolean;
-    updateInterpreter(): void;
-    turnCount(): number;
-    members(): Game_Enemy[];
-    clear(): void;
     troop(): RPGMakerMV.DataTroop;
     setup(troopId: number): void;
     makeUniqueNames(): void;
@@ -1195,6 +1194,8 @@ declare class Game_Troop extends Game_Unit {
 }
 
 declare class Game_Map {
+    constructor();
+    initialize(): void;
     _interpreter: Game_Interpreter;
     _mapId: number;
     _tilesetId: number;
@@ -1217,11 +1218,9 @@ declare class Game_Map {
     _parallaxY: number;
     _battleback1Name: string;
     _battleback2Name: string;
-    _needsRefresh: boolean;
 
-    constructor();
-    initialize(): void;
     setup(mapId: number): void;
+    _needsRefresh: boolean;
     isEventRunning(): boolean;
     tileWidth(): number;
     tileHeight(): number;
@@ -1332,22 +1331,26 @@ declare class Game_Map {
 }
 
 declare class Game_CommonEvent {
-    _commonEventId: number;
-    _interpreter: Game_Interpreter;
-
     constructor(commonEventId: number);
     initialize(commonEventId: number): void;
+    _commonEventId: number;
+
     event(): RPGMakerMV.DataCommonEvent;
     list(): RPGMakerMV.EventCommand[];
     refresh(): void;
+    _interpreter: Game_Interpreter;
     isActive(): boolean;
     update(): void;
 }
 
 declare class Game_CharacterBase {
+    constructor();
+
     x: number;
     y: number;
 
+    initialize(): void;
+    initMembers(): void;
     _x: number;
     _y: number;
     _realX: number;
@@ -1379,9 +1382,6 @@ declare class Game_CharacterBase {
     _jumpPeak: number;
     _movementSuccess: boolean;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     pos(x: number, y: number): boolean;
     posNt(x: number, y: number): boolean;
     moveSpeed(): number;
@@ -1481,6 +1481,7 @@ declare class Game_CharacterBase {
 }
 
 declare class Game_Character extends Game_CharacterBase {
+    constructor();
     static ROUTE_END: 0;
     static ROUTE_MOVE_DOWN: 1;
     static ROUTE_MOVE_LEFT: 2;
@@ -1528,16 +1529,16 @@ declare class Game_Character extends Game_CharacterBase {
     static ROUTE_PLAY_SE: 44;
     static ROUTE_SCRIPT: 45;
 
+    initialize(): void;
+    initMembers(): void;
     _moveRouteForcing: boolean;
     _moveRoute: RPGMakerMV.MoveRoute;
     _moveRouteIndex: number;
     _originalMoveRoute: RPGMakerMV.MoveRoute;
     _originalMoveRouteIndex: number;
     _waitCount: number;
+    _callerEventInfo: RPGMakerMV.EventInfo;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     memorizeMoveRoute(): void;
     restoreMoveRoute(): void;
     isMoveRouteForcing(): boolean;
@@ -1571,6 +1572,9 @@ declare class Game_Character extends Game_CharacterBase {
 }
 
 declare class Game_Player extends Game_Character {
+    constructor();
+    initialize(): void;
+    initMembers(): void;
     _vehicleType: string;
     _vehicleGettingOn: boolean;
     _vehicleGettingOff: boolean;
@@ -1585,9 +1589,6 @@ declare class Game_Player extends Game_Character {
     _followers: Game_Followers;
     _encounterCount: number;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     clearTransferInfo(): void;
     followers(): Game_Followers;
     refresh(): void;
@@ -1661,10 +1662,10 @@ declare class Game_Player extends Game_Character {
 }
 
 declare class Game_Follower extends Game_Character {
-    _memberIndex: number;
-
     constructor();
     initialize(): void;
+    _memberIndex: number;
+
     refresh(): void;
     actor(): Game_Actor;
     isVisible(): boolean;
@@ -1673,12 +1674,12 @@ declare class Game_Follower extends Game_Character {
 }
 
 declare class Game_Followers extends Game_Character {
+    constructor();
+    initialize(): void;
     _visible: boolean;
     _gathering: boolean;
     _data: Game_Follower[];
 
-    constructor();
-    initialize(): void;
     isVisible(): boolean;
     show(): void;
     hide(): void;
@@ -1699,18 +1700,18 @@ declare class Game_Followers extends Game_Character {
 }
 
 declare class Game_Vehicle extends Game_Character {
+    constructor();
+    initialize(): void;
+    initMembers(): void;
     _type: string;
     _mapId: number;
     _altitude: number;
     _driving: boolean;
-    _bgm: IAudioObject;
+    _bgm: RPGMakerMV.AudioObject;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     isBoat(): boolean;
     isShip(): boolean;
-    isAirship: boolean;
+    isAirship(): boolean;
     resetDirection(): void;
     initMoveSpeed(): void;
     vehicle(): Game_Vehicle;
@@ -1721,7 +1722,7 @@ declare class Game_Vehicle extends Game_Character {
     isMapPassable(x: number, y: number, d: number): boolean;
     getOn(): void;
     getOff(): void;
-    setBgm(bgm: IAudioObject): void;
+    setBgm(bgm: RPGMakerMV.AudioObject): void;
     playBgm(): void;
     syncWithPlayer(): void;
     screenY(): number;
@@ -1740,8 +1741,13 @@ declare class Game_Vehicle extends Game_Character {
 }
 
 declare class Game_Event extends Game_Character {
+    constructor();
+    constructor(mapId: number, eventId: number);
+    initialize(): void;
+    initialize(mapId: number, eventId: number): void;
     _mapId: number;
     _eventId: number;
+    initMembers(): void;
     _moveType: number;
     _trigger: number;
     _starting: boolean;
@@ -1751,13 +1757,7 @@ declare class Game_Event extends Game_Character {
     _originalDirection: number;
     _prelockDirection: number;
     _locked: boolean;
-    _interpreter: Game_Interpreter;
 
-    constructor();
-    constructor(mapId: number, eventId: number);
-    initialize(): void;
-    initialize(mapId: number, eventId: number): void;
-    initMembers(): void;
     eventId(): number;
     event(): RPGMakerMV.MapEvent;
     page(): RPGMakerMV.MapEventPage;
@@ -1784,6 +1784,7 @@ declare class Game_Event extends Game_Character {
     meetsConditions(page: RPGMakerMV.MapEventPage): boolean;
     setupPage(): void;
     clearPageSettings(): void;
+    _interpreter: Game_Interpreter;
     setupPageSettings(): void;
     isOriginalPattern(): boolean;
     resetPattern(): void;
@@ -1794,15 +1795,20 @@ declare class Game_Event extends Game_Character {
     updateParallel(): void;
     locate(x: number, y: number): void;
     forceMoveRoute(moveRoute: RPGMakerMV.MoveRoute): void;
+    getEventInfo(): RPGMakerMV.MapEventInfo;
 }
 
 declare class Game_Interpreter {
+    constructor(depth?: number);
+    initialize(depth?: number): void;
     _depth: number;
     _branch: { [key: number]: number };
     _params: any[];
     _indent: number;
     _frameCount: number;
     _freezeChecker: number;
+    checkOverflow(): void;
+    clear(): void;
     _mapId: number;
     _eventId: number;
     _list: RPGMakerMV.EventCommand[];
@@ -1810,16 +1816,14 @@ declare class Game_Interpreter {
     _waitCount: number;
     _waitMode: string;
     _comments: string;
-    _childInterpreter: Game_Interpreter;
+    _eventInfo: RPGMakerMV.EventInfo;
     _character: Game_Character;
+    _childInterpreter: Game_Interpreter;
 
-    constructor(depth?: number);
-    initialize(depth?: number): void;
-    checkOverflow(): void;
-    clear(): void;
     setup(list: RPGMakerMV.EventCommand[], eventId?: number): void;
     eventId(): number;
     isOnCurrentMap(): boolean;
+    setEventInfo(eventInfo: RPGMakerMV.EventInfo): boolean;
     setupReservedCommonEvent(): boolean;
     isRunning(): boolean;
     update(): void;
@@ -1965,5 +1969,8 @@ declare class Game_Interpreter {
     command355(): boolean;
     command356(): boolean;
     pluginCommand(command: string, args: string[]): void;
+    static requestImagesByPluginCommand(command: string, args: string[]): void
+    static requestImagesForCommand(command: RPGMakerMV.EventCommand): void
+    static requestImagesByChildEvent(command: RPGMakerMV.EventCommand, list: RPGMakerMV.EventCommand[]): void;
     static requestImages(list: RPGMakerMV.EventCommand[], commonList: number[]): void;
 }

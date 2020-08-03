@@ -1,25 +1,101 @@
-declare interface ITextState {
-    index?: number;
-    x?: number;
-    y?: number;
-    left?: number;
-    text?: string;
-    height?: number;
+declare namespace RPGMakerMV {
+    interface TextState {
+        index?: number;
+        x?: number;
+        y?: number;
+        left?: number;
+        text?: string;
+        height?: number;
+    }
+
+    interface DataCommand {
+        name: string;
+        symbol: string;
+        enabled: boolean;
+        ext: number;
+    }
+
+    type NameInputLatin1 = [
+        'A','B','C','D','E',  'a','b','c','d','e',
+        'F','G','H','I','J',  'f','g','h','i','j',
+        'K','L','M','N','O',  'k','l','m','n','o',
+        'P','Q','R','S','T',  'p','q','r','s','t',
+        'U','V','W','X','Y',  'u','v','w','x','y',
+        'Z','[',']','^','_',  'z','{','}','|','~',
+        '0','1','2','3','4',  '!','#','$','%','&',
+        '5','6','7','8','9',  '(',')','*','+','-',
+        '/','=','@','<','>',  ':',';',' ','Page','OK',
+    ];
+    type NameInputLatin2 = [
+        'Á','É','Í','Ó','Ú',  'á','é','í','ó','ú',
+        'À','È','Ì','Ò','Ù',  'à','è','ì','ò','ù',
+        'Â','Ê','Î','Ô','Û',  'â','ê','î','ô','û',
+        'Ä','Ë','Ï','Ö','Ü',  'ä','ë','ï','ö','ü',
+        'Ā','Ē','Ī','Ō','Ū',  'ā','ē','ī','ō','ū',
+        'Ã','Å','Æ','Ç','Ð',  'ã','å','æ','ç','ð',
+        'Ñ','Õ','Ø','Š','Ŵ',  'ñ','õ','ø','š','ŵ',
+        'Ý','Ŷ','Ÿ','Ž','Þ',  'ý','ÿ','ŷ','ž','þ',
+        'Ĳ','Œ','ĳ','œ','ß',  '«','»',' ','Page','OK',
+    ];
+    type NameInputCyrillic = [
+        'А','Б','В','Г','Д',  'а','б','в','г','д',
+        'Е','Ё','Ж','З','И',  'е','ё','ж','з','и',
+        'Й','К','Л','М','Н',  'й','к','л','м','н',
+        'О','П','Р','С','Т',  'о','п','р','с','т',
+        'У','Ф','Х','Ц','Ч',  'у','ф','х','ц','ч',
+        'Ш','Щ','Ъ','Ы','Ь',  'ш','щ','ъ','ы','ь',
+        'Э','Ю','Я','^','_',  'э','ю','я','%','&',
+        '0','1','2','3','4',  '(',')','*','+','-',
+        '5','6','7','8','9',  ':',';',' ','','OK',
+    ];
+    type NameInputHiragana = [
+        'あ','い','う','え','お',  'が','ぎ','ぐ','げ','ご',
+        'か','き','く','け','こ',  'ざ','じ','ず','ぜ','ぞ',
+        'さ','し','す','せ','そ',  'だ','ぢ','づ','で','ど',
+        'た','ち','つ','て','と',  'ば','び','ぶ','べ','ぼ',
+        'な','に','ぬ','ね','の',  'ぱ','ぴ','ぷ','ぺ','ぽ',
+        'は','ひ','ふ','へ','ほ',  'ぁ','ぃ','ぅ','ぇ','ぉ',
+        'ま','み','む','め','も',  'っ','ゃ','ゅ','ょ','ゎ',
+        'や','ゆ','よ','わ','ん',  'ー','～','・','＝','☆',
+        'ら','り','る','れ','ろ',  'ゔ','を','　','カナ','決定',
+    ];
+    type NameInputKatakana = [
+        'ア','イ','ウ','エ','オ',  'ガ','ギ','グ','ゲ','ゴ',
+        'カ','キ','ク','ケ','コ',  'ザ','ジ','ズ','ゼ','ゾ',
+        'サ','シ','ス','セ','ソ',  'ダ','ヂ','ヅ','デ','ド',
+        'タ','チ','ツ','テ','ト',  'バ','ビ','ブ','ベ','ボ',
+        'ナ','ニ','ヌ','ネ','ノ',  'パ','ピ','プ','ペ','ポ',
+        'ハ','ヒ','フ','ヘ','ホ',  'ァ','ィ','ゥ','ェ','ォ',
+        'マ','ミ','ム','メ','モ',  'ッ','ャ','ュ','ョ','ヮ',
+        'ヤ','ユ','ヨ','ワ','ン',  'ー','～','・','＝','☆',
+        'ラ','リ','ル','レ','ロ',  'ヴ','ヲ','　','英数','決定',
+    ];
+    type NameInputFullwidthLatin = [
+        'Ａ','Ｂ','Ｃ','Ｄ','Ｅ',  'ａ','ｂ','ｃ','ｄ','ｅ',
+        'Ｆ','Ｇ','Ｈ','Ｉ','Ｊ',  'ｆ','ｇ','ｈ','ｉ','ｊ',
+        'Ｋ','Ｌ','Ｍ','Ｎ','Ｏ',  'ｋ','ｌ','ｍ','ｎ','ｏ',
+        'Ｐ','Ｑ','Ｒ','Ｓ','Ｔ',  'ｐ','ｑ','ｒ','ｓ','ｔ',
+        'Ｕ','Ｖ','Ｗ','Ｘ','Ｙ',  'ｕ','ｖ','ｗ','ｘ','ｙ',
+        'Ｚ','［','］','＾','＿',  'ｚ','｛','｝','｜','～',
+        '０','１','２','３','４',  '！','＃','＄','％','＆',
+        '５','６','７','８','９',  '（','）','＊','＋','－',
+        '／','＝','＠','＜','＞',  '：','；','　','かな','決定',
+    ];
 }
 
 declare class Window_Base extends Window {
+    constructor(x?: number, y?: number, width?: number, height?: number);
+    initialize(): void;
+    initialize(x?: number, y?: number, width?: number, height?: number): void;
+    _opening: boolean;
+    _closing: boolean;
+    _dimmerSprite: Sprite;
+
     static _iconWidth: number;
     static _iconHeight: number;
     static _faceWidth: number;
     static _faceHeight: number;
 
-    _opening: boolean;
-    _closing: boolean;
-    _dimmerSprite: Sprite;
-
-    constructor(x?: number, y?: number, width?: number, height?: number);
-    initialize(): void;
-    initialize(x?: number, y?: number, width?: number, height?: number): void;
     lineHeight(): number;
     standardFontFace(): string;
     standardFontSize(): number;
@@ -73,17 +149,17 @@ declare class Window_Base extends Window {
     convertEscapeCharacters(text: string): string;
     actorName(n: number): string;
     partyMemberName(n: number): string;
-    processCharacter(textState: ITextState): void;
-    processNormalCharacter(textState: ITextState): void;
-    processNewLine(textState: ITextState): void;
-    processNewPage(textState: ITextState): void;
-    obtainEscapeCode(textState: ITextState): string;
-    obtainEscapeParam(textState: ITextState): string;
-    processEscapeCharacter(code: string, textState: ITextState): void;
-    processDrawIcon(iconIndex: number, textState: ITextState): void;
+    processCharacter(textState: RPGMakerMV.TextState): void;
+    processNormalCharacter(textState: RPGMakerMV.TextState): void;
+    processNewLine(textState: RPGMakerMV.TextState): void;
+    processNewPage(textState: RPGMakerMV.TextState): void;
+    obtainEscapeCode(textState: RPGMakerMV.TextState): string;
+    obtainEscapeParam(textState: RPGMakerMV.TextState): string;
+    processEscapeCharacter(code: string, textState: RPGMakerMV.TextState): void;
+    processDrawIcon(iconIndex: number, textState: RPGMakerMV.TextState): void;
     makeFontBigger(): void;
     makeFontSmaller(): void;
-    calcTextHeight(textState: ITextState, all: boolean): number;
+    calcTextHeight(textState: RPGMakerMV.TextState, all: boolean): number;
     drawIcon(iconIndex: number, x: number, y: number): void;
     drawFace(faceName: string, faceIndex: number, x: number, y: number, width?: number, height?: number): void;
     drawCharacter(characterName: string, characterIndex: number, x: number, y: number): void;
@@ -115,9 +191,14 @@ declare class Window_Base extends Window {
     dimColor2(): string;
     canvasToLocalX(x: number): number;
     canvasToLocalY(y: number): number;
+    reserveFaceImages(): void;
 }
 
 declare class Window_Selectable extends Window_Base {
+    constructor(x?: number, y?: number, width?: number, height?: number);
+    initialize(): void;
+    initialize(x?: number, y?: number, width?: number, height?: number): void;
+
     _index: number;
     _cursorFixed: boolean;
     _cursorAll: boolean;
@@ -128,12 +209,6 @@ declare class Window_Selectable extends Window_Base {
     _scrollX: number;
     _scrollY: number;
 
-    downArrowVisible: boolean;
-    upArrowVisible: boolean;
-
-    constructor(x?: number, y?: number, width?: number, height?: number);
-    initialize(): void;
-    initialize(x?: number, y?: number, width?: number, height?: number): void;
     index(): number;
     cursorFixed(): boolean;
     setCursorFixed(cursorFixed: boolean): void;
@@ -218,30 +293,24 @@ declare class Window_Selectable extends Window_Base {
     refresh(): void;
 }
 
-declare class IDataCommandList {
-    name: string;
-    symbol: string;
-    enabled: boolean;
-    ext: number;
-}
 
 declare class Window_Command extends Window_Selectable {
-    _list: IDataCommandList[];
-
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
+
     windowWidth(): number;
     windowHeight(): number;
     numVisibleRows(): number;
     maxItems(): number;
     clearCommandList(): void;
+    _list: RPGMakerMV.DataCommand[];
     makeCommandList(): void;
     addCommand(name: string, symbol: string, enabled?: boolean, ext?: number): void;
     commandName(index: number): string;
     commandSymbol(index: number): string;
     isCommandEnabled(index: number): boolean;
-    currentData(): IDataCommandList;
+    currentData(): RPGMakerMV.DataCommand;
     isCurrentItemEnabled(): boolean;
     currentSymbol(): string;
     currentExt(): number;
@@ -266,11 +335,10 @@ declare class Window_HorzCommand extends Window_Command {
 }
 
 declare class Window_Help extends Window_Base {
-    _text: string;
-
     constructor(numLines?: number);
     initialize(): void;
     initialize(numLines?: number): void;
+    _text: string;
     setText(text: string): void;
     clear(): void;
     setItem(item: RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill): void;
@@ -290,13 +358,13 @@ declare class Window_Gold extends Window_Base {
 }
 
 declare class Window_MenuCommand extends Window_Command {
-    static _lastCommandSymbol: string;
-
-    static initCommandPosition(): void;
-
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
+
+    static _lastCommandSymbol: string;
+    static initCommandPosition(): void;
+
     windowWidth(): number;
     numVisibleRows(): number;
     makeCommandList(): void;
@@ -317,12 +385,13 @@ declare class Window_MenuCommand extends Window_Command {
 }
 
 declare class Window_MenuStatus extends Window_Selectable {
-    _formationMode: boolean;
-    _pendingIndex: number;
-
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
+
+    _formationMode: boolean;
+    _pendingIndex: number;
+
     windowWidth(): number;
     windowHeight(): number;
     maxItems(): number;
@@ -351,10 +420,10 @@ declare class Window_MenuActor extends Window_MenuStatus {
 }
 
 declare class Window_ItemCategory extends Window_HorzCommand {
-    _itemWindow: Window_ItemList;
-
     constructor();
     initialize(): void;
+    _itemWindow: Window_ItemList;
+
     windowWidth(): number;
     maxCols(): number;
     update(): void;
@@ -363,12 +432,12 @@ declare class Window_ItemCategory extends Window_HorzCommand {
 }
 
 declare class Window_ItemList extends Window_Selectable {
-    _category: string;
-    _data: RPGMakerMV.DataAnyItem[];
-
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
+    _category: string;
+    _data: RPGMakerMV.DataAnyItem[];
+
     setCategory(category: string): void;
     spacing(): number;
     maxItems(): number;
@@ -387,12 +456,12 @@ declare class Window_ItemList extends Window_Selectable {
 }
 
 declare class Window_SkillType extends Window_Command {
-    _actor: Game_Actor;
-    _skillWindow: Window_SkillList;
-
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
+    _actor: Game_Actor;
+    _skillWindow: Window_SkillList;
+
     windowWidth(): number;
     setActor(actor: Game_Actor): void;
     numVisibleRows(): number;
@@ -403,23 +472,23 @@ declare class Window_SkillType extends Window_Command {
 }
 
 declare class Window_SkillStatus extends Window_Base {
-    _actor: Game_Actor;
-
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
+    _actor: Game_Actor;
+
     setActor(actor: Game_Actor): void;
     refresh(): void;
 }
 
 declare class Window_SkillList extends Window_Selectable {
+    constructor(x?: number, y?: number, width?: number, height?: number);
+    initialize(): void;
+    initialize(x?: number, y?: number, width?: number, height?: number): void;
     _actor: Game_Actor;
     _stypeId: number;
     _data: RPGMakerMV.DataSkill[];
 
-    constructor(x?: number, y?: number, width?: number, height?: number);
-    initialize(): void;
-    initialize(x?: number, y?: number, width?: number, height?: number): void;
     setActor(actor: Game_Actor): void;
     setStypeId(stypeId: number): void;
     maxCols(): number;
@@ -439,12 +508,12 @@ declare class Window_SkillList extends Window_Selectable {
 }
 
 declare class Window_EquipStatus extends Window_Base {
-    _actor: Game_Actor;
-    _tempActor: Game_Actor;
-
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
+    _actor: Game_Actor;
+    _tempActor: Game_Actor;
+
     windowWidth(): number;
     windowHeight(): number;
     numVisibleRows(): number;
@@ -459,24 +528,22 @@ declare class Window_EquipStatus extends Window_Base {
 }
 
 declare class Window_EquipCommand extends Window_HorzCommand {
-    _windowWidth: number;
-
     constructor(x?: number, y?: number, width?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number): void;
+    _windowWidth: number;
+
     windowWidth(): number;
     maxCols(): number;
     makeCommandList(): void;
 }
 
 declare class Window_EquipSlot extends Window_Selectable {
-    _actor: Game_Actor;
-    _itemWindow: Window_EquipItem;
-    _statusWindow: Window_EquipStatus;
-
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
+    _actor: Game_Actor;
+
     setActor(actor: Game_Actor): void;
     update(): void;
     maxItems(): number;
@@ -486,33 +553,34 @@ declare class Window_EquipSlot extends Window_Selectable {
     isEnabled(index: number): boolean;
     isCurrentItemEnabled(): boolean;
     setStatusWindow(statusWindow: Window_EquipStatus): void;
+    _statusWindow: Window_EquipStatus;
     setItemWindow(itemWindow: Window_EquipItem): void;
+    _itemWindow: Window_EquipItem;
     updateHelp(): void;
 }
 
 declare class Window_EquipItem extends Window_ItemList {
-    _actor: Game_Actor;
-    _slotId: number;
-    _statusWindow: Window_EquipStatus;
-
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
+    _actor: Game_Actor;
+    _slotId: number;
+
     setActor(actor: Game_Actor): void;
     setSlotId(slotId: number): void;
     includes(item: RPGMakerMV.DataAnyItem): boolean;
     isEnabled(item: RPGMakerMV.DataAnyItem): boolean;
     selectLast(): void;
     setStatusWindow(statusWindow: Window_EquipStatus): void;
+    _statusWindow: Window_EquipStatus;
     updateHelp(): void;
     playOkSound(): void;
 }
 
 declare class Window_Status extends Window_Selectable {
-    _actor: Game_Actor;
-
     constructor();
     initialize(): void;
+    _actor: Game_Actor;
     setActor(actor: Game_Actor): void;
     refresh(): void;
     drawBlock1(y: number): void;
@@ -554,46 +622,40 @@ declare class Window_Options extends Window_Command {
 }
 
 declare class Window_SavefileList extends Window_Selectable {
-    _mode: string;
-
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
+    _mode: string;
     setMode(mode: string): void;
     maxItems(): number;
     maxVisibleItems(): number;
     itemHeight(): number;
     drawItem(index: number): void;
     drawFileId(id: number, x: number, y: number): void;
-    drawContents(info: ISavefileInfo, rect: Rectangle, valid: boolean): void;
-    drawGameTitle(info: ISavefileInfo, x: number, y: number, width: number): void;
-    drawPartyCharacters(info: ISavefileInfo, x: number, y: number): void;
-    drawPlaytime(info: ISavefileInfo, x: number, y: number, width: number): void;
+    drawContents(info: RPGMakerMV.SavefileInfo, rect: Rectangle, valid: boolean): void;
+    drawGameTitle(info: RPGMakerMV.SavefileInfo, x: number, y: number, width: number): void;
+    drawPartyCharacters(info: RPGMakerMV.SavefileInfo, x: number, y: number): void;
+    drawPlaytime(info: RPGMakerMV.SavefileInfo, x: number, y: number, width: number): void;
     playOkSound(): void;
 }
 
 declare class Window_ShopCommand extends Window_HorzCommand {
-    _windowWidth: number;
-    _purchaseOnly: boolean;
-
     constructor(width?: number, purchaseOnly?: boolean);
     initialize(): void;
     initialize(width?: number, purchaseOnly?: boolean): void;
+    _windowWidth: number;
+    _purchaseOnly: boolean;
     windowWidth(): number;
     maxCols(): number;
     makeCommandList(): void;
 }
 
 declare class Window_ShopBuy extends Window_Selectable {
-    _shopGoods: any[][];
-    _money: number;
-    _data: RPGMakerMV.DataAnyItem[];
-    _price: number[];
-    _statusWindow: Window_EquipStatus;
-
     constructor(x?: number, y?: number, height?: number, shopGoods?: any[][]);
     initialize(): void;
     initialize(x?: number, y?: number, height?: number, shopGoods?: any[][]): void;
+    _shopGoods: any[][];
+    _money: number;
     windowWidth(): number;
     maxItems(): number;
     item(): RPGMakerMV.DataAnyItem;
@@ -603,8 +665,11 @@ declare class Window_ShopBuy extends Window_Selectable {
     isEnabled(item: RPGMakerMV.DataAnyItem): boolean;
     refresh(): void;
     makeItemList(): void;
+    _data: RPGMakerMV.DataAnyItem[];
+    _price: number[];
     drawItem(index: number): void;
     setStatusWindow(statusWindow: Window_EquipStatus): void;
+    _statusWindow: Window_EquipStatus;
     updateHelp(): void;
 }
 
@@ -616,21 +681,20 @@ declare class Window_ShopSell extends Window_ItemList {
 }
 
 declare class Window_ShopNumber extends Window_Selectable {
+    constructor(x?: number, y?: number, height?: number);
+    initialize(): void;
+    initialize(x?: number, y?: number, height?: number): void;
     _item: RPGMakerMV.DataAnyItem;
     _max: number;
     _price: number;
     _number: number;
     _currencyUnit: string;
-    _buttons: Sprite_Button[];
-
-    constructor(x?: number, y?: number, height?: number);
-    initialize(): void;
-    initialize(x?: number, y?: number, height?: number): void;
     windowWidth(): number;
     number(): number;
     setup(item: RPGMakerMV.DataAnyItem, max: number, price: number): void;
     setCurrencyUnit(currencyUnit: string): void;
     createButtons(): void;
+    _buttons: Sprite_Button[];
     placeButtons(): void;
     updateButtonsVisiblity(): void;
     showButtons(): void;
@@ -659,12 +723,11 @@ declare class Window_ShopNumber extends Window_Selectable {
 }
 
 declare class Window_ShopStatus extends Window_Base {
-    _item: RPGMakerMV.DataAnyItem;
-    _pageIndex: number;
-
     constructor(x?: number, y?: number, width?: number, height?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number, height?: number): void;
+    _item: RPGMakerMV.DataAnyItem;
+    _pageIndex: number;
     refresh(): void;
     setItem(item: RPGMakerMV.DataAnyItem): void;
     isEquipItem(): boolean;
@@ -685,15 +748,14 @@ declare class Window_ShopStatus extends Window_Base {
 }
 
 declare class Window_NameEdit extends Window_Base {
+    constructor(actor?: Game_Actor, maxLength?: number);
+    initialize(): void;
+    initialize(actor?: Game_Actor, maxLength?: number): void;
     _actor: Game_Actor;
     _name: string;
     _index: number;
     _maxLength: number;
     _defaultName: string;
-
-    constructor(actor?: Game_Actor, maxLength?: number);
-    initialize(): void;
-    initialize(actor?: Game_Actor, maxLength?: number): void;
     windowWidth(): number;
     windowHeight(): number;
     restoreDefault(): boolean;
@@ -711,20 +773,21 @@ declare class Window_NameEdit extends Window_Base {
 }
 
 declare class Window_NameInput extends Window_Selectable {
-    static LATIN1: string[];
-    static LATIN2: string[];
-    static RUSSIA: string[];
-    static JAPAN1: string[];
-    static JAPAN2: string[];
-    static JAPAN3: string[];
+    constructor(editWindow?: Window_NameEdit);
 
+    static LATIN1: RPGMakerMV.NameInputLatin1;
+    static LATIN2: RPGMakerMV.NameInputLatin2;
+    static RUSSIA: RPGMakerMV.NameInputCyrillic;
+    static JAPAN1: RPGMakerMV.NameInputHiragana;
+    static JAPAN2: RPGMakerMV.NameInputKatakana;
+    static JAPAN3: RPGMakerMV.NameInputFullwidthLatin;
+
+    initialize(): void;
+    initialize(editWindow?: Window_NameEdit): void;
     _editWindow: Window_NameEdit;
     _page: number;
     _index: number;
 
-    constructor(editWindow?: Window_NameEdit);
-    initialize(): void;
-    initialize(editWindow?: Window_NameEdit): void;
     windowHeight(): number;
     table(): string[][];
     maxCols(): number;
@@ -755,12 +818,12 @@ declare class Window_NameInput extends Window_Selectable {
 }
 
 declare class Window_ChoiceList extends Window_Command {
-    _messageWindow: Window_Message;
-    _background: number;
-
     constructor(messageWindow?: Window_Message);
     initialize(): void;
     initialize(messageWindow?: Window_Message): void;
+    _messageWindow: Window_Message;
+    _background: number;
+
     start(): void;
     selectDefault(): void;
     updatePlacement(): void;
@@ -779,14 +842,14 @@ declare class Window_ChoiceList extends Window_Command {
 }
 
 declare class Window_NumberInput extends Window_Selectable {
+    constructor(messageWindow?: Window_Message);
+    initialize(): void;
+    initialize(messageWindow?: Window_Message): void;
     _messageWindow: Window_Message;
     _number: number;
     _maxDigits: number;
     _buttons: Sprite_Button[];
 
-    constructor(messageWindow?: Window_Message);
-    initialize(): void;
-    initialize(messageWindow?: Window_Message): void;
     start(): void;
     updatePlacement(): void;
     windowWidth(): number;
@@ -816,11 +879,11 @@ declare class Window_NumberInput extends Window_Selectable {
 }
 
 declare class Window_EventItem extends Window_ItemList {
-    _messageWindow: Window_Message;
-
     constructor(messageWindow?: Window_Message);
     initialize(): void;
     initialize(messageWindow?: Window_Message): void;
+    _messageWindow: Window_Message;
+
     windowHeight(): number;
     numVisibleRows(): number;
     start(): void;
@@ -832,27 +895,27 @@ declare class Window_EventItem extends Window_ItemList {
 }
 
 declare class Window_Message extends Window_Base {
+    constructor();
+    initialize(): void;
+    initMembers(): void;
     _background: number;
     _positionType: number;
     _waitCount: number;
     _faceBitmap: Bitmap;
-    _textState: ITextState;
+    _textState: RPGMakerMV.TextState;
+
+    subWindows(): Window_Base[];
+    createSubWindows(): void;
     _goldWindow: Window_Gold;
     _choiceWindow: Window_ChoiceList;
     _numberWindow: Window_NumberInput;
     _itemWindow: Window_EventItem;
-    _showFast: boolean;
-    _lineShowFast: boolean;
-    _pauseSkip: boolean;
-
-    constructor();
-    initialize(): void;
-    initMembers(): void;
-    subWindows(): Window_Base[];
-    createSubWindows(): void;
     windowWidth(): number;
     windowHeight(): number;
     clearFlags(): void;
+    _showFast: boolean;
+    _lineShowFast: boolean;
+    _pauseSkip: boolean;
     numVisibleRows(): number;
     update(): void;
     checkToNotClose(): void;
@@ -872,25 +935,25 @@ declare class Window_Message extends Window_Base {
     doesContinue(): boolean;
     areSettingsChanged(): boolean;
     updateShowFast(): void;
-    newPage(textState: ITextState): void;
+    newPage(textState: RPGMakerMV.TextState): void;
     loadMessageFace(): void;
     drawMessageFace(): void;
     newLineX(): number;
-    processNewLine(textState: ITextState): void;
-    processNewPage(textState: ITextState): void;
-    isEndOfText(textState: ITextState): boolean;
-    needsNewPage(textState: ITextState): boolean;
-    processEscapeCharacter(code: string, textState: ITextState): void;
+    processNewLine(textState: RPGMakerMV.TextState): void;
+    processNewPage(textState: RPGMakerMV.TextState): void;
+    isEndOfText(textState: RPGMakerMV.TextState): boolean;
+    needsNewPage(textState: RPGMakerMV.TextState): boolean;
+    processEscapeCharacter(code: string, textState: RPGMakerMV.TextState): void;
     startWait(count: number): void;
     startPause(): void;
 }
 
 declare class Window_ScrollText extends Window_Base {
+    constructor();
+    initialize(): void;
     _text: string;
     _allTextHeight: number;
 
-    constructor();
-    initialize(): void;
     update(): void;
     startMessage(): void;
     refresh(): void;
@@ -903,10 +966,10 @@ declare class Window_ScrollText extends Window_Base {
 }
 
 declare class Window_MapName extends Window_Base {
-    _showCount: number;
-
     constructor();
     initialize(): void;
+    _showCount: number;
+
     windowWidth(): number;
     windowHeight(): number;
     update(): void;
@@ -919,23 +982,23 @@ declare class Window_MapName extends Window_Base {
 }
 
 declare class Window_BattleLog extends Window_Selectable {
+    constructor();
+    initialize(): void;
     _lines: string[];
     _methods: { name: string, params: any[] }[];
     _waitCount: number;
     _waitMode: string;
     _baseLineStack: number[];
     _spriteset: Spriteset_Battle;
-    _backBitmap: Bitmap;
-    _backSprite: Sprite;
 
-    constructor();
-    initialize(): void;
     setSpriteset(spriteset: Spriteset_Battle): void;
     windowWidth(): number;
     windowHeight(): number;
     maxLines(): number;
     createBackBitmap(): void;
+    _backBitmap: Bitmap;
     createBackSprite(): void;
+    _backSprite: Sprite;
     numLines(): number;
     messageSpeed(): number;
     isBusy(): boolean;
@@ -1021,10 +1084,10 @@ declare class Window_PartyCommand extends Window_Command {
 }
 
 declare class Window_ActorCommand extends Window_Command {
-    _actor: Game_Actor;
-
     constructor();
     initialize(): void;
+    _actor: Game_Actor;
+
     windowWidth(): number;
     numVisibleRows(): number;
     makeCommandList(): void;
@@ -1066,11 +1129,11 @@ declare class Window_BattleActor extends Window_BattleStatus {
 }
 
 declare class Window_BattleEnemy extends Window_Selectable {
-    _enemies: Game_Enemy[];
-
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
+    _enemies: Game_Enemy[];
+
     windowWidth(): number;
     windowHeight(): number;
     numVisibleRows(): number;
@@ -1103,11 +1166,12 @@ declare class Window_BattleItem extends Window_ItemList {
 }
 
 declare class Window_TitleCommand extends Window_Command {
+    constructor();
+    initialize(): void;
+
     static _lastCommandSymbol: string;
     static initCommandPosition(): void;
 
-    constructor();
-    initialize(): void;
     windowWidth(): number;
     updatePlacement(): void;
     makeCommandList(): void;
@@ -1125,13 +1189,12 @@ declare class Window_GameEnd extends Window_Command {
 }
 
 declare class Window_DebugRange extends Window_Selectable {
-    _maxSwitches: number;
-    _maxVariables: number;
-    _editWindow: Window_DebugEdit;
-
     constructor(x?: number, y?: number);
     initialize(): void;
     initialize(x?: number, y?: number): void;
+    _maxSwitches: number;
+    _maxVariables: number;
+
     windowWidth(): number;
     windowHeight(): number;
     maxItems(): number;
@@ -1143,15 +1206,15 @@ declare class Window_DebugRange extends Window_Selectable {
     isCancelTriggered(): boolean;
     processCancel(): void;
     setEditWindow(editWindow: Window_DebugEdit): void;
+    _editWindow: Window_DebugEdit;
 }
 
 declare class Window_DebugEdit extends Window_Selectable {
-    _mode: string;
-    _topId: number;
-
     constructor(x?: number, y?: number, width?: number);
     initialize(): void;
     initialize(x?: number, y?: number, width?: number): void;
+    _mode: string;
+    _topId: number;
     maxItems(): number;
     refresh(): void;
     drawItem(index: number): void;

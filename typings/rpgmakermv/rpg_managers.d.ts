@@ -24,6 +24,52 @@ declare namespace RPGMakerMV {
         /** プラグインパラメーター */
         parameters: PluginParameters;
     }
+
+    interface SavefileInfo {
+        globalId?: number;
+        title?: string;
+        characters?: [string, number][];
+        faces?: [string, number][];
+        playtime?: string;
+        timestamp?: number;
+    }
+
+    interface SaveContents {
+        system?: Game_System;
+        screen?: Game_Screen;
+        timer?: Game_Timer;
+        switches?: Game_Switches;
+        variables?: Game_Variables;
+        selfSwitches?: Game_SelfSwitches;
+        actors?: Game_Actors;
+        party?: Game_Party;
+        map?: Game_Map;
+        player?: Game_Player;
+    }
+
+    /** オプションデータ */
+    interface Config {
+        /** 常時ダッシュ */
+        alwaysDash?: boolean;
+        /** コマンド記憶 */
+        commandRemember?: boolean;
+        /** BGM 音量 */
+        bgmVolume?: number;
+        /** BGS 音量 */
+        bgsVolume?: number;
+        /** ME 音量 */
+        meVolume?: number;
+        /** SE 音量 */
+        seVolume?: number;
+    }
+
+    interface AudioObject {
+        name: string;
+        volume: number;
+        pitch: number;
+        pan: number;
+        pos: number;
+    }
 }
 
 /** アクターのデータ */
@@ -71,27 +117,6 @@ declare var $gameTroop: Game_Troop | null;
 declare var $gamePlayer: Game_Player | null;
 declare var $testEvent: RPGMakerMV.EventCommand | null;
 
-declare interface ISavefileInfo {
-    globalId?: number;
-    title?: string;
-    characters?: [string, number][];
-    faces?: [string, number][];
-    playtime?: string;
-    timestamp?: number;
-}
-
-declare interface ISaveContents {
-    system?: Game_System;
-    screen?: Game_Screen;
-    timer?: Game_Timer;
-    switches?: Game_Switches;
-    variables?: Game_Variables;
-    selfSwitches?: Game_SelfSwitches;
-    actors?: Game_Actors;
-    party?: Game_Party;
-    map?: Game_Map;
-    player?: Game_Player;
-}
 
 /** データマネージャー */
 declare class DataManager {
@@ -100,6 +125,7 @@ declare class DataManager {
     static _globalId: "RPGMV";
     static _lastAccessedId: number;
     static _errorUrl: string;
+    static _autoSaveFileId: number;
 
     static _databaseFiles: { name: string, src: string }[];
     /**
@@ -224,12 +250,12 @@ declare class DataManager {
      *
      * 存在しないセーブデータの情報は削除されてから返される
      */
-    static loadGlobalInfo(): ISavefileInfo[];
+    static loadGlobalInfo(): RPGMakerMV.SavefileInfo[];
     /**
      * セーブファイル情報(`global.rpgsave`)をセーブ
      * @param info セーブファイル情報
      */
-    static saveGlobalInfo(info: ISavefileInfo[]): void;
+    static saveGlobalInfo(info: RPGMakerMV.SavefileInfo[]): void;
     /**
      * このゲームのセーブデータか？
      * @param savefileId セーブファイルID
@@ -254,7 +280,7 @@ declare class DataManager {
     /**
      * セーブファイル画像をロードする
      */
-    static loadSavefileImages(info: ISavefileInfo): void;
+    static loadSavefileImages(info: RPGMakerMV.SavefileInfo): void;
     /**
      * セーブファイル数上限
      */
@@ -275,7 +301,7 @@ declare class DataManager {
      * セーブファイル情報をロードする
      * @param savefileId セーブファイルID
      */
-    static loadSavefileInfo(savefileId: number): ISavefileInfo;
+    static loadSavefileInfo(savefileId: number): RPGMakerMV.SavefileInfo;
     /**
      * 最後にアクセスされたセーブファイルID
      */
@@ -299,32 +325,20 @@ declare class DataManager {
     /**
      * セーブファイル情報を生成
      */
-    static makeSavefileInfo(): ISavefileInfo;
+    static makeSavefileInfo(): RPGMakerMV.SavefileInfo;
     /**
      * セーブデータを生成
      */
-    static makeSaveContents(): ISaveContents;
+    static makeSaveContents(): RPGMakerMV.SaveContents;
     /**
      * セーブデータを`$game*`に展開
      * @param contents セーブデータ
      */
-    static extractSaveContents(contents: ISaveContents): void;
-}
+    static extractSaveContents(contents: RPGMakerMV.SaveContents): void;
 
-/** オプションデータ */
-declare interface IConfig {
-    /** 常時ダッシュ */
-    alwaysDash?: boolean;
-    /** コマンド記憶 */
-    commandRemember?: boolean;
-    /** BGM 音量 */
-    bgmVolume?: number;
-    /** BGS 音量 */
-    bgsVolume?: number;
-    /** ME 音量 */
-    meVolume?: number;
-    /** SE 音量 */
-    seVolume?: number;
+    static setAutoSaveFileId(autoSaveFileId: number): void;
+    static isAutoSaveFileId(autoSaveFileId: number): boolean;
+    static autoSaveGame(): void;
 }
 
 /** オプションマネージャ */
@@ -355,11 +369,11 @@ declare class ConfigManager {
     /**
      * データを作成
      */
-    static makeData(): IConfig;
+    static makeData(): RPGMakerMV.Config;
     /**
      * データを適用
      */
-    static applyData(config: IConfig): void;
+    static applyData(config: RPGMakerMV.Config): void;
     /**
      * オプションデータからフラグを取得
      *
@@ -367,7 +381,7 @@ declare class ConfigManager {
      * @param config オプション
      * @param name キー名
      */
-    static readFlag(config: IConfig, name: string): boolean;
+    static readFlag(config: RPGMakerMV.Config, name: string): boolean;
     /**
      * オプションデータから音量を取得
      *
@@ -376,7 +390,7 @@ declare class ConfigManager {
      * @param config オプション
      * @param name キー名
      */
-    static readVolume(config: IConfig, name: string): number;
+    static readVolume(config: RPGMakerMV.Config, name: string): number;
 }
 
 declare class StorageManager {
@@ -474,6 +488,8 @@ declare class StorageManager {
      * @param savefileId セーブファイルID
      */
     static webStorageKey(savefileId: number): string;
+    // Enigma Virtual Box cannot make www/save directory
+    static canMakeWwwSaveDirectory(): boolean;
 }
 
 /**
@@ -482,13 +498,12 @@ declare class StorageManager {
 declare class ImageManager {
     private constructor();
 
+    static cache: CacheMap;
     static _imageCache: ImageCache;
     // static _requestQueue: RequestCache;
     static _systemReservationId: number;
 
     static _generateCacheKey(): string;
-
-    static cache: CacheMap;
 
     static loadAnimation(filename: string, hue?: number): Bitmap;
     static loadBattleback1(filename: string, hue?: number): Bitmap;
@@ -566,14 +581,8 @@ declare class ImageManager {
     static requestNormalBitmap(path: string, hue: number): Bitmap;
     static update(): void;
     static clearRequest(): void;
-}
-
-interface IAudioObject {
-    name: string;
-    volume: number;
-    pitch: number;
-    pan: number;
-    pos: number;
+    static setCreationHook(): void;
+    static _callCreationHook(): void;
 }
 
 /** オーディオマネージャー */
@@ -585,8 +594,8 @@ declare class AudioManager {
     static _bgsVolume: number;
     static _meVolume: number;
     static _seVolume: number;
-    static _currentBgm: IAudioObject;
-    static _currentBgs: IAudioObject;
+    static _currentBgm: RPGMakerMV.AudioObject;
+    static _currentBgs: RPGMakerMV.AudioObject;
     static _bgmBuffer: WebAudio | Html5Audio;
     static _bgsBuffer: WebAudio;
     static _meBuffer: WebAudio;
@@ -607,21 +616,21 @@ declare class AudioManager {
     /** SE 音量を設定・取得 */
     static seVolume: number;
 
-    static playBgm(bgm: IAudioObject, pos: number): void;
-    static playEncryptedBgm(bgm: IAudioObject, pos: number): void;
-    static createDecryptBuffer(url: string, bgm: IAudioObject, pos: number): void;
-    static replayBgm(bgm: IAudioObject): void;
-    static isCurrentBgm(bgm: IAudioObject): boolean;
-    static updateBgmParameters(bgm: IAudioObject): void;
-    static updateCurrentBgm(bgm: IAudioObject, pos: number): void;
+    static playBgm(bgm: RPGMakerMV.AudioObject, pos: number): void;
+    static playEncryptedBgm(bgm: RPGMakerMV.AudioObject, pos: number): void;
+    static createDecryptBuffer(url: string, bgm: RPGMakerMV.AudioObject, pos: number): void;
+    static replayBgm(bgm: RPGMakerMV.AudioObject): void;
+    static isCurrentBgm(bgm: RPGMakerMV.AudioObject): boolean;
+    static updateBgmParameters(bgm: RPGMakerMV.AudioObject): void;
+    static updateCurrentBgm(bgm: RPGMakerMV.AudioObject, pos: number): void;
     static stopBgm(): void;
     static fadeOutBgm(duration: number): void;
     static fadeInBgm(duration: number): void;
-    static playBgs(bgs: IAudioObject, pos: number): void;
-    static replayBgs(bgs: IAudioObject): void;
-    static isCurrentBgs(bgs: IAudioObject): boolean;
-    static updateBgsParameters(bgs: IAudioObject): void;
-    static updateCurrentBgs(bgs: IAudioObject, pos: number): void;
+    static playBgs(bgs: RPGMakerMV.AudioObject, pos: number): void;
+    static replayBgs(bgs: RPGMakerMV.AudioObject): void;
+    static isCurrentBgs(bgs: RPGMakerMV.AudioObject): boolean;
+    static updateBgsParameters(bgs: RPGMakerMV.AudioObject): void;
+    static updateCurrentBgs(bgs: RPGMakerMV.AudioObject, pos: number): void;
     static stopBgs(): void;
     static fadeOutBgs(duration: number): void;
     static fadeInBgs(duration: number): void;
@@ -636,15 +645,17 @@ declare class AudioManager {
     static loadStaticSe(se: RPGMakerMV.Sound): void;
     static isStaticSe(se: RPGMakerMV.Sound): boolean;
     static stopAll(): void;
-    static saveBgm(): IAudioObject;
-    static saveBgs(): IAudioObject;
-    static makeEmptyAudioObject(): IAudioObject;
+    static saveBgm(): RPGMakerMV.AudioObject;
+    static saveBgs(): RPGMakerMV.AudioObject;
+    static makeEmptyAudioObject(): RPGMakerMV.AudioObject;
     static createBuffer(folder: number, name: string): Html5Audio | WebAudio;
-    static updateBufferParameters(buffer: IAudioObject, configVolume: number, audio: IAudioObject): void;
+    static updateBufferParameters(buffer: RPGMakerMV.AudioObject, configVolume: number, audio: RPGMakerMV.AudioObject): void;
     static audioFileExt(): "ogg" | "m4a";
     static shouldUseHtml5Audio(): boolean;
     static checkErrors(): void;
     static checkWebAudioError(webAudio: WebAudio): void;
+    static setCreationHook(): void;
+    static _callCreationHook(): void;
 }
 
 /** システムSEマネージャー */
@@ -821,6 +832,7 @@ declare class SceneManager {
     static _deltaTime: number;
     static _currentTime: number;
     static _accumulator: number;
+    static _frameCount: number;
 
     /**
      * シーンマネージャーを実行
@@ -843,6 +855,7 @@ declare class SceneManager {
      * 1. setupErrorHandlers
      */
     static initialize(): void;
+    static initProgressWatcher(): void;
     /**
      * Graphicsを初期化
      *
@@ -899,6 +912,9 @@ declare class SceneManager {
      * - F8デバッグ(クエリにtestがあるときのみ)
      */
     static setupErrorHandlers(): void;
+    static frameCount(): number;
+    static setFrameCount(frameCount: number): void;
+    static resetFrameCount(): void;
     /**
      * 描画停止中でなければrequestAnimationFrame(this.update)
      */
@@ -976,6 +992,7 @@ declare class SceneManager {
      *   - onSceneLoading = Graphics ローディング継続
      */
     static renderScene(): void;
+    static updateFrameCount(): void;
     /** シーン作成=ローディング開始 Graphics.startLoading() */
     static onSceneCreate(): void;
     /** シーン開始=ローディング終了 Graphics.endLoading() */
@@ -1034,7 +1051,8 @@ declare class SceneManager {
 /** バトルマネージャー */
 declare class BattleManager {
     private constructor();
-
+    static setup(troopId: number, canEscape: boolean, canLose: boolean): void;
+    static initMembers(): void;
     static _phase: string;
     static _canEscape: boolean;
     static _canLose: boolean;
@@ -1044,8 +1062,8 @@ declare class BattleManager {
     static _surprise: boolean;
     static _actorIndex: number;
     static _actionForcedBattler: Game_Battler;
-    static _mapBgm: IAudioObject;
-    static _mapBgs: IAudioObject;
+    static _mapBgm: RPGMakerMV.AudioObject;
+    static _mapBgs: RPGMakerMV.AudioObject;
     static _actionBattlers: Game_Battler[];
     static _subject: Game_Battler;
     static _action: Game_Action;
@@ -1056,9 +1074,8 @@ declare class BattleManager {
     static _escapeRatio: number;
     static _escaped: boolean;
     static _rewards: RPGMakerMV.Rewards;
+    static _turnForced: boolean;
 
-    static setup(troopId: number, canEscape: boolean, canLose: boolean): void;
-    static initMembers(): void;
     static isBattleTest(): boolean;
     static setBattleTest(battleTest: boolean): void;
     static setEventCallback(callback: Function): void;
@@ -1100,6 +1117,7 @@ declare class BattleManager {
     static updateTurn(): void;
     static processTurn(): void;
     static endTurn(): void;
+    static isForcedTurn(): boolean;
     static updateTurnEnd(): void;
     static getNextSubject(): void;
     static allBattleMembers(): Game_Battler;
@@ -1119,7 +1137,6 @@ declare class BattleManager {
     static abort(): void;
     static checkBattleEnd(): boolean;
     static checkAbort(): boolean;
-    static checkAbort2(): boolean;
     static processVictory(): void;
     static processEscape(): boolean;
     static processAbort(): void;

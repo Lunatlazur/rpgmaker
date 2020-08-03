@@ -1,12 +1,17 @@
+declare namespace RPGMakerMV {
+    interface Motion {
+        index: number;
+        loop: boolean;
+    }
+}
+
 declare class Sprite_Base extends Sprite {
+    constructor();
+    initialize(): void;
     _animationSprites: Sprite_Animation[];
     _effectTarget: Sprite_Base;
     _hiding: boolean;
 
-    visible: boolean;
-
-    constructor();
-    initialize(): void;
     update(): void;
     hide(): void;
     show(): void;
@@ -17,13 +22,13 @@ declare class Sprite_Base extends Sprite {
 }
 
 declare class Sprite_Button extends Sprite {
+    constructor();
+    initialize(): void;
     _touching: boolean;
     _coldFrame: Rectangle;
     _hotFrame: Rectangle;
     _clickHandler: Function;
 
-    constructor();
-    initialize(): void;
     update(): void;
     updateFrame(): void;
     setColdFrame(x: number, y: number, width: number, height: number): void;
@@ -39,20 +44,15 @@ declare class Sprite_Button extends Sprite {
 }
 
 declare class Sprite_Character extends Sprite_Base {
+    constructor(character?: Game_CharacterBase);
+    initialize(character?: Game_CharacterBase): void;
     _character: Game_Character;
     _balloonSprite: Sprite_Balloon;
     _balloonDuration: number;
     _tilesetId: number;
-    _tileId: number;
-    _characterName: string;
-    _characterIndex: number;
     _upperBody: Sprite;
     _lowerBody: Sprite;
-    _isBigCharacter: boolean;
-    _bushDepth: number;
 
-    constructor(character?: Game_CharacterBase);
-    initialize(character?: Game_CharacterBase): void;
     initMembers(): void;
     setCharacter(character: Game_CharacterBase): void;
     update(): void;
@@ -60,9 +60,13 @@ declare class Sprite_Character extends Sprite_Base {
     isTile(): boolean;
     tilesetBitmap(tileId: number): Bitmap;
     updateBitmap(): void;
+    _tileId: number;
+    _characterName: string;
+    _characterIndex: number;
     isImageChanged(): boolean;
     setTileBitmap(): void;
     setCharacterBitmap(): void;
+    _isBigCharacter: boolean;
     updateFrame(): void;
     updateTileFrame(): void;
     updateCharacterFrame(): void;
@@ -77,6 +81,7 @@ declare class Sprite_Character extends Sprite_Base {
     updatePosition(): void;
     updateAnimation(): void;
     updateOther(): void;
+    _bushDepth: number;
     setupAnimation(): void;
     setupBalloon(): void;
     startBalloon(): void;
@@ -86,6 +91,8 @@ declare class Sprite_Character extends Sprite_Base {
 }
 
 declare class Sprite_Battler extends Sprite_Base {
+    constructor();
+    initialize(battler?: Game_Battler): void;
     _battler: Game_Battler;
     _damages: Sprite_Damage[];
     _homeX: number;
@@ -97,8 +104,6 @@ declare class Sprite_Battler extends Sprite_Base {
     _movementDuration: number;
     _selectionEffectCount: number;
 
-    constructor();
-    initialize(battler?: Game_Battler): void;
     initMembers(): void;
     setBattler(battler: Game_Battler): void;
     setHome(x: number, y: number): void;
@@ -123,12 +128,9 @@ declare class Sprite_Battler extends Sprite_Base {
     inHomePosition(): boolean;
 }
 
-declare interface IMotion {
-    index: number;
-    loop: boolean;
-}
-
 declare class Sprite_Actor extends Sprite_Battler {
+    constructor();
+
     static MOTIONS: {
         walk:     { index: 0,  loop: true  },
         wait:     { index: 1,  loop: true  },
@@ -148,25 +150,24 @@ declare class Sprite_Actor extends Sprite_Battler {
         abnormal: { index: 15, loop: true  },
         sleep:    { index: 16, loop: true  },
         dead:     { index: 17, loop: true  }
-    } & { [key: string]: IMotion };
+    } & { [key: string]: RPGMakerMV.Motion };
 
-    _battlerName: string;
-    _motion: IMotion;
-    _motionCount: number;
-    _pattern: number;
-    _mainSprite: Sprite_Base;
-    _effectTarget: Sprite_Base;
-    _shadowSprite: Sprite;
-    _weaponSprite: Sprite_Weapon;
-    _stateSprite: Sprite_StateOverlay;
-
-    constructor();
     initialize(battler?: Game_Actor): void;
     initMembers(): void;
+    _battlerName: string;
+    _motion: RPGMakerMV.Motion;
+    _motionCount: number;
+    _pattern: number;
+
     createMainSprite(): void;
+    _mainSprite: Sprite_Base;
+    _effectTarget: Sprite_Base;
     createShadowSprite(): void;
+    _shadowSprite: Sprite;
     createWeaponSprite(): void;
+    _weaponSprite: Sprite_Weapon;
     createStateSprite(): void;
+    _stateSprite: Sprite_StateOverlay;
     setBattler(battler: Game_Actor): void;
     moveToStartPosition(): void;
     setActorHome(index: number): void;
@@ -194,6 +195,9 @@ declare class Sprite_Actor extends Sprite_Battler {
 }
 
 declare class Sprite_Enemy extends Sprite_Battler {
+    constructor();
+    initialize(battler?: Game_Enemy): void;
+    initMembers(): void;
     _enemy: Game_Enemy;
     _appeared: boolean;
     _battlerName: string;
@@ -201,12 +205,8 @@ declare class Sprite_Enemy extends Sprite_Battler {
     _effectType: string;
     _effectDuration: number;
     _shake: number;
-    _stateIconSprite: Sprite_StateIcon;
-
-    constructor();
-    initialize(battler?: Game_Enemy): void;
-    initMembers(): void;
     createStateIconSprite(): void;
+    _stateIconSprite: Sprite_StateIcon;
     setBattler(battler: Game_Enemy): void;
     update(): void;
     updateBitmap(): void;
@@ -239,6 +239,9 @@ declare class Sprite_Enemy extends Sprite_Battler {
 }
 
 declare class Sprite_Animation extends Sprite {
+    constructor();
+    initialize(): void;
+    initMembers(): void;
     _reduceArtifacts: boolean;
     _target: Sprite_Base;
     _animation: RPGMakerMV.DataAnimation;
@@ -256,9 +259,6 @@ declare class Sprite_Animation extends Sprite {
     _screenFlashSprite: ScreenSprite;
     _duplicated: boolean;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     setup(target: Sprite_Base, animation: RPGMakerMV.DataAnimation, mirror: boolean, delay: number): void;
     remove(): void;
     setupRate(): void;
@@ -288,13 +288,13 @@ declare class Sprite_Animation extends Sprite {
 }
 
 declare class Sprite_Damage extends Sprite {
+    constructor();
+    initialize(): void;
     _duration: number;
     _flashColor: number[];
     _flashDuration: number;
     _damageBitmap: Bitmap;
 
-    constructor();
-    initialize(): void;
     setup(target: Game_Battler): void;
     digitWidth(): number;
     digitHeight(): number;
@@ -309,17 +309,17 @@ declare class Sprite_Damage extends Sprite {
 }
 
 declare class Sprite_StateIcon extends Sprite {
+    constructor();
+    initialize(): void;
     static _iconWidth: number;
     static _iconHeight: number;
 
+    initMembers(): void;
     _battler: Game_Battler;
     _iconIndex: number;
     _animationCount: number;
     _animationIndex: number;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     setup(battler: Game_Battler): void;
     update(): void;
     animationWait(): number;
@@ -328,14 +328,14 @@ declare class Sprite_StateIcon extends Sprite {
 }
 
 declare class Sprite_StateOverlay extends Sprite_Base {
+    constructor();
+    initialize(): void;
+    initMembers(): void;
     _battler: Game_Battler;
     _overlayIndex: number;
     _animationCount: number;
     _pattern: number;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     loadBitmap(): void;
     setup(battler: Game_Battler): void;
     update(): void;
@@ -345,13 +345,13 @@ declare class Sprite_StateOverlay extends Sprite_Base {
 }
 
 declare class Sprite_Weapon extends Sprite_Base {
+    constructor();
+    initialize(): void;
+    initMembers(): void;
     _weaponImageId: number;
     _animationCount: number;
     _pattern: number;
 
-    constructor();
-    initialize(): void;
-    initMembers(): void;
     setup(weaponImageId: number): void;
     update(): void;
     animationWait(): number;
@@ -362,12 +362,12 @@ declare class Sprite_Weapon extends Sprite_Base {
 }
 
 declare class Sprite_Balloon extends Sprite_Base {
-    _balloonId: number;
-    _duration: number;
-
     constructor();
     initialize(): void;
     initMembers(): void;
+    _balloonId: number;
+    _duration: number;
+
     loadBitmap(): void;
     setup(balloonId: number): void;
     update(): void;
@@ -379,13 +379,13 @@ declare class Sprite_Balloon extends Sprite_Base {
 }
 
 declare class Sprite_Picture extends Sprite {
+    constructor(pictureId: number);
+    initialize(): void;
+    initialize(pictureId: number): void;
     _pictureId: number;
     _pictureName: string;
     _isPicture: boolean;
 
-    constructor(pictureId: number);
-    initialize(): void;
-    initialize(pictureId: number): void;
     picture(): Game_Picture;
     update(): void;
     updateBitmap(): void;
@@ -398,10 +398,10 @@ declare class Sprite_Picture extends Sprite {
 }
 
 declare class Sprite_Timer extends Sprite {
-    _seconds: number;
-
     constructor();
     initialize(): void;
+    _seconds: number;
+
     createBitmap(): void;
     update(): void;
     updateBitmap(): void;
@@ -412,10 +412,10 @@ declare class Sprite_Timer extends Sprite {
 }
 
 declare class Sprite_Destination extends Sprite {
-    _frameCount: number;
-
     constructor();
     initialize(): void;
+    _frameCount: number;
+
     update(): void;
     createBitmap(): void;
     updatePosition(): void;
@@ -423,28 +423,29 @@ declare class Sprite_Destination extends Sprite {
 }
 
 declare class Spriteset_Base extends Sprite {
-    _tone: number[];
-    _baseSprite: Sprite;
-    _toneSprite: ToneSprite;
-    _toneFilter: ToneFilter;
-    _pictureContainer: Sprite;
-    _timerSprite: Sprite_Timer;
-    _flashSprite: ScreenSprite;
-    _fadeSprite: ScreenSprite;
-
-    opaque: boolean;
-
     constructor();
     initialize(): void;
+    _tone: number[];
+    opaque: boolean;
+
     createLowerLayer(): void;
     createUpperLayer(): void;
     update(): void;
     createBaseSprite(): void;
+    _baseSprite: Sprite;
+    _blackScreen: ScreenSprite;
     createToneChanger(): void;
+    createWebGLToneChanger(): void;
+     _toneFilter: ToneFilter;
     createCanvasToneChanger(): void;
+    _toneSprite: ToneSprite;
     createPictures(): void;
+    _pictureContainer: Sprite;
     createTimer(): void;
+    _timerSprite: Sprite_Timer;
     createScreenSprites(): void;
+    _flashSprite: ScreenSprite;
+    _fadeSprite: ScreenSprite;
     updateScreenSprites(): void;
     updateToneChanger(): void;
     updateWebGLToneChanger(): void;
@@ -453,53 +454,51 @@ declare class Spriteset_Base extends Sprite {
 }
 
 declare class Spriteset_Map extends Spriteset_Base {
-    _parallax: TilingSprite;
-    _parallaxName: string;
-    _tilemap: Tilemap;
-    _tileset: RPGMakerMV.DataTileset;
-    _characterSprites: Sprite_Character[];
-    _shadowSprite: Sprite;
-    _destinationSprite: Sprite_Destination;
-    _weather: Weather;
-
     constructor();
     initialize(): void;
+
     createLowerLayer(): void;
     update(): void;
     hideCharacters(): void;
     createParallax(): void;
+    _parallax: TilingSprite;
     createTilemap(): void;
+    _tilemap: Tilemap;
     loadTileset(): void;
+    _tileset: RPGMakerMV.DataTileset;
     createCharacters(): void;
+    _characterSprites: Sprite_Character[];
     createShadow(): void;
+    _shadowSprite: Sprite;
     createDestination(): void;
+    _destinationSprite: Sprite_Destination;
     createWeather(): void;
+    _weather: Weather;
     updateTileset(): void;
 
     _canvasReAddParallax(): void;
 
     updateParallax(): void;
+    _parallaxName: string;
     updateTilemap(): void;
     updateShadow(): void;
     updateWeather(): void;
 }
 
 declare class Spriteset_Battle extends Spriteset_Base {
-    _battlebackLocated: boolean;
-    _backgroundSprite: Sprite;
-    _battleField: Sprite;
-    _back1Sprite: TilingSprite;
-    _back2Sprite: TilingSprite;
-    _enemySprites: Sprite_Enemy[];
-    _actorSprites: Sprite_Actor[];
-
     constructor();
     initialize(): void;
+    _battlebackLocated: boolean;
+
     createLowerLayer(): void;
     createBackground(): void;
+    _backgroundSprite: Sprite;
     update(): void;
     createBattleField(): void;
+    _battleField: Sprite;
     createBattleback(): void;
+    _back1Sprite: TilingSprite;
+    _back2Sprite: TilingSprite;
     updateBattleback(): void;
     locateBattleback(): void;
     battleback1Bitmap(): Bitmap;
@@ -518,8 +517,10 @@ declare class Spriteset_Battle extends Spriteset_Base {
     shipBattleback2Name(): string;
     autotileType(z: number): number;
     createEnemies(): void;
+    _enemySprites: Sprite_Enemy[];
     compareEnemySprite(a: Sprite_Enemy, b: Sprite_Enemy): number;
     createActors(): void;
+    _actorSprites: Sprite_Actor[];
     updateActors(): void;
     battlerSprites(): Sprite_Battler[];
     isAnimationPlaying(): boolean;

@@ -1,13 +1,15 @@
 declare class Scene_Base extends Stage {
+    constructor();
+    initialize(): void;
     _active: boolean;
     _fadeSign: number;
     _fadeDuration: number;
     _fadeSprite: ScreenSprite;
-    _windowLayer: WindowLayer;
-    _spriteset: Spriteset_Base;
+    _imageReservationId: number;
 
-    constructor();
-    initialize(): void;
+    attachReservation(): void;
+    detachReservation(): void;
+
     create(): void;
     isActive(): boolean;
     isReady(): boolean;
@@ -17,6 +19,7 @@ declare class Scene_Base extends Stage {
     isBusy(): boolean;
     terminate(): void;
     createWindowLayer(): void;
+    _windowLayer: WindowLayer;
     addWindow(window: Window_Base): void;
     startFadeIn(duration?: number, white?: boolean): void;
     startFadeOut(duration?: number, white?: boolean): void;
@@ -28,18 +31,14 @@ declare class Scene_Base extends Stage {
     fadeOutAll(): void;
     fadeSpeed(): number;
     slowFadeSpeed(): number;
-    attachReservation(): void;
-    detachReservation(): void;
 }
 
 declare class Scene_Boot extends Scene_Base {
-    _startDate: number;
-
-    static loadSystemImages(): void;
-
     constructor();
     initialize(): void;
+    _startDate: number;
     create(): void;
+    static loadSystemImages(): void;
     loadSystemWindowImage(): void;
     isReady(): boolean;
     isGameFontLoaded(): boolean;
@@ -49,20 +48,20 @@ declare class Scene_Boot extends Scene_Base {
 }
 
 declare class Scene_Title extends Scene_Base {
-    _commandWindow: Window_TitleCommand;
-    _backSprite1: Sprite;
-    _backSprite2: Sprite;
-    _gameTitleSprite: Sprite;
-
     constructor();
     initialize(): void;
+
     create(): void;
     start(): void;
     update(): void;
+    _commandWindow: Window_TitleCommand;
     isBusy(): boolean;
     terminate(): void;
     createBackground(): void;
+    _backSprite1: Sprite;
+    _backSprite2: Sprite;
     createForeground(): void;
+    _gameTitleSprite: Sprite;
     drawGameTitle(): void;
     centerSprite(sprite: Sprite_Base): void;
     createCommandWindow(): void;
@@ -73,24 +72,20 @@ declare class Scene_Title extends Scene_Base {
 }
 
 declare class Scene_Map extends Scene_Base {
+    constructor();
+    initialize(): void;
     _waitCount: number;
     _encounterEffectDuration: number;
     _mapLoaded: boolean;
-    _mapNameWindow: Window_MapName;
-    _messageWindow: Window_Message;
-    _scrollTextWindow: Window_ScrollText;
-    _spriteset: Spriteset_Map;
     _touchCount: number;
+
+    create(): void;
     _transfer: boolean;
 
-    menuCalling: boolean;
-
-    constructor();
-    initialize(): void;
-    create(): void;
     isReady(): boolean;
     onMapLoaded(): void;
     start(): void;
+    menuCalling: boolean;
     update(): void;
     updateMainMultiply(): void;
     updateMain(): void;
@@ -108,10 +103,14 @@ declare class Scene_Map extends Scene_Base {
     updateScene(): void;
     createDisplayObjects(): void;
     createSpriteset(): void;
+    _spriteset: Spriteset_Map;
     createAllWindows(): void;
     createMapNameWindow(): void;
+    _mapNameWindow: Window_MapName;
     createMessageWindow(): void;
+    _messageWindow: Window_Message;
     createScrollTextWindow(): void;
+    _scrollTextWindow: Window_ScrollText;
     updateTransferPlayer(): void;
     updateEncounter(): void;
     updateCallMenu(): void;
@@ -132,34 +131,34 @@ declare class Scene_Map extends Scene_Base {
 }
 
 declare class Scene_MenuBase extends Scene_Base {
-    _actor: Game_Actor;
-    _backgroundSprite: Sprite;
-    _helpWindow: Window_Help;
-
     constructor();
     initialize(): void;
+
     create(): void;
     actor(): Game_Actor;
+    _actor: Game_Actor;
     updateActor(): void;
     createBackground(): void;
+    _backgroundSprite: Sprite;
     setBackgroundOpacity(opacity: number): void;
     createHelpWindow(): void;
+    _helpWindow: Window_Help;
     nextActor(): void;
     previousActor(): void;
     onActorChange(): void;
 }
 
 declare class Scene_Menu extends Scene_MenuBase {
-    _statusWindow: Window_MenuStatus;
-    _goldWindow: Window_Gold;
-    _commandWindow: Window_MenuCommand;
-
     constructor();
     initialize(): void;
+
     create(): void;
     start(): void;
+    _statusWindow: Window_MenuStatus;
     createCommandWindow(): void;
+    _commandWindow: Window_MenuCommand;
     createGoldWindow(): void;
+    _goldWindow: Window_Gold;
     createStatusWindow(): void;
     commandItem(): void;
     commandPersonal(): void;
@@ -174,13 +173,12 @@ declare class Scene_Menu extends Scene_MenuBase {
 }
 
 declare class Scene_ItemBase extends Scene_MenuBase {
-    _actorWindow: Window_MenuActor;
-    _itemWindow: Window_Selectable;
-
     constructor();
     initialize(): void;
+
     create(): void;
     createActorWindow(): void;
+    _actorWindow: Window_MenuActor;
     item(): RPGMakerMV.DataAnyItem | RPGMakerMV.DataSkill;
     user(): Game_Actor;
     isCursorLeft(): boolean;
@@ -196,17 +194,18 @@ declare class Scene_ItemBase extends Scene_MenuBase {
     isItemEffectsValid(): boolean;
     applyItem(): void;
     checkCommonEvent(): void;
+
+    _itemWindow: Window_Selectable;
 }
 
 declare class Scene_Item extends Scene_ItemBase {
-    _categoryWindow: Window_ItemCategory;
-    _itemWindow: Window_ItemList;
-
     constructor();
     initialize(): void;
     create(): void;
     createCategoryWindow(): void;
+    _categoryWindow: Window_ItemCategory;
     createItemWindow(): void;
+    _itemWindow: Window_ItemList;
     user(): Game_Actor;
     onCategoryOk(): void;
     onItemOk(): void;
@@ -216,17 +215,16 @@ declare class Scene_Item extends Scene_ItemBase {
 }
 
 declare class Scene_Skill extends Scene_ItemBase {
-    _skillTypeWindow: Window_SkillType;
-    _statusWindow: Window_SkillStatus;
-    _itemWindow: Window_SkillList;
-
     constructor();
     initialize(): void;
     create(): void;
     start(): void;
     createSkillTypeWindow(): void;
+    _skillTypeWindow: Window_SkillType;
     createStatusWindow(): void;
+    _statusWindow: Window_SkillStatus;
     createItemWindow(): void;
+    _itemWindow: Window_SkillList;
     refreshActor(): void;
     user(): Game_Actor;
     commandSkill(): void;
@@ -238,18 +236,17 @@ declare class Scene_Skill extends Scene_ItemBase {
 }
 
 declare class Scene_Equip extends Scene_MenuBase {
-    _statusWindow: Window_EquipStatus;
-    _commandWindow: Window_EquipCommand;
-    _slotWindow: Window_EquipSlot;
-    _itemWindow: Window_EquipItem;
-
     constructor();
     initialize(): void;
     create(): void;
     createStatusWindow(): void;
+    _statusWindow: Window_EquipStatus;
     createCommandWindow(): void;
+    _commandWindow: Window_EquipCommand;
     createSlotWindow(): void;
+    _slotWindow: Window_EquipSlot;
     createItemWindow(): void;
+    _itemWindow: Window_EquipItem;
     refreshActor(): void;
     commandEquip(): void;
     commandOptimize(): void;
@@ -262,36 +259,33 @@ declare class Scene_Equip extends Scene_MenuBase {
 }
 
 declare class Scene_Status extends Scene_MenuBase {
-    _statusWindow: Window_Status;
-
     constructor();
     initialize(): void;
     create(): void;
+    _statusWindow: Window_Status;
     refreshActor(): void;
     onActorChange(): void;
 }
 
 declare class Scene_Options extends Scene_MenuBase {
-    _optionsWindow: Window_Options;
-
     constructor();
     initialize(): void;
     create(): void;
     terminate(): void;
     createOptionsWindow(): void;
+    _optionsWindow: Window_Options;
 }
 
 declare class Scene_File extends Scene_MenuBase {
-    _listWindow: Window_SavefileList;
-    _helpWindow: Window_Help;
-
     constructor();
     initialize(): void;
     create(): void;
     start(): void;
     savefileId(): number;
     createHelpWindow(): void;
+    _helpWindow: Window_Help;
     createListWindow(): void;
+    _listWindow: Window_SavefileList;
     mode(): string;
     activateListWindow(): void;
     helpWindowText(): string;
@@ -311,10 +305,10 @@ declare class Scene_Save extends Scene_File {
 }
 
 declare class Scene_Load extends Scene_File {
-    _loadSuccess: boolean;
-
     constructor();
     initialize(): void;
+    _loadSuccess: boolean;
+
     terminate(): void;
     mode(): string;
     helpWindowText(): string;
@@ -326,42 +320,42 @@ declare class Scene_Load extends Scene_File {
 }
 
 declare class Scene_GameEnd extends Scene_MenuBase {
-    _commandWindow: Window_GameEnd;
-
     constructor();
     initialize(): void;
     create(): void;
     stop(): void;
     createBackground(): void;
     createCommandWindow(): void;
+    _commandWindow: Window_GameEnd;
+
     commandToTitle(): void;
 }
 
 declare class Scene_Shop extends Scene_MenuBase {
-    _goods: any[][];
-    _purchaseOnly: boolean;
-    _item: RPGMakerMV.DataAnyItem;
-    _goldWindow: Window_Gold;
-    _commandWindow: Window_ShopCommand;
-    _dummyWindow: Window_Base;
-    _numberWindow: Window_ShopNumber;
-    _statusWindow: Window_ShopStatus;
-    _buyWindow: Window_ShopBuy;
-    _categoryWindow: Window_ItemCategory;
-    _sellWindow: Window_ShopSell;
-
     constructor();
     initialize(): void;
     prepare(goods: any[][], purchaseOnly: boolean): void;
+    _goods: any[][];
+    _purchaseOnly: boolean;
+    _item: RPGMakerMV.DataAnyItem;
     create(): void;
     createGoldWindow(): void;
+    _goldWindow: Window_Gold;
     createCommandWindow(): void;
+    _commandWindow: Window_ShopCommand;
     createDummyWindow(): void;
+    _dummyWindow: Window_Base;
     createNumberWindow(): void;
+    _numberWindow: Window_ShopNumber;
     createStatusWindow(): void;
+    _statusWindow: Window_ShopStatus;
     createBuyWindow(): void;
+    _buyWindow: Window_ShopBuy;
     createCategoryWindow(): void;
+    _categoryWindow: Window_ItemCategory;
     createSellWindow(): void;
+    _sellWindow: Window_ShopSell;
+
     activateBuyWindow(): void;
     activateSellWindow(): void;
     commandBuy(): void;
@@ -386,33 +380,32 @@ declare class Scene_Shop extends Scene_MenuBase {
 }
 
 declare class Scene_Name extends Scene_MenuBase {
-    _actor: Game_Actor;
-    _actorId: number;
-    _maxLength: number;
-    _editWindow: Window_NameEdit;
-    _inputWindow: Window_NameInput;
-
     constructor();
     initialize(): void;
     prepare(actorId: number, maxLength: number): void;
+    _actorId: number;
+    _maxLength: number;
     create(): void;
+    _actor: Game_Actor;
     start(): void;
     createEditWindow(): void;
+    _editWindow: Window_NameEdit;
     createInputWindow(): void;
+    _inputWindow: Window_NameInput;
     onInputOk(): void;
 }
 
 declare class Scene_Debug extends Scene_MenuBase {
-    _editWindow: Window_DebugEdit;
-    _rangeWindow: Window_DebugRange;
-    _debugHelpWindow: Window_Base;
-
     constructor();
     initialize(): void;
     create(): void;
     createRangeWindow(): void;
+    _rangeWindow: Window_DebugRange;
     createEditWindow(): void;
+    _editWindow: Window_DebugEdit;
     createDebugHelpWindow(): void;
+    _debugHelpWindow: Window_Base;
+
     onRangeOk(): void;
     onEditCancel(): void;
     refreshHelpWindow(): void;
@@ -420,21 +413,9 @@ declare class Scene_Debug extends Scene_MenuBase {
 }
 
 declare class Scene_Battle extends Scene_Base {
-    _partyCommandWindow: Window_PartyCommand;
-    _actorCommandWindow: Window_ActorCommand;
-    _skillWindow: Window_BattleSkill;
-    _itemWindow: Window_BattleItem;
-    _actorWindow: Window_BattleActor;
-    _enemyWindow: Window_BattleEnemy;
-    _helpWindow: Window_Help;
-    _statusWindow: Window_BattleStatus;
-    _spriteset: Spriteset_Battle;
-    _logWindow: Window_BattleLog;
-    _messageWindow: Window_Message;
-    _scrollTextWindow: Window_ScrollText;
-
     constructor();
     initialize(): void;
+
     create(): void;
     start(): void;
     update(): void;
@@ -448,18 +429,30 @@ declare class Scene_Battle extends Scene_Base {
     updateWindowPositions(): void;
     createDisplayObjects(): void;
     createSpriteset(): void;
+    _spriteset: Spriteset_Battle;
     createAllWindows(): void;
     createLogWindow(): void;
+    _logWindow: Window_BattleLog;
     createStatusWindow(): void;
+    _statusWindow: Window_BattleStatus;
     createPartyCommandWindow(): void;
+    _partyCommandWindow: Window_PartyCommand;
     createActorCommandWindow(): void;
+    _actorCommandWindow: Window_ActorCommand;
     createHelpWindow(): void;
+    _helpWindow: Window_Help;
     createSkillWindow(): void;
+    _skillWindow: Window_BattleSkill;
     createItemWindow(): void;
+    _itemWindow: Window_BattleItem;
     createActorWindow(): void;
+    _actorWindow: Window_BattleActor;
     createEnemyWindow(): void;
+    _enemyWindow: Window_BattleEnemy;
     createMessageWindow(): void;
+    _messageWindow: Window_Message;
     createScrollTextWindow(): void;
+    _scrollTextWindow: Window_ScrollText;
     refreshStatus(): void;
     startPartyCommandSelection(): void;
     commandFight(): void;
@@ -486,8 +479,6 @@ declare class Scene_Battle extends Scene_Base {
 }
 
 declare class Scene_Gameover extends Scene_Base {
-    _backSprite: Sprite;
-
     constructor();
     initialize(): void;
     create(): void;
@@ -497,6 +488,7 @@ declare class Scene_Gameover extends Scene_Base {
     terminate(): void;
     playGameoverMusic(): void;
     createBackground(): void;
+    _backSprite: Sprite;
     isTriggered(): boolean;
     gotoTitle(): void;
 }

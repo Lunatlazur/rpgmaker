@@ -21,6 +21,29 @@ declare namespace RPGMakerMV {
         'loaded' |
         'error';
 
+    type EventInfo = CommonEventInfo | BattleEventInfo | TestEventInfo | MapEventInfo
+
+    interface CommonEventInfo {
+        eventType: 'common_event';
+        commonEventId: number;
+    }
+
+    interface BattleEventInfo {
+        eventType: 'battle_event';
+        troopId: number;
+    }
+
+    interface TestEventInfo {
+        eventType: 'test_event';
+    }
+
+    interface MapEventInfo {
+        eventType: "map_event";
+        mapId: number;
+        mapEventId: number;
+        page: number;
+    }
+
     type EventError = (CommonEventError | BattleEventError | TestEventError | MapEventError) & {
         eventCommand:
             'set_route_script' |
@@ -33,26 +56,13 @@ declare namespace RPGMakerMV {
         content: string;
     }
 
-    type CommonEventError = Error & {
-        eventType: 'common_event';
-        commonEventId: number;
-    }
+    type CommonEventError = Error & CommonEventInfo
 
-    type BattleEventError = Error & {
-        eventType: 'battle_event';
-        troopId: number;
-    }
+    type BattleEventError = Error & BattleEventInfo
 
-    type TestEventError = Error & {
-        eventType: 'test_event';
-    }
+    type TestEventError = Error & TestEventInfo
 
-    type MapEventError = Error & {
-        eventType: "map_event";
-        mapId: number;
-        mapEventId: number;
-        page: number;
-    }
+    type MapEventError = Error & MapEventInfo
 }
 
 declare class ProgressWatcher {
@@ -1440,7 +1450,7 @@ declare class Decrypter {
 
     static checkImgIgnore(url: string): boolean;
     static decryptImg(url: string, bitmap: Bitmap): void;
-    static decryptHTML5Audio(url: string, bgm: IAudioObject, pos: number): void;
+    static decryptHTML5Audio(url: string, bgm: RPGMakerMV.AudioObject, pos: number): void;
     static cutArrayHeader(arrayBuffer: ArrayBuffer, length: number): ArrayBuffer;
     static decryptArrayBuffer(arrayBuffer: ArrayBuffer): ArrayBuffer;
     static createBlobUrl(arrayBuffer: ArrayBuffer): string;
