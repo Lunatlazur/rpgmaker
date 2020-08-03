@@ -44,7 +44,7 @@ class Window_SavefileStatus extends Window_Base {
         this.contents.clear()
         const id: number = this._id
         const valid: boolean = DataManager.isThisGameFile(id)
-        const info: ISavefileInfo = DataManager.loadSavefileInfo(id)
+        const info: RPGMakerMV.SavefileInfo = DataManager.loadSavefileInfo(id)
         const rect: Rectangle = this.contents.rect
         this.resetTextColor()
         if (this._mode === "load") {
@@ -62,7 +62,7 @@ class Window_SavefileStatus extends Window_Base {
         this.drawText(TextManager.file + " " + id, x, y, 180)
     }
 
-    public drawContents(this: Window_SavefileStatus, info: ISavefileInfo, rect: Rectangle, valid: boolean): void {
+    public drawContents(this: Window_SavefileStatus, info: RPGMakerMV.SavefileInfo, rect: Rectangle, valid: boolean): void {
         const bottom = rect.y + rect.height
         const playtimeY: number = bottom - this.lineHeight()
         this.drawText(info.title, rect.x + 192, rect.y, rect.width - 192)
@@ -72,7 +72,7 @@ class Window_SavefileStatus extends Window_Base {
         this.drawText(info.playtime, rect.x, playtimeY, rect.width, "right")
     }
 
-    public drawPartyfaces(this: Window_SavefileStatus, info: ISavefileInfo, x: number, y: number): void {
+    public drawPartyfaces(this: Window_SavefileStatus, info: RPGMakerMV.SavefileInfo, x: number, y: number): void {
         if (info && info.faces) {
             for (let i = 0; i < info.faces.length; i++) {
                 const data: [string, number] = info.faces[i]
