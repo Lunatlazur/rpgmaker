@@ -1,9 +1,9 @@
 # rpgmakermv_typescript_dts
 
-RPGツクールMVに標準搭載されているJavaScriptを、TypeScriptで扱うための型定義ファイルです。
+RPGツクールMVコアスクリプトを TypeScript で扱うための型定義ファイルです。
 
 ## 対象バージョン
-1.5.2
+1.6.1コミュニティ版1.3b
 
 ## 利用方法
 
@@ -11,45 +11,34 @@ RPGツクールMVに標準搭載されているJavaScriptを、TypeScriptで扱�
 npm install rpgmakermv_typescript_dts
 ```
 
+or
+
+```
+yarn add --dev rpgmakermv_typescript_dts
+```
+
 tsconfig.json
 ```json
 {
   "compilerOptions": {
-    "target": "es5"
-  }
-}
-```
-
-or ...
-```json
-{
-  "compilerOptions": {
     "target": "es5",
-    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "baseUrl": "src",
+    "outDir": "build",
+    "inlineSourceMap": false,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noImplicitReturns": true,
-    "noImplicitUseStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "removeComments": false,
-    "preserveConstEnums": true,
-    "sourceMap": false,
-    "strictNullChecks": true
+    "esModuleInterop": true,
+    "lib": [
+      "es6",
+    ]
   },
-  "exclude": [
-    "node_modules"
+  "types": [
+    "rpgmakermv_typescript_dts"
   ]
 }
-```
-
-then foo.ts
-```typescript
-/// <reference types="rpgmakermv_typescript_dts" />
-
-const params = PluginManager.parameters("fooplugin");
-
-...
 ```
 
 ## License
