@@ -600,6 +600,8 @@ declare namespace RPGMakerMV {
      * @memberof DataMap
      */
     interface MapEvent extends Identifiable, Annotatable {
+        x: number
+        y: number
         name: string;
         pages: MapEventPage[];
     }
@@ -628,6 +630,6 @@ declare namespace RPGMakerMV {
         tilesetId: number;
         width: number;
         data: number[];
-        events: MapEvent[];
+        events: Array<MapEvent | null>;
     }
 }
