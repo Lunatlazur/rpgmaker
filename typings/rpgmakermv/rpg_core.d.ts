@@ -111,7 +111,7 @@ declare interface String {
      * @param {Any} ...args The objects to format
      * @return {String} A formatted string
      */
-    format(): string;
+    format(...args :Array<string | number>): string;
     /**
      * Makes a number string with leading zeros.
      *
