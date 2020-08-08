@@ -1293,7 +1293,7 @@ declare class Game_Map {
     scrollRight(distance: number): void;
     scrollUp(distance: number): void;
     isValid(x: number, y: number): boolean;
-    checkPassage(x: number, y: number): boolean;
+    checkPassage(x: number, y: number, bit: number): boolean;
     tileId(x: number, y: number, z: number): number;
     layeredTiles(x: number, y: number): number[];
     allTiles(x: number, y: number): number[];
