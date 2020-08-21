@@ -407,6 +407,9 @@ declare class Bitmap {
     constructor(width?: number, height?: number);
     static _reuseImages: HTMLImageElement[];
     _createCanvas(width: number, height: number): void;
+    __canvas: HTMLCanvasElement;
+    __context: CanvasRenderingContext2D;
+    __baseTexture: PIXI.BaseTexture;
     _createBaseTexture(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void;
     _clearImgInstance(): void;
     _canvas: HTMLCanvasElement;
