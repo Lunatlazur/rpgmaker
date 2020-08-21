@@ -9,14 +9,19 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Narazaka/rpgmakermv_typescript_dts.git"
+    "url": "git+https://github.com/Lunatlazur/rpgmakermv_typescript_dts.git"
   },
-  "author": "narazaka",
+  "contributors": [
+    "BAROQUE ENGINE",
+    "Narazaka (https://github.com/Narazaka)",
+    "eihigh (https://github.com/eihigh)",
+    "Taku Aoi (https://aotak.me)"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Narazaka/rpgmakermv_typescript_dts/issues"
+    "url": "https://github.com/Lunatlazur/rpgmakermv_typescript_dts/issues"
   },
-  "homepage": "https://github.com/Narazaka/rpgmakermv_typescript_dts#readme",
+  "homepage": "https://github.com/Lunatlazur/rpgmakermv_typescript_dts#readme",
   "dependencies": {
     "@types/pixi.js": "4.5.4",
     "pixi-tilemap": "^1.2.3"
