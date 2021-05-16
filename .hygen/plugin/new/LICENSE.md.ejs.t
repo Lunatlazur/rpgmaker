@@ -1,7 +1,7 @@
 ---
 to: packages/<%= name %>/LICENSE.md
 ---
-[zlib License](https://www.zlib.net/zlib_license.html)
+[zlib License](https://zlib.net/zlib_license.html)
 
 Copyright (C) <%= h.year(locals.date || h.today()) %> <%= h.author() %>
 
