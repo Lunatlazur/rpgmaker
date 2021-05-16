@@ -5,16 +5,19 @@
   "workspaces": [
   ],
   "scripts": {
-    "lerna": "lerna",
-    "bootstrap": "lerna bootstrap",
-    "dist": "cpx ./build/*.js ../www/js/plugins",
-    "build:scripts": "lerna run build -- -- --outDir ../../build",
-    "build": "run-s build:scripts dist"
+    "plugin": "yarn hygen plugin"
   },
   "author": "Taku Aoi",
+  "author:ja": "あおいたく",
+  "rmmvPluginConfig": {
+    "namespace": "Lunatlazur"
+  },
   "license": "Zlib",
   "private": true,
   "devDependencies": {
+    "dayjs": "^1.8.29",
+    "hygen": "^6.0.4",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
   "dependencies": {}

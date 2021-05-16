@@ -1,0 +1,27 @@
+---
+to: packages/<%= name %>/tsconfig.json
+---
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "esnext",
+    "baseUrl": "src",
+    "outDir": "build",
+    "inlineSourceMap": false,
+    "newLine": "LF",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "removeComments": false,
+    "lib": [
+      "es2019"
+    ],
+    "types": [
+      "rpgmakermv_typescript_dts",
+    ]
+  },
+  "include": [
+    "src/**/*",
+    "typings/**/*.d.ts"
+  ]
+}
