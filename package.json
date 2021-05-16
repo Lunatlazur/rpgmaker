@@ -2,7 +2,8 @@
   "name": "rpgmakermv-plugins",
   "version": "1.0.0",
   "description": "plugins hub for RPG Maker MV",
-  "main": "index.js",
+  "workspaces": [
+  ],
   "scripts": {
     "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
@@ -14,10 +15,7 @@
   "license": "Zlib",
   "private": true,
   "devDependencies": {
-    "@deboxsoft/cpx": "^1.5.0",
-    "lerna": "^3.16.4",
-    "npm-run-all": "^4.1.5",
-    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts#feature/separate-dependencies",
-    "typescript": "^3.6.2"
-  }
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {}
 }
