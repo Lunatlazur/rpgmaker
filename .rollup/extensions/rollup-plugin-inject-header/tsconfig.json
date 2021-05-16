@@ -1,24 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2019",
+    "module": "esnext",
     "baseUrl": "src",
-    "outDir": "build",
     "inlineSourceMap": false,
     "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "removeComments": false,
     "esModuleInterop": true,
+    "moduleResolution": "node",
     "lib": [
       "es2019"
     ],
     "types": [
-      "node",
-      "rpgmakermv_typescript_dts"
+      "node"
     ]
   },
   "include": [
-    "packages/**/*"
+    "./src"
   ]
 }

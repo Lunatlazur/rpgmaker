@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "plugins hub for RPG Maker MV",
   "workspaces": [
+    "packages/*",
+    ".rollup/extensions/*"
   ],
   "scripts": {
     "plugin": "yarn hygen plugin"
