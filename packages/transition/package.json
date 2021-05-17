@@ -1,0 +1,9 @@
+{
+  "name": "transition",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,9 @@
+{
+  "name": "tachie",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
