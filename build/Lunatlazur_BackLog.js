@@ -1,21 +1,72 @@
 //=============================================================================
 // Lunatlazur_BackLog.js
 // ----------------------------------------------------------------------------
-// Copyright (c) 2018 Taku Aoi
+// Copyright (c) 2019 Taku Aoi
 // This plugin is released under the zlib License.
-// http://zlib.net/zlib_license.html
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2019/12/21
+// 1.1.0 2021-05-16
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Show message back log
  * @author Taku Aoi
  * @help This plugin shows message back log.
+ *
+ * USAGE
+ * =====
+ *
+ * The backlog feature is enabled by default when you install the plugin.
+ * To disable or re-enable the backlog function, use the plug-in command
+ * to enable / disable it.
+ *
+ *
+ * Plug-in command list
+ * ====================
+ *
+ * ENABLE_BACKLOG
+ * --------------
+ *
+ *     ENABLE_BACKLOG
+ *
+ * Enable backlog.
+ * The backlog is displayed by scrolling up the mouse wheel or pressing
+ * the PageUp key.
+ *
+ * DISABLE_BACKLOG
+ * ---------------
+ *
+ *     DISABLE_BACKLOG
+ *
+ * Disable the backlog.
+ * The backlog is not displayed even if the mouse wheel is scrolled up
+ * or the PageUp key is entered.
+ *
+ *
+ * Changelog
+ * =========
+ *
+ * 1.1.0 2021-05-16
+ * ----------------
+ * - Added plugin parameters to choose whether to make the backlog
+ *   layout 2 columns
+ *
+ * 1.0.0 2019-12-21
+ * ----------------
+ * - Published.
+ *
+ *
+ * @param 2-columns layout
+ * @desc Select whether to display the backlog in two columns.
+ * `Yes` to diplay in two columns.
+ * @type boolean
+ * @on Yes
+ * @off No
+ * @default true
  */
 /*:ja
  * @plugindesc バックログ表示プラグイン
@@ -24,10 +75,62 @@
  *
  * 名前ウィンドウ表示プラグイン、メッセージ表示継続プラグインと同時に使う場合は、
  * 本プラグインを上記プラグインよりも下に配置してください。
+ *
+ * 使い方
+ * ======
+ *
+ * プラグインを導入した状態では、バックログ機能はデフォルトで有効になっています。
+ * バックログ機能を無効化したり再度有効化したりする場合は、プラグインコマンドで
+ * 適宜、有効・無効の切替を行ってください。
+ *
+ *
+ * プラグインコマンド一覧
+ * ======================
+ *
+ * バックログの有効化
+ * ------------------
+ *
+ *     バックログの有効化
+ *
+ * バックログを有効化します。
+ * 以降、マウスホイールのスクロールアップや PageUp キーの入力でバックログを
+ * 表示することができます。
+ *
+ *
+ * バックログの無効化
+ * ------------------
+ *
+ *     バックログの無効化
+ *
+ * バックログを無効化します。
+ * 以降、マウスホイールのスクロールアップや PageUp キーの入力でバックログを
+ * 表示できなくなります。
+ *
+ *
+ * 変更履歴
+ * ========
+ *
+ * 1.1.0 2021-05-16
+ * ----------------
+ * - 2カラムレイアウトにするかどうか選択できるようにプラグインパラメータを追加
+ *
+ * 1.0.0 2019-12-21
+ * ----------------
+ * - 公開
+ *
+ *
+ * @param 2カラムレイアウト
+ * @desc バックログの表示を2カラムにするかどうかを選択します。
+ * `する` で2カラムで表示します。
+ * @type boolean
+ * @on する
+ * @off しない
+ * @default true
  */
 (function () {
+    'use strict';
+
     const pluginName = 'Lunatlazur_BackLog';
-    const maxNumberOfMessages = 100;
     function getValue(params, ...names) {
         let found = null;
         names.forEach((name) => {
@@ -40,10 +143,17 @@
     function asNumber(params, ...names) {
         return parseInt(getValue(params, ...names), 10);
     }
+    function asBoolean(params, ...names) {
+        const value = getValue(params, ...names).toLowerCase();
+        return value === 'true' || value === 'on';
+    }
+    const parameters = PluginManager.parameters(pluginName);
+    const maxNumberOfMessages = 100;
+    const isMultiColumnLayout = asBoolean(parameters, '2カラムレイアウト', '2-columns layout');
     const actorNameWindowPlugin = {
         enabled: false,
     };
-    if (PluginManager._scripts.indexOf('Lunatlazur_ActorNameWindow') > 0) {
+    if (PluginManager._scripts.includes('Lunatlazur_ActorNameWindow')) {
         actorNameWindowPlugin.enabled = true;
         const parameters = PluginManager.parameters('Lunatlazur_ActorNameWindow');
         actorNameWindowPlugin.params = {
@@ -236,12 +346,13 @@
         }
         rowHeight() {
             const padding = 18;
-            /* 2カラムレイアウト
-            const rowsPerMessage = this.messageWindow().numVisibleRows()
-            */
-            //* シングルカラムレイアウト
-            const rowsPerMessage = this.messageWindow().numVisibleRows() + (actorNameWindowPlugin.enabled ? 1 : 0);
-            //*/
+            let rowsPerMessage;
+            if (isMultiColumnLayout) {
+                rowsPerMessage = this.messageWindow().numVisibleRows();
+            }
+            else {
+                rowsPerMessage = this.messageWindow().numVisibleRows() + (actorNameWindowPlugin.enabled ? 1 : 0);
+            }
             return this.lineHeight() * rowsPerMessage + padding * 2;
         }
         numVisibleRows() {
@@ -389,28 +500,37 @@
             const rows = BackLogManager.scrolledContent(offset, this.numVisibleRows() + 1);
             const x = 14;
             const marginY = (this.lineHeight() - 2) / 2;
+            const lastFontSize = this._fontSize;
+            if (isMultiColumnLayout && actorNameWindowPlugin.enabled) {
+                const ratio = (this.contentsWidth() - 168) / this.contentsWidth();
+                this._fontSize = lastFontSize * ratio;
+                this.contents.fontSize = this._fontSize;
+            }
             rows.forEach((row, index) => {
                 const y = this.contentsHeight() - marginY - this.rowHeight() * (index + 1);
                 this.contents.fillRect(0, y + marginY, this.contentsWidth(), 2, this.textColor(8));
-                /* 2カラムレイアウト
-                if (actorNameWindowPlugin.enabled) {
-                  if (row.actorName) {
-                    this.changeTextColor(this.textColor(actorNameWindowPlugin.params.textColor))
-                    this.drawText(row.actorName, x, y + this.lineHeight())
-                  }
-                  this.drawTextEx(row.text, x + 168, y + this.lineHeight())
-                } else {
-                  this.drawTextEx(row.text, x, y + this.lineHeight())
+                if (isMultiColumnLayout) {
+                    if (actorNameWindowPlugin.enabled) {
+                        if (row.actorName) {
+                            this.changeTextColor(this.textColor(actorNameWindowPlugin.params.textColor));
+                            this.drawText(row.actorName, x, y + this.lineHeight());
+                        }
+                        this.drawTextEx(row.text, x + 168, y + this.lineHeight());
+                    }
+                    else {
+                        this.drawTextEx(row.text, x, y + this.lineHeight());
+                    }
                 }
-                /*/
-                //* シングルカラムレイアウト
-                if (actorNameWindowPlugin.enabled && row.actorName) {
-                    this.changeTextColor(this.textColor(actorNameWindowPlugin.params.textColor));
-                    this.drawText(row.actorName, x, y + this.lineHeight());
+                else {
+                    if (actorNameWindowPlugin.enabled && row.actorName) {
+                        this.changeTextColor(this.textColor(actorNameWindowPlugin.params.textColor));
+                        this.drawText(row.actorName, x, y + this.lineHeight());
+                    }
+                    this.drawTextEx(row.text, x, y + this.lineHeight() * (actorNameWindowPlugin.enabled ? 2 : 1));
                 }
-                this.drawTextEx(row.text, x, y + this.lineHeight() * (actorNameWindowPlugin.enabled ? 2 : 1));
-                //*/
             });
+            this._fontSize = lastFontSize;
         }
     }
-})();
+
+}());
