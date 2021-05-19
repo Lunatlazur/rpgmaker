@@ -1,7 +1,7 @@
 {
   "name": "back-log",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "Zlib",
   "description": "Show message back log",
   "description:ja": "バックログ表示プラグイン",
