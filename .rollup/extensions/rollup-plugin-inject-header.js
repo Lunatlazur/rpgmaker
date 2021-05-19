@@ -304,7 +304,7 @@ function buildPluginParamStructs(struct) {
 
 function processReadme(readmeText) {
     const [_, readme] = readmeText.split(/^---$/m);
-    return readme.trim().replace('､', '、').replace('｡', '。').replace(/\\$/mg, '');
+    return readme.trim().replace('､', '、').replace('｡', '。').replace(/(?:\\|[ ]{2})$/gm, '');
 }
 
 ///  <reference path="../../typings/commenting.d.ts" />
