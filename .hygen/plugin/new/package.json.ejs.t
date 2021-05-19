@@ -15,7 +15,6 @@ to: packages/<%= name %>/package.json
   },
   "dependencies": {},
   "devDependencies": {
-    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts",
     "@babel/core": "^7.14.2",
     "@babel/preset-env": "^7.14.2",
     "@rollup/plugin-babel": "^5.3.0",
@@ -24,6 +23,7 @@ to: packages/<%= name %>/package.json
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/node": "^14.0.23",
     "rollup": "^2.47.0",
+    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts",
     "typescript": "^4.2.4"
   }
 }
