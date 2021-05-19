@@ -3,14 +3,14 @@
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
 // This plugin is released under the zlib License.
-// http://zlib.net/zlib_license.html
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.0 2018-04-01
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Manage visual novel style character sprite
@@ -19,89 +19,120 @@
  * character.
  *
  * Usage
- * *****
+ * =====
  *
- * 1. Place a standing picture file with the following format in the Picture folder.
+ *  1. Place a character sprite file with the following format in the Picture folder.
  *
- *    characterA1.png
- *    characterA2.png
- *    characterA3.png
- *    characterA4.png
- *    characterA5.png
- *    characterB1.png
- *    characterB2.png
- *    :
- *    :
- * 2. Create a standing picture definition file in the Data folder namedTachie.csv
- *    in the following format.
+ *         characterA1.png
+ *         characterA2.png
+ *         characterA3.png
+ *         characterA4.png
+ *         characterA5.png
+ *         characterB1.png
+ *         characterB2.png
+ *         :
+ *         :
  *
- *    characterA, CharactarA, smile, anger, disapointment, discontent
- *    characterB, CharacterB, smile, anger, disapointment, discontent
- *    :
- *    :
+ *  2. Create a character sprite definition file in the Data folder namedTachie.csv
+ *     in the following format.
  *
- *  - In the 1st column, specify the part obtained by removing the extension and
- *    the number at the end from the standing picture image file name placed in the
- *    Picture folder.
- *  - The 2nd column is the name of the character.
- *    Use this name when specifying the standing picture file from the plugin
- *    command.
- *  - The 3rd and subsequent columns are the names of the expressions in the
- *    standing picture image file.
- *    Use this name when specifying facial expressions from plugin commands.
- *    Please name the expression difference after character image numbered in 2.
- *    (Character image numbered in 1 is used when expression is not specified.)
+ *         characterA, CharactarA, smile, anger, disapointment, discontent
+ *         characterB, CharacterB, smile, anger, disapointment, discontent
+ *         :
+ *         :
  *
- *    In the above example, characterA2.png is set to smile for character A,
- *    and characterA3.png is set to anger for character A.
+ *     - In the 1st column, specify the part obtained by removing the extension and
+ *       the number at the end from the character sprite image file name placed in
+ *       the Picture folder.
+ *     - The 2nd column is the name of the character.
+ *       Use this name when specifying the character sprite file from the plugin
+ *       command.
+ *     - The 3rd and subsequent columns are the names of the expressions in the
+ *       character sprite image file.
+ *       Use this name when specifying facial expressions from plugin commands.
+ *       Please name the expression difference after character image numbered in 2.
+ *       (Character image numbered in 1 is used when expression is not specified.)
  *
- * 3. Input the standing picture display command to the plug-in command to display
- *    the standing picture. Refer to the following plug-in command list for details
- *    of plug-in commands.
+ *     In the above example, characterA2.png is set to smile for character A,
+ *     and characterA3.png is set to anger for character A.
+ *
+ *  3. Input the character sprite display command to the plug-in command to display
+ *     the character sprite. Refer to the following plug-in command list for details
+ *     of plug-in commands.
+ *
  *
  * Plug-in command list
- * ********************
+ * ====================
  *
  * SHOW_TACHIE
- * ===========
+ * -----------
  *
- *     SHOW_TACHIE [character name] [expression] [position] [distance]
- *     [x] [y] [slide-x] [slide-y] [duration] [wait]
+ *     SHOW_TACHIE <character name> <expression> <position> <distance>
+ *                 <x> <y> <slide-x> <slide-y> <duration> <wait>
  *
- * Show standing picture.
+ * Show character sprite.
  *
- * [character name] string
- *   The name of the character set in the standing picture definition file.
- * [expression] string
- *   Expression of character set in standing picture definition file.
- *   If unspecified, the expression of the character numbered 1 will be used.
- * [position] left | center | right
- *   Set X coordinate of standing picture according to position parameter.
- *   If unspecified, set to center position.
- * [distance] near | middle | far
- *   Set the magnification and Y coordinate of the standing picture to values
- *   ​​according to the distance parameter.
- *   If unspecified, set to middle distance.
- * [x] x:%d
- *   Add specified value to X coordinate of standing picture.
- * [y] y:%d
- *   Add specified number to Y coordinate of standing picture.
- * [slide-x] slide-x:%d
- *   Subtract the specified value from the X coordinate at the start of standing
- *   picture display.
- * [slide-y] slide-y:%d
- *   Subtract  the specified value from the Y coordinate at the start of standing
- *   picture display.
- * [duration] %dF
- *   Specify the display time in frames.
- *   If unspecified, it will be displayed instantly.
- * [wait] wait | no-wait
- *   Wait until display is complete.
- *   If unspecified, set to no wait.
- *   If duration is unspecified, it should be ignored.
  *
- * Call example
- * ------------
+ *     <character name> string
+ *
+ * The name of the character set in the character sprite definition file.
+ *
+ *
+ *     <expression> string
+ *
+ * Expression of character set in character sprite definition file.
+ * If unspecified, the expression of the character numbered 1 will be used.
+ *
+ *
+ *     <position> left | center | right
+ *
+ * Set X coordinate of character sprite according to position parameter.
+ * If unspecified, set to center position.
+ *
+ *
+ *     <distance> near | middle | far
+ *
+ * Set the magnification and Y coordinate of the character sprite to values
+ * ​​according to the distance parameter.
+ * If unspecified, set to middle distance.
+ *
+ *
+ *     <x> x:%d
+ *
+ * Add specified value to X coordinate of character sprite.
+ *
+ *
+ *     <y> y:%d
+ *
+ * Add specified number to Y coordinate of character sprite.
+ *
+ *
+ *     <slide-x> slide-x:%d
+ *
+ * Subtract the specified value from the X coordinate at the start of character
+ * sprite display.
+ *
+ *
+ *     <slide-y> slide-y:%d
+ *
+ * Subtract the specified value from the Y coordinate at the start of character
+ * sprite display.
+ *
+ *
+ *     <duration> %dF
+ *
+ * Specify the display time in frames.
+ * If unspecified, it will be displayed instantly.
+ *
+ *
+ *     <wait> wait | no-wait
+ *
+ * Wait until display is complete.
+ * If unspecified, set to no wait.
+ * If duration is unspecified, it should be ignored.
+ *
+ *
+ * Example
  *
  *     SHOW_TACHIE characterA near
  *
@@ -118,33 +149,47 @@
  *
  *
  * CHANGE_TACHIE
- * =============
+ * -------------
  *
- *     CHANGE_TACHIE [character name before change] [character name after change]
- *     [expression] [duration] [wait]
+ *     CHANGE_TACHIE <character name before change> <character name after change>
+ *                   <expression> <duration> <wait>
  *
- * Change the standing picture.
+ * Change the character sprite.
  * Mainly used to switch between facial expression differences and costume
  * differences.
  *
- * [character name before change] string
- *   The name of the character set in the standing picture definition file.
- * [character name after change] string
- *   The name of the character set in the standing picture definition file.
- *   Use the same expression set as the current character if not specified.
- * [expression] string
- *   Expression of character set in standing picture definition file
- *   If unspecified, set to expression numbered in 1.
- * [duration] n%d
- *   Specify the display time in frames.
- *   If unspecified, it will be displayed instantly.
- * [wait] wait | no-wait
- *   Wait until display is complete.
- *   If unspecified, set to no wait.
- *   If duration is unspecified, it should be ignored.
  *
- * Call example
- * ------------
+ *     <character name before change> string
+ *
+ * The name of the character set in the character sprite definition file.
+ *
+ *
+ *     <character name after change> string
+ *
+ * The name of the character set in the character sprite definition file.
+ * Use the same expression set as the current character if not specified.
+ *
+ *
+ *     <expression> string
+ *
+ * Expression of character set in character sprite definition file.
+ * If unspecified, set to expression numbered in 1.
+ *
+ *
+ *     <duration> n%d
+ *
+ * Specify the display time in frames.
+ * If unspecified, it will be displayed instantly.
+ *
+ *
+ *     <wait> wait | no-wait
+ *
+ * Wait until display is complete.
+ * If unspecified, set to no wait.
+ * If duration is unspecified, it should be ignored.
+ *
+ *
+ * Example
  *
  *     CHANGE_TACHIE characterA expression2 30F
  *
@@ -157,31 +202,48 @@
  *
  *
  * MOVE_TACHIE
- * ===========
+ * -----------
  *
- *     MOVE_TACHIE [character name] [position] [x] [y] [duration] [wait]
+ *     MOVE_TACHIE <character name> <position> <x> <y> <duration> <wait>
  *
- * Move the standing picture.
+ * Move the character sprite.
  *
- * [character name] String
- *   The name of the character set in the standing picture definition file
- * [position] Left | Middle | Right
- *   Set X coordinate of standing picture according to position
- *   If unspecified, set to center
- * [x] x:%d
- *   Add specified value to X coordinate of standing picture.
- * [y] y:%d
- *   Add specified number to Y coordinate of standing picture.
- * [duration] %dF
- *   Specify the display time in frames.
- *   If unspecified, it will be moved instantly.
- * [wait] wait | no-wait
- *   Wait until display is complete.
- *   If unspecified, set to no wait.
- *   If duration is unspecified, it should be ignored.
  *
- * Call example
- * ------------
+ *     <character name> String
+ *
+ * The name of the character set in the character sprite definition file
+ *
+ *
+ *     <position> Left | Middle | Right
+ *
+ * Set X coordinate of character sprite according to position.
+ * If unspecified, set to center
+ *
+ *
+ *     <x> x:%d
+ *
+ * Add specified value to X coordinate of character sprite.
+ *
+ *
+ *     <y> y:%d
+ *
+ * Add specified number to Y coordinate of character sprite.
+ *
+ *
+ *     <duration> %dF
+ *
+ * Specify the display time in frames.
+ * If unspecified, it will be moved instantly.
+ *
+ *
+ *     <wait> wait | no-wait
+ *
+ * Wait until display is complete.
+ * If unspecified, set to no wait.
+ * If duration is unspecified, it should be ignored.
+ *
+ *
+ * Example
  *
  *     TACHIE_MOVE characterA right x:-15
  *
@@ -190,47 +252,62 @@
  *
  *
  * ERASE_TACHIE
- * ============
- *
- *     ERASE_TACHIE [character name] [slide-x] [slide-y] [duration] [wait]
- *
- * Erase standing picture.
- *
- * [character name] String
- *   The name of the character set in the standing picture definition file
- * [slide-x] slide-x:%d
- *   Subtract the specified value from the X coordinate at the start of standing
- *   picture display.
- * [slide-y] slide-y:%d
- *   Subtract the specified value from the Y coordinate at the start of standing
- *   picture display.
- * [duration] %dF
- *   Specify the display time in frames.
- *   If unspecified, it will be moved instantly.
- * [wait] wait | no-wait
- *   Wait until display is complete.
- *   If unspecified, set to no wait.
- *   If duration is unspecified, it should be ignored.
- *
- * Call example
  * ------------
+ *
+ *     ERASE_TACHIE <character name> <slide-x> <slide-y> <duration> <wait>
+ *
+ * Erase character sprite.
+ *
+ *
+ *     <character name> String
+ *
+ * The name of the character set in the character sprite definition file
+ *
+ *
+ *     <slide-x> slide-x:%d
+ *
+ * Subtract the specified value from the X coordinate at the start of character
+ * sprite display.
+ *
+ *
+ *     <slide-y> slide-y:%d
+ *
+ * Subtract the specified value from the Y coordinate at the start of character
+ * sprite display.
+ *
+ *
+ *     <duration> %dF
+ *
+ * Specify the display time in frames.
+ * If unspecified, it will be moved instantly.
+ *
+ *
+ *     <wait> wait | no-wait
+ *
+ * Wait until display is complete.
+ * If unspecified, set to no wait.
+ * If duration is unspecified, it should be ignored.
+ *
+ *
+ * Example
  *
  *     ERASE_TACHIE characterA 30f
  *
  * Delete characterA for 30 frames.
  *
- * FAQ
- * ***
  *
- * Q. Standing picture is not displayed even though the plug-in command is correct.
+ * Q & A
+ * =====
+ *
+ * Q. character sprite is not displayed even though the plug-in command is correct.
  * A. Even if the plugin is enabled, the plugin command will not be recognized
  *    unless the project is saved. Save the project and try again.
  *
  * Q. I want to change character's expression.
- * A. Use ``CHANGE_TACHIE`` command.
+ * A. Use `CHANGE_TACHIE` command.
  *
  * Q. I want to change the distance of the displayed character.
- * A. Combine ``ERASE_TACHIE`` and CHANGE_TACHIE.
+ * A. Combine `ERASE_TACHIE` and `CHANGE_TACHIE`.
  *
  * Q. Can't specify transparency.
  * A. Unimplemented function. See upcoming implementation plans.
@@ -242,8 +319,8 @@
  * A. Unimplemented function. See upcoming implementation plans.
  *
  *
- * Upcoming implementation plans
- * *****************************
+ * Future plans
+ * ============
  *
  * - Transparency specification when displaying and moving
  *   Transparency can be specified by SHOW_TACHIE / MOVE_TACHIE command.
@@ -255,18 +332,20 @@
  * - Control of display order
  *   Character display order can be explicitly specified.
  *
- * - Supports preloading of images specified by plug-in commands.
+ * - Supports preloading of images specified by plug-in commands
  *   Preload images specified by plug-in commands at map transition.
  *
  * - Set various values by plug-in parameters
- *   The picture number etc. used in the standing picture plug-in can be
+ *   The picture number etc. used in the character sprite plug-in can be
  *   specified by the plug-in parameter.
  *
- * History
- * *******
  *
- * 1.0.0 2018/04/01:
- *   - Published.
+ * Changelog
+ * =========
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
  *
  */
 /*:ja
@@ -275,89 +354,119 @@
  * @help このプラグインはキャラクターの立ち絵を表示できるようにします。
  *
  * 使い方
- * ******
+ * ======
  *
- * 1. 以下形式の名前の立ち絵画像ファイルを Picture フォルダに配置します。
+ *  1. 以下形式の名前の立ち絵画像ファイルを Picture フォルダに配置します。
  *
- *    characterA1.png
- *    characterA2.png
- *    characterA3.png
- *    characterA4.png
- *    characterA5.png
- *    characterB1.png
- *    characterB2.png
- *    :
- *    :
+ *         characterA1.png
+ *         characterA2.png
+ *         characterA3.png
+ *         characterA4.png
+ *         characterA5.png
+ *         characterB1.png
+ *         characterB2.png
+ *         :
+ *         :
  *
- * 2. Data フォルダに Tachie.csv という名前で以下形式の立ち絵定義ファイルを
- *    作成してください。
+ *  2. Data フォルダに Tachie.csv という名前で以下形式の立ち絵定義ファイルを
+ *     作成してください。
  *
- *    characterA, キャラA, 笑い, 怒り, 呆れ, 不満
- *    characterB, キャラB, 笑い, 緊張, 呆れ, 不満
- *    :
- *    :
+ *         characterA, キャラA, 笑い, 怒り, 呆れ, 不満
+ *         characterB, キャラB, 笑い, 緊張, 呆れ, 不満
+ *         :
+ *         :
  *
- *  - 一列目は Picture フォルダに配置した立ち絵画像ファイル名から拡張子と
- *    末尾の数字を取り除いた部分です
- *  - 二列目はキャラクターの名前です
- *    プラグインコマンドから立ち絵画像ファイルを指定するときに、この名前で
- *    指定します
- *  - 三列目以降は、立ち絵画像ファイルの表情の名前です
- *    プラグインコマンドから表情を指定するときに、この名前で指定します
- *    {キャラクター名}2 以降の表情差分に名前をつけてください
- *   （{キャラクター名}1 は表情未指定時に使われます）
+ *   - 一列目は Picture フォルダに配置した立ち絵画像ファイル名から拡張子と
+ *     末尾の数字を取り除いた部分です
+ *   - 二列目はキャラクターの名前です
+ *     プラグインコマンドから立ち絵画像ファイルを指定するときに、この名前で
+ *     指定します
+ *   - 三列目以降は、立ち絵画像ファイルの表情の名前です
+ *     プラグインコマンドから表情を指定するときに、この名前で指定します
+ *     `{キャラクター名}2` 以降の表情差分に名前をつけてください
+ *     （`{キャラクター名}1` は表情未指定時に使われます）
  *
- *    上記例では characterA2.png が キャラA の 笑い、characterA3.png が
- *    キャラA の 怒り という設定になっています
+ *     上記例では characterA2.png が キャラA の 笑い、characterA3.png が
+ *     キャラA の 怒り という設定になっています
  *
- * 3. プラグインコマンドに立ち絵表示コマンドを入力して立ち絵を表示を行います。
- *    プラグインコマンドの詳細は下記のプラグインコマンド一覧を参照してください。
+ *  3. プラグインコマンドに立ち絵表示コマンドを入力して立ち絵を表示を行います。
+ *     プラグインコマンドの詳細は下記のプラグインコマンド一覧を参照してください。
  *
  *
  * プラグインコマンド一覧
- * **********************
+ * ======================
  *
  * 立ち絵表示
- * ==========
+ * ----------
  *
- *     立ち絵表示 [キャラクター名] [表情] [位置] [距離] [横位置調整] [縦位置調整]
- *     [スライド横] [スライド縦] [表示にかける時間] [完了までウェイト]
+ *     立ち絵表示 <キャラクター名> <表情> <位置> <距離> <横位置調整> <縦位置調整>
+ *                <スライド横> <スライド縦> <表示にかける時間> <完了までウェイト>
  *
  * 立ち絵を表示します
  *
- * [キャラクター名] 文字列
- *   立ち絵定義ファイルで設定したキャラクターの名前
- * [表情] 文字列
- *   立ち絵定義ファイルで設定したキャラクターの表情
- *   未指定で1番目の表情
- * [位置] 左|中|右
- *   立ち絵の X 座標を位置に応じた値にする
- *   未指定で中央
- * [距離] 近|中|遠
- *   立ち絵の拡大率と Y 座標を距離に応じた値にする
- *   未指定で中距離
- * [横位置調整] 横位置調整:n|横:n
- *   立ち絵の X 座標に指定した数値を加える
- * [縦位置調整] 縦位置調整:n|縦:n
- *   立ち絵の Y 座標に指定した数値を加える
- * [スライド横] スライド横:n
- *   立ち絵の表示開始時の X 座標から指定した数値を引く
- * [スライド縦] スライド縦:n
- *   立ち絵の表示開始時の Y 座標から指定した数値を引く
- * [表示にかける時間] nフレーム
- *   表示にかける時間をフレーム数で指定する
- * 　未指定で瞬間表示
- * [完了までウェイト] ウェイトあり|ウェイトなし
- *   表示が完了するまでウェイトする
- *   未指定でウェイトなし
- *   瞬間表示の場合は無視される
+ *
+ *     <キャラクター名> 文字列
+ *
+ * 立ち絵定義ファイルで設定したキャラクターの名前
+ *
+ *
+ *     <表情> 文字列
+ *
+ * 立ち絵定義ファイルで設定したキャラクターの表情
+ * 未指定で1番目の表情
+ *
+ *
+ *     <位置> 左|中|右
+ *
+ * 立ち絵の X 座標を位置に応じた値にする
+ * 未指定で中央
+ *
+ *
+ *     <距離> 近|中|遠
+ *
+ * 立ち絵の拡大率と Y 座標を距離に応じた値にする
+ * 未指定で中距離
+ *
+ *
+ *     <横位置調整> 横位置調整:n|横:n
+ *
+ * 立ち絵の X 座標に指定した数値を加える
+ *
+ *
+ *     <縦位置調整> 縦位置調整:n|縦:n
+ *
+ * 立ち絵の Y 座標に指定した数値を加える
+ *
+ *
+ *     <スライド横> スライド横:n
+ *
+ * 立ち絵の表示開始時の X 座標から指定した数値を引く
+ *
+ *
+ *     <スライド縦> スライド縦:n
+ *
+ * 立ち絵の表示開始時の Y 座標から指定した数値を引く
+ *
+ *
+ *     <表示にかける時間> nフレーム
+ *
+ * 表示にかける時間をフレーム数で指定する
+ * 未指定で瞬間表示
+ *
+ *
+ *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *
+ * 表示が完了するまでウェイトする
+ * 未指定でウェイトなし
+ * 瞬間表示の場合は無視される
+ *
  *
  * 呼び出し例
- * ----------
  *
  *     立ち絵表示 キャラA 近
  *
  * キャラAを表情1で画面中央、近距離に瞬間表示
+ *
  *
  *     立ち絵表示 キャラA 表情2 左 横:5 縦:-5 スライド横:20 60フレーム ウェイトあり
  *
@@ -365,33 +474,48 @@
  * 20px左にスライドしながら60フレームかけて表示する
  * 表示が完了するまでウェイトする
  *
- * 立ち絵変更
- * ==========
  *
- *     立ち絵変更 [変更前キャラクター名] [変更後キャラクター名] [表情]
- *     [変更にかける時間] [完了までウェイト]
+ * 立ち絵変更
+ * ----------
+ *
+ *     立ち絵変更 <変更前キャラクター名> <変更後キャラクター名> <表情>
+ *                <変更にかける時間> <完了までウェイト>
  *
  * 立ち絵を変更します
  * 主に、表情差分や衣装差分の切り替えを行うためのコマンドです
  *
- * [変更前キャラクター名] 文字列
- *   立ち絵定義ファイルで設定したキャラクターの名前
- * [変更後キャラクター名] 文字列
- *   立ち絵定義ファイルで設定したキャラクターの名前
- *   未指定で現在と同じキャラクターの表情セットを使う
- * [表情] 文字列
- *   立ち絵定義ファイルで設定したキャラクターの表情
- *   未指定で1番目の表情
- * [表示にかける時間] nフレーム
- *   表示にかける時間をフレーム数で指定する
- * 　未指定で瞬間表示
- * [完了までウェイト] ウェイトあり|ウェイトなし
- *   表示が完了するまでウェイトする
- *   未指定でウェイトなし
- *   瞬間表示の場合は無視される
+ *
+ *     <変更前キャラクター名> 文字列
+ *
+ * 立ち絵定義ファイルで設定したキャラクターの名前
+ *
+ *
+ *     <変更後キャラクター名> 文字列
+ *
+ * 立ち絵定義ファイルで設定したキャラクターの名前
+ * 未指定で現在と同じキャラクターの表情セットを使う
+ *
+ *
+ *     <表情> 文字列
+ *
+ * 立ち絵定義ファイルで設定したキャラクターの表情
+ * 未指定で1番目の表情
+ *
+ *
+ *     <表示にかける時間> nフレーム
+ *
+ * 表示にかける時間をフレーム数で指定する
+ * 未指定で瞬間表示
+ *
+ *
+ *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *
+ * 表示が完了するまでウェイトする
+ * 未指定でウェイトなし
+ * 瞬間表示の場合は無視される
+ *
  *
  * 呼び出し例
- * ----------
  *
  *     立ち絵変更 キャラA 表情2 30フレーム
  *
@@ -404,32 +528,49 @@
  *
  *
  * 立ち絵移動
- * ==========
+ * ----------
  *
- *     立ち絵移動 [キャラクター名] [位置] [横位置調整] [縦位置調整]
- *     [移動にかける時間] [完了までウェイト]
+ *     立ち絵移動 <キャラクター名> <位置> <横位置調整> <縦位置調整>
+ *                <移動にかける時間> <完了までウェイト>
  *
  * 立ち絵を移動します
  *
- * [キャラクター名] 文字列
- *   立ち絵定義ファイルで設定したキャラクターの名前
- * [位置] 左|中|右
- *   立ち絵の X 座標を位置に応じた値にする
- *   未指定で中央
- * [横位置調整] 横位置調整:n|横:n
- *   立ち絵の X 座標に指定した数値を加える
- * [縦位置調整] 縦位置調整:n|縦:n
- *   立ち絵の Y 座標に指定した数値を加える
- * [表示にかける時間] nフレーム
- *   表示にかける時間をフレーム数で指定する
- * 　未指定で瞬間表示
- * [完了までウェイト] ウェイトあり|ウェイトなし
- *   表示が完了するまでウェイトする
- *   未指定でウェイトなし
- *   瞬間表示の場合は無視される
+ *
+ *     <キャラクター名> 文字列
+ *
+ * 立ち絵定義ファイルで設定したキャラクターの名前
+ *
+ *
+ *     <位置> 左|中|右
+ *
+ * 立ち絵の X 座標を位置に応じた値にする
+ * 未指定で中央
+ *
+ *
+ *     <横位置調整> 横位置調整:n|横:n
+ *
+ * 立ち絵の X 座標に指定した数値を加える
+ *
+ *
+ *     <縦位置調整> 縦位置調整:n|縦:n
+ *
+ * 立ち絵の Y 座標に指定した数値を加える
+ *
+ *
+ *     <表示にかける時間> nフレーム
+ *
+ * 表示にかける時間をフレーム数で指定する
+ * 未指定で瞬間表示
+ *
+ *
+ *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *
+ * 表示が完了するまでウェイトする
+ * 未指定でウェイトなし
+ * 瞬間表示の場合は無視される
+ *
  *
  * 呼び出し例
- * ----------
  *
  *     立ち絵移動 キャラA 右 横:-15
  *
@@ -437,37 +578,51 @@
  *
  *
  * 立ち絵消去
- * ==========
+ * ----------
  *
- *     立ち絵消去 [キャラクター名] [スライド横] [スライド縦] [消去にかける時間]
- *     [完了までウェイト]
+ *     立ち絵消去 <キャラクター名> <スライド横> <スライド縦> <消去にかける時間>
+ *                <完了までウェイト>
  *
  * 立ち絵を消去します
  *
- * [キャラクター名] 文字列
- *   立ち絵定義ファイルで設定したキャラクターの名前
- * [スライド横] スライド横:n
- *   立ち絵の表示開始時の X 座標から指定した数値を引く
- * [スライド縦] スライド縦:n
- *   立ち絵の表示開始時の Y 座標から指定した数値を引く
- * [表示にかける時間] nフレーム
- *   表示にかける時間をフレーム数で指定する
- * 　未指定で瞬間表示
- * [完了までウェイト] ウェイトあり|ウェイトなし
- *   表示が完了するまでウェイトする
- *   未指定でウェイトなし
- *   瞬間表示の場合は無視される
+ *
+ *     <キャラクター名> 文字列
+ *
+ * 立ち絵定義ファイルで設定したキャラクターの名前
+ *
+ *
+ *     <スライド横> スライド横:n
+ *
+ * 立ち絵の表示開始時の X 座標から指定した数値を引く
+ *
+ *
+ *     <スライド縦> スライド縦:n
+ *
+ * 立ち絵の表示開始時の Y 座標から指定した数値を引く
+ *
+ *
+ *     <表示にかける時間> nフレーム
+ *
+ * 表示にかける時間をフレーム数で指定する
+ * 未指定で瞬間表示
+ *
+ *
+ *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *
+ * 表示が完了するまでウェイトする
+ * 未指定でウェイトなし
+ * 瞬間表示の場合は無視される
+ *
  *
  * 呼び出し例
- * ----------
  *
  *     立ち絵消去 キャラA 30フレーム
  *
  * キャラAを30フレームかけて消去する
  *
  *
- * FAQ
- * ***
+ * よくある質問
+ * ============
  *
  * Q. プラグインコマンドは間違ってないのに立ち絵が表示されない
  * A. プラグインを有効化しても、プロジェクトを保存しないとプラグインコマンドが
@@ -489,8 +644,8 @@
  * A. 未実装の機能です。今後の実装予定を参照してください。
  *
  *
- * 今後の実装予定
- * **************
+ * 今後の予定
+ * ==========
  *
  * - 表示、移動時の透明度指定
  *   表示、移動コマンドで透明度を指定できるように
@@ -510,14 +665,16 @@
  *
  *
  * 変更履歴
- * ********
+ * ========
  *
- * 1.0.0 2018/04/01:
- *   - 公開
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
  *
  */
 (function () {
-    const pluginName = 'Lunatlazur_Tachie';
+    'use strict';
+
     const _DataManager_createGameObjects = DataManager.createGameObjects;
     DataManager.createGameObjects = function () {
         _DataManager_createGameObjects.call(this);
@@ -685,7 +842,10 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign(Object.assign({}, prev), parsed);
+                return {
+                    ...prev,
+                    ...parsed,
+                };
             }, {
                 expression: '',
                 position: 'center',
@@ -715,7 +875,10 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign(Object.assign({}, prev), parsed);
+                return {
+                    ...prev,
+                    ...parsed,
+                };
             }, {
                 name: '',
                 expression: '',
@@ -753,7 +916,10 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign(Object.assign({}, prev), parsed);
+                return {
+                    ...prev,
+                    ...parsed,
+                };
             }, {
                 position: 'center',
                 offsetX: 0,
@@ -777,7 +943,10 @@
                 if (consumed) {
                     index++;
                 }
-                return Object.assign(Object.assign({}, prev), parsed);
+                return {
+                    ...prev,
+                    ...parsed,
+                };
             }, {
                 slideX: 0,
                 slideY: 0,
@@ -947,9 +1116,16 @@
                 return;
             }
             const { expression, position, offsetX, offsetY, slideX, slideY, distance, duration, wait, } = TachieCommandParser.parseShowCommandParameters(args);
-            const chara = Object.assign(Object.assign({ id: TachieManager.config.pictureNumber(position, distance), name,
-                expression, filename: Tachie_CommandProcessor.filenameWithExpression(charaData, expression) }, TachieManager.config.picturePosition(position, distance)), { scale: TachieManager.config.scaleByDistance[distance], position,
-                distance });
+            const chara = {
+                id: TachieManager.config.pictureNumber(position, distance),
+                name,
+                expression,
+                filename: Tachie_CommandProcessor.filenameWithExpression(charaData, expression),
+                ...TachieManager.config.picturePosition(position, distance),
+                scale: TachieManager.config.scaleByDistance[distance],
+                position,
+                distance,
+            };
             chara.x += offsetX;
             chara.y += offsetY;
             TachieManager.addCharacter(chara);
@@ -1041,7 +1217,7 @@
             const pictureId = chara.id;
             TachieManager.removeCharacter(chara);
             if (duration > 0) {
-                this._movePicture(pictureId, chara.x + slideX, chara.y + slideX, chara.scale, chara.scale, 0, duration);
+                this._movePicture(pictureId, chara.x + slideX, chara.y + slideY, chara.scale, chara.scale, 0, duration);
                 this._setHandlerForPictureMoveCompleted(pictureId, () => {
                     this._erasePicture(pictureId);
                 });
@@ -1112,4 +1288,5 @@
         });
         Game_Interpreter_requestImages.apply(this, arguments);
     };
-})();
+
+}());
