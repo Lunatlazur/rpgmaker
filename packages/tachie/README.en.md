@@ -1,7 +1,8 @@
-# TachiE
-Tachi e plugin for RPG Maker MV
+# Tachie
+Tachi-e, visual novel style character sprite, plugin for RPG Maker MV
 
-<!-- % screenshot here % -->
+![screenshot](./doc/tachie.jpg)\
+©KADOKAWA ©Vibrato ©きまぐれアフター
 
 ---
 
@@ -12,6 +13,8 @@ character.
 
 # Install
 Copy `Lunatlazur_Tachie.js` in `build` forder to `js/plugins` forder in your project.
+
+The character image and background image used in the screenshot are not included in the plugin.
 
 # Usage
 See [usage](USAGE.en.md).
