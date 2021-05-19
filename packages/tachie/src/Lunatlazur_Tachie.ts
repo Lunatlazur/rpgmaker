@@ -7,7 +7,7 @@ interface Game_Picture {
 
 namespace RPGMakerMV {
   export interface SaveContents {
-    tachiECharacters: Tachie.Character[]
+    tachieCharacters: Tachie.Character[]
   }
 }
 
@@ -114,19 +114,19 @@ DataManager.createGameObjects = function() {
 const _DataManager_makeSaveContents = DataManager.makeSaveContents
 DataManager.makeSaveContents = function() {
   const contents = _DataManager_makeSaveContents.call(this)
-  contents.tachiECharacters = TachieManager.characters
+  contents.tachieCharacters = TachieManager.characters
   return contents
 }
 
 const _DataManager_extractSaveContents = DataManager.extractSaveContents
 DataManager.extractSaveContents = function(contents) {
   _DataManager_extractSaveContents.apply(this, arguments)
-  TachieManager.characters = contents.tachiECharacters || []
+  TachieManager.characters = contents.tachieCharacters || []
 }
 
 const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand
 Game_Interpreter.prototype.pluginCommand = function(command, args) {
-  if (TachieManager.isTachiECommand(command)) {
+  if (TachieManager.isTachieCommand(command)) {
     const commandProcessor = new Tachie_CommandProcessor(this)
     if (commandProcessor.processPluginCommand(command, args)) {
       return
@@ -521,7 +521,7 @@ class TachieManager {
     return this._config
   }
 
-  public static isTachiECommand (command: string) {
+  public static isTachieCommand (command: string) {
     switch ((command || '').toUpperCase()) {
     case 'SHOW_TACHIE':
     case '立ち絵表示':
