@@ -1,3 +1,4 @@
+import path from 'path'
 import pluginNodeResolve from "@rollup/plugin-node-resolve"
 import pluginCommonjs from "@rollup/plugin-commonjs"
 import pluginTypescript from "@rollup/plugin-typescript"

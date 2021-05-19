@@ -13,7 +13,7 @@ export function buildHeaderBody(store: Store, locale: Locale) {
   const author = store.packageJson[locale === 'en' ? 'author' : `author:${locale || 'ja'}` ]
   const { changelog, usage } = store.files[locale || 'ja']
   const style = new Style(' *', `/*:${locale === 'en' ? '' : locale}`, ' */')
-  const params = buildPluginParams(store.pluginParams[locale])
+  const params = buildPluginParams(store.pluginParams[locale] || [])
   const structs = buildPluginParamStructs(store.pluginParamStructs[locale] || {})
   const [help, ...rest] = processReadme(store.files[locale].readme).split('\n')
   return [
