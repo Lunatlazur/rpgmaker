@@ -2,82 +2,106 @@
 // Lunatlazur_ConfigurableMessageWindow.js
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
+// This plugin is released under the zlib License.
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.1.0 2019/09/09
+// 1.1.0 2019-09-09
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
- * @plugindesc Configure message window settings.
+ * @plugindesc Configure message window settings
  * @author Taku Aoi
- * @help This plugin makes the message window configurable.
+ * @help This plugin allows you to change the number of message lines,
+ * fonts, etc.
  *
- * History
- * *******
+ * Usage
+ * =====
  *
- * 1.1.0 2019/09/09:
- *   - Added option for applying custom message font to choice.
- * 1.0.0 2018/04/01:
- *   - Published.
+ * This plugin has no plugin command.
+ *
+ *
+ * Changelog
+ * =========
+ *
+ * 1.1.0 2019-09-09
+ * ----------------
+ * - Added option for applying custom message font to choice.
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
+ *
  *
  * @param Number of message rows
  * @desc Number of message rows.
- * @default 4
  * @type number
+ * @default 4
  *
  * @param Custom Message wait
  * @desc Change wait time during character feed.
- * @default 1
  * @type number
+ * @default 1
  *
  * @param Custom message font
  * @desc Additional message fonts.
  * @type string[]
+ * @default ["Calibri","Geneva"]
  *
  * @param Apply custom message font to choice
  * @desc Apply custom message font to choice if true.
- * @default true
  * @type boolean
+ * @default true
  */
 /*:ja
  * @plugindesc メッセージウィンドウカスタムプラグイン
  * @author あおいたく
  * @help このプラグインはメッセージ行数やフォントを変更できるようにします。
  *
- * 変更履歴
- * ********
+ * 使い方
+ * ======
  *
- * 1.1.0 2019/09/09:
- *   - 選択肢に追加のフォント指定を反映するかどうか設定できるように
- * 1.0.0 2018/04/01:
- *   - 公開
+ * このプラグインにプラグインコマンドはありません。
+ *
+ *
+ * 変更履歴
+ * ========
+ *
+ * 1.1.0 2019-09-09
+ * ----------------
+ * - 選択肢に追加のフォント指定を反映するかどうか設定できるように
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
+ *
  *
  * @param メッセージ行数
  * @desc メッセージの行数です。
- * @default 4
  * @type number
+ * @default 4
  *
  * @param メッセージウェイト
  * @desc メッセージの文字送りにかかるウェイトです。
- * @default 1
  * @type number
+ * @default 1
  *
  * @param フォント
  * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
- * @default ["UD デジタル 教科書体 NP-R", "Klee"]
  * @type string[]
+ * @default ["UD デジタル 教科書体 NP-R","Klee"]
  *
  * @param 選択肢に追加のフォント指定を反映
  * @desc 有効にすると選択肢に追加のフォント指定を反映します。
- * @default true
  * @type boolean
+ * @default true
  */
 (function () {
+    'use strict';
+
     const pluginName = 'Lunatlazur_ConfigurableMessageWindow';
     function getValue(params, ...names) {
         let found = null;
@@ -139,4 +163,5 @@
         return params.numberOfMessageRows ||
             _Window_Message_numVisibleRows.call(this);
     };
-})();
+
+}());
