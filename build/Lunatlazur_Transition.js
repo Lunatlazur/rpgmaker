@@ -2,131 +2,178 @@
 // Lunatlazur_Transition.js
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
+// This plugin is released under the zlib License.
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.0 2018-04-01
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Fade-in / fade-out with transition
  * @author Taku Aoi
- * @help This plugin makes it possible to set the transition
- * at fade-in / fade-out.
+ * @help This plugin makes it possible to set the transition at fade-in / fade-out.
+ *
  * It supports fade-in / fade-out and fade time specification on a white screen.
  * You can also use it as a custom fade function without using transitions.
  *
- * Please place the transition image in the img/transitions folder.
+ * Usage
+ * =====
+ *
+ * Transition images need to be placed in the `img/transitions` folder.
+ *
  *
  * Plug-in command list
- * ********************
+ * ====================
  *
  * fadein
- * ======
+ * ------
  *
- *     fadein [color] [transition image name] [duration]
+ *     fadein <color> <transition image name> <duration>
  *
  * Perform fade-in.
  *
- * [color] white | black
- *   Color when fading in.
- *   Specify white to fade in from a white screen, specify black to fade in
- *   from a black screen.
- * [transition image name] string
- *   Image file name in img/transitions folder.
- * [duration] %dF
- *   Specify the time to fade by the number of frames.
+ *
+ *     <color> { white | black }
+ *
+ * Color when fading in.
+ *
+ * Specify white to fade in from a white screen, specify black to fade in
+ * from a black screen.
+ *
+ *
+ *     <transition image name> string
+ *
+ * Image file name in `img/transitions` folder.
+ *
+ *
+ *     <duration> number
+ *
+ * Specify the time to fade by the number of frames.
  *
  *
  * fadeout
- * =======
+ * -------
  *
- *     fadeout [color] [transition image name] [duration]
+ *     fadeout <color> <transition image name> <duration>
  *
  * Perform fade-out.
  *
- * [color] white | black
- *   Color when fading out.
- *   Specify white to fade out from a white screen, specify black to fade out
- *   from a black screen.
- * [transition image name] string
- *   Image file name in img/transitions folder.
- * [duration] %dF
- *   Specify the time to fade by the number of frames.
+ *
+ *     <color> { white | black }
+ *
+ * Color when fading out.
+ *
+ * Specify white to fade out from a white screen, specify black to fade out
+ * from a black screen.
+ *
+ *
+ *     <transition image name> string
+ *
+ * Image file name in `img/transitions` folder.
+ *
+ *
+ *     <duration> number
+ *
+ * Specify the time to fade by the number of frames.
  *
  *
  * History
- * *******
+ * =======
  *
- * 1.0.0 2018/04/01:
- *   - Published.
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
  *
  */
 /*:ja
  * @plugindesc トランジションつきフェードイン／フェードアウトプラグイン
  * @author あおいたく
- * @help このプラグインはフェードイン／フェードアウトの際にトランジションを
- * 設定できるようにします。
- * 白画面でのフェードイン／フェードアウトや、フェード時間の指定に対応しているため、
+ * @help このプラグインはフェードイン／フェードアウトの際にトランジションを設定できる
+ * ようにします。
+ *
+ * 白画面でのフェードイン／フェードアウトや、フェード時間の指定に対応しているため
  * トランジションを使わずにカスタムフェード機能として使うこともできます。
  *
- * トランジション画像は img/transitions フォルダに配置してください。
+ * 使い方
+ * ======
+ *
+ * トランジション画像は `img/transitions` フォルダに配置してください。
+ *
  *
  * プラグインコマンド一覧
- * **********************
+ * ======================
  *
  * フェードイン
- * ============
+ * ------------
  *
- *     フェードイン [色] [トランジション画像名] [フェードにかける時間]
+ *     フェードイン <色> <トランジション画像名> <フェードにかける時間>
  *
  * フェードインを行います。
  *
- * [色] 白|黒
- *   フェードインするときの色
- *   白を指定すると白画面からフェードイン、
- *   黒を指定する黒画面からフェードインします
- * [トランジション画像名] 文字列
- *   img/transitions フォルダ内の画像ファイル名
- * [フェードにかける時間] nフレーム
- *   フェードにかける時間をフレーム数で指定する
+ *
+ *     <色> 白|黒
+ *
+ * フェードインするときの色を指定します。
+ *
+ * 白を指定すると白画面からフェードイン、
+ * 黒を指定する黒画面からフェードインします。
+ *
+ *
+ *     <トランジション画像名> 文字列
+ *
+ * `img/transitions` フォルダ内の画像ファイル名
+ *
+ *
+ *     <フェードにかける時間> nフレーム
+ *
+ * フェードにかける時間をフレーム数で指定します。
  *
  *
  * フェードアウト
- * ==============
+ * --------------
  *
- *     フェードアウト [色] [トランジション画像名] [フェードにかける時間]
+ *     フェードアウト <色> <トランジション画像名> <フェードにかける時間>
  *
  * フェードアウトを行います。
  *
- * [色] 白|黒
- *   フェードアウトするときの色
- *   白を指定すると白画面からフェードアウト、
- *   黒を指定する黒画面からフェードアウトします
- * [トランジション画像名] 文字列
- *   img/transitions フォルダ内の画像ファイル名
- * [フェードにかける時間] nフレーム
- *   フェードにかける時間をフレーム数で指定する
+ *
+ *     <色> 白|黒
+ *
+ * フェードアウトするときの色を指定します。
+ *
+ * 白を指定すると白画面からフェードアウト、
+ * 黒を指定する黒画面からフェードアウトします。
+ *
+ *
+ *     <トランジション画像名> 文字列
+ *
+ * `img/transitions` フォルダ内の画像ファイル名
+ *
+ *
+ *     <フェードにかける時間> nフレーム
+ *
+ * フェードにかける時間をフレーム数で指定します。
  *
  *
  * 変更履歴
- * ********
+ * ========
  *
- * 1.0.0 2018/04/01:
- *   - 公開
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
  *
  */
-var PIXI;
-(function (PIXI) {
-    let filters;
-    (function (filters) {
-        class ColorThresholdFilter extends PIXI.Filter {
-            constructor() {
-                const fragmentSrc = `varying vec2 vTextureCoord;
+(function () {
+    'use strict';
+
+    class ColorThresholdFilter extends PIXI.Filter {
+        constructor() {
+            const fragmentSrc = /* glsl */ `
+varying vec2 vTextureCoord;
 uniform sampler2D uSampler;
 uniform float threshold;
 uniform bool white;
@@ -148,19 +195,16 @@ void main(void) {
         }
     }
 }`;
-                const uniforms = {
-                    threshold: { type: '1f', value: 0.5 },
-                    white: { type: 'b', value: false },
-                    fadingIn: { type: 'b', value: false },
-                };
-                super(null, fragmentSrc, uniforms);
-            }
+            const uniforms = {
+                threshold: { type: '1f', value: 0.5 },
+                white: { type: 'b', value: false },
+                fadingIn: { type: 'b', value: false },
+            };
+            super(null, fragmentSrc, uniforms);
         }
-        filters.ColorThresholdFilter = ColorThresholdFilter;
-    })(filters = PIXI.filters || (PIXI.filters = {}));
-})(PIXI || (PIXI = {}));
-(function () {
-    const pluginName = 'Lunatlazur_Transition';
+    }
+
+    PIXI.filters.ColorThresholdFilter = ColorThresholdFilter;
     const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         _Game_Interpreter_pluginCommand.call(this, command, args);
@@ -169,10 +213,14 @@ void main(void) {
             case 'フェードイン':
             case 'fadeout':
             case 'フェードアウト':
-                _Game_Interpreter_processTransitionCommand.call(this, command === 'fadein' || command === 'フェードイン', args);
+                const isFadingIn = command === 'fadein' || command === 'フェードイン';
+                _Game_Interpreter_processTransitionCommand.call(this, isFadingIn, args);
                 break;
         }
     };
+    function startTransition(isFadingIn, isFilledWhite, name, duration) {
+        TransitionManager.setTransition(isFadingIn, isFilledWhite, name, duration);
+    }
     function _Game_Interpreter_processTransitionCommand(isFadingIn, args) {
         const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args);
         const spriteset = SceneManager._scene._spriteset;
@@ -188,7 +236,7 @@ void main(void) {
             if (isFadingIn) {
                 $gameScreen._brightness = 255;
             }
-            $gameScreen.startTransition(isFadingIn, isFilledWhite, name, duration);
+            startTransition(isFadingIn, isFilledWhite, name, duration);
             this.wait(duration);
         }
         else {
@@ -253,9 +301,6 @@ void main(void) {
             return TransitionManager.fadeSpeed;
         }
         return _Game_Interpreter_defaultFadeSpeed.call(this);
-    };
-    Game_Screen.prototype.startTransition = function (isFadingIn, isFilledWhite, name, duration) {
-        TransitionManager.setTransition(isFadingIn, isFilledWhite, name, duration);
     };
     const _Spriteset_Base_createUpperLayer = Spriteset_Base.prototype.createUpperLayer;
     Spriteset_Base.prototype.createUpperLayer = function () {
@@ -377,7 +422,7 @@ void main(void) {
                 command === 'フェードイン' ||
                 command === 'fadeout' ||
                 command === 'フェードアウト') {
-                const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args);
+                const { name } = _Game_Interpreter_parseTransitionParameters.call(this, args);
                 if (name) {
                     ImageManager.requestBitmap('img/transitions/', name, 0, true);
                 }
@@ -385,4 +430,5 @@ void main(void) {
         });
         Game_Interpreter_requestImages.apply(this, arguments);
     };
-})();
+
+}());

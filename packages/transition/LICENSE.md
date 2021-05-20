@@ -1,4 +1,4 @@
-[zlib License](https://www.zlib.net/zlib_license.html)
+[zlib License](https://zlib.net/zlib_license.html)
 
 Copyright (C) 2018 Taku Aoi
 

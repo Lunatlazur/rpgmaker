@@ -1843,8 +1843,8 @@ rollup@^2.47.0:
     fsevents "~2.3.1"
 
 rpgmakermv_typescript_dts@Lunatlazur/rpgmakermv_typescript_dts:
-  version "2.0.0"
-  resolved "https://codeload.github.com/Lunatlazur/rpgmakermv_typescript_dts/tar.gz/73813edfbb60cf09b427faeed097f9081650fc9c"
+  version "2.0.1"
+  resolved "https://codeload.github.com/Lunatlazur/rpgmakermv_typescript_dts/tar.gz/135490f2d920ecd6c5d6a84fb7c4764d3d01bf39"
   dependencies:
     "@types/pixi.js" "4.5.4"
     pixi-tilemap "^1.2.3"
