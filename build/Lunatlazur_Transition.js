@@ -218,9 +218,6 @@ void main(void) {
                 break;
         }
     };
-    function startTransition(isFadingIn, isFilledWhite, name, duration) {
-        TransitionManager.setTransition(isFadingIn, isFilledWhite, name, duration);
-    }
     function _Game_Interpreter_processTransitionCommand(isFadingIn, args) {
         const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args);
         const spriteset = SceneManager._scene._spriteset;
@@ -236,7 +233,7 @@ void main(void) {
             if (isFadingIn) {
                 $gameScreen._brightness = 255;
             }
-            startTransition(isFadingIn, isFilledWhite, name, duration);
+            $gameScreen.startTransition(isFadingIn, isFilledWhite, name, duration);
             this.wait(duration);
         }
         else {
@@ -301,6 +298,9 @@ void main(void) {
             return TransitionManager.fadeSpeed;
         }
         return _Game_Interpreter_defaultFadeSpeed.call(this);
+    };
+    Game_Screen.prototype.startTransition = function (isFadingIn, isFilledWhite, name, duration) {
+        TransitionManager.setTransition(isFadingIn, isFilledWhite, name, duration);
     };
     const _Spriteset_Base_createUpperLayer = Spriteset_Base.prototype.createUpperLayer;
     Spriteset_Base.prototype.createUpperLayer = function () {

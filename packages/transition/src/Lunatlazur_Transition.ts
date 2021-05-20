@@ -18,10 +18,6 @@ Game_Interpreter.prototype.pluginCommand = function(command, args) {
   }
 }
 
-function startTransition (isFadingIn: boolean, isFilledWhite: boolean, name: string, duration: number) {
-  TransitionManager.setTransition(isFadingIn, isFilledWhite, name, duration)
-}
-
 function _Game_Interpreter_processTransitionCommand(this: Game_Interpreter, isFadingIn: boolean, args: string[]) {
   const { isFilledWhite, name, duration } = _Game_Interpreter_parseTransitionParameters.call(this, args)
   const spriteset = SceneManager._scene._spriteset
@@ -36,7 +32,7 @@ function _Game_Interpreter_processTransitionCommand(this: Game_Interpreter, isFa
     if (isFadingIn) {
       $gameScreen._brightness = 255
     }
-    startTransition(isFadingIn, isFilledWhite, name, duration)
+    $gameScreen.startTransition(isFadingIn, isFilledWhite, name, duration)
     this.wait(duration)
   } else {
     _Game_Interpreter_fadeEx.call(this, isFadingIn, isFilledWhite, duration)
@@ -104,6 +100,10 @@ Game_Interpreter.prototype.fadeSpeed = function() {
     return TransitionManager.fadeSpeed
   }
   return _Game_Interpreter_defaultFadeSpeed.call(this)
+}
+
+Game_Screen.prototype.startTransition = function (isFadingIn: boolean, isFilledWhite: boolean, name: string, duration: number) {
+  TransitionManager.setTransition(isFadingIn, isFilledWhite, name, duration)
 }
 
 const _Spriteset_Base_createUpperLayer = Spriteset_Base.prototype.createUpperLayer
