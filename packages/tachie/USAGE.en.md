@@ -64,13 +64,13 @@ Expression of character set in character sprite definition file.
 If unspecified, the expression of the character numbered 1 will be used.
 
 
-    <position> left | center | right
+    <position> { left | center | right }
 
 Set X coordinate of character sprite according to position parameter.  
 If unspecified, set to center position.
 
 
-    <distance> near | middle | far
+    <distance> { near | middle | far }
 
 Set the magnification and Y coordinate of the character sprite to values
 ​​according to the distance parameter.  
@@ -105,7 +105,7 @@ Specify the display time in frames.
 If unspecified, it will be displayed instantly.
 
 
-    <wait> wait | no-wait
+    <wait> { wait | no-wait }
 
 Wait until display is complete.  
 If unspecified, set to no wait.  
@@ -162,7 +162,7 @@ Specify the display time in frames.
 If unspecified, it will be displayed instantly.
 
 
-    <wait> wait | no-wait
+    <wait> { wait | no-wait }
 
 Wait until display is complete.  
 If unspecified, set to no wait.  
@@ -194,7 +194,7 @@ Move the character sprite.
 The name of the character set in the character sprite definition file
 
 
-    <position> Left | Middle | Right
+    <position> { left | middle | right }
 
 Set X coordinate of character sprite according to position.  
 If unspecified, set to center
@@ -216,7 +216,7 @@ Specify the display time in frames.
 If unspecified, it will be moved instantly.
 
 
-    <wait> wait | no-wait
+    <wait> { wait | no-wait }
 
 Wait until display is complete.  
 If unspecified, set to no wait.  
@@ -262,7 +262,7 @@ Specify the display time in frames.
 If unspecified, it will be moved instantly.
 
 
-    <wait> wait | no-wait
+    <wait> { wait | no-wait }
 
 Wait until display is complete.  
 If unspecified, set to no wait.  

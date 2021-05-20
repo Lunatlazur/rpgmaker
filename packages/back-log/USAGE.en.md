@@ -1,4 +1,4 @@
-USAGE
+Usage
 =====
 
 The backlog feature is enabled by default when you install the plugin.  

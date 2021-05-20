@@ -84,13 +84,13 @@
  * If unspecified, the expression of the character numbered 1 will be used.
  *
  *
- *     <position> left | center | right
+ *     <position> { left | center | right }
  *
  * Set X coordinate of character sprite according to position parameter.
  * If unspecified, set to center position.
  *
  *
- *     <distance> near | middle | far
+ *     <distance> { near | middle | far }
  *
  * Set the magnification and Y coordinate of the character sprite to values
  * ​​according to the distance parameter.
@@ -125,7 +125,7 @@
  * If unspecified, it will be displayed instantly.
  *
  *
- *     <wait> wait | no-wait
+ *     <wait> { wait | no-wait }
  *
  * Wait until display is complete.
  * If unspecified, set to no wait.
@@ -182,7 +182,7 @@
  * If unspecified, it will be displayed instantly.
  *
  *
- *     <wait> wait | no-wait
+ *     <wait> { wait | no-wait }
  *
  * Wait until display is complete.
  * If unspecified, set to no wait.
@@ -214,7 +214,7 @@
  * The name of the character set in the character sprite definition file
  *
  *
- *     <position> Left | Middle | Right
+ *     <position> { left | middle | right }
  *
  * Set X coordinate of character sprite according to position.
  * If unspecified, set to center
@@ -236,7 +236,7 @@
  * If unspecified, it will be moved instantly.
  *
  *
- *     <wait> wait | no-wait
+ *     <wait> { wait | no-wait }
  *
  * Wait until display is complete.
  * If unspecified, set to no wait.
@@ -282,7 +282,7 @@
  * If unspecified, it will be moved instantly.
  *
  *
- *     <wait> wait | no-wait
+ *     <wait> { wait | no-wait }
  *
  * Wait until display is complete.
  * If unspecified, set to no wait.
@@ -387,7 +387,7 @@
  *     （`{キャラクター名}1` は表情未指定時に使われます）
  *
  *     上記例では characterA2.png が キャラA の 笑い、characterA3.png が
- *     キャラA の 怒り という設定になっています
+ *     キャラA の 怒り という設定になっています。
  *
  *  3. プラグインコマンドに立ち絵表示コマンドを入力して立ち絵を表示を行います。
  *     プラグインコマンドの詳細は下記のプラグインコマンド一覧を参照してください。
@@ -402,7 +402,7 @@
  *     立ち絵表示 <キャラクター名> <表情> <位置> <距離> <横位置調整> <縦位置調整>
  *                <スライド横> <スライド縦> <表示にかける時間> <完了までウェイト>
  *
- * 立ち絵を表示します
+ * 立ち絵を表示します。
  *
  *
  *     <キャラクター名> 文字列
@@ -416,24 +416,24 @@
  * 未指定で1番目の表情
  *
  *
- *     <位置> 左|中|右
+ *     <位置> { 左 | 中 | 右 }
  *
  * 立ち絵の X 座標を位置に応じた値にする
  * 未指定で中央
  *
  *
- *     <距離> 近|中|遠
+ *     <距離> { 近 | 中 | 遠 }
  *
  * 立ち絵の拡大率と Y 座標を距離に応じた値にする
  * 未指定で中距離
  *
  *
- *     <横位置調整> 横位置調整:n|横:n
+ *     <横位置調整> { 横位置調整:n | 横:n }
  *
  * 立ち絵の X 座標に指定した数値を加える
  *
  *
- *     <縦位置調整> 縦位置調整:n|縦:n
+ *     <縦位置調整> { 縦位置調整:n | 縦:n }
  *
  * 立ち絵の Y 座標に指定した数値を加える
  *
@@ -454,7 +454,7 @@
  * 未指定で瞬間表示
  *
  *
- *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *     <完了までウェイト> { ウェイトあり | ウェイトなし }
  *
  * 表示が完了するまでウェイトする
  * 未指定でウェイトなし
@@ -481,8 +481,8 @@
  *     立ち絵変更 <変更前キャラクター名> <変更後キャラクター名> <表情>
  *                <変更にかける時間> <完了までウェイト>
  *
- * 立ち絵を変更します
- * 主に、表情差分や衣装差分の切り替えを行うためのコマンドです
+ * 立ち絵を変更します。
+ * 主に、表情差分や衣装差分の切り替えを行うためのコマンドです。
  *
  *
  *     <変更前キャラクター名> 文字列
@@ -508,7 +508,7 @@
  * 未指定で瞬間表示
  *
  *
- *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *     <完了までウェイト> { ウェイトあり | ウェイトなし }
  *
  * 表示が完了するまでウェイトする
  * 未指定でウェイトなし
@@ -541,18 +541,18 @@
  * 立ち絵定義ファイルで設定したキャラクターの名前
  *
  *
- *     <位置> 左|中|右
+ *     <位置> { 左 | 中 | 右 }
  *
  * 立ち絵の X 座標を位置に応じた値にする
  * 未指定で中央
  *
  *
- *     <横位置調整> 横位置調整:n|横:n
+ *     <横位置調整> { 横位置調整:n | 横:n }
  *
  * 立ち絵の X 座標に指定した数値を加える
  *
  *
- *     <縦位置調整> 縦位置調整:n|縦:n
+ *     <縦位置調整> { 縦位置調整:n | 縦:n }
  *
  * 立ち絵の Y 座標に指定した数値を加える
  *
@@ -563,7 +563,7 @@
  * 未指定で瞬間表示
  *
  *
- *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *     <完了までウェイト> { ウェイトあり | ウェイトなし }
  *
  * 表示が完了するまでウェイトする
  * 未指定でウェイトなし
@@ -607,7 +607,7 @@
  * 未指定で瞬間表示
  *
  *
- *     <完了までウェイト> ウェイトあり|ウェイトなし
+ *     <完了までウェイト> { ウェイトあり | ウェイトなし }
  *
  * 表示が完了するまでウェイトする
  * 未指定でウェイトなし

@@ -17,7 +17,7 @@
  * @author Taku Aoi
  * @help This plugin shows message back log.
  *
- * USAGE
+ * Usage
  * =====
  *
  * The backlog feature is enabled by default when you install the plugin.
