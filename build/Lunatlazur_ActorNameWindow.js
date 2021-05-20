@@ -3,14 +3,14 @@
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
 // This plugin is released under the zlib License.
-// http://zlib.net/zlib_license.html
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.1.0 2020/01/22
+// 1.1.0 2020-01-22
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Show actor name window
@@ -22,62 +22,88 @@
  *
  * The same font as the message window is used for this window.
  *
- * History
- * *******
+ * Usage
+ * =====
  *
- * 1.1.0 2020/01/22:
- *   - Added option to specify horizontal position of name window.
- *   - Fixed the name not being displayed correctly on the backlog
- *     when using the backlog plugin.
- * 1.0.1 2019/09/09:
- *   - Fixed that the name window was not displayed correctly when
- *     the display position of the message window was not at the bottom.
- * 1.0.0 2018/04/01:
- *   - Published.
+ * This plugin has no plugin command.
+ *
+ *
+ * Changelog
+ * =========
+ *
+ * 1.1.0 2020-01-22
+ * ----------------
+ * - Added option to specify horizontal position of name window.
+ * - Fixed the name not being displayed correctly on the backlog
+ *   when using the backlog plugin.
+ *
+ * 1.0.1 2019-09-09
+ * ----------------
+ * - Fixed that the name window was not displayed correctly when
+ *   the display position of the message window was not at the bottom.
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
+ *
  *
  * @param textColor
  * @desc Text color index for actor name window.
- * @default 1
  * @type number
+ * @default 1
  *
  * @param horizontalPosition
  * @desc Horizontal position for actor name window.
- * @default 0
  * @type number
+ * @default 0
  */
 /*:ja
- * @plugindesc 名前ウィンドウ表示プラグイン
+ * @plugindesc 会話キャラクター名表示ウィンドウプラグイン
  * @author あおいたく
  * @help このプラグインは名前ウィンドウを表示できるようにします。
  *
- * \N<キャラクター名> 形式でメッセージ内にキャラクターの名前を記述することで
+ * `\N<キャラクター名>` 形式でメッセージ内にキャラクターの名前を記述することで
  * メッセージウィンドウの上部に名前ウィンドウを表示するようになります。
  *
  * 名前ウィンドウのフォントはメッセージウィンドウのものが使われます。
  *
- * 変更履歴
- * ********
+ * 使い方
+ * ======
  *
- * 1.1.0 2020/01/22:
- *   - 名前ウインドウの水平位置を指定するオプションを追加
- *   - バックログプラグイン利用時、バックログ上で名前が正しく表示されないのを修正
- * 1.0.1 2019/09/09:
- *   - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示
- *     されないのを修正
- * 1.0.0 2018/04/01:
- *   - 公開
+ * このプラグインにプラグインコマンドはありません。
+ *
+ *
+ * 変更履歴
+ * ========
+ *
+ * 1.1.0 2020-01-22
+ * ----------------
+ * - 名前ウインドウの水平位置を指定するオプションを追加
+ * - バックログプラグイン利用時、バックログ上で名前が正しく表示されないのを修正
+ *
+ * 1.0.1 2019-09-09
+ * ----------------
+ * - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示
+ *   されないのを修正
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
+ *
  *
  * @param テキストカラー
  * @desc 名前を表示するテキストの色番号を指定します。
- * @default 1
  * @type number
+ * @default 1
  *
  * @param 水平位置
  * @desc 名前を表示するウインドウの水平位置を画面左端からのpx単位で指定します。
- * @default 0
  * @type number
+ * @default 0
  */
 (function () {
+    'use strict';
+
     const pluginName = 'Lunatlazur_ActorNameWindow';
     function getValue(params, ...names) {
         let found = null;
@@ -214,4 +240,5 @@
             this._nameWindow.updateBackground();
         }
     };
-})();
+
+}());

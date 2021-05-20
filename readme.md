@@ -2,7 +2,7 @@
 
 |                               |     |
 | ----------------------------- | --- |
-| [ActorNameWindow]             |     |
+| [ActorNameWindow]             | 名前ウィンドウを表示できるようにします。 |
 | [BackLog]                     | バックログを表示できるようにします。 |
 | [ConfigurableMessageClosing]  |     |
 | [ConfigurableMessageWindow]   |     |
