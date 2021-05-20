@@ -2,27 +2,75 @@
 // Lunatlazur_EventCommandSkip.js
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
+// This plugin is released under the zlib License.
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.0 2018-04-01
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
+/*:
+ * @plugindesc Skip event command
+ * @author Taku Aoi
+ * @help This plugin allows you to skip event commands by pressing
+ * the Ctrl key.
+ *
+ * Usage
+ * =====
+ *
+ * Plug-in command list
+ * ====================
+ *
+ * START_SKIP
+ * ----------
+ *
+ *     START_SKIP
+ *
+ * Start skipping.
+ *
+ *
+ * CANCEL_SKIP
+ * -----------
+ *
+ *     CANCEL_SKIP
+ *
+ * Cancel the skip.
+ *
+ *
+ * TOGGLE_SKIP
+ * -----------
+ *
+ *     TOGGLE_SKIP
+ *
+ * If it is not skipping, it will start skipping.
+ * If it is skipping, it will be interrupted.
+ *
+ *
+ * Changelog
+ * =========
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
+ *
+ */
 /*:ja
  * @plugindesc イベントコマンドスキッププラグイン
  * @author あおいたく
  * @help このプラグインはCtrlキーを押すことでイベントコマンドをスキップ
  * できるようにします。
  *
+ * 使い方
+ * ======
+ *
  * プラグインコマンド一覧
- * **********************
+ * ======================
  *
  * スキップの開始
- * ==============
+ * --------------
  *
  *     スキップの開始
  *
@@ -30,7 +78,7 @@
  *
  *
  * スキップの中断
- * ==============
+ * --------------
  *
  *     スキップの中断
  *
@@ -38,22 +86,24 @@
  *
  *
  * スキップの切替
- * ==============
+ * --------------
  *
- *    スキップの切替
+ *     スキップの切替
  *
  * スキップ中でないならスキップを開始し、スキップ中ならスキップを中断します。
  *
  *
  * 変更履歴
- * ********
+ * ========
  *
- * 1.0.0 2018/04/01:
- *   - 公開
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
  *
  */
 (function () {
-    const pluginName = 'Lunatlazur_EventCommandSkip';
+    'use strict';
+
     class SkipManager {
         static isSkipping() {
             return this._skipping;
@@ -138,4 +188,5 @@
     Game_Interpreter.prototype.wait = function (duration) {
         _Game_Interpreter_wait.call(this, isSkipping() ? 2 : duration);
     };
-})();
+
+}());
