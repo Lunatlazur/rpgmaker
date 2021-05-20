@@ -4,9 +4,9 @@
 | ----------------------------- | --- |
 | [ActorNameWindow]             | 名前ウィンドウを表示できるようにします。 |
 | [BackLog]                     | バックログを表示できるようにします。 |
-| [ConfigurableMessageClosing]  |     |
-| [ConfigurableMessageWindow]   |     |
-| [EventCommandSkip]            |     |
+| [ConfigurableMessageClosing]  | メッセージの表示後に他のイベントコマンドが実行されてもメッセージウィンドウを自動で閉じずに、表示したままにできるようにします。 |
+| [ConfigurableMessageWindow]   | メッセージ行数やフォントを変更できるようにします。 |
+| [EventCommandSkip]            | イベントコマンドをスキップできるようにします。 |
 | [MessageAttachmentButton]     |     |
 | [PauseSignAfterText]          |     |
 | [ResumableMessagePosition]    |     |
