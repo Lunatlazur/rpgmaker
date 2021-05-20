@@ -2,51 +2,98 @@
 // Lunatlazur_ConfigurableMessageClosing.js
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
+// This plugin is released under the zlib License.
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.0 2018-04-01
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Keep message window visible
  * @author Taku Aoi
  * @help This plugin keeps message window visible while close command called.
  *
+ * This is convenient when you want to display or move a picture while
+ * the message window is displayed.
  *
- * History
- * *******
+ * Usage
+ * =====
  *
- * 1.0.0 2018/04/01:
- *   - Published.
+ * Plug-in command list
+ * ====================
+ *
+ * KEEP_MESSAGE_VISIBLE
+ * --------------------
+ *
+ *     KEEP_MESSAGE_VISIBLE <keep or not>
+ *
+ * Toggles whether the message window is closed automatically.
+ *
+ *
+ *     <keep or not> { ON | OFF }
+ *
+ * Prevents the message window from closing automatically when turned on.
+ * If no message exists when turned off, the message window will be closed
+ * immediately.
+ *
+ *
+ * Example
+ *
+ *     KEEP_MESSAGE_VISIBLE ON
+ *
+ * Prevents the message window from closing automatically.
+ *
+ *
+ * CLOSE_MESSAGE
+ * -------------
+ *
+ *     CLOSE_MESSAGE
+ *
+ * Close the message window.
+ *
+ *
+ * Changelog
+ * =========
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
  *
  */
 /*:ja
- * @plugindesc メッセージ表示継続プラグイン
+ * @plugindesc メッセージウィンドウ開閉制御プラグイン
  * @author あおいたく
  * @help このプラグインはメッセージの表示後に他のイベントコマンドが実行されても
  * メッセージウィンドウを自動で閉じずに、表示したままにできるようにします。
- * メッセージウィンドウを表示したままピクチャを表示・移動するときなどに便利です。
+ *
+ * メッセージウィンドウを表示したままピクチャを表示・移動したいときなどに便利です。
+ *
+ * 使い方
+ * ======
  *
  * プラグインコマンド一覧
- * **********************
- *
- * メッセージの表示を継続
  * ======================
  *
- *     メッセージの表示を継続 [ON|OFF]
- *     KEEP_MESSAGE_VISIBLE [ON|OFF]
+ * メッセージの表示を継続
+ * ----------------------
+ *
+ *     メッセージの表示を継続 <継続有無>
+ *
+ * メッセージウインドウを自動で閉じるかどうかを切り替えます。
+ *
+ *
+ *     <継続有無> { ON | OFF }
  *
  * ON でメッセージウィンドウを自動で閉じないようにします。
  * OFF にしたときにメッセージが存在しなければ、メッセージウィンドウは即座に閉じ
  * られます。
  *
+ *
  * 呼び出し例
- * ----------
  *
  *     メッセージの表示を継続 ON
  *
@@ -54,23 +101,24 @@
  *
  *
  * メッセージを閉じる
- * ==================
+ * ------------------
  *
  *     メッセージを閉じる
- *     CLOSE_MESSAGE
  *
  * メッセージウィンドウを閉じます。
  *
  *
  * 変更履歴
- * ********
+ * ========
  *
- * 1.0.0 2018/04/01:
- *   - 公開
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
  *
  */
 (function () {
-    const pluginName = 'Lunatlazur_ConfigurableMessageClosing';
+    'use strict';
+
     const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         _Game_Interpreter_pluginCommand.apply(this, arguments);
@@ -115,8 +163,6 @@
                 case 'メッセージを閉じる':
                     this.setForceClose();
                     break;
-                default:
-                    break;
             }
         }
         static enableAutoClose() {
@@ -140,4 +186,5 @@
     }
     WindowAutoCloseManager._autoClose = true;
     WindowAutoCloseManager._forceClose = false;
-})();
+
+}());
