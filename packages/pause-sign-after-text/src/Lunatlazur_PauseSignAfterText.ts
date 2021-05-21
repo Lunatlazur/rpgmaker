@@ -1,80 +1,40 @@
-//=============================================================================
-// Lunatlazur_PauseSignAfterText.js
-// ----------------------------------------------------------------------------
-// Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
-// ----------------------------------------------------------------------------
-// Version
-// 1.0.0 2018/04/01
-// ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
-//=============================================================================
-/*:
- * @plugindesc Change message pause sign position
- * @author Taku Aoi
- * @help This plugin places message pause sign at the end of message.
- */
-/*:ja
- * @plugindesc メッセージ送り記号位置変更プラグイン
- * @author あおいたく
- * @help このプラグインはメッセージ送り記号をメッセージの末尾に表示するようにします。
- * 
- * 変更履歴
- * ********
- * 
- * 1.0.0 2018/04/01:
- *   - 公開
- * 
- */
+const pluginName = 'Lunatlazur_PauseSignAfterText'
 
-interface Window_Message {
-  _endOfTextPosition: { x: number, y: number }
-  _pauseSignOffset: { x: number, y: number }
-  pauseSignOffset () : { x: number, y: number }
+const _Window_Message_initMembers = Window_Message.prototype.initMembers
+Window_Message.prototype.initMembers = function () {
+  this._endOfTextPosition = { x: 0, y: 0 }
+  _Window_Message_initMembers.call(this)
 }
 
-(function () {
-  const pluginName = 'Lunatlazur_PauseSignAfterText'
+function _Window_Message_pauseSignOffsetX (this: Window_Message) {
+  return this.contents.fontSize
+}
 
-  const _Window_Message_initMembers = Window_Message.prototype.initMembers
-  Window_Message.prototype.initMembers = function () {
-    this._endOfTextPosition = { x: 0, y: 0 }
-    _Window_Message_initMembers.call(this)
-  }
+function _Window_Message_pauseSignOffsetY (this: Window_Message) {
+  return (this._padding + this.lineHeight()) / 4
+}
 
-  Window_Message.prototype.pauseSignOffset = function () {
-    if (!this._pauseSignOffset) {
-      this._pauseSignOffset = {
-        x: this.contents.fontSize,
-        y: (this._padding + this.lineHeight()) / 4,
-      }
-    }
-    return this._pauseSignOffset
+const _Window_Message_onEndOfText = Window_Message.prototype.onEndOfText
+Window_Message.prototype.onEndOfText = function () {
+  if (this._textState) {
+    const x = _Window_Message_pauseSignOffsetX.call(this)
+    const y = _Window_Message_pauseSignOffsetY.call(this)
+    this._endOfTextPosition.x = this._textState.x + x
+    this._endOfTextPosition.y = this._textState.y + this._textState.height + y
   }
+  _Window_Message_onEndOfText.call(this)
+}
 
-  const _Window_Message_onEndOfText = Window_Message.prototype.onEndOfText
-  Window_Message.prototype.onEndOfText = function () {
-    if (this._textState) {
-      this._endOfTextPosition.x = this._textState.x + this.pauseSignOffset().x
-      this._endOfTextPosition.y = this._textState.y + this._textState.height + this.pauseSignOffset().y
-    }
-    _Window_Message_onEndOfText.call(this)
+Window_Message.prototype._refreshPauseSign = function () {
+  Window.prototype._refreshPauseSign.call(this)
+  if (this._endOfTextPosition) {
+    this._windowPauseSignSprite.move(this._endOfTextPosition.x, this._endOfTextPosition.y)
   }
+}
 
-  Window_Message.prototype._refreshPauseSign = function () {
-    Window.prototype._refreshPauseSign.call(this)
-    if (this._endOfTextPosition) {
-      this._windowPauseSignSprite.move(this._endOfTextPosition.x, this._endOfTextPosition.y)
-    }
+Window_Message.prototype._updatePauseSign = function () {
+  Window.prototype._updatePauseSign.call(this)
+  if (this._endOfTextPosition) {
+    this._windowPauseSignSprite.move(this._endOfTextPosition.x, this._endOfTextPosition.y)
   }
-
-  Window_Message.prototype._updatePauseSign = function () {
-    Window.prototype._updatePauseSign.call(this)
-    if (this._endOfTextPosition) {
-      this._windowPauseSignSprite.move(this._endOfTextPosition.x, this._endOfTextPosition.y)
-    }
-  }
-})()
+}
