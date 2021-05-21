@@ -1,23 +1,37 @@
 //=============================================================================
-// Lunatlazur_ResumableAutoEventMessage.js
+// Lunatlazur_ResumableMessagePosition.js
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
+// This plugin is released under the zlib License.
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.0 2018-04-01
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
- * @plugindesc Resumable message for an automatically starting event
+ * @plugindesc  Resumable message for an automatically starting event
  * @author Taku Aoi
  * @help This plugin holds the position of the message when saving during an
- * event that started automatically is running for to return from that position
- * when loading.
+ * event that started automatically is running for to return from that
+ * position when loading.
+ *
+ * Usage
+ * =====
+ *
+ * This plugin has no plugin options or plugin commands.
+ *
+ *
+ * Changelog
+ * =========
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
+ *
  */
 /*:ja
  * @plugindesc 自動イベントのメッセージ位置記録プラグイン
@@ -25,15 +39,23 @@
  * @help このプラグインは自動ではじまるイベントの途中でセーブを行ったときに、表示中の
  * メッセージ位置を保持し、ロード時にその位置から復帰できるようにします。
  *
- * 変更履歴
- * ********
+ * 使い方
+ * ======
  *
- * 1.0.0 2018/04/01:
- *   - 公開
+ * このプラグインにはプラグインオプション、プラグインコマンドはありません。
+ *
+ *
+ * 変更履歴
+ * ========
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
  *
  */
 (function () {
-    const pulginName = 'Lunatlazur_ResumableAutoEventMessage';
+    'use strict';
+
     const _DataManager_createGameObjects = DataManager.createGameObjects;
     DataManager.createGameObjects = function () {
         _DataManager_createGameObjects.call(this);
@@ -147,4 +169,5 @@
             return this._gameMessageState.events[eventId];
         }
     }
-})();
+
+}());
