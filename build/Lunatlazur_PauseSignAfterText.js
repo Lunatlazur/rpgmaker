@@ -21,7 +21,6 @@
  * =====
  *
  * This plugin has no plugin options or plugin commands.
- * All you have to do is activate the plugin.
  *
  *
  * Changelog
@@ -41,7 +40,6 @@
  * ======
  *
  * このプラグインにはプラグインオプション、プラグインコマンドはありません。
- * プラグインを有効化するだけで利用可能です。
  *
  *
  * 変更履歴
