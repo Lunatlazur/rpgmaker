@@ -7,7 +7,7 @@
     ".rollup/extensions/*"
   ],
   "scripts": {
-    "plugin": "yarn hygen plugin"
+    "hygen": "yarn hygen"
   },
   "author": "Taku Aoi",
   "author:ja": "あおいたく",
@@ -21,6 +21,5 @@
     "hygen": "^6.0.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
-  },
-  "dependencies": {}
+  }
 }
