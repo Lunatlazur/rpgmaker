@@ -2,48 +2,73 @@
 // Lunatlazur_MessageAttachmentButton.js
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
+// This plugin is released under the zlib License.
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.0 2018-04-01
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Functional button on message window
  * @author Taku Aoi
  * @help This plugin adds some functional button to the message window.
  *
+ * Usage
+ * =====
+ *
  * Command parameters
- * ******************
+ * ------------------
  *
  * In case that the command is 'scene':
+ *
  * By passing the "XXX" part of "Scene_XXX" (for example, Save, Load, Menu,
  * Title etc) as parameter, you can make transition to the corresponding scene
  * when button is pressed.
  *
  * In case that the command is 'plugin':
+ *
  * By passing the plug-in command name and arguments as parameter, you can
  * execute the corresponding plug-in command when the button is pressed.
  *
  *
- * History
- * *******
+ * Changelog
+ * =========
  *
- * 1.0.0 2018/04/01:
- *   - Published.
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
+ *
  *
  * @param Custom button text font
  * @desc Additional button text fonts.
  * @type string[]
+ * @default ["Calibri","Geneva"]
  *
- * @param buttons
- * @desc configure the buttons attached to the message window.
+ * @param Button
+ * @desc Configure the buttons attached to the message window.
  * @type struct<button>[]
- * @default ["{\"text\":\"save\",\"command\":\"scene\",\"parameters\":\"save\"}","{\"text\":\"load\",\"command\":\"scene\",\"parameters\":\"load\"}"]
+ * @default ["{\"text\":\"Save\",\"command\":\"scene\",\"parameters\":\"save\"}","{\"text\":\"Load\",\"command\":\"scene\",\"parameters\":\"load\"}"]
+ */
+/*~struct~button:en
+ * @param text
+ * @desc text for button.
+ *
+ * @param command
+ * @desc command to be called when button pressed.
+ * @type select
+ *
+ * @option scene
+ * @value scene
+ *
+ * @option plugin command
+ * @value plugin
+ *
+ * @param parameters
+ * @desc parameters for command. see help for detail.
  */
 /*:ja
  * @plugindesc メッセージウィンドウ拡張ボタンプラグイン
@@ -51,47 +76,41 @@
  * @help このプラグインはメッセージウィンドウに任意の機能を実行するためのボタンを
  * 追加します。
  *
- * コマンドのパラメータについて
- * ****************************
+ * 使い方
+ * ======
  *
- * command が scene のとき：
+ * コマンドのパラメータについて
+ * ----------------------------
+ *
+ * command が scene のとき…
+ *
  * パラメータにScene_XXX の XXX の部分（Save, Load, Menu, Title など）を
  * 指定することで、ボタンを押したときに該当のシーンに遷移させることができます。
  *
- * command が plugin のとき：
+ *
+ * command が plugin のとき…
+ *
  * パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
  * 押したときに該当のプラグインコマンドを実行することができます。
  *
  *
  * 変更履歴
- * ********
+ * ========
  *
- * 1.0.0 2018/04/01:
- *   - 公開
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
+ *
  *
  * @param フォント
  * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
- * @default ["UD デジタル 教科書体 NP-R", "Klee"]
  * @type string[]
+ * @default ["UD デジタル 教科書体 NP-R","Klee"]
  *
  * @param ボタン
  * @desc メッセージウィンドウに表示するボタンを設定します。
  * @type struct<button>[]
  * @default ["{\"text\":\"セーブ\",\"command\":\"scene\",\"parameters\":\"save\"}","{\"text\":\"ロード\",\"command\":\"scene\",\"parameters\":\"load\"}"]
- */
-/*~struct~button:
- * @param text
- * @desc text for button
- *
- * @param command
- * @desc command to be called when button pressed
- * @type select
- * @option scene
- * @option plugin command
- * @value plugin
- *
- * @param parameters
- * @desc parameters for command. see help for detail.
  */
 /*~struct~button:ja
  * @param text
@@ -100,8 +119,10 @@
  * @param command
  * @desc ボタンを押したときに実行するコマンド。
  * @type select
+ *
  * @option シーン遷移
  * @value scene
+ *
  * @option プラグインコマンド
  * @value plugin
  *
@@ -110,6 +131,8 @@
  * 詳細はプラグインヘルプを参照してください。
  */
 (function () {
+    'use strict';
+
     const pluginName = 'Lunatlazur_MessageAttachmentButton';
     const attachmentButtonSize = 20;
     function getValue(params, ...names) {
@@ -412,4 +435,5 @@
             });
         }
     }
-})();
+
+}());

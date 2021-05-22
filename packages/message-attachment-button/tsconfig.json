@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2019",
+    "module": "esnext",
     "baseUrl": "src",
     "outDir": "build",
     "inlineSourceMap": false,
@@ -10,15 +10,15 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "removeComments": false,
-    "experimentalDecorators": true,
     "lib": [
-      "es6"
+      "es2019"
     ],
     "types": [
       "rpgmakermv_typescript_dts"
     ]
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "typings/**/*.d.ts"
   ]
 }

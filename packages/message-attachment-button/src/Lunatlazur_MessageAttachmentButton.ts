@@ -1,155 +1,4 @@
-//=============================================================================
-// Lunatlazur_MessageAttachmentButton.js
-// ----------------------------------------------------------------------------
-// Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
-// ----------------------------------------------------------------------------
-// Version
-// 1.0.0 2018/04/01
-// ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
-//=============================================================================
-/*:
- * @plugindesc Functional button on message window
- * @author Taku Aoi
- * @help This plugin adds some functional button to the message window.
- *
- * Command parameters
- * ******************
- *
- * In case that the command is 'scene':
- * By passing the "XXX" part of "Scene_XXX" (for example, Save, Load, Menu,
- * Title etc) as parameter, you can make transition to the corresponding scene
- * when button is pressed.
- *
- * In case that the command is 'plugin':
- * By passing the plug-in command name and arguments as parameter, you can
- * execute the corresponding plug-in command when the button is pressed.
- *
- * 
- * History
- * *******
- * 
- * 1.0.0 2018/04/01:
- *   - Published.
- * 
- * @param Custom button text font
- * @desc Additional button text fonts.
- * @type string[]
- *
- * @param buttons
- * @desc configure the buttons attached to the message window.
- * @type struct<button>[]
- * @default ["{\"text\":\"save\",\"command\":\"scene\",\"parameters\":\"save\"}","{\"text\":\"load\",\"command\":\"scene\",\"parameters\":\"load\"}"]
- */
-/*:ja
- * @plugindesc メッセージウィンドウ拡張ボタンプラグイン
- * @author あおいたく
- * @help このプラグインはメッセージウィンドウに任意の機能を実行するためのボタンを
- * 追加します。
- *
- * コマンドのパラメータについて
- * ****************************
- *
- * command が scene のとき：
- * パラメータにScene_XXX の XXX の部分（Save, Load, Menu, Title など）を
- * 指定することで、ボタンを押したときに該当のシーンに遷移させることができます。
- *
- * command が plugin のとき：
- * パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
- * 押したときに該当のプラグインコマンドを実行することができます。
- * 
- * 
- * 変更履歴
- * ********
- * 
- * 1.0.0 2018/04/01:
- *   - 公開
- * 
- * @param フォント
- * @desc 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
- * @default ["UD デジタル 教科書体 NP-R", "Klee"]
- * @type string[]
- *
- * @param ボタン
- * @desc メッセージウィンドウに表示するボタンを設定します。
- * @type struct<button>[]
- * @default ["{\"text\":\"セーブ\",\"command\":\"scene\",\"parameters\":\"save\"}","{\"text\":\"ロード\",\"command\":\"scene\",\"parameters\":\"load\"}"]
- */
-/*~struct~button:
- * @param text
- * @desc text for button
- *
- * @param command
- * @desc command to be called when button pressed
- * @type select
- * @option scene
- * @option plugin command
- * @value plugin
- *
- * @param parameters
- * @desc parameters for command. see help for detail.
- */
-/*~struct~button:ja
- * @param text
- * @desc ボタンに表示するテキスト。
- *
- * @param command
- * @desc ボタンを押したときに実行するコマンド。
- * @type select
- * @option シーン遷移
- * @value scene
- * @option プラグインコマンド
- * @value plugin
- *
- * @param parameters
- * @desc コマンドのパラメータを指定します。
- * 詳細はプラグインヘルプを参照してください。
- */
-
-interface AttachmentButtonManager {
-  isOpened: boolean
-  isButtonAvailable: boolean
-  handleShow (): void
-  handleHide (): void
-  handleOpened (x: number, y: number, width: number, height: number): void
-  handleClosing (): void
-  handleOpennessChanged (opened: boolean, x: number, y: number, width: number, height: number): void
-  enableButton (): void
-  disableButton (): void
-  triggeredButton (): AttachmentButton
-  handleMouseMove (): void
-}
-
-interface AttachmentButton {
-  exec (): void
-}
-
-interface Window_Message {
-  _attachmentButtonManager: AttachmentButtonManager
-  _imageReservationId: number
-}
-
-interface IButtonParameter {
-  text: string
-  command: 'scene' | 'plugin'
-  parameters: string
-}
-
-interface IButtonSetting {
-  text: string
-  command (interpreter?: Game_Interpreter): void
-}
-
-interface Input {
-  _onKeyDown (keyEvent: { keyCode: number }): void
-}
-
-(function () {
-  const pluginName = 'Lunatlazur_MessageAttachmentButton'
+const pluginName = 'Lunatlazur_MessageAttachmentButton'
   const attachmentButtonSize = 20
 
   function getValue (params: { [key: string]: any }, ...names: string[]) {
@@ -171,10 +20,10 @@ interface Input {
       return []
     }
     const rawItems: string[] = (JSON.parse(buttons) as string[])
-    return rawItems.map((rawItem): IButtonParameter => JSON.parse(rawItem))
+    return rawItems.map((rawItem): AttachmentButton.ButtonParameter => JSON.parse(rawItem))
   }
 
-  const buttonSettings = parsePluginParameters().map((button) => {
+  const buttonSettings = parsePluginParameters().map((button): AttachmentButton.ButtonSetting => {
     switch (button.command) {
     case 'scene':
       const sceneName = button.parameters.charAt(0).toUpperCase() + button.parameters.slice(1).toLowerCase()
@@ -509,4 +358,3 @@ interface Input {
       })
     }
   }
-})()
