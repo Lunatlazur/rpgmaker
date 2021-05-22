@@ -2,49 +2,117 @@
 // Lunatlazur_ToggleableMessageVisibility.js
 // ----------------------------------------------------------------------------
 // Copyright (c) 2018 Taku Aoi
-// This plugin is released under the zlib/libpng License.
-// http://zlib.net/zlib_license.html
+// This plugin is released under the zlib License.
+// https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
-// 1.0.0 2018/04/01
+// 1.0.0 2018-04-01
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com/
-// [Twitter]: https://twitter.com/lunatlazur/
-// [GitHub] : https://github.com/Lunatlazur/
+// [Web]    : https://lunatlazur.com
+// [Twitter]: https://twitter.com/aoitaku
+// [GitHub] : https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Toggle message window visibility
  * @author Taku Aoi
  * @help This plugin makes message window visibility toggleable.
+ *
  * Tap the close button in the upper right corner of the message window or just
  * right-click to hide the message window.
  * If you right-click with the message window not displayed, the message window
  * will be displayed again.
  *
- * History
- * *******
+ * Usage
+ * =====
  *
- * 1.0.0 2018/04/01:
- *   - Published.
+ * Plug-in command list
+ * ====================
+ *
+ * SHOW_MESSAGE
+ * ------------
+ *
+ *     SHOW_MESSAGE
+ *
+ * Display the message window.
+ *
+ *
+ * HIDE_MESSAGE
+ * ------------
+ *
+ *     HIDE_MESSAGE
+ *
+ * Hide the message window.
+ *
+ *
+ * TOGGLE_MESSAGE
+ * --------------
+ *
+ *     TOGGLE_MESSAGE
+ *
+ * Toggles the display status of the message window.
+ * If it is displayed, it is hidden.
+ * If it is hidden, it is displayed.
+ *
+ *
+ * Changelog
+ * =========
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - Published.
  *
  */
 /*:ja
  * @plugindesc メッセージウィンドウ表示切り替えプラグイン
  * @author あおいたく
  * @help このプラグインはメッセージウィンドウの表示／非表示を切替できるようにします。
+ *
  * 右クリックまたはメッセージウィンドウ右上の✕ボタンをタップすると、ウィンドウを
  * 非表示にします。
  * 非表示中に右クリックで再表示します。
  *
- * 変更履歴
- * ********
+ * 使い方
+ * ======
  *
- * 1.0.0 2018/04/01:
- *   - 公開
+ * プラグインコマンド一覧
+ * ======================
+ *
+ * メッセージの表示
+ * ----------------
+ *
+ *     メッセージの表示
+ *
+ * メッセージウインドウを表示します。
+ *
+ *
+ * メッセージの非表示
+ * ------------------
+ *
+ *     メッセージの非表示
+ *
+ * メッセージウインドウを非表示にします。
+ *
+ *
+ * メッセージ表示の切替
+ * --------------------
+ *
+ *     メッセージ表示の切替
+ *
+ * メッセージウインドウの表示状態を切り替えます。
+ * 表示中なら非表示にし、非表示なら表示します。
+ *
+ *
+ * 変更履歴
+ * ========
+ *
+ * 1.0.0 2018-04-01
+ * ----------------
+ * - 公開
  *
  */
 (function () {
-    const pluginName = 'Lunatlazur_ToggleableMessageVisibility';
+    'use strict';
+
     // スペースキーを OK でなくスペースキーとして割り当てる
     Input.keyMapper[32] = 'space';
     const _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
@@ -325,4 +393,5 @@
             return false;
         }
     }
-})();
+
+}());
