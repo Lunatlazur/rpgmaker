@@ -1,7 +1,8 @@
 Usage
 =====
 
- 1. Place a character sprite file with the following format in the Picture folder.
+ 1. Place a character sprite file in the Picture folder　with a name in the
+    format `<Character name><Number>` as shown below.
 
         characterA1.png
         characterA2.png
@@ -13,7 +14,9 @@ Usage
         :
         :
 
- 2. Create a character sprite definition file in the Data folder namedTachie.csv
+    In this example, `characterA` and `characterB` are character names.
+
+ 2. Create a character sprite definition file in the Data folder named Tachie.csv
     in the following format.
 
         characterA, CharactarA, smile, anger, disapointment, discontent

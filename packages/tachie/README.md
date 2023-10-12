@@ -1,4 +1,4 @@
-# TachiE
+# Tachie
 RPGツクールMV用 立ち絵プラグイン
 
 ![スクリーンショット](./doc/tachie.jpg)\
