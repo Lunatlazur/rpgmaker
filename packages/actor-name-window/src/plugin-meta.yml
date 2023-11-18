@@ -1,0 +1,17 @@
+locales: [en, ja]
+desc:en:
+desc:ja:
+params:
+  - param:en: textColor
+    param:ja: テキストカラー
+    desc:en: Text color index for actor name window.
+    desc:ja: 名前を表示するテキストの色番号を指定します。
+    default: 1
+    type: number
+  - param:en: horizontalPosition
+    param:ja: 水平位置
+    desc:en: Horizontal position for actor name window.
+    desc:ja: 名前を表示するウインドウの水平位置を画面左端からのpx単位で指定します。
+    default: 0
+    type: number
+structs:

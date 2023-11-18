@@ -1,0 +1,34 @@
+locales: [en, ja]
+desc:en:
+desc:ja:
+params:
+  - param:en: Number of message rows
+    param:ja: メッセージ行数
+    desc:en: Number of message rows.
+    desc:ja: メッセージの行数です。
+    default: 4
+    type: number
+  - param:en: Custom Message wait
+    param:ja: メッセージウェイト
+    desc:en: Change wait time during character feed.
+    desc:ja: メッセージの文字送りにかかるウェイトです。
+    default: 1
+    type: number
+  - param:en: Custom message font
+    param:ja: フォント
+    desc:en: Additional message fonts.
+    desc:ja: 追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
+    default:en:
+      - Calibri
+      - Geneva
+    default:ja:
+      - UD デジタル 教科書体 NP-R
+      - Klee
+    type: string[]
+  - param:en: Apply custom message font to choice
+    param:ja: 選択肢に追加のフォント指定を反映
+    desc:en: Apply custom message font to choice if true.
+    desc:ja: 有効にすると選択肢に追加のフォント指定を反映します。
+    default: true
+    type: boolean
+structs:

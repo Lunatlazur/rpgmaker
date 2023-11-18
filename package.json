@@ -1,0 +1,25 @@
+{
+  "name": "rpgmakermv-plugins",
+  "version": "1.0.0",
+  "description": "plugins hub for RPG Maker MV",
+  "workspaces": [
+    "packages/*",
+    ".rollup/extensions/*"
+  ],
+  "scripts": {
+    "hygen": "yarn hygen"
+  },
+  "author": "Taku Aoi",
+  "author:ja": "あおいたく",
+  "rmmvPluginConfig": {
+    "namespace": "Lunatlazur"
+  },
+  "license": "Zlib",
+  "private": true,
+  "devDependencies": {
+    "dayjs": "^1.8.29",
+    "hygen": "^6.0.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}

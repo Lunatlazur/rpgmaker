@@ -1,0 +1,56 @@
+locales: [en, ja]
+desc:en:
+desc:ja:
+params:
+  - param:en: Custom button text font
+    param:ja: フォント
+    desc:en: Additional button text fonts.
+    desc:ja:
+      追加のフォントを指定できます。先頭にあるものが優先して読み込まれます。
+    default:en:
+      - Calibri
+      - Geneva
+    default:ja:
+      - UD デジタル 教科書体 NP-R
+      - Klee
+    type: string[]
+  - param:en: Button
+    param:ja: ボタン
+    desc:en: Configure the buttons attached to the message window.
+    desc:ja: メッセージウィンドウに表示するボタンを設定します。
+    default:en:
+      - text: Save
+        command: scene
+        parameters: save
+      - text: Load
+        command: scene
+        parameters: load
+    default:ja:
+      - text: セーブ
+        command: scene
+        parameters: save
+      - text: ロード
+        command: scene
+        parameters: load
+    type: struct<button>[]
+structs:
+  button:
+    text:
+      desc:en: text for button.
+      desc:ja: ボタンに表示するテキスト。
+    command:
+      desc:en: command to be called when button pressed.
+      desc:ja: ボタンを押したときに実行するコマンド。
+      type:
+        select:
+          - option:en: scene
+            option:ja: シーン遷移
+            value: scene
+          - option:en: plugin command
+            option:ja: プラグインコマンド
+            value: plugin
+    parameters:
+      desc:en: parameters for command. see help for detail.
+      desc:ja: |-
+        コマンドのパラメータを指定します。
+        詳細はプラグインヘルプを参照してください。

@@ -1,0 +1,19 @@
+locales: [en, ja]
+desc:en: Show message back log
+desc:ja: バックログ表示プラグイン
+params:
+  - param:en: '2-columns layout'
+    param:ja: '2カラムレイアウト'
+    desc:en: |-
+      Select whether to display the backlog in two columns.
+      `Yes` to diplay in two columns.
+    desc:ja: |-
+      バックログの表示を2カラムにするかどうかを選択します。
+      `する` で2カラムで表示します。
+    default: true
+    type:
+      boolean:
+        on:ja: する
+        off:ja: しない
+        on:en: 'Yes'
+        off:en: 'No'
