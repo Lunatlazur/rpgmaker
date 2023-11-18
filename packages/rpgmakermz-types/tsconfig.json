@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2018",
     "module": "commonjs",
     "baseUrl": "sample_code/ts",
     "outDir": "sample_code/js",
@@ -9,8 +9,8 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "removeComments": false,
-    "experimentalDecorators": true,
-    "lib": ["es5"],
+    "strictBindCallApply": true,
+    "lib": ["es2018"],
     "newLine": "LF"
   },
   "include": ["sample_code/ts/**/*", "typings/**/*"]

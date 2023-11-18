@@ -4,13 +4,6 @@
   "main": "index.js",
   "repository": "https://github.com/Lunatlazur/types",
   "author": "aoitaku <aoitaku@lunatlazur.com>",
-  "license": "Zlib",
-  "private": true,
-  "devDependencies": {
-    "pixi.js": "^5.3.3"
-  },
-  "dependencies": {
-    "@types/pako": "^2.0.3",
-    "localforage": "^1.10.0"
-  }
+  "license": "LicenseRef-LICENSE",
+  "private": true
 }

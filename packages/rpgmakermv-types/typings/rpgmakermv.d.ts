@@ -1,5 +1,5 @@
-/// <reference types="pixi-tilemap" />
-/// <reference path="../lib/lib.dom.d.ts" />
+/// <reference types="./lib/pixi-tilemap" />
+/// <reference path="./lib/lib.dom.d.ts" />
 
 /// <reference path="./data.d.ts" />
 /// <reference path="./rpg_core.d.ts" />
