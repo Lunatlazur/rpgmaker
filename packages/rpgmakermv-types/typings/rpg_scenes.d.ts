@@ -6,6 +6,7 @@ declare class Scene_Base extends Stage {
     _fadeDuration: number;
     _fadeSprite: ScreenSprite;
     _imageReservationId: number;
+    _spriteset: Spriteset_Base;
 
     attachReservation(): void;
     detachReservation(): void;
