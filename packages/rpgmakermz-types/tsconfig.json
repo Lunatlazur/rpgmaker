@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "baseUrl": "sample_code/ts",
+    "outDir": "sample_code/js",
+    "inlineSourceMap": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "removeComments": false,
+    "strictBindCallApply": true,
+    "lib": ["es2018"],
+    "newLine": "LF"
+  },
+  "include": ["sample_code/ts/**/*", "typings/**/*"]
+}
