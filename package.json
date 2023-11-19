@@ -1,7 +1,7 @@
 {
-  "name": "rpgmakermv-plugins",
+  "name": "rpgmaker",
   "version": "1.0.0",
-  "description": "plugins hub for RPG Maker MV",
+  "description": "Development kit for RPG Maker MV/MZ",
   "workspaces": [
     "packages/*",
     ".rollup/extensions/*"
@@ -14,12 +14,14 @@
   "rmmvPluginConfig": {
     "namespace": "Lunatlazur"
   },
-  "license": "Zlib",
   "private": true,
   "devDependencies": {
     "dayjs": "^1.8.29",
     "hygen": "^6.0.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Lunatlazur/types",
+  "license": "LicenseRef-LICENSE"
 }

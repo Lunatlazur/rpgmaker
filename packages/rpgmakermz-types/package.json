@@ -1,0 +1,22 @@
+{
+  "name": "rpgmaker-mz-types",
+  "version": "1.0.0+1.5.0",
+  "description": "RPGツクールMZのコアスクリプトをTypeScriptで扱うための型定義ファイルです。",
+  "main": "index.js",
+  "types": "typings/rpgmakermv.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lunatlazur/rpgmakermv-types.git"
+  },
+  "contributors": [
+    "aoitaku (https://aotak.me/)"
+  ],
+  "license": "LicenseRef-LICENSE",
+  "bugs": {
+    "url": "https://github.com/Lunatlazur/rpgmaker-types/issues"
+  },
+  "homepage": "https://github.com/Lunatlazur/rpgmaker-types/#readme",
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  }
+}
