@@ -2,15 +2,17 @@
   "name": "rpgmaker",
   "version": "1.0.0",
   "description": "Development kit for RPG Maker MV/MZ",
-  "workspaces": [
-    "packages/*",
-    ".rollup/extensions/*"
-  ],
   "scripts": {
-    "hygen": "yarn hygen"
+    "hygen": "yarn run hygen"
   },
-  "author": "Taku Aoi",
-  "author:ja": "あおいたく",
+  "workspaces": [
+    "packages/@configs/*",
+    "packages/@rollup/*",
+    "packages/@types/*",
+    "packages/*"
+  ],
+  "author": "Taku Aoi / Lunatlazur",
+  "author:ja": "あおいたく / Lunatlazur",
   "rmmvPluginConfig": {
     "namespace": "Lunatlazur"
   },
@@ -19,9 +21,10 @@
     "dayjs": "^1.8.29",
     "hygen": "^6.0.4",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "typescript": "^5.2.2"
   },
   "main": "index.js",
   "repository": "https://github.com/Lunatlazur/types",
-  "license": "LicenseRef-LICENSE"
+  "license": "LicenseRef-LICENSE",
+  "packageManager": "yarn@4.0.2"
 }

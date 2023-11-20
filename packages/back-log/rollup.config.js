@@ -1,10 +1,13 @@
 import path from 'path'
+import { fileURLToPath } from 'url'
 import pluginNodeResolve from "@rollup/plugin-node-resolve"
 import pluginCommonjs from "@rollup/plugin-commonjs"
 import pluginTypescript from "@rollup/plugin-typescript"
 import { babel as pluginBabel } from "@rollup/plugin-babel"
 import { dependencies, devDependencies } from "./package.json"
 import { injectHeader } from '../../.rollup/extensions/rollup-plugin-inject-header'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const settings = ({ fname }) => {
     return {

@@ -12,7 +12,7 @@ UDデジタル教科書体は Windows 10 Fall Creators Update に、Klee は mac
 ## ライセンス
 このプラグインは [zlib ライセンス](https://www.zlib.net/zlib_license.html) のもと配布されます。
 
-Copyright (C) 2018 Taku Aoi
+Copyright 2018 Taku Aoi
 
 This software is provided 'as-is', without any express or implied
 warranty.  In no event will the authors be held liable for any damages

@@ -14,7 +14,7 @@
       "es2019"
     ],
     "types": [
-      "rpgmakermv_typescript_dts"
+      "rpgmakermv-types"
     ]
   },
   "include": [

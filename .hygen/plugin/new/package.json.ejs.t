@@ -23,7 +23,8 @@ to: packages/<%= name %>/package.json
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/node": "^14.0.23",
     "rollup": "^2.47.0",
-    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts",
-    "typescript": "^4.2.4"
+    "rpgmakermv-types": "workspace:*",
+    "@rollup/plugin-inject-header": "workspace:*",
+    "typescript": "^5.2.2"
   }
 }

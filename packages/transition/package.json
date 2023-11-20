@@ -5,21 +5,23 @@
   "license": "Zlib",
   "description": "Fade-in / fade-out with transition",
   "description:ja": "トランジションつきフェードイン／フェードアウトプラグイン",
-  "author": "Taku Aoi",
-  "author:ja": "あおいたく",
+  "author": "Taku Aoi / Lunatlazur",
+  "author:ja": "あおいたく / Lunatlazur",
   "scripts": {
     "build": "rollup -c"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.2",
-    "@babel/preset-env": "^7.14.2",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@rollup/plugin-typescript": "^8.2.1",
-    "@types/node": "^14.0.23",
-    "rollup": "^2.47.0",
-    "rpgmakermv_typescript_dts": "Lunatlazur/rpgmakermv_typescript_dts",
-    "typescript": "^4.2.4"
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-inject-header": "workspace:*",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/node": "20.5.0",
+    "rollup": "^4.5.0",
+    "rpgmakermv-types": "workspace:*",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
   }
 }

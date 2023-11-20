@@ -40,6 +40,14 @@ jspm_packages/
 # Output of 'npm pack'
 *.tgz
 
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # dotenv environment variables file
 .env
 .env.test

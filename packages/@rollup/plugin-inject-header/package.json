@@ -1,0 +1,37 @@
+{
+  "name": "@rollup/plugin-inject-header",
+  "version": "1.0.0",
+  "description": "header injection plugin for rollup",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "Taku Aoi / Lunatlazur",
+  "author:ja": "あおいたく / Lunatlazur",
+  "license": "Zlib",
+  "type": "module",
+  "module": "index.mjs",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/ejs": "^3.1.5",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash-es": "^4.17.11",
+    "@types/node": "20.5.0",
+    "@types/semver-compare": "^1.0.1",
+    "rollup": "^4.5.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "commenting": "aoitaku/commenting#feature/option-for-keeping-indent",
+    "ejs": "^3.1.9",
+    "js-yaml": "^4.1.0",
+    "lodash-es": "^4.17.21",
+    "semver-compare": "^1.0.0"
+  }
+}

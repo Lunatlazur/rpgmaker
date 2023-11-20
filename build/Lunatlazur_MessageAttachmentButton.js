@@ -1,7 +1,7 @@
 //=============================================================================
 // Lunatlazur_MessageAttachmentButton.js
 // ----------------------------------------------------------------------------
-// Copyright (c) 2018 Taku Aoi
+// Copyright 2018 Taku Aoi
 // This plugin is released under the zlib License.
 // https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------

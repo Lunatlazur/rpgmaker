@@ -1,6 +1,6 @@
 [zlib License](https://zlib.net/zlib_license.html)
 
-Copyright (C) 2018 Taku Aoi
+Copyright 2018 Taku Aoi / Lunatrazur
 
 This software is provided 'as-is', without any express or implied
 warranty.  In no event will the authors be held liable for any damages

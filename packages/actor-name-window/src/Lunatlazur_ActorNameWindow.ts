@@ -24,7 +24,7 @@ const params = {
 class Window_ActorName extends Window_Base {
   private _parentWindow: Window_Message
   private _text: string
-  constructor (_: any) {
+  constructor (_: unknown) {
     super()
     this.initialize.apply(this, arguments)
   }
