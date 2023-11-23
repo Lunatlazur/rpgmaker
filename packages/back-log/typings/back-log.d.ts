@@ -3,7 +3,6 @@ declare interface Scene_Map {
 }
 
 declare interface Window_BackLog extends Window_Base {
-  refresh: () => void
   offset: number
 }
 

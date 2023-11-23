@@ -13,18 +13,11 @@ to: packages/<%= name %>/package.json
   "scripts": {
     "build": "rollup -c"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.14.2",
-    "@babel/preset-env": "^7.14.2",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@rollup/plugin-typescript": "^8.2.1",
-    "@types/node": "^14.0.23",
-    "rollup": "^2.47.0",
-    "rpgmakermv-types": "workspace:*",
-    "@rollup/plugin-inject-header": "workspace:*",
-    "typescript": "^5.2.2"
+    "@lunatlazur/rpgmakermv-types": "workspace:*",
+    "@types/node": "20.5.0",
+    "@~/configs-ejs": "workspace:*",
+    "@~/configs-rollup": "workspace:*",
+    "rollup": "^4.5.0"
   }
 }

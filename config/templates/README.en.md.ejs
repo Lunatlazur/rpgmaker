@@ -1,0 +1,39 @@
+# <%- name %>
+
+<%- content['title:en'] %>
+<% if (content.screenshots?.length > 0) { -%>
+
+<% content.screenshots.forEach((screenshot) => { -%>
+[<%- screenshot['name:en'] %>]
+<% }); -%>
+<%- content.screenshots.map((screenshot) => `©${screenshot.copyright}`).join(' ') %>
+<% } -%>
+
+---
+
+<%- content['description:en']  %>
+
+---
+
+## Install
+
+Copy `<%- organization %>_<%- name %>.js` in `build/rm<%- target.toLowerCase() %>` forder to `js/plugins` forder in your RPG Maker <%- target %> project.
+
+## Usage
+
+See [usage].
+
+## Changelog
+
+See [changelog].
+
+## License
+
+This plugin is released under the [zlib License].
+
+<% content.screenshots.forEach((screenshot) => { -%>
+[<%- screenshot['name:en'] %>]: <%- screenshot.filename %>
+<% }); -%>
+[usage]: doc/USAGE.en.md
+[changelog]: doc/CHANGELOG.en.md
+[zlib license]: LISENCE.md

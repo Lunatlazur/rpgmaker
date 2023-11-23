@@ -1,5 +1,5 @@
 ---
-to: packages/<%= name %>/USAGE.md
+to: packages/<%= name %>/doc/USAGE.md
 ---
 使い方
 ======

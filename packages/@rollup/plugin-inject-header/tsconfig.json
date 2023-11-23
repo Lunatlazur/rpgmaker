@@ -10,7 +10,7 @@
     "noImplicitThis": true,
     "removeComments": false,
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "lib": [
       "es2019"
     ],

@@ -1,25 +1,16 @@
 {
-  "name": "rpgmakermv-types",
-  "version": "2.1.0+1.6.1.community.1.3.b",
+  "name": "@lunatlazur/rpgmakermv-types",
+  "version": "1.0.0+1.6.1.community.1.3.b",
   "description": "RPGツクールMVのコアスクリプトをTypeScriptで扱うための型定義ファイルです。",
   "main": "index.js",
   "types": "typings/rpgmakermv.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Lunatlazur/rpgmakermv-types.git"
-  },
-  "author": "Taku Aoi / Lunatlazur",
   "contributors": [
     "BAROQUE ENGINE",
     "Narazaka",
     "eihigh",
-    "Taku Aoi / Lunatlazur"
+    "Taku Aoi"
   ],
-  "license": "LicenseRef-LICENSE",
-  "bugs": {
-    "url": "https://github.com/Lunatlazur/rpgmaker-types/issues"
-  },
-  "homepage": "https://github.com/Lunatlazur/rpgmaker-types/#readme",
+  "license": "Zlib",
   "devDependencies": {
     "typescript": "^5.2.2"
   }

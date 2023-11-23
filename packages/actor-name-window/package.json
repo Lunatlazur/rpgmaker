@@ -1,21 +1,22 @@
 {
   "name": "actor-name-window",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "Zlib",
-  "description": "Show actor name window",
-  "description:ja": "会話キャラクター名表示ウィンドウプラグイン",
-  "author": "Taku Aoi / Lunatlazur",
-  "author:ja": "あおいたく / Lunatlazur",
-  "type": "module",
+  "description": "Plugin for RPG Maker MV to show actor name window",
+  "description:ja": "RPGツクールMV用 会話キャラクター名表示ウィンドウプラグイン",
+  "author": "Taku Aoi",
+  "author:ja": "あおいたく",
+  "organization": "Lunatlazur",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "build:doc": "ejs"
   },
   "devDependencies": {
-    "@configs/rollup": "workspace:*",
+    "@lunatlazur/rpgmakermv-types": "workspace:*",
     "@types/node": "20.5.0",
-    "rollup": "^4.5.0",
-    "rpgmakermv-types": "workspace:*",
-    "typescript": "^5.2.2"
+    "@~/configs-ejs": "workspace:*",
+    "@~/configs-rollup": "workspace:*",
+    "rollup": "^4.5.0"
   }
 }

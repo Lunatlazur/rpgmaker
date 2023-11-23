@@ -1,9 +1,10 @@
-import pluginNodeResolve from "@rollup/plugin-node-resolve"
-import pluginCommonjs from "@rollup/plugin-commonjs"
-import pluginTypescript from "@rollup/plugin-typescript"
-import { babel as pluginBabel } from "@rollup/plugin-babel"
-import { dependencies, devDependencies } from "./package.json"
+import pluginNodeResolve from '@rollup/plugin-node-resolve'
+import pluginCommonjs from '@rollup/plugin-commonjs'
+import pluginTypescript from '@rollup/plugin-typescript'
+import { babel as pluginBabel } from '@rollup/plugin-babel'
+import packageJson from './package.json' assert  { type: 'json' }
 
+const { dependencies } = packageJson
 const settings = ({ fname }) => {
     return {
         input: fname,
@@ -13,17 +14,14 @@ const settings = ({ fname }) => {
                 format: 'es',
             },
         ],
-        external: [
-            ...Object.keys(dependencies || {}),
-            ...Object.keys(devDependencies || {}),
-        ],
+        external: Object.keys(dependencies || {}),
         plugins: [
             pluginTypescript(),
             pluginCommonjs({
-                extensions: [".js", ".ts"],
+                extensions: ['.js', '.ts'],
             }),
             pluginBabel({
-                babelHelpers: "bundled",
+                babelHelpers: 'bundled',
                 babelrc: true,
             }),
             pluginNodeResolve({

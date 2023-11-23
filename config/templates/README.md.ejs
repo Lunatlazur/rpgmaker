@@ -1,0 +1,38 @@
+# <%- name %>
+<%- content['title:ja'] %>
+<% if (content.screenshots?.length > 0) { -%>
+
+<% content.screenshots.forEach((screenshot) => { -%>
+[<%- screenshot['name:ja'] %>]
+<% }); -%>
+<%- content.screenshots.map((screenshot) => `©${screenshot.copyright}`).join(' ') %>
+<% } -%>
+
+---
+
+<%- content['description:ja']  %>
+
+---
+
+## 導入方法
+
+`build/rm<%- target.toLowerCase() %>` フォルダ内の `<%- organization %>_<%- name %>.js` を導入したい RPGツクール<%- target %> のプロジェクト内の `js/plugins` フォルダにコピーしてください。
+
+## 使い方
+
+[使い方] を参照してください。
+
+## 変更履歴
+
+[変更履歴] を参照してください。
+
+## ライセンス
+
+このプラグインは [zlib ライセンス] のもと配布されます。
+
+<% content.screenshots.forEach((screenshot) => { -%>
+[<%- screenshot['name:ja'] %>]: <%- screenshot.filename %>
+<% }); -%>
+[使い方]: doc/USAGE.en.md
+[変更履歴]: doc/CHANGELOG.en.md
+[zlib ライセンス]: LISENCE.md

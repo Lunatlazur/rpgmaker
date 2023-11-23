@@ -1,22 +1,23 @@
 {
-  "name": "@configs/rollup",
+  "name": "@~/configs-rollup",
   "version": "1.0.0",
   "description": "",
+  "author": "Taku Aoi",
+  "license": "Zlib",
   "module": "index.mjs",
-  "author": "Taku Aoi / Lunatlazur",
-  "license": "LicenseRef-LICENSE",
   "type": "module",
   "dependencies": {
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
+    "@lunatlazur/rpgmakermv-types": "workspace:*",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-inject-header": "workspace:*",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/node": "20.5.0",
+    "@~/rollup-plugin-inject-header": "workspace:*",
+    "pascal-case": "^4.0.0",
     "rollup": "^4.5.0",
-    "rpgmakermv-types": "workspace:*",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
   }

@@ -5,23 +5,16 @@
   "license": "Zlib",
   "description": "Functional button on message window",
   "description:ja": "メッセージウィンドウ拡張ボタンプラグイン",
-  "author": "Taku Aoi / Lunatlazur",
-  "author:ja": "あおいたく / Lunatlazur",
+  "author": "Taku Aoi",
+  "author:ja": "あおいたく",
+  "organization": "Lunatlazur",
   "scripts": {
     "build": "rollup -c"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.3",
-    "@babel/preset-env": "^7.23.3",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-inject-header": "workspace:*",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5",
+    "@lunatlazur/rpgmakermv-types": "workspace:*",
     "@types/node": "20.5.0",
-    "rollup": "^4.5.0",
-    "rpgmakermv-types": "workspace:*",
-    "tslib": "^2.6.2",
-    "typescript": "^5.2.2"
+    "@~/configs-rollup": "workspace:*",
+    "rollup": "^4.5.0"
   }
 }

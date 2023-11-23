@@ -14,7 +14,7 @@
       "es2019"
     ],
     "types": [
-      "rpgmakermv-types"
+      "@lunatlazur/rpgmakermv-types"
     ]
   },
   "include": [

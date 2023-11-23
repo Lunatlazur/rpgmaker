@@ -1,12 +1,11 @@
 {
-  "name": "@rollup/plugin-inject-header",
+  "name": "@~/rollup-plugin-inject-header",
   "version": "1.0.0",
   "description": "header injection plugin for rollup",
   "scripts": {
     "build": "rollup -c"
   },
-  "author": "Taku Aoi / Lunatlazur",
-  "author:ja": "あおいたく / Lunatlazur",
+  "author": "Taku Aoi",
   "license": "Zlib",
   "type": "module",
   "module": "index.mjs",

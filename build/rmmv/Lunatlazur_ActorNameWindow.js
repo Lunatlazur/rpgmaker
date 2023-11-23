@@ -1,20 +1,19 @@
 //=============================================================================
-// Lunatlazur_ActorNameWindow.js
+// index.js
 // ----------------------------------------------------------------------------
-// Copyright 2018 Taku Aoi / Lunatlazur
+// Copyright 2018 Taku Aoi
 // This plugin is released under the zlib License.
 // https://zlib.net/zlib_license.html
 // ----------------------------------------------------------------------------
 // Version
 // 1.1.0 2020-01-22
 // ----------------------------------------------------------------------------
-// [Web]    : https://lunatlazur.com
-// [Twitter]: https://twitter.com/aoitaku
-// [GitHub] : https://github.com/lunatlazur
+// [Web]:    https://lunatlazur.com
+// [GitHub]: https://github.com/lunatlazur
 //=============================================================================
 /*:
  * @plugindesc Show actor name window
- * @author Taku Aoi / Lunatlazur
+ * @author Taku Aoi
  * @help This plugin shows speaker's name window.
  *
  * Input the character name with \N<Character name> format
@@ -59,7 +58,7 @@
  */
 /*:ja
  * @plugindesc 会話キャラクター名表示ウィンドウプラグイン
- * @author あおいたく / Lunatlazur
+ * @author あおいたく
  * @help このプラグインは名前ウィンドウを表示できるようにします。
  *
  * `\N<キャラクター名>` 形式でメッセージ内にキャラクターの名前を記述することで

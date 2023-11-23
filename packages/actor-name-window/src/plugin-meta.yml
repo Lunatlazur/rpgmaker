@@ -1,6 +1,8 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
+description:en: |-
+  This plugin shows speaker's name window.
+description:ja: |-
+  このプラグインは名前ウィンドウを表示できるようにします。
 params:
   - param:en: textColor
     param:ja: テキストカラー
@@ -15,3 +17,27 @@ params:
     default: 0
     type: number
 structs:
+commands:
+changelogs:
+  - version: 1.1.0
+    date: 2020-01-22
+    changes:en: |-
+      - Added option to specify horizontal position of name window.
+      - Fixed the name not being displayed correctly on the backlog
+        when using the backlog plugin.
+    changes:ja: |-
+      - 名前ウインドウの水平位置を指定するオプションを追加
+      - バックログプラグイン利用時、バックログ上で名前が正しく表示されないのを修正
+  - version: 1.0.1
+    date: 2019-09-09
+    changes:en: |-
+      - Fixed that the name window was not displayed correctly when
+        the display position of the message window was not at the bottom.
+    changes:ja: |-
+      - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示されないのを修正
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

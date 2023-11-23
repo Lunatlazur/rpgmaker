@@ -17,7 +17,7 @@ to: packages/<%= name %>/tsconfig.json
       "es2019"
     ],
     "types": [
-      "rpgmakermv-types"
+      "@lunatlazur/rpgmakermv-types"
     ]
   },
   "include": [

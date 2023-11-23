@@ -46,7 +46,7 @@ RPGツクールMV
     ]
   },
   "types": [
-    "rpgmakermv-types"
+    "@lunatlazur/rpgmakermv-types"
   ]
 }
 

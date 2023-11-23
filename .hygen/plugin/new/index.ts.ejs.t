@@ -1,4 +1,4 @@
 ---
-to: packages/<%= name %>/src/<%= `${h.namespace()}_${h.changeCase.pascal(name)}` %>.ts
+to: packages/<%= name %>/src/index.ts
 ---
 const pluginName = '<%= `${h.namespace()}_${h.changeCase.pascal(name)}` %>'
