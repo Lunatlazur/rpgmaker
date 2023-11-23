@@ -3,21 +3,6 @@ description:en: |-
   This plugin shows speaker's name window.
 description:ja: |-
   このプラグインは名前ウィンドウを表示できるようにします。
-params:
-  - param:en: textColor
-    param:ja: テキストカラー
-    desc:en: Text color index for actor name window.
-    desc:ja: 名前を表示するテキストの色番号を指定します。
-    default: 1
-    type: number
-  - param:en: horizontalPosition
-    param:ja: 水平位置
-    desc:en: Horizontal position for actor name window.
-    desc:ja: 名前を表示するウインドウの水平位置を画面左端からのpx単位で指定します。
-    default: 0
-    type: number
-structs:
-commands:
 changelogs:
   - version: 1.1.0
     date: 2020-01-22
@@ -34,7 +19,8 @@ changelogs:
       - Fixed that the name window was not displayed correctly when
         the display position of the message window was not at the bottom.
     changes:ja: |-
-      - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示されないのを修正
+      - メッセージウインドウの表示位置が下以外のときに、名前ウィンドウが正しく表示
+        されないのを修正
   - version: 1.0.0
     date: 2018-04-01
     changes:en: |-

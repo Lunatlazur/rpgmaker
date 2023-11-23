@@ -55,13 +55,13 @@ const paths: {
   'readme:ja': 'README.md',
 }
 
-type PluginMeta = {
+type PluginParams = {
   locales: Locale[]
   params: RawPluginParam[]
   structs: { [key: string]: { [key: string]: RawPluginParam } }
 }
-function loadYAML (pluginMeta: string) {
-  return yaml.load(pluginMeta) as PluginMeta
+function loadYAML (pluginParams: string) {
+  return yaml.load(pluginParams) as PluginParams
 }
 
 function isFilesKey(key: PathName): key is FileKey {
@@ -118,10 +118,10 @@ export async function getStore(packageDir: string, configDir: string) {
       store.builderConfig = JSON.parse(builderConfig || '{}')
     })(),
     (async () => {
-      const pluginMeta = await readFile(path.join(packageDir, 'src', 'plugin-meta.yml'), 'utf-8').catch((): null => {
+      const pluginParams = await readFile(path.join(packageDir, 'src', 'plugin-params.yml'), 'utf-8').catch((): null => {
         return null
       })
-      const { params, structs, locales } = loadYAML(pluginMeta) || {}
+      const { params, structs, locales } = loadYAML(pluginParams) || {}
       store.pluginParams = processPluginParams(params || [], locales)
       store.pluginParamStructs = processPluginParamStructs(structs || {}, locales)
     })(),

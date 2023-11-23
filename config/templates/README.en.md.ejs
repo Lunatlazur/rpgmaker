@@ -4,7 +4,7 @@
 <% if (content.screenshots?.length > 0) { -%>
 
 <% content.screenshots.forEach((screenshot) => { -%>
-[<%- screenshot['name:en'] %>]
+![<%- screenshot['name:en'] %>]
 <% }); -%>
 <%- content.screenshots.map((screenshot) => `©${screenshot.copyright}`).join(' ') %>
 <% } -%>

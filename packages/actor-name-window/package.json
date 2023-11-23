@@ -10,12 +10,12 @@
   "organization": "Lunatlazur",
   "scripts": {
     "build": "rollup -c",
-    "build:doc": "ejs"
+    "build-doc": "build-doc"
   },
   "devDependencies": {
     "@lunatlazur/rpgmakermv-types": "workspace:*",
     "@types/node": "20.5.0",
-    "@~/configs-ejs": "workspace:*",
+    "@~/configs-build-doc": "workspace:*",
     "@~/configs-rollup": "workspace:*",
     "rollup": "^4.5.0"
   }
