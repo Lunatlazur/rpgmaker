@@ -1,0 +1,52 @@
+# 使い方
+
+<%- usage %>
+<% if (commands?.length > 0) { -%>
+
+## プラグインコマンド一覧
+<% commands.forEach((command) => { -%>
+
+### <%- command['name:ja'] %>
+
+<%- helpers.ensureLineBreak(command['description:ja']) %>
+
+- #### 呼び出し形式
+
+  ```
+  <%- helpers.ensureIndent(command['synopsis:ja'], 2) %>
+  ```
+<% if (command.params?.length > 0) { -%>
+
+- #### パラメータ
+<% command.params.forEach((param) => { -%>
+
+  ##### `<%- param['name:ja'] %>` `<%- param['type:ja'] %>`
+
+  <%- helpers.ensureLineBreak(helpers.ensureIndent(param['description:ja'], 2)) %>
+<% if (param.values?.length > 0) { -%>
+<% param.values.forEach((value) => { -%>
+
+  - `<%- value['name:ja'] %>`
+
+    <%- helpers.ensureLineBreak(helpers.ensureIndent(value['description:ja'], 4)) %>
+<% }); -%>
+<% } -%>
+<% }); -%>
+<% if (command.examples?.length > 0) { -%>
+
+- #### 呼び出し例
+<% command.examples.forEach((example) => { -%>
+
+  ```
+  <%- helpers.ensureIndent(example['code:ja'], 2) %>
+  ```
+
+  <%- helpers.ensureLineBreak(helpers.ensureIndent(example['description:ja'], 2)) %>
+<% }); -%>
+<% } -%>
+<% } -%>
+<% }); -%>
+<% } else { -%>
+
+このプラグインにプラグインコマンドはありません。
+<% } -%>

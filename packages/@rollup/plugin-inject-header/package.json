@@ -1,5 +1,5 @@
 {
-  "name": "@~/rollup-plugin-inject-header",
+  "name": "@-/rollup-plugin-inject-header",
   "version": "1.0.0",
   "description": "header injection plugin for rollup",
   "scripts": {

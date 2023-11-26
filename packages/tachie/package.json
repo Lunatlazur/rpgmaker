@@ -12,9 +12,10 @@
     "build": "rollup -c"
   },
   "devDependencies": {
+    "@-/configs-build-doc": "workspace:*",
+    "@-/configs-rollup": "workspace:*",
     "@lunatlazur/rpgmakermv-types": "workspace:*",
     "@types/node": "20.5.0",
-    "@~/configs-rollup": "workspace:*",
     "rollup": "^4.5.0"
   }
 }

@@ -7,7 +7,7 @@ Plugin for RPG Maker MV to show actor name window
 
 ---
 
-This plugin shows speaker's name window.
+
 
 ---
 

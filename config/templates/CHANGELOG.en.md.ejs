@@ -1,8 +1,6 @@
-Changelog
-=========
+### Changelog
 <% changelogs.forEach((changelog) => { -%>
 
-<%- changelog.version %> <%- changelog.date %>
-----------------
+## <%- changelog.version %> <%- changelog.date %>
 <%- changelog['changes:en'] %>
 <% }); -%>

@@ -5,6 +5,67 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@-/configs-build-doc@workspace:*, @-/configs-build-doc@workspace:packages/@configs/build-doc":
+  version: 0.0.0-use.local
+  resolution: "@-/configs-build-doc@workspace:packages/@configs/build-doc"
+  dependencies:
+    date-fns: "npm:^2.30.0"
+    easta: "npm:^8.0.0"
+    ejs: "npm:^3.1.9"
+    graphemer: "npm:^1.4.0"
+    js-yaml: "npm:^4.1.0"
+    pascal-case: "npm:^4.0.0"
+  bin:
+    build-doc: bin/index.js
+  languageName: unknown
+  linkType: soft
+
+"@-/configs-rollup@workspace:*, @-/configs-rollup@workspace:packages/@configs/rollup":
+  version: 0.0.0-use.local
+  resolution: "@-/configs-rollup@workspace:packages/@configs/rollup"
+  dependencies:
+    "@-/rollup-plugin-inject-header": "workspace:*"
+    "@babel/core": "npm:^7.23.3"
+    "@babel/preset-env": "npm:^7.23.3"
+    "@lunatlazur/rpgmakermv-types": "workspace:*"
+    "@rollup/plugin-babel": "npm:^6.0.4"
+    "@rollup/plugin-commonjs": "npm:^25.0.7"
+    "@rollup/plugin-node-resolve": "npm:^15.2.3"
+    "@rollup/plugin-typescript": "npm:^11.1.5"
+    "@types/node": "npm:20.5.0"
+    pascal-case: "npm:^4.0.0"
+    rollup: "npm:^4.5.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:^5.2.2"
+  languageName: unknown
+  linkType: soft
+
+"@-/rollup-plugin-inject-header@workspace:*, @-/rollup-plugin-inject-header@workspace:packages/@rollup/plugin-inject-header":
+  version: 0.0.0-use.local
+  resolution: "@-/rollup-plugin-inject-header@workspace:packages/@rollup/plugin-inject-header"
+  dependencies:
+    "@babel/core": "npm:^7.23.3"
+    "@babel/preset-env": "npm:^7.23.3"
+    "@rollup/plugin-babel": "npm:^6.0.4"
+    "@rollup/plugin-commonjs": "npm:^25.0.7"
+    "@rollup/plugin-node-resolve": "npm:^15.2.3"
+    "@rollup/plugin-typescript": "npm:^11.1.5"
+    "@types/ejs": "npm:^3.1.5"
+    "@types/js-yaml": "npm:^4.0.9"
+    "@types/lodash-es": "npm:^4.17.11"
+    "@types/node": "npm:20.5.0"
+    "@types/semver-compare": "npm:^1.0.1"
+    commenting: "aoitaku/commenting#feature/option-for-keeping-indent"
+    ejs: "npm:^3.1.9"
+    js-yaml: "npm:^4.1.0"
+    lodash-es: "npm:^4.17.21"
+    rollup: "npm:^4.5.0"
+    semver-compare: "npm:^1.0.0"
+    tslib: "npm:^2.6.2"
+    typescript: "npm:^5.2.2"
+  languageName: unknown
+  linkType: soft
+
 "@ampproject/remapping@npm:^2.2.0":
   version: 2.2.1
   resolution: "@ampproject/remapping@npm:2.2.1"
@@ -1717,65 +1778,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@~/configs-build-doc@workspace:*, @~/configs-build-doc@workspace:packages/@configs/build-doc":
-  version: 0.0.0-use.local
-  resolution: "@~/configs-build-doc@workspace:packages/@configs/build-doc"
-  dependencies:
-    date-fns: "npm:^2.30.0"
-    ejs: "npm:^3.1.9"
-    js-yaml: "npm:^4.1.0"
-    pascal-case: "npm:^4.0.0"
-  bin:
-    build-doc: bin/index.js
-  languageName: unknown
-  linkType: soft
-
-"@~/configs-rollup@workspace:*, @~/configs-rollup@workspace:packages/@configs/rollup":
-  version: 0.0.0-use.local
-  resolution: "@~/configs-rollup@workspace:packages/@configs/rollup"
-  dependencies:
-    "@babel/core": "npm:^7.23.3"
-    "@babel/preset-env": "npm:^7.23.3"
-    "@lunatlazur/rpgmakermv-types": "workspace:*"
-    "@rollup/plugin-babel": "npm:^6.0.4"
-    "@rollup/plugin-commonjs": "npm:^25.0.7"
-    "@rollup/plugin-node-resolve": "npm:^15.2.3"
-    "@rollup/plugin-typescript": "npm:^11.1.5"
-    "@types/node": "npm:20.5.0"
-    "@~/rollup-plugin-inject-header": "workspace:*"
-    pascal-case: "npm:^4.0.0"
-    rollup: "npm:^4.5.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:^5.2.2"
-  languageName: unknown
-  linkType: soft
-
-"@~/rollup-plugin-inject-header@workspace:*, @~/rollup-plugin-inject-header@workspace:packages/@rollup/plugin-inject-header":
-  version: 0.0.0-use.local
-  resolution: "@~/rollup-plugin-inject-header@workspace:packages/@rollup/plugin-inject-header"
-  dependencies:
-    "@babel/core": "npm:^7.23.3"
-    "@babel/preset-env": "npm:^7.23.3"
-    "@rollup/plugin-babel": "npm:^6.0.4"
-    "@rollup/plugin-commonjs": "npm:^25.0.7"
-    "@rollup/plugin-node-resolve": "npm:^15.2.3"
-    "@rollup/plugin-typescript": "npm:^11.1.5"
-    "@types/ejs": "npm:^3.1.5"
-    "@types/js-yaml": "npm:^4.0.9"
-    "@types/lodash-es": "npm:^4.17.11"
-    "@types/node": "npm:20.5.0"
-    "@types/semver-compare": "npm:^1.0.1"
-    commenting: "aoitaku/commenting#feature/option-for-keeping-indent"
-    ejs: "npm:^3.1.9"
-    js-yaml: "npm:^4.1.0"
-    lodash-es: "npm:^4.17.21"
-    rollup: "npm:^4.5.0"
-    semver-compare: "npm:^1.0.0"
-    tslib: "npm:^2.6.2"
-    typescript: "npm:^5.2.2"
-  languageName: unknown
-  linkType: soft
-
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -1803,10 +1805,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "actor-name-window@workspace:packages/actor-name-window"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-build-doc": "workspace:*"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -1946,9 +1948,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "back-log@workspace:packages/back-log"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -2206,9 +2209,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "configurable-message-closing@workspace:packages/configurable-message-closing"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -2217,9 +2221,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "configurable-message-window@workspace:packages/configurable-message-window"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -2337,6 +2342,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"easta@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "easta@npm:8.0.0"
+  checksum: a2cc01b5edf6983c0b0f480be7c7373fd160ad65046c4bb189765384919e7c5062bdf340ae0daf73a6dd71e68fe31c28c888e00a1f7f2568b38036df1623fb73
+  languageName: node
+  linkType: hard
+
 "eastasianwidth@npm:^0.2.0":
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
@@ -2451,9 +2463,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "event-command-skip@workspace:packages/event-command-skip"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -2625,6 +2638,13 @@ __metadata:
   version: 4.2.11
   resolution: "graceful-fs@npm:4.2.11"
   checksum: 386d011a553e02bc594ac2ca0bd6d9e4c22d7fa8cfbfc448a6d148c59ea881b092db9dbe3547ae4b88e55f1b01f7c4a2ecc53b310c042793e63aa44cf6c257f2
+  languageName: node
+  linkType: hard
+
+"graphemer@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "graphemer@npm:1.4.0"
+  checksum: e951259d8cd2e0d196c72ec711add7115d42eb9a8146c8eeda5b8d3ac91e5dd816b9cd68920726d9fd4490368e7ed86e9c423f40db87e2d8dfafa00fa17c3a31
   languageName: node
   linkType: hard
 
@@ -3098,9 +3118,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "message-attachment-button@workspace:packages/message-attachment-button"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -3418,9 +3439,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pause-sign-after-text@workspace:packages/pause-sign-after-text"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -3564,9 +3586,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "resumable-message-position@workspace:packages/resumable-message-position"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -3632,6 +3655,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rpgmaker@workspace:."
   dependencies:
+    "@types/node": "npm:20.5.0"
     dayjs: "npm:^1.8.29"
     hygen: "npm:^6.0.4"
     ts-node: "npm:^10.9.1"
@@ -3868,9 +3892,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tachie@workspace:packages/tachie"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -3910,9 +3935,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "toggleable-message-visibility@workspace:packages/toggleable-message-visibility"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -3921,9 +3947,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "transition@workspace:packages/transition"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft
@@ -4097,9 +4124,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "variable-observer@workspace:packages/variable-observer"
   dependencies:
+    "@-/configs-build-doc": "workspace:*"
+    "@-/configs-rollup": "workspace:*"
     "@lunatlazur/rpgmakermv-types": "workspace:*"
     "@types/node": "npm:20.5.0"
-    "@~/configs-rollup": "workspace:*"
     rollup: "npm:^4.5.0"
   languageName: unknown
   linkType: soft

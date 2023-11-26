@@ -1,0 +1,52 @@
+# Usage
+
+<%- usage %>
+<% if (commands?.length > 0) { -%>
+
+## Plug-in command list
+<% commands.forEach((command) => { -%>
+
+### <%- command['name:en'] %>
+
+<%- helpers.ensureLineBreak(command['description:en']) %>
+
+- #### Synopsis
+
+  ```
+  <%- helpers.ensureIndent(command['synopsis:en'], 2) %>
+  ```
+<% if (command.params?.length > 0) { -%>
+
+- #### Parameter
+<% command.params.forEach((param) => { -%>
+
+  ##### `<%- param['name:en'] %>` `<%- param['type:en'] %>`
+
+  <%- helpers.ensureLineBreak(helpers.ensureIndent(param['description:en'], 2)) %>
+<% if (param.values?.length > 0) { -%>
+<% param.values.forEach((value) => { -%>
+
+  - `<%- value['name:en'] %>`
+
+    <%- helpers.ensureLineBreak(helpers.ensureIndent(value['description:en'], 4)) %>
+<% }); -%>
+<% } -%>
+<% }); -%>
+<% if (command.examples?.length > 0) { -%>
+
+- #### Example
+<% command.examples.forEach((example) => { -%>
+
+  ```
+  <%- helpers.ensureIndent(example['code:en'], 2) %>
+  ```
+
+  <%- helpers.ensureLineBreak(helpers.ensureIndent(example['description:en'], 2)) %>
+<% }); -%>
+<% } -%>
+<% } -%>
+<% }); -%>
+<% } else { -%>
+
+This plugin has no plugin command.
+<% } -%>

@@ -1,5 +1,95 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
-params:
-structs:
+desc:en: |-
+  This plugin provides a function to display the standing picture of the
+  character.
+desc:ja: |-
+  このプラグインはキャラクターの立ち絵を表示できるようにします。
+usage:en: |-
+   1. Place a character sprite file in the Picture folder with a name in the
+      format `<Character name><Number>` as shown below.
+
+          characterA1.png
+          characterA2.png
+          characterA3.png
+          characterA4.png
+          characterA5.png
+          characterB1.png
+          characterB2.png
+          :
+          :
+
+      In this example, `characterA` and `characterB` are character names.
+
+   2. Create a character sprite definition file in the Data folder named Tachie.csv
+      in the following format.
+
+          characterA, CharactarA, smile, anger, disapointment, discontent
+          characterB, CharacterB, smile, anger, disapointment, discontent
+          :
+          :
+
+      - In the 1st column, specify the part obtained by removing the extension and
+        the number at the end from the character sprite image file name placed in
+        the Picture folder.
+      - The 2nd column is the name of the character.  
+        Use this name when specifying the character sprite file from the plugin
+        command.
+      - The 3rd and subsequent columns are the names of the expressions in the
+        character sprite image file.  
+        Use this name when specifying facial expressions from plugin commands.  
+        Please name the expression difference after character image numbered in 2.  
+        (Character image numbered in 1 is used when expression is not specified.)
+
+      In the above example, characterA2.png is set to smile for character A,
+      and characterA3.png is set to anger for character A.
+
+   3. Input the character sprite display command to the plug-in command to display
+      the character sprite. Refer to the following plug-in command list for details
+      of plug-in commands.
+usage:ja: |-
+   1. 以下のような `<キャラクター名><番号>` の形式の名前で立ち絵画像ファイルを
+      Picture フォルダに配置します。
+
+          characterA1.png
+          characterA2.png
+          characterA3.png
+          characterA4.png
+          characterA5.png
+          characterB1.png
+          characterB2.png
+          :
+          :
+
+      この例では `characterA` と `characterB` がそれぞれキャラクター名に
+      なります。
+
+   2. Data フォルダに Tachie.csv という名前で以下形式の立ち絵定義ファイルを
+      作成してください。
+
+          characterA, キャラA, 笑い, 怒り, 呆れ, 不満
+          characterB, キャラB, 笑い, 緊張, 呆れ, 不満
+          :
+          :
+
+      - 一列目は Picture フォルダに配置した立ち絵画像ファイル名から拡張子と
+        末尾の数字を取り除いた部分です
+      - 二列目はキャラクターの名前です  
+        プラグインコマンドから立ち絵画像ファイルを指定するときに、この名前で
+        指定します
+      - 三列目以降は、立ち絵画像ファイルの表情の名前です  
+        プラグインコマンドから表情を指定するときに、この名前で指定します  
+        `<キャラクター名>2` 以降の表情差分に名前をつけてください  
+        （`<キャラクター名>1` は表情未指定時に使われます）
+
+        上記例では characterA2.png が キャラA の 笑い、characterA3.png が
+        キャラA の 怒り という設定になっています。
+
+   3. プラグインコマンドに立ち絵表示コマンドを入力して立ち絵を表示を行います。  
+      プラグインコマンドの詳細は下記のプラグインコマンド一覧を参照してください。
+changelogs:
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

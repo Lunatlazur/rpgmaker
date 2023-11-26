@@ -1,8 +1,23 @@
 locales: [en, ja]
-description:en: |-
+desc:en: |-
   This plugin shows speaker's name window.
-description:ja: |-
+desc:ja: |-
   このプラグインは名前ウィンドウを表示できるようにします。
+usage:en: |-
+  Input the character name with `\N<Character name>` format
+  to display the speaker's name window.
+
+  The same font as the message window is used for this window.
+
+  To change the name window text color, specify the plugin
+  parameter.
+usage:ja: |-
+  `\N<キャラクター名>` 形式でメッセージ内にキャラクターの名前を記述することで
+  メッセージウィンドウの上部に名前ウィンドウを表示するようになります。
+
+  名前ウィンドウのフォントはメッセージウィンドウのものが使われます。
+
+  名前ウィンドウのテキストカラーはプラグインパラメータから指定してください。
 changelogs:
   - version: 1.1.0
     date: 2020-01-22

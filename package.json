@@ -17,6 +17,7 @@
     "hygen": "yarn run hygen"
   },
   "devDependencies": {
+    "@types/node": "20.5.0",
     "dayjs": "^1.8.29",
     "hygen": "^6.0.4",
     "ts-node": "^10.9.1",

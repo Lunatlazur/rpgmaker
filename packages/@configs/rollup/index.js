@@ -5,7 +5,7 @@ import pluginNodeResolve from "@rollup/plugin-node-resolve"
 import pluginCommonjs from "@rollup/plugin-commonjs"
 import pluginTypescript from "@rollup/plugin-typescript"
 import { babel as pluginBabel } from "@rollup/plugin-babel"
-import { pluginInjectHeader } from '@~/rollup-plugin-inject-header'
+import { pluginInjectHeader } from '@-/rollup-plugin-inject-header'
 
 function settings({ url, target, name, organization }) {
   const packageDir = path.dirname(fileURLToPath(url))

@@ -1,0 +1,45 @@
+locales: [en, ja]
+commands:
+  - name:en: ACTIVATE_VARIABLE_OBSERVER
+    name:ja: 変数監視開始
+    description:en: Start monitoring variables.
+    description:ja: 変数の監視を開始します。
+    synopsis:en: |-
+      ACTIVATE_VARIABLE_OBSERVER <target variable number> <common event id>
+    synopsis:ja: |-
+      変数監視開始 <監視する変数番号> <コモンイベントID>
+    params:
+      - name:en: target variable number
+        name:ja: 監視する変数番号
+        type:en: <number>
+        type:ja: <番号>
+        description:en: |-
+          Specifies the number of the variable to be monitored.
+        description:ja: |-
+          監視する変数の番号を指定します。
+      - name:en: common event id
+        name:ja: コモンイベントID
+        type:en: <ID>
+        type:ja: <ID>
+        description:en: |-
+          Specifies the ID of the common event that will be executed when the variable
+          changes.
+        description:ja: |-
+          変数に変更があったときに実行されるコモンイベントのIDを指定します。
+  - name:en: DEACTIVATE_VARIABLE_OBSERVER
+    name:ja: 変数監視停止
+    description:en: Stop monitoring variables.
+    description:ja: 変数の監視を停止します。
+    synopsis:en: |-
+      DEACTIVATE_VARIABLE_OBSERVER <target variable number>
+    synopsis:ja: |-
+      変数監視停止 <監視を停止する変数番号>
+    params:
+      - name:en: Target variable number
+        name:ja: 監視を停止する変数番号
+        type:en: <number>
+        type:ja: <番号>
+        description:en: |-
+          Specifies the number of the variable to stop monitoring.
+        description:ja: |-
+          監視を停止する変数の番号を指定します。

@@ -1,7 +1,7 @@
 ---
 to: packages/<%= name %>/rollup.config.js
 ---
-import settings from '@~/configs-rollup'
+import settings from '@-/configs-rollup'
 import packageJson from './package.json' assert { type: 'json' }
 
 export default settings({

@@ -1,5 +1,23 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
-params:
-structs:
+desc:en: |-
+  This plugin makes it possible to set the transition at fade-in / fade-out.
+
+  It supports fade-in / fade-out and fade time specification on a white screen.
+  You can also use it as a custom fade function without using transitions.
+desc:ja: |-
+  このプラグインはフェードイン／フェードアウトの際にトランジションを設定できる
+  ようにします。
+
+  白画面でのフェードイン／フェードアウトや、フェード時間の指定に対応しているため
+  トランジションを使わずにカスタムフェード機能として使うこともできます。
+usage:en: |-
+  Transition images need to be placed in the `img/transitions` folder.
+usage:ja: |-
+  トランジション画像は `img/transitions` フォルダに配置してください。
+changelogs:
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

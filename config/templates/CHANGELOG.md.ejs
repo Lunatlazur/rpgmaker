@@ -1,8 +1,6 @@
-変更履歴
-========
+# 変更履歴
 <% changelogs.forEach((changelog) => { -%>
 
-<%- changelog.version %> <%- changelog.date %>
-----------------
+## <%- changelog.version %> <%- changelog.date %>
 <%- changelog['changes:ja'] %>
 <% }); -%>

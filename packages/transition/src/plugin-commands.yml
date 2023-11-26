@@ -1,0 +1,88 @@
+locales: [en, ja]
+commands:
+  - name:en: fadein
+    name:ja: フェードイン
+    description:en: Perform fade-in.
+    description:ja: フェードインを行います。
+    synopsis:en: |-
+      fadein <color> <transition image name> <duration>
+    synopsis:ja: |-
+      フェードイン <色> <トランジション画像名> <フェードにかける時間>
+    params:
+      - name:en: color
+        name:ja: 色
+        type:en: (white | black)
+        type:ja: (白 | 黒)
+        description:en: |-
+          Color when fading in.
+        description:ja: |-
+          フェードインするときの色を指定します。
+        values:
+          - name:en: white
+            name:ja: 白
+            description:en: Fade in from a white screen.
+            description:ja: 白画面からフェードインします。
+          - name:en: black
+            name:ja: 黒
+            description:en: Fade in from a black screen.
+            description:ja: 黒画面からフェードインします。
+      - name:en: transition image name
+        name:ja: トランジション画像名
+        type:en: <filename>
+        type:ja: <ファイル名>
+        description:en: |-
+          Image file name in `img/transitions` folder.
+        description:ja: |-
+          トランジション画像のファイル名を指定します。  
+          `img/transitions` フォルダからのパスで指定します。
+      - name:en: duration
+        name:ja: フェードにかける時間
+        type:en: <number>F
+        type:ja: <数値>フレーム
+        description:en: |-
+          Specify the time to fade by the number of frames.
+        description:ja: |-
+          フェードにかける時間をフレーム数で指定します。
+  - name:en: fadeout
+    name:ja: フェードアウト
+    description:en: Perform fade-out.
+    description:ja: フェードアウトを行います。
+    synopsis:en: |-
+      fadeout <color> <transition image name> <duration>
+    synopsis:ja: |-
+      フェードアウト <色> <トランジション画像名> <フェードにかける時間>
+    params:
+      - name:en: color
+        name:ja: 色
+        type:en: (white | black)
+        type:ja: (白 | 黒)
+        description:en: |-
+          Color when fading out.
+        description:ja: |-
+          フェードアウトするときの色を指定します。
+        values:
+          - name:en: white
+            name:ja: 白
+            description:en: Fade out from a white screen.
+            description:ja: 白画面からフェードアウトします。
+          - name:en: black
+            name:ja: 黒
+            description:en: fade out from a black screen.
+            description:ja: 黒画面からフェードアウトします。
+      - name:en: transition image name
+        name:ja: トランジション画像名
+        type:en: <filename>
+        type:ja: <ファイル名>
+        description:en: |-
+          Image file name in `img/transitions` folder.
+        description:ja: |-
+          トランジション画像のファイル名を指定します。  
+          `img/transitions` フォルダからのパスで指定します。
+      - name:en: duration
+        name:ja: フェードにかける時間
+        type:en: <number>F
+        type:ja: <数値>フレーム
+        description:en: |-
+          Specify the time to fade by the number of frames.
+        description:ja: |-
+          フェードにかける時間をフレーム数で指定します。

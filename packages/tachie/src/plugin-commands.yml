@@ -1,0 +1,375 @@
+locales: [en, ja]
+commands:
+  - name:en: SHOW_TACHIE
+    name:ja: 立ち絵表示
+    description:en: Show character sprite.
+    description:ja: 立ち絵を表示します。
+    synopsis:en: |-
+      SHOW_TACHIE <character name>
+                  [<expression> <position> <distance> <x> <y> <slide-x> <slide-y> <duration> <wait>
+    synopsis:ja: |-
+      立ち絵表示 <キャラクター名>
+                 [<表情> <位置> <距離> <横位置調整> <縦位置調整> <スライド横> <スライド縦> <表示にかける時間> <完了までウェイト>]
+    params:
+      - name:en: character name
+        name:ja: キャラクター名
+        type:en: <name>
+        type:ja: <名前>
+        description:en: |-
+          The name of the character set in the character sprite definition file.
+        description:ja: |-
+          立ち絵定義ファイルで設定したキャラクターの名前
+      - name:en: expression
+        name:ja: 表情
+        type:en: |-
+          [<name>]
+        type:ja: |-
+          [<名前>]
+        description:en: |-
+          Expression of character set in character sprite definition file.  
+          If unspecified, the expression of the character numbered 1 will be used.
+        description:ja: |-
+          立ち絵定義ファイルで設定したキャラクターの表情  
+          未指定で1番目の表情
+      - name:en: position
+        name:ja: 位置
+        type:en: |-
+          [left | center | right]
+        type:ja: |-
+          [左 | 中 | 右]
+        description:en: |-
+          Set X coordinate of the character sprite according to position parameter.  
+          If unspecified, set to center position.
+        description:ja: |-
+          立ち絵の X 座標を位置に応じた値にする
+          未指定で中央
+        values:
+          - name:en: left
+            name:ja: 左
+            description:en: Place the character sprite at the left side of the screen.
+            description:ja: 立ち絵を画面左側に配置する
+          - name:en: center
+            name:ja: 中
+            description:en: Place the character sprite at the center of the screen.
+            description:ja: 立ち絵を画面中央に配置する
+          - name:en: right
+            name:ja: 右
+            description:en: Place the character sprite at the right side of the screen.
+            description:ja: 立ち絵を画面右側に配置する
+      - name:en: distance
+        name:ja: 距離
+        type:en: |-
+          [near | middle | far]
+        type:ja: |-
+          [近 | 中 | 遠]
+        description:en: |-
+          Set the magnification and Y coordinate of the character sprite to values
+          according to the distance parameter.  
+          If unspecified, set to middle distance.
+        description:ja: |-
+          立ち絵の拡大率と Y 座標を距離に応じた値にする  
+          未指定で中距離
+        values:
+          - name:en: Place the character sprite large in front of the screen.
+            name:ja: 近
+            description:en:
+            description:ja: 立ち絵を画面手前に配置する
+          - name:en: Place the character sprite between the front and back sides of the screen.
+            name:ja: 中
+            description:en:
+            description:ja: 立ち絵を画面中間に配置する
+          - name:en: Place the character sprite small at the back of the screen.
+            name:ja: 遠
+            description:en:
+            description:ja: 立ち絵を画面奥に配置する
+      - name:en: x
+        name:ja: 横位置調整
+        type:en: |-
+          [x:<number>]
+        type:ja: |-
+          [横位置調整:<数値> | 横:<数値>]
+        description:en: |-
+          Add specified value to X coordinate of the character sprite.
+        description:ja: |-
+          立ち絵の X 座標に指定した数値を加える
+      - name:en: 'y'
+        name:ja: 縦位置調整
+        type:en: |-
+          [y:<number>]
+        type:ja: |-
+          [縦位置調整:<数値> | 縦:<数値>]
+        description:en: |-
+          Add specified number to Y coordinate of the character sprite.
+        description:ja: |-
+          立ち絵の Y 座標に指定した数値を加える
+      - name:en: slide-x
+        name:ja: スライド横
+        type:en: |-
+          [slide-x:<number>]
+        type:ja: |-
+          [スライド横:<数値>]
+        description:en: |-
+          Subtract the specified value from the X coordinate at the start of the
+          character sprite display.
+        description:ja: |-
+          立ち絵の表示開始時の X 座標から指定した数値を引く
+      - name:en: slide-y
+        name:ja: スライド縦
+        type:en: |-
+          [slide-y:<number>]
+        type:ja: |-
+          [スライド縦:<数値>]
+        description:en: |-
+          Subtract the specified value from the Y coordinate at the start of the
+          character sprite display.
+        description:ja: |-
+          立ち絵の表示開始時の Y 座標から指定した数値を引く
+      - name:en: duration
+        name:ja: 表示にかける時間
+        type:en: |-
+          [<number>F]
+        type:ja: |-
+          [<数値>フレーム]
+        description:en: |-
+          Specify the display time in frames.  
+          If unspecified, it will be displayed instantly.
+        description:ja: |-
+          表示にかける時間をフレーム数で指定する  
+          未指定で瞬間表示
+      - name:en: wait
+        name:ja: 完了までウェイト
+        type:en: |-
+          [wait | no-wait]
+        type:ja: |-
+          [ウェイトあり | ウェイトなし]
+        description:en: |-
+          Wait until display is complete.  
+          If unspecified, set to no wait.  
+          If duration is unspecified, it should be ignored.
+        description:ja: |-
+          表示が完了するまでウェイトする  
+          未指定でウェイトなし  
+          瞬間表示の場合は無視される
+    examples:
+      - code:en: SHOW_TACHIE characterA near
+        code:ja: 立ち絵表示 キャラA 近
+        description:en: |-
+          `characterA` is instantly displayed in the center of the screen with expression
+          numbered in `1` at a near distance.
+        description:ja: |-
+          `キャラA`を `表情1` で画面中央、近距離の位置に瞬間表示
+      - code:en: SHOW_TACHIE characterA expression2 left x:5 y:-5 slide-x:20 60F wait
+        code:ja: 立ち絵表示 キャラA 表情2 左 横:5 縦:-5 スライド横:20 60フレーム ウェイトあり
+        description:en: |-
+          `characterA` is displayed with a expression numbered in `2` at the middle distance
+          for `60` frames, with sliding `20`px from right to the position shifted `5`px left
+          and `5`px upward from left side of screen.  
+          Wait until display is complete.
+        description:ja: |-
+          `キャラA` を `表情2` で画面左側、中距離の、左方向に `5`px、上に `5`pxずらした位置に
+           `20`px 左にスライドしながら `60`フレームかけて表示する  
+          表示が完了するまでウェイトする
+  - name:en:
+    name:ja: 立ち絵変更
+    description:en:
+    description:ja: |-
+      立ち絵を変更します。  
+      主に、表情差分や衣装差分の切り替えを行うためのコマンドです。
+    synopsis:en:
+    synopsis:ja: |-
+      立ち絵変更 <変更前キャラクター名>
+                 [<変更後キャラクター名> <表情> <変更にかける時間> <完了までウェイト>]
+    params:
+      - name:en:
+        name:ja: 変更前キャラクター名
+        type:en:
+        type:ja: <名前>
+        description:en:
+        description:ja: |-
+          立ち絵定義ファイルで設定したキャラクターの名前
+      - name:en:
+        name:ja: 変更後キャラクター名
+        type:ja: |-
+          [<名前>]
+        type:en:
+        description:en:
+        description:ja: |-
+          立ち絵定義ファイルで設定したキャラクターの名前  
+          未指定で現在と同じキャラクターの表情セットを使う
+      - name:en:
+        name:ja: 表情
+        type:en:
+        type:ja: |-
+          [<名前>]
+        description:en:
+        description:ja: |-
+          立ち絵定義ファイルで設定したキャラクターの表情  
+          未指定で1番目の表情
+      - name:en:
+        name:ja: 表示にかける時間
+        type:en:
+        type:ja: |-
+          [<数値>フレーム]
+        description:ja: |-
+          表示にかける時間をフレーム数で指定する  
+          未指定で瞬間表示
+        description:en:
+      - name:en:
+        name:ja: 完了までウェイト
+        type:en:
+        type:ja: |-
+          [ウェイトあり | ウェイトなし]
+        description:en:
+        description:ja: |-
+          表示が完了するまでウェイトする  
+          未指定でウェイトなし  
+          瞬間表示の場合は無視される
+    examples:
+      - code:en:
+        code:ja: 立ち絵変更 キャラA 表情2 30フレーム
+        description:en:
+        description:ja: |-
+          `キャラA` を `表情2` に `30`フレームかけて変更する
+      - code:en:
+        code:ja: 立ち絵変更 キャラA キャラB 30フレーム
+        description:en:
+        description:ja: |-
+          `キャラA` を `キャラB` の `表情1` に `30`フレームかけて変更する
+  - name:en:
+    name:ja: 立ち絵移動
+    description:en:
+    description:ja: |-
+      立ち絵を移動します
+    synopsis:en:
+    synopsis:ja: |-
+      立ち絵移動 <キャラクター名>
+                 [<位置> <横位置調整> <縦位置調整> <移動にかける時間> <完了までウェイト>]
+    params:
+      - name:en:
+        name:ja: キャラクター名
+        type:en:
+        type:ja: <名前>
+        description:en:
+        description:ja: |-
+          立ち絵定義ファイルで設定したキャラクターの名前
+      - name:en:
+        name:ja: 位置
+        type:en:
+        type:ja: |-
+          [左 | 中 | 右]
+        description:en:
+        description:ja: |-
+          立ち絵の X 座標を位置に応じた値にする  
+          未指定で中央
+        values:
+          - name:en:
+            name:ja: 左
+            description:en:
+            description:ja: 立ち絵を画面左側に配置する
+          - name:en:
+            name:ja: 中
+            description:en:
+            description:ja: 立ち絵を画面中央に配置する
+          - name:en:
+            name:ja: 右
+            description:en:
+            description:ja: 立ち絵を画面右側に配置する
+      - name:en:
+        name:ja: 横位置調整
+        type:en:
+        type:ja: |-
+          [横位置調整:<数値> | 横:<数値>]
+        description:en:
+        description:ja: |-
+          立ち絵の X 座標に指定した数値を加える
+      - name:en:
+        name:ja: 縦位置調整
+        type:en:
+        type:ja: |-
+          [縦位置調整:<数値> | 縦:<数値>]
+        description:en:
+        description:ja: |-
+          立ち絵の Y 座標に指定した数値を加える
+      - name:en:
+        name:ja: 移動にかける時間
+        type:en:
+        type:ja: |-
+          [<数値>フレーム]
+        description:en:
+        description:ja: |-
+          移動にかける時間をフレーム数で指定する  
+          未指定で瞬間移動
+      - name:en:
+        name:ja: 完了までウェイト
+        type:en:
+        type:ja: |-
+          [ウェイトあり | ウェイトなし]
+        description:en:
+        description:ja: |-
+          移動が完了するまでウェイトする  
+          未指定でウェイトなし  
+          瞬間移動の場合は無視される
+    examples:
+      - code:en:
+        code:ja: 立ち絵移動 キャラA 右 横:-15
+        description:en:
+        description:ja: |-
+          `キャラA` を画面右側の、右方向に `15`pxずらした位置に `30`フレームかけて移動させる
+  - name:en:
+    name:ja: 立ち絵消去
+    description:en:
+    description:ja: |-
+      立ち絵を消去します
+    synopsis:en:
+    synopsis:ja: |-
+      立ち絵消去 <キャラクター名>
+                 [<スライド横> <スライド縦> <消去にかける時間> <完了までウェイト>]
+    params:
+      - name:en:
+        name:ja: キャラクター名
+        type:en:
+        type:ja: <名前>
+        description:en:
+        description:ja: |-
+          立ち絵定義ファイルで設定したキャラクターの名前
+      - name:en:
+        name:ja: スライド横
+        type:en:
+        type:ja: |-
+          [スライド横:<数値>]
+        description:en:
+        description:ja: |-
+          立ち絵の消去開始時の X 座標から指定した数値を引く
+      - name:en:
+        name:ja: スライド縦
+        type:en:
+        type:ja: |-
+          [スライド縦:<数値>]
+        description:en:
+        description:ja: |-
+          立ち絵の消去開始時の Y 座標から指定した数値を引く
+      - name:en:
+        name:ja: 消去にかける時間
+        type:en:
+        type:ja: |-
+          [<数値>フレーム]
+        description:en:
+        description:ja: |-
+          消去にかける時間をフレーム数で指定する  
+          未指定で瞬間消去
+      - name:en:
+        name:ja: 完了までウェイト
+        type:en:
+        type:ja: |-
+          [ウェイトあり | ウェイトなし]
+        description:en:
+        description:ja: |-
+          消去が完了するまでウェイトする  
+          未指定でウェイトなし  
+          瞬間消去の場合は無視される
+    examples:
+      - code:en:
+        code:ja: 立ち絵消去 キャラA 30フレーム
+        description:en:
+        description:ja: |-
+          `キャラA` を `30`フレームかけて消去する

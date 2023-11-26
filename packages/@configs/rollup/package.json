@@ -1,5 +1,5 @@
 {
-  "name": "@~/configs-rollup",
+  "name": "@-/configs-rollup",
   "version": "1.0.0",
   "description": "",
   "author": "Taku Aoi",
@@ -7,6 +7,7 @@
   "module": "index.mjs",
   "type": "module",
   "dependencies": {
+    "@-/rollup-plugin-inject-header": "workspace:*",
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@lunatlazur/rpgmakermv-types": "workspace:*",
@@ -15,7 +16,6 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/node": "20.5.0",
-    "@~/rollup-plugin-inject-header": "workspace:*",
     "pascal-case": "^4.0.0",
     "rollup": "^4.5.0",
     "tslib": "^2.6.2",

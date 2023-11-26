@@ -16,8 +16,8 @@ to: packages/<%= name %>/package.json
   "devDependencies": {
     "@lunatlazur/rpgmakermv-types": "workspace:*",
     "@types/node": "20.5.0",
-    "@~/configs-ejs": "workspace:*",
-    "@~/configs-rollup": "workspace:*",
+    "@-/configs-ejs": "workspace:*",
+    "@-/configs-rollup": "workspace:*",
     "rollup": "^4.5.0"
   }
 }

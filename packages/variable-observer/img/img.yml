@@ -1,0 +1,9 @@
+screenshots:
+  - filename: screenshot1.jpg
+    name:ja: スクリーンショット1
+    name:en: screenshot1
+  - filename: screenshot2.jpg
+    name:ja: スクリーンショット2
+    name:en: screenshot2
+credits:
+  - copyright: Gotcha Gotcha Games Inc.
