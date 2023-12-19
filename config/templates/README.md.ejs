@@ -1,12 +1,12 @@
 # <%- name %>
 
 <%- content['title:ja'] %>
-<% if (content.screenshots?.length > 0) { -%>
+<% if (content.screenshots.items?.length > 0) { -%>
 
-<% content.screenshots.forEach((screenshot) => { -%>
+<% content.screenshots.items.forEach((screenshot) => { -%>
 ![<%- screenshot['name:ja'] %>]
 <% }); -%>
-<%- content.screenshots.map((screenshot) => `©${screenshot.copyright}`).join(' ') %>
+<%- content.screenshots.copyright %>
 <% } -%>
 
 ---
@@ -26,12 +26,34 @@
 ## 変更履歴
 
 [変更履歴] を参照してください。
+<% if (content.credits?.length > 0) { -%>
+
+## クレジット（敬称略）
+
+スクリーンショットには下記の素材を利用させていただきました。
+<% content.credits.forEach((credit) => { -%>
+
+### <%- credit['category:ja'] %>
+<% credit.items.forEach((item) => { -%>
+
+<% if (item['url:ja']) { -%>
+[<%- item['name:ja'] %>](<%- item['url:ja'] %>) by <%- item.copyright.name %>
+<% } else if (item.copyright.web) { -%>
+<%- item['name:ja'] %> by <%- item.copyright.name %>（[<%- item.copyright.web %>](<%- item.copyright.url %>)）
+<% } else if (item.copyright.url) { -%>
+<%- item['name:ja'] %> by [<%- item.copyright.name %>](<%- item.copyright.url %>)
+<% } else { -%>
+<%- item['name:ja'] %> by <%- item.copyright.name %>
+<% } -%>
+<% }); -%>
+<% }); -%>
+<% } -%>
 
 ## ライセンス
 
 このプラグインは [zlib ライセンス] のもと配布されます。
 
-<% content.screenshots.forEach((screenshot) => { -%>
+<% content.screenshots.items.forEach((screenshot) => { -%>
 [<%- screenshot['name:ja'] %>]: <%- screenshot.filename %>
 <% }); -%>
 [使い方]: doc/USAGE.en.md

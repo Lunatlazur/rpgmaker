@@ -3,10 +3,10 @@ params:
   - param:en: '2-columns layout'
     param:ja: '2カラムレイアウト'
     desc:en: |-
-      Select whether to display the backlog in two columns.
+      Select whether to display the backlog in two columns.  
       `Yes` to diplay in two columns.
     desc:ja: |-
-      バックログの表示を2カラムにするかどうかを選択します。
+      バックログの表示を2カラムにするかどうかを選択します。  
       `する` で2カラムで表示します。
     default: true
     type:

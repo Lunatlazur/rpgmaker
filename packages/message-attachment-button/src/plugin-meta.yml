@@ -1,3 +1,46 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
+desc:en: |-
+  This plugin adds some functional button to the message window.
+desc:ja: |-
+  このプラグインはメッセージウィンドウに任意の機能を実行するためのボタンを
+  追加します。
+usage:en: |-
+  To add an extension button to the message window, specify each of the
+  following in the plugin parameters:
+
+  - Text displayed on the button
+  - Function executed when button is pressed
+
+  Scene transition and plugin command can be set for the function
+  executed when the button is pressed.
+usage:ja: |-
+  プラグインパラメータに
+
+  - ボタンに表示するテキスト
+  - ボタンを押したときに実行する機能
+
+  を、それぞれ指定することでメッセージウィンドウに拡張機能ボタンを追加する
+  ことができます。
+
+  ボタンを押したときに実行する機能には、シーン遷移とプラグインコマンドを
+  設定することができます。
+
+  ### コマンドのパラメータについて
+
+  - `command` が `scene` のとき
+
+    パラメータに Scene_XXX の XXX の部分（Save, Load, Menu, Title など）を
+    指定することで、ボタンを押したときに該当のシーンに遷移させることができます。
+
+
+  - `command` が `plugin` のとき
+
+    パラメータにプラグインコマンド名とパラメータを指定することで、ボタンを
+    押したときに該当のプラグインコマンドを実行することができます。
+changelogs:
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

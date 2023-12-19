@@ -28,7 +28,9 @@
   },
   "dependencies": {
     "commenting": "aoitaku/commenting#feature/option-for-keeping-indent",
+    "easta": "^8.0.0",
     "ejs": "^3.1.9",
+    "graphemer": "^1.4.0",
     "js-yaml": "^4.1.0",
     "lodash-es": "^4.17.21",
     "semver-compare": "^1.0.0"

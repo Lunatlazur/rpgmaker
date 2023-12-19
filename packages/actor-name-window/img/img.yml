@@ -1,5 +1,21 @@
 screenshots:
   - filename: screenshot1.jpg
-    name:ja: スクリーンショット1
     name:en: screenshot1
-    copyright: Gotcha Gotcha Games Inc.
+    name:ja: スクリーンショット1
+credits:
+  - copyright:
+      name: Gotcha Gotcha Games Inc.
+    items:
+      - name:en: 'RPG Maker MV : Cover Art Characters Pack'
+        name:ja: RPGツクールMV：パッケージキャラクター素材
+        url:en: https://plaza-us.komodo.jp/products/rpg-maker-mv-cover-art-characters-pack
+        url:ja: https://plaza.komodo.jp/collections/dlcs/products/cover-art-characters-pack
+        category: character
+categories:
+  - id: character
+    name:en: Character sprite
+    name:ja: キャラクター画像
+notice:en: |-
+  Character images used in screenshots are not included in this plugin.
+notice:ja: |-
+  スクリーンショットで使われているキャラクター画像はプラグインに含まれません。

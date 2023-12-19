@@ -6,4 +6,5 @@ screenshots:
     name:ja: スクリーンショット2
     name:en: screenshot2
 credits:
-  - copyright: Gotcha Gotcha Games Inc.
+  - copyright:
+      name: Gotcha Gotcha Games Inc.

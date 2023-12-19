@@ -1,3 +1,31 @@
 locales: [en, ja]
-desc:en: Show message back log
-desc:ja: バックログ表示プラグイン
+desc:en: This plugin shows message back log.
+desc:ja: このプラグインはバックログを表示できるようにします。
+usage:en: |-
+  The backlog feature is enabled by default when you install the plugin.  
+  To disable or re-enable the backlog function, use the plug-in command
+  to enable / disable it.
+
+  When using the actor name window plugin and configurable message closing
+  plugin, place this plugin below those plugins.
+usage:ja: |-
+  プラグインを導入した状態では、バックログ機能はデフォルトで有効になっています。  
+  バックログ機能を無効化したり再度有効化したりする場合は、プラグインコマンドで
+  適宜、有効・無効の切替を行ってください。
+
+  名前ウィンドウ表示プラグイン、メッセージ表示継続プラグインと同時に使う場合は、
+  本プラグインを上記プラグインよりも下に配置してください。
+changelogs:
+  - version: 1.1.0
+    date: 2021-05-16
+    changes:en: |-
+      - Added plugin parameters to choose whether to make the backlog
+        layout 2 columns
+    changes:ja: |-
+      - 2カラムレイアウトにするかどうか選択できるようにプラグインパラメータを追加
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

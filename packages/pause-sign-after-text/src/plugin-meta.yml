@@ -1,3 +1,12 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
+desc:en: This plugin places message pause sign at the end of message.
+desc:ja: このプラグインはメッセージ送り記号をメッセージの末尾に表示するようにします。
+usage:en:
+usage:ja:
+changelogs:
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

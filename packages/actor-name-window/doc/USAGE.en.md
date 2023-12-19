@@ -1,5 +1,4 @@
-Usage
-=====
+# Usage
 
 Input the character name with `\N<Character name>` format
 to display the speaker's name window.

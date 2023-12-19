@@ -1,1 +1,30 @@
 locales: [en, ja]
+command:
+  - name:en: ENABLE_BACKLOG
+    name:ja: バックログの有効化
+    synopsis:en: |-
+      ENABLE_BACKLOG
+    synopsis:ja: |-
+      バックログの有効化
+    description:en: |-
+      Enable backlog.  
+      The backlog is displayed by scrolling up the mouse wheel or pressing
+      the PageUp key.
+    description:ja: |-
+      バックログを有効化します。  
+      以降、マウスホイールのスクロールアップや PageUp キーの入力でバックログを
+      表示することができます。
+  - name:en: DISABLE_BACKLOG
+    name:ja: バックログの無効化
+    synopsis:en: |-
+      DISABLE_BACKLOG
+    synopsis:ja: |-
+      バックログの無効化
+    description:en: |-
+      Disable the backlog.  
+      The backlog is not displayed even if the mouse wheel is scrolled up
+      or the PageUp key is entered.
+    description:ja: |-
+      バックログを無効化します。  
+      以降、マウスホイールのスクロールアップや PageUp キーの入力でバックログを
+      表示できなくなります。

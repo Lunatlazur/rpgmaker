@@ -1,3 +1,20 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
+desc:en: |-
+  This plugin keeps message window visible while close command called.
+
+  This is convenient when you want to display or move a picture while
+  the message window is displayed.
+desc:ja: |-
+  このプラグインはメッセージの表示後に他のイベントコマンドが実行されても
+  メッセージウィンドウを自動で閉じずに、表示したままにできるようにします。
+
+  メッセージウィンドウを表示したままピクチャを表示・移動したいときなどに便利です。
+usage:en:
+usage:ja:
+changelogs:
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

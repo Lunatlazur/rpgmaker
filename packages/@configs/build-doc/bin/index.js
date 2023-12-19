@@ -4,26 +4,6 @@ import path from 'path'
 import yaml from 'js-yaml'
 import { pascalCase } from 'pascal-case'
 import { format } from 'date-fns'
-import easta from 'easta'
-import graphemer from 'graphemer'
-
-const Graphemer = graphemer.default
-const splitter = new Graphemer()
-function measureTextWidth(text) {
-    return splitter.splitGraphemes(text).reduce((length, char) => {
-        const eaw = easta(char)
-        switch (eaw) {
-        case 'F':
-        case 'W':
-            return length + 2
-        case 'Na':
-        case 'H':
-        case 'A':
-        case 'N':
-            return length + 1
-        }
-    }, 0)
-}
 
 function ensureIndent(text, size, indent = ' ') {
     return text.replace(/^/gm, indent.repeat(size)).trimStart()
@@ -61,14 +41,36 @@ const data = {
     name: pascalCase(packageJson.name),
     target: 'MV',
     content: {
-        'description:ja': meta['decs:ja'],
+        'desc:ja': meta['desc:ja'],
         'title:ja': packageJson['description:ja'],
-        'description:en': meta['decs:en'],
+        'desc:en': meta['desc:en'],
         'title:en': packageJson.description,
-        screenshots: img.screenshots.map((screenshot) => {
+        screenshots: {
+            items: img.screenshots.map((screenshot) => {
+                return {
+                    ...screenshot,
+                    filename: `img/${screenshot.filename}`,
+                }
+            }),
+            copyright: [...new Set(img.credits || []).map((credit) => {
+                return credit.copyright
+            })].map((copyright) => `©${copyright.name}`).join(' '),
+        },
+        credits: img.categories.map((category) => {
             return {
-                ...screenshot,
-                filename: `img/${screenshot.filename}`,
+                'category:ja': category['name:ja'],
+                'category:en': category['name:en'],
+                items: img.credits.flatmap((credit) => {
+                    return credit.items.filter((item) => item.category === category.id).map((item) => {
+                        return {
+                            copyright: credit.copyright,
+                            'name:en': item['name:en'],
+                            'name:ja': item['name:ja'],
+                            'url:en': item['url:en'],
+                            'url:ja': item['url:ja'],
+                        }
+                    })
+                }),
             }
         }),
     },

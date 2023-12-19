@@ -1,12 +1,12 @@
 # <%- name %>
 
 <%- content['title:en'] %>
-<% if (content.screenshots?.length > 0) { -%>
+<% if (content.screenshots.items?.length > 0) { -%>
 
-<% content.screenshots.forEach((screenshot) => { -%>
+<% content.screenshots.items.forEach((screenshot) => { -%>
 ![<%- screenshot['name:en'] %>]
 <% }); -%>
-<%- content.screenshots.map((screenshot) => `©${screenshot.copyright}`).join(' ') %>
+<%- content.screenshots.copyright %>
 <% } -%>
 
 ---
@@ -26,12 +26,34 @@ See [usage].
 ## Changelog
 
 See [changelog].
+<% if (content.credits?.length > 0) { -%>
+
+## Credit
+
+The following resources are used for screenshots.
+<% content.credits.forEach((credit) => { -%>
+
+### <%- credit['category:en'] %>
+<% credit.items.forEach((item) => { -%>
+
+<% if (item['url:en']) { -%>
+[<%- item['name:en'] %>](<%- item['url:en'] %>) by <%- item.copyright.name %>
+<% } else if (item.copyright.web) { -%>
+<%- item['name:en'] %> by <%- item.copyright.name %>（[<%- item.copyright.web %>](<%- item.copyright.url %>)）
+<% } else if (item.copyright.url) { -%>
+<%- item['name:en'] %> by [<%- item.copyright.name %>](<%- item.copyright.url %>)
+<% } else { -%>
+<%- item['name:en'] %> by <%- item.copyright.name %>
+<% } -%>
+<% }); -%>
+<% }); -%>
+<% } -%>
 
 ## License
 
 This plugin is released under the [zlib License].
 
-<% content.screenshots.forEach((screenshot) => { -%>
+<% content.screenshots.items.forEach((screenshot) => { -%>
 [<%- screenshot['name:en'] %>]: <%- screenshot.filename %>
 <% }); -%>
 [usage]: doc/USAGE.en.md

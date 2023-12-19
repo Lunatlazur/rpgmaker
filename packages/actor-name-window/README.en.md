@@ -7,7 +7,7 @@ Plugin for RPG Maker MV to show actor name window
 
 ---
 
-
+This plugin shows speaker's name window.
 
 ---
 
@@ -22,6 +22,14 @@ See [usage].
 ## Changelog
 
 See [changelog].
+
+## Credit
+
+The following resources are used for screenshots.
+
+### Character sprite
+
+[RPG Maker MV : Cover Art Characters Pack](https://plaza-us.komodo.jp/products/rpg-maker-mv-cover-art-characters-pack) by Gotcha Gotcha Games Inc.
 
 ## License
 

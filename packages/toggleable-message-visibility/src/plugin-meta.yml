@@ -1,5 +1,21 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
-params:
-structs:
+desc:en: |-
+  This plugin makes message window visibility toggleable.
+desc:ja: |-
+  このプラグインはメッセージウィンドウの表示／非表示を切替できるようにします。
+usage:en: |-
+  Tap the close button in the upper right corner of the message window or just
+  right-click to hide the message window.  
+  If you right-click with the message window not displayed, the message window
+  will be displayed again.
+usage:ja: |-
+  右クリックまたはメッセージウィンドウ右上の✕ボタンをタップすると、ウィンドウを
+  非表示にします。  
+  非表示中に右クリックで再表示します。
+changelogs:
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en: |-
+      - Published.
+    changes:ja: |-
+      - 公開

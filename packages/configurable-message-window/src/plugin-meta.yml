@@ -1,3 +1,41 @@
 locales: [en, ja]
-desc:en:
-desc:ja:
+desc:en: |-
+  This plugin allows you to change the number of message lines,
+  fonts, etc.
+desc:ja: |-
+  このプラグインはメッセージ行数やフォントを変更できるようにします。
+usage:en: |-
+  The number of message lines and font can be customized with plugin
+  parameters.
+
+  The default font settings are Calibri and Geneva.  
+  Calibri is bundled with Windows and Geneva with macOS. It is
+  possible to display these fonts without additional font files
+  in each environment.
+
+  If you want to display in any font other than the bundled font,
+  please include a separate font file.
+usage:ja: |-
+  プラグインパラメータからメッセージの行数、フォントを指定することで、
+  それぞれ変更可能です。
+
+  フォントはデフォルトで UDデジタル教科書体、Klee が指定されています。  
+  UDデジタル教科書体は Windows 10 Fall Creators Update に、Klee は
+  macOS Sierra 以降にバンドルされています。それぞれの環境では追加の
+  フォントファイルなしにこれらのフォントを表示することが可能です。
+
+  バンドルフォント以外の任意のフォントでの表示を行いたい場合は、
+  別途フォントファイルを同梱してください。
+changelogs:
+  - version: 1.1.0
+    date: 2019-09-09
+    changes:en:
+      - Added option for applying custom message font to choice.
+    changes:ja:
+      - 選択肢に追加のフォント指定を反映するかどうか設定できるように
+  - version: 1.0.0
+    date: 2018-04-01
+    changes:en:
+      - Published.
+    changes:ja:
+      - 公開

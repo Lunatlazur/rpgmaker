@@ -1,0 +1,43 @@
+screenshots:
+  - filename: screenshot1.jpg
+    name:en: screenshot1
+    name:ja: スクリーンショット1
+  - filename: screenshot2.jpg
+    name:en: screenshot2
+    name:ja: スクリーンショット2
+credits:
+  - copyright:
+      name: Gotcha Gotcha Games Inc.
+    items:
+      - name:en: 'RPG Maker MV : Cover Art Characters Pack'
+        name:ja: RPGツクールMV：パッケージキャラクター素材
+        url:en: https://plaza-us.komodo.jp/products/rpg-maker-mv-cover-art-characters-pack
+        url:ja: https://plaza.komodo.jp/collections/dlcs/products/cover-art-characters-pack
+        category: character
+  - copyright:
+      name: Vibrato
+      web: P3X-774
+      url: https://vibrato08.wixsite.com/p3x-774
+    items:
+      - name:en: RPGツクールMVパッケージキャラクター：フェイス・カットイン素材
+        name:ja: RPGツクールMVパッケージキャラクター：フェイス・カットイン素材
+        category: character
+  - copyright:
+      name: 瀬尾辰也
+      web: TEDDY-PLAZA
+      url: http://teddy-plaza.sakura.ne.jp/
+    items:
+      - name:en: 汎用森
+        name:ja: 汎用森
+        category: background
+categories:
+  - id: character
+    name:en: Character sprite
+    name:ja: キャラクター画像
+  - id: background
+    name:en: Background
+    name:ja: 背景画像
+notice:en: |-
+  Character images and background images used in screenshots are not included in this plugin.
+notice:ja: |-
+  スクリーンショットで使われているキャラクター画像、背景画像はプラグインに含まれません。
