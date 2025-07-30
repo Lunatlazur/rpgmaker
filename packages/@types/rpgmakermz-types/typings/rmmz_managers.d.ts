@@ -1,3 +1,4 @@
+// グローバル変数の型定義（基本：nullable）
 declare var $dataActors: RPGMakerMZ.DataActor[] | null
 declare var $dataClasses: RPGMakerMZ.DataClass[] | null
 declare var $dataSkills: RPGMakerMZ.DataSkill[] | null
@@ -101,7 +102,7 @@ declare class DataManager {
   static savefileInfo(savefileId: number): DataManager.SavefileInfo
   static saveGame(savefileId: number): Promise<number>
   static makeSavename(savefileId: number): string
-  static makeSavefileForNewGame(): void
+  static selectSavefileForNewGame(): void
   static makeSavefileInfo(): DataManager.SavefileInfo
   static makeSaveContents(): DataManager.SavefileContent
   static loadGame(savefileId: number): Promise<number>
@@ -248,6 +249,7 @@ declare class AudioManager {
   static replayBgs(bgs: RPGMakerMZ.Audio.Resumable): void
   static isCurrentBgs(bgs: RPGMakerMZ.Audio.Resumable): boolean
   static updateBgsParameters(bgs: RPGMakerMZ.Audio.Resumable): void
+  static updateCurrentBgs(): void
   static stopBgs(): void
   static fadeOutBgs(duration: number): void
   static fadeInBgs(duration: number): void
@@ -299,6 +301,8 @@ declare class SoundManager {
   static playReflection(): void
   static playShop(): void
   static playUseSkill(): void
+  static playEnemyDamage(): void
+  static playUseItem(): void
 }
 
 declare class TextManager {
@@ -415,7 +419,7 @@ declare class ColorManager {
   static powerUpColor(): string
   static powerDownColor(): string
   static ctGaugeColor1(): string
-  static ctGaugeColor1(): string
+  static ctGaugeColor2(): string
   static tpGaugeColor1(): string
   static tpGaugeColor2(): string
   static tpCostColor(): string
@@ -453,6 +457,7 @@ declare class SceneManager {
   static initInput(): void
   static setupEventHandlers(): void
   static update(): void
+  static updateFrameCount(): void
   static determineRepeatNumber(deltaTime: number): number
   static terminate(): void
   static onError(event: ErrorEvent): void
@@ -476,7 +481,7 @@ declare class SceneManager {
   static onBeforeSceneStart(): void
   static onSceneStart(): void
   static isSceneChanging(): boolean
-  static isCurrenSceneBusy(): boolean
+  static isCurrentSceneBusy(): boolean
   static isNextScene(sceneClass: SceneConstructor): boolean
   static isPreviousScene(sceneClass: SceneConstructor): boolean
   static goto(sceneClass: SceneConstructor): void

@@ -313,6 +313,8 @@ declare class Window_Command<T> extends Window_Selectable {
 // Window_HorzCommand
 declare class Window_HorzCommand<T> extends Window_Command<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   maxCols(): number
   itemTextAlign(): string
@@ -322,6 +324,8 @@ declare class Window_HorzCommand<T> extends Window_Command<T> {
 // Window_Help
 declare class Window_Help extends Window_Base{
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setText(text: string): void
   clear(): void
@@ -334,6 +338,8 @@ declare class Window_Help extends Window_Base{
 // Window_Gold
 declare class Window_Gold extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   colSpacing(): number
   refresh(): void
@@ -346,6 +352,8 @@ declare class Window_Gold extends Window_Selectable {
 // Window_StatusBase
 declare class Window_StatusBase extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   loadFaceImages(): void
   refresh(): void
@@ -372,6 +380,8 @@ declare class Window_StatusBase extends Window_Selectable {
 // Window_MenuCommand
 declare class Window_MenuCommand<T> extends Window_Command<T>{
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   static initCommandPosition(): void
 
@@ -396,6 +406,8 @@ declare class Window_MenuCommand<T> extends Window_Command<T>{
 // Window_MenuStatus
 declare class Window_MenuStatus extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   maxItems(): number
   numVisibleRows(): number
@@ -418,6 +430,8 @@ declare class Window_MenuStatus extends Window_StatusBase {
 // Window_MenuActor
 declare class Window_MenuActor extends Window_MenuStatus {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   processOk(): void
   selectLast(): void
@@ -428,6 +442,8 @@ declare class Window_MenuActor extends Window_MenuStatus {
 // Window_ItemCategory
 declare class Window_ItemCategory<T> extends Window_HorzCommand<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   maxCols(): number
   update(): void
@@ -441,6 +457,8 @@ declare class Window_ItemCategory<T> extends Window_HorzCommand<T> {
 // Window_ItemList
 declare class Window_ItemList extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setCategory(category: string): void
   maxCols(): number
@@ -465,6 +483,8 @@ declare class Window_ItemList extends Window_Selectable {
 // Window_SkillType
 declare class Window_SkillType extends Window_Command<number> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setActor(actor: Game_Actor): void
   makeCommandList(): void
@@ -477,6 +497,8 @@ declare class Window_SkillType extends Window_Command<number> {
 // Window_SkillStatus
 declare class Window_SkillStatus extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setActor(actor: Game_Actor): void
   refresh(): void
@@ -486,6 +508,8 @@ declare class Window_SkillStatus extends Window_StatusBase {
 // Window_SkillList
 declare class Window_SkillList extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setActor(actor: Game_Actor): void
   setStypeId(stypeId: number): void
@@ -510,6 +534,8 @@ declare class Window_SkillList extends Window_Selectable {
 // Window_EquipStatus
 declare class Window_EquipStatus extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setActor(actor: Game_Actor): void
   colSpacing(): number
@@ -534,6 +560,8 @@ declare class Window_EquipStatus extends Window_StatusBase {
 // Window_EquipCommand
 declare class Window_EquipCommand<T> extends Window_HorzCommand<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   maxCols(): number
   makeCommandList(): void
@@ -543,6 +571,8 @@ declare class Window_EquipCommand<T> extends Window_HorzCommand<T> {
 // Window_EquipSlot
 declare class Window_EquipSlot extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setActor(actor: Game_Actor): void
   update(): void
@@ -562,6 +592,8 @@ declare class Window_EquipSlot extends Window_StatusBase {
 // Window_EquipItem
 declare class Window_EquipItem extends Window_ItemList {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   maxCols(): number
   colSpacing(): number
@@ -580,6 +612,8 @@ declare class Window_EquipItem extends Window_ItemList {
 // Window_Status
 declare class Window_Status extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setActor(actor: Game_Actor): void
   refresh(): void
@@ -597,6 +631,8 @@ declare class Window_Status extends Window_StatusBase {
 // Window_StatusParams
 declare class Window_StatusParams extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setActor(actor: Game_Actor): void
   maxItems(): number
   itemHeight(): number
@@ -608,6 +644,8 @@ declare class Window_StatusParams extends Window_StatusBase {
 // Window_StatusEquip
 declare class Window_StatusEquip extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setActor(actor: Game_Actor): void
   maxItems(): number
   itemHeight(): number
@@ -619,6 +657,8 @@ declare class Window_StatusEquip extends Window_StatusBase {
 // Window_Options
 declare class Window_Options<T> extends Window_Command<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   makeCommandList(): void
   addGeneralOptions(): void
   addVolumeOptions(): void
@@ -642,6 +682,8 @@ declare class Window_Options<T> extends Window_Command<T> {
 // Window_SavefileList
 declare class Window_SavefileList extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setMode(mode: string, autosave: boolean): void
   maxItems(): number
   numVisibleRows(): number
@@ -663,6 +705,8 @@ declare class Window_SavefileList extends Window_Selectable {
 // Window_ShopCommand
 declare class Window_ShopCommand<T> extends Window_HorzCommand<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setPurchaseOnly(purchaseOnly: boolean): void
   maxCols(): number
   makeCommandList(): void
@@ -672,6 +716,8 @@ declare class Window_ShopCommand<T> extends Window_HorzCommand<T> {
 // Window_ShopBuy
 declare class Window_ShopBuy extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setupGoods(shopGoods: number[][]): void
   maxItems(): number
   item(): Record<string, any>
@@ -693,6 +739,8 @@ declare class Window_ShopBuy extends Window_Selectable {
 // Window_ShopSell
 declare class Window_ShopSell extends Window_ItemList {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   isEnabled(item: Record<string, any>): boolean
 }
 
@@ -700,6 +748,8 @@ declare class Window_ShopSell extends Window_ItemList {
 // Window_ShopNumber
 declare class Window_ShopNumber extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   isScrollEnabled(): boolean
   number(): number
   setup(item: Record<string, any>, max: number, price: number): void
@@ -739,6 +789,8 @@ declare class Window_ShopNumber extends Window_Selectable {
 // Window_ShopStatus
 declare class Window_ShopStatus extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   refresh(): void
   setItem(item: Record<string, any>): void
   isEquipItem(): boolean
@@ -763,6 +815,8 @@ declare class Window_ShopStatus extends Window_StatusBase {
 declare interface Window_NameEdit extends Omit<Window_StatusBase, 'name'> {}
 declare class Window_NameEdit {
   constructor(rect: Rectangle)
+  initialize(): void
+  initialize(rect: Rectangle): void
   setup(actor: Game_Actor, maxLength: number): void
   name(): string
   restoreDefault(): boolean
@@ -783,6 +837,8 @@ declare class Window_NameEdit {
 // Window_NameInput
 declare class Window_NameInput extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   static LATIN1: string[]
   static LATIN2: string[]
@@ -825,6 +881,8 @@ declare class Window_NameInput extends Window_Selectable {
 // Window_NameBox
 declare class Window_NameBox extends Window_Base {
   constructor()
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setMessageWindow(messageWindow: Window_Message): void
   setName(name: string): void
   clear(): void
@@ -840,6 +898,8 @@ declare class Window_NameBox extends Window_Base {
 // Window_ChoiceList
 declare class Window_ChoiceList<T> extends Window_Command<T> {
   constructor()
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setMessageWindow(messageWindow: Window_Message): void
   createCancelButton(): void
   start(): void
@@ -868,6 +928,8 @@ declare class Window_ChoiceList<T> extends Window_Command<T> {
 // Window_NumberInput
 declare class Window_NumberInput extends Window_Selectable {
   constructor()
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setMessageWindow(messageWindow: Window_Message): void
   start(): void
   updatePlacement(): void
@@ -901,6 +963,8 @@ declare class Window_NumberInput extends Window_Selectable {
 // Window_EventItem
 declare class Window_EventItem extends Window_ItemList {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   setMessageWindow(messageWindow: Window_Message): void
   createCancelButton(): void
   start(): void
@@ -919,6 +983,8 @@ declare class Window_EventItem extends Window_ItemList {
 // Window_Message
 declare class Window_Message extends Window_Base {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   initMembers(): void
   setGoldWindow(goldWindow: Window_Gold): void
   setNameBoxWindow(nameBoxWindow: Window_NameBox): void
@@ -960,12 +1026,15 @@ declare class Window_Message extends Window_Base {
   processEscapeCharacter(code: string, textState: Window_Base.TextState): void
   startWait(count: number): void
   startPause(): void
+  isWaiting(): boolean
 }
 
 //-----------------------------------------------------------------------------
 // Window_ScrollText
 declare class Window_ScrollText extends Window_Base {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   update(): void
   startMessage(): void
   refresh(): void
@@ -982,6 +1051,8 @@ declare class Window_ScrollText extends Window_Base {
 // Window_MapName
 declare class Window_MapName extends Window_Base {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   update(): void
   updateFadeIn(): void
   updateFadeOut(): void
@@ -995,6 +1066,8 @@ declare class Window_MapName extends Window_Base {
 // Window_BattleLog
 declare class Window_BattleLog extends Window_Base {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   setSpriteset(spriteset: Spriteset_Battle): void
   maxLines(): number
@@ -1094,6 +1167,8 @@ declare class Window_BattleLog extends Window_Base {
 // Window_PartyCommand
 declare class Window_PartyCommand<T> extends Window_Command<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   makeCommandList(): void
   setup(): void
 }
@@ -1102,6 +1177,8 @@ declare class Window_PartyCommand<T> extends Window_Command<T> {
 // Window_ActorCommand
 declare class Window_ActorCommand extends Window_Command<number> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   makeCommandList(): void
   addAttackCommand(): void
@@ -1118,6 +1195,8 @@ declare class Window_ActorCommand extends Window_Command<number> {
 // Window_BattleStatus
 declare class Window_BattleStatus extends Window_StatusBase {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   extraHeight(): number
   maxCols(): number
   itemHeight(): number
@@ -1145,6 +1224,8 @@ declare class Window_BattleStatus extends Window_StatusBase {
 // Window_BattleActor
 declare class Window_BattleActor extends Window_BattleStatus {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   show(): void
   hide(): void
@@ -1156,6 +1237,8 @@ declare class Window_BattleActor extends Window_BattleStatus {
 // Window_BattleEnemy
 declare class Window_BattleEnemy extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   maxCols(): number
   maxItems(): number
   enemy(): Game_Actor
@@ -1172,6 +1255,8 @@ declare class Window_BattleEnemy extends Window_Selectable {
 // Window_BattleSkill
 declare class Window_BattleSkill extends Window_SkillList {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   show(): void
   hide(): void
 }
@@ -1180,6 +1265,8 @@ declare class Window_BattleSkill extends Window_SkillList {
 // Window_BattleItem
 declare class Window_BattleItem extends Window_ItemList {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   includes(item: Record<string, any>): boolean
   show(): void
   hide(): void
@@ -1189,6 +1276,8 @@ declare class Window_BattleItem extends Window_ItemList {
 // Window_TitleCommand
 declare class Window_TitleCommand<T> extends Window_Command<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   static initCommandPosition(): void
   makeCommandList(): void
   isContinueEnabled(): boolean
@@ -1200,6 +1289,8 @@ declare class Window_TitleCommand<T> extends Window_Command<T> {
 // Window_GameEnd
 declare class Window_GameEnd<T> extends Window_Command<T> {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   makeCommandList(): void
 }
 
@@ -1207,6 +1298,8 @@ declare class Window_GameEnd<T> extends Window_Command<T> {
 // Window_DebugRange
 declare class Window_DebugRange extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
 
   static lastTopRow: number
   static lastIndex: number
@@ -1226,6 +1319,8 @@ declare class Window_DebugRange extends Window_Selectable {
 // Window_DebugEdit
 declare class Window_DebugEdit extends Window_Selectable {
   constructor(rect: Rectangle)
+  initialize(): void
+  override initialize(rect: Rectangle): void
   maxItems(): number
   drawItem(index: number): void
   itemName(dataId: string): string

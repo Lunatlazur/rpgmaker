@@ -4,6 +4,17 @@
   "description": "RPGツクールMVのコアスクリプトをTypeScriptで扱うための型定義ファイルです。",
   "main": "index.js",
   "types": "typings/rpgmakermv.d.ts",
+  "exports": {
+    ".": {
+      "types": "./typings/rpgmakermv.d.ts"
+    },
+    "./modules": {
+      "types": "./modules/index.ts"
+    },
+    "./modules/*": {
+      "types": "./modules/*.ts"
+    }
+  },
   "contributors": [
     "BAROQUE ENGINE",
     "Narazaka",

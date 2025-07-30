@@ -33,7 +33,7 @@ declare class Game_Temp {
   _lastActionData: Game_Temp.LastActionData
   constructor()
   initialize(): void
-  isPlayTest(): boolean
+  isPlaytest(): boolean
   setDestination(x: number, y: number): void
   clearDestination(): void
   isDestinationValid(): boolean
@@ -49,6 +49,7 @@ declare class Game_Temp {
   reserveCommonEvent(commonEventId: number): void
   retrieveCommonEvent(): RPGMakerMZ.DataCommonEvent
   isCommonEventReserved(): boolean
+  clearCommonEventReservation(): void
   requestAnimation(targets: Game_Character[], animationId: number, mirror?: boolean): void
   retrieveAnimation(): Game_Temp.AnimationRequest
   requestBalloon(target: Game_Character, balloonId: number): void
@@ -113,6 +114,7 @@ declare class Game_System {
   setSavefileId(savefileId: number): void
   windowTone(): RPGMakerMZ.Color.Tone
   setWindowTone(value: RPGMakerMZ.Color.Tone): void
+  windowOpacity(): number
   battleBgm(): RPGMakerMZ.Audio.Resumable
   setBattleBgm(value: RPGMakerMZ.Audio.Resumable): void
   victoryMe(): RPGMakerMZ.Audio.Resumable
@@ -124,8 +126,8 @@ declare class Game_System {
   onBattleEscape(): void
   onBeforeSave(): void
   onAfterLoad(): void
-  playTime(): number
-  playTimeText(): string
+  playtime(): number
+  playtimeText(): string
   saveBgm(): void
   replayBgm(): void
   saveWalkingBgm(): void
@@ -147,6 +149,7 @@ declare class Game_Timer {
   stop(): void
   isWorking(): boolean
   seconds(): number
+  frames(): number
   onExpire(): void
 }
 
@@ -479,13 +482,29 @@ declare class Game_Action {
   targetsForEveryone(): Game_Battler[]
   targetsForOpponents(): unknown
   targetsForFriends(): unknown
+  targetsForDead(): Game_Battler[]
+  targetsForAlive(): Game_Battler[]
+  targetsForDeadAndAlive(): Game_Battler[]
   randomTargets(unit: Game_Unit<Game_Battler>): Game_Battler[]
   apply(target: Game_Battler): void
   testApply(target: Game_Battler): boolean
+  evaluate(): number
+  evaluateWithTarget(target: Game_Battler): number
+  testLifeAndDeath(target: Game_Battler): boolean
+  hasItemAnyValidEffects(target: Game_Battler): boolean
+  testItemEffect(target: Game_Battler, effect: RPGMakerMZ.Data.Effect): boolean
+  itemTargetCandidates(): Game_Battler[]
   itemHit(target: Game_Battler): number
   itemEva(target: Game_Battler): number
   itemCri(target: Game_Battler): number
   makeDamageValue(target: Game_Battler, critical: boolean): number
+  evalDamageFormula(target: Game_Battler): number
+  calcElementRate(target: Game_Battler): number
+  elementsMaxRate(target: Game_Battler, elements: number[]): number
+  applyCritical(damage: number): number
+  applyVariance(damage: number, variance: number): number
+  applyGuard(damage: number, target: Game_Battler): number
+  executeDamage(target: Game_Battler, value: number): void
   executeHpDamage(target: Game_Battler, value: number): void
   executeMpDamage(target: Game_Battler, value: number): void
   gainDrainedHp(value: number): void
@@ -493,6 +512,8 @@ declare class Game_Action {
   applyItemEffect(target: Game_Battler, effect: RPGMakerMZ.Data.Effect): void
   applyItemUserEffect(target?: Game_Battler): void
   updateLastTarget(target?: Game_Battler): void
+  updateLastUsed(): void
+  updateLastSubject(): void
   applyGlobal(): void
   makeSuccess(target: Game_Battler): void
   lukEffectRate(target: Game_Battler): number
@@ -789,6 +810,7 @@ declare class Game_BattlerBase {
   mdr: number
   fdr: number
   exr: number
+  initialize(): void
   initMembers(): void
   clearParamPlus(): void
   clearStates(): void
@@ -849,7 +871,6 @@ declare class Game_BattlerBase {
   attackSpeed(): number
   attackTimesAdd(): number
   attackSkillId(): number
-  attackSkillTypes(): number[]
   addedSkillTypes(): number[]
   isSkillTypeSealed(stypeId: number): boolean
   addedSkills(): number[]
@@ -968,6 +989,8 @@ declare class Game_Battler extends Game_BattlerBase {
   _tpbTurnCount: number
   _tpbTurnEnd: boolean
   constructor()
+  initialize(): void
+  initMembers(): void
   clearDamagePopup(): void
   clearWeaponAnimation(): void
   clearEffect(): void
@@ -975,6 +998,7 @@ declare class Game_Battler extends Game_BattlerBase {
   requestEffect(effectType: Game_Battler.EffectType): void
   requestMotion(motionType: Game_Battler.MotionType): void
   requestMotionRefresh(): void
+  cancelMotionRefresh(): void
   select(): void
   deselect(): void
   isDamagePopupRequested(): boolean
@@ -999,7 +1023,7 @@ declare class Game_Battler extends Game_BattlerBase {
   clearTpbChargeTime(): void
   applyTpbPenalty(): void
   initTpbChargeTime(advantageous: boolean): void
-  tbpChargeTime(): number
+  tpbChargeTime(): number
   startTpbCasting(): void
   startTpbAction(): void
   isTpbCharged(): boolean
@@ -1086,13 +1110,6 @@ declare class Game_Battler extends Game_BattlerBase {
   performReflection(): void
   performSubstitute(target: Game_Battler): void
   performCollapse(): void
-  name(): string
-  index(): number
-  isSpriteVisible(): boolean
-  friendsUnit(): Game_Unit<Game_Battler>
-  opponentsUnit(): Game_Unit<Game_Battler>
-  isBattleMember(): boolean
-  battlerName(): string
 }
 
 declare class Game_Actor extends Game_Battler {
@@ -1116,6 +1133,9 @@ declare class Game_Actor extends Game_Battler {
   _lastCommandSymbol: string
   level: number
   constructor(actorId: number)
+  initialize(): void
+  override initialize(actorId: number): void
+  initMembers(): void
   setup(actorId: number): void
   actorId(): number
   actor(): RPGMakerMZ.DataActor
@@ -1161,7 +1181,28 @@ declare class Game_Actor extends Game_Battler {
   calcEquipItemPerformance(item: RPGMakerMZ.DataEquipable): number
   isSkillWtypeOk(skill: RPGMakerMZ.DataSkill): boolean
   isWtypeEquipped(wtypeId: number): boolean
-  isActor(): true
+  clearStates(): void
+  eraseState(stateId: number): void
+  resetStateCounts(stateId: number): void
+  refresh(): void
+  hide(): void
+  traitObjects(): RPGMakerMZ.DataObject[]
+  attackElements(): number[]
+  paramBase(paramId: number): number
+  paramPlus(paramId: number): number
+  performActionStart(action: Game_Action): void
+  performAction(action: Game_Action): void
+  performActionEnd(): void
+  performDamage(): void
+  performEvasion(): void
+  performMagicEvasion(): void
+  performCounter(): void
+  performCollapse(): void
+  makeActions(): void
+  clearActions(): void
+  selectPreviousCommand(): boolean
+  meetsUsableItemConditions(item: RPGMakerMZ.DataUsable): boolean
+  isActor(): this is Game_Actor
   friendsUnit(): Game_Party
   opponentsUnit(): Game_Troop
   index(): number
@@ -1237,8 +1278,11 @@ declare namespace Game_Enemy {
 
 declare class Game_Enemy extends Game_Battler {
   constructor(enemyId: number, x: number, y: number)
+  initialize(): void
+  override initialize(enemyId: number, x: number, y: number): void
+  initMembers(): void
   setup(enemyId: number, x: number, y: number): void
-  isEnemy(): true
+  isEnemy(): this is Game_Enemy
   friendsUnit(): Game_Troop
   opponentsUnit(): Game_Party
   index(): number
@@ -1257,6 +1301,14 @@ declare class Game_Enemy extends Game_Battler {
   battlerHue(): number
   originalName(): string
   name(): string
+  traitObjects(): RPGMakerMZ.DataObject[]
+  paramBase(paramId: number): number
+  performActionStart(action: Game_Action): void
+  performAction(action: Game_Action): void
+  performActionEnd(): void
+  performDamage(): void
+  performCollapse(): void
+  makeActions(): void
   isLetterEmpty(): boolean
   setLetter(letter: string): void
   setPlural(plural: boolean): void
@@ -1284,6 +1336,7 @@ declare class Game_Actors {
 declare class Game_Unit<T extends Game_Battler> {
   _inBattle: boolean
   constructor()
+  initialize(): void
   inBattle(): boolean
   members(): T[]
   aliveMembers(): T[]
@@ -1319,6 +1372,12 @@ declare class Game_Party extends Game_Unit<Game_Actor> {
   _weapons: { [id: number]: number }
   _armors: { [id: number]: number }
   constructor()
+  initialize(): void
+  members(): Game_Actor[]
+  hiddenBattleMembers(): Game_Actor[]
+  allBattleMembers(): Game_Actor[]
+  isAllDead(): boolean
+  isEscaped(): boolean
   static ABILITY_ENCOUNTER_HALF: number
   static ABILITY_ENCOUNTER_NONE: number
   static ABILITY_CANCEL_SURPRISE: number
@@ -1404,6 +1463,8 @@ declare class Game_Troop extends Game_Unit<Game_Enemy> {
   static LETTER_TABLE_HALF: string[]
   static LETTER_TABLE_FULL: string[]
   constructor()
+  initialize(): void
+  members(): Game_Enemy[]
   isEventRunning(): boolean
   updateInterpreter(): void
   turnCount(): number
@@ -2043,6 +2104,7 @@ declare class Game_Interpreter {
   iterateBattler(param1: number, param2: number, callback: (actor: Game_Actor | Game_Enemy) => void): void
   character(param: number): boolean
   operateValue(operation: number, operandType: number, operand: number): number
+  operateVariable(variableId: number, operationType: number, operand: number): void
   changeHp(target: Game_Actor | Game_Enemy, value: number, allowDeath: boolean): void
   command101(params: [string, number, 0 | 1 | 2, 0 | 1 | 2, string]): boolean
   command102(params: [string[], number, number, 0 | 1 | 2, 0 | 1 | 2]): boolean
@@ -2102,7 +2164,6 @@ declare class Game_Interpreter {
   gameDataOperand(type: 6, params1: number, params2: 0): boolean
   gameDataOperand(type: 7, params1: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9, params2: 0): boolean
   gameDataOperand(type: 8, params1: 0 | 1 | 2 | 3 | 4 | 5, params2: number): boolean
-  operateVariable: boolean
   command123(params: ['A' | 'B' | 'C' | 'D', 0 | 1]): boolean
   command124(params: [0 | 1, number]): boolean
   command125(params: [0 | 1, 0 | 1, number]): boolean

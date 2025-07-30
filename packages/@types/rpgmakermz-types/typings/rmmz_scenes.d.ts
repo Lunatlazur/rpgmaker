@@ -46,13 +46,86 @@ declare class Scene_Base extends Stage {
   requestAutosave(): void
   isAutosaveEnabled(): boolean
   executeAutosave(): void
-  onAutosaveSucess(): void
+  onAutosaveSuccess(): void
   onAutosaveFailure(): void
 }
 
 declare class Scene_Battle extends Scene_Base {
-  // TODO:
   constructor()
+  actorCommandWindowRect(): Rectangle
+  actorWindowRect(): Rectangle
+  buttonAreaTop(): number
+  changeInputWindow(): void
+  closeCommandWindows(): void
+  commandAttack(): void
+  commandCancel(): void
+  commandEscape(): void
+  commandFight(): void
+  commandGuard(): void
+  commandItem(): void
+  commandSkill(): void
+  create(): void
+  createActorCommandWindow(): void
+  createActorWindow(): void
+  createAllWindows(): void
+  createButtons(): void
+  createCancelButton(): void
+  createDisplayObjects(): void
+  createEnemyWindow(): void
+  createHelpWindow(): void
+  createItemWindow(): void
+  createLogWindow(): void
+  createPartyCommandWindow(): void
+  createSkillWindow(): void
+  createSpriteset(): void
+  createStatusWindow(): void
+  endCommandSelection(): void
+  enemyWindowRect(): Rectangle
+  helpAreaBottom(): number
+  helpAreaHeight(): number
+  helpAreaTop(): number
+  helpWindowRect(): Rectangle
+  hideSubInputWindows(): void
+  initialize(): void
+  isAnyInputWindowActive(): boolean
+  isTimeActive(): boolean
+  itemWindowRect(): Rectangle
+  logWindowRect(): Rectangle
+  needsInputWindowChange(): boolean
+  needsSlowFadeOut(): boolean
+  onActorCancel(): void
+  onActorOk(): void
+  onEnemyCancel(): void
+  onEnemyOk(): void
+  onItemCancel(): void
+  onItemOk(): void
+  onSelectAction(): void
+  onSkillCancel(): void
+  onSkillOk(): void
+  partyCommandWindowRect(): Rectangle
+  selectNextCommand(): void
+  selectPreviousCommand(): void
+  shouldAutosave(): boolean
+  shouldOpenStatusWindow(): boolean
+  skillWindowRect(): Rectangle
+  start(): void
+  startActorCommandSelection(): void
+  startActorSelection(): void
+  startEnemySelection(): void
+  startPartyCommandSelection(): void
+  statusWindowRect(): Rectangle
+  statusWindowX(): number
+  stop(): void
+  terminate(): void
+  update(): void
+  updateBattleProcess(): void
+  updateCancelButton(): void
+  updateInputWindowVisibility(): void
+  updateLogWindowVisibility(): void
+  updateStatusWindowPosition(): void
+  updateStatusWindowVisibility(): void
+  updateVisibility(): void
+  windowAreaHeight(): number
 }
 
 declare class Scene_Boot extends Scene_Base {
@@ -143,8 +216,18 @@ declare class Scene_GameEnd extends Scene_MenuBase {
 }
 
 declare class Scene_Gameover extends Scene_Base {
-  // TODO:
   constructor()
+  initialize(): void
+  create(): void
+  start(): void
+  update(): void
+  stop(): void
+  terminate(): void
+  playGameoverMusic(): void
+  createBackground(): void
+  adjustBackground(): void
+  isTriggered(): boolean
+  gotoTitle(): void
 }
 
 declare class Scene_Item extends Scene_ItemBase {
@@ -163,6 +246,7 @@ declare class Scene_Item extends Scene_ItemBase {
   onItemOk(): void
   onItemCancel(): void
   playSeForItem(): void
+  useItem(): void
 }
 declare namespace Scene_ItemBase {
   type ItemlikeListWindow = Window_ItemList | Window_SkillList | Window_EquipItem | Window_BattleItem
@@ -284,6 +368,7 @@ declare class Scene_Menu extends Scene_MenuBase {
   initialize(): void
   create(): void
   start(): void
+  helpAreaHeight(): number
   createCommandWindow(): void
   commandWindowRect(): Rectangle
   createGoldWindow(): void
@@ -325,6 +410,7 @@ declare class Scene_MenuBase extends Scene_Base {
   updateActor(): void
   createBackground(): void
   setBackgroundOpacity(opacity: number): void
+  createHelpWindow(): void
   helpWindowRect(): Rectangle
   createButtons(): void
   needsCancelButton(): boolean
@@ -362,7 +448,6 @@ declare class Scene_Message extends Scene_Base {
   createEventItemWindow(): void
   eventItemWindowRect(): Rectangle
   associateWindows(): void
-  create(): void
 }
 
 declare class Scene_Options extends Scene_MenuBase {
@@ -452,6 +537,7 @@ declare class Scene_Title extends Scene_Base {
   start(): void
   update(): void
   isBusy(): boolean
+  terminate(): void
   createBackground(): void
   createForeground(): void
   drawGameTitle(): void
@@ -462,4 +548,76 @@ declare class Scene_Title extends Scene_Base {
   commandContinue(): void
   commandOptions(): void
   playTitleMusic(): void
+}
+
+declare class Scene_Shop extends Scene_MenuBase {
+  activateBuyWindow(): void
+  activateSellWindow(): void
+  buyWindowRect(): Rectangle
+  buyingPrice(): number
+  categoryWindowRect(): Rectangle
+  commandBuy(): void
+  commandSell(): void
+  commandWindowRect(): Rectangle
+  create(): void
+  createBuyWindow(): void
+  createCategoryWindow(): void
+  createCommandWindow(): void
+  createDummyWindow(): void
+  createGoldWindow(): void
+  createNumberWindow(): void
+  createSellWindow(): void
+  createStatusWindow(): void
+  currencyUnit(): string
+  doBuy(number: number): void
+  doSell(number: number): void
+  dummyWindowRect(): Rectangle
+  endNumberInput(): void
+  goldWindowRect(): Rectangle
+  initialize(): void
+  maxBuy(): number
+  maxSell(): number
+  money(): number
+  numberWindowRect(): Rectangle
+  onBuyCancel(): void
+  onBuyOk(): void
+  onCategoryCancel(): void
+  onCategoryOk(): void
+  onNumberCancel(): void
+  onNumberOk(): void
+  onSellCancel(): void
+  onSellOk(): void
+  prepare(goods: any[], purchaseOnly: boolean): void
+  sellWindowRect(): Rectangle
+  sellingPrice(): number
+  statusWidth(): number
+  statusWindowRect(): Rectangle
+}
+
+declare class Scene_Name extends Scene_MenuBase {
+  create(): void
+  createEditWindow(): void
+  createInputWindow(): void
+  editWindowRect(): Rectangle
+  initialize(): void
+  inputWindowRect(): Rectangle
+  onInputOk(): void
+  prepare(actorId: number, maxLength: number): void
+  start(): void
+}
+
+declare class Scene_Debug extends Scene_MenuBase {
+  create(): void
+  createDebugHelpWindow(): void
+  createEditWindow(): void
+  createRangeWindow(): void
+  debugHelpWindowRect(): Rectangle
+  editWindowRect(): Rectangle
+  helpText(): string
+  initialize(): void
+  needsCancelButton(): boolean
+  onEditCancel(): void
+  onRangeOk(): void
+  rangeWindowRect(): Rectangle
+  refreshHelpWindow(): void
 }

@@ -2,7 +2,7 @@
 // main.js v1.5.0
 //=============================================================================
 
-type scriptUrls = [
+declare const scriptUrls: readonly [
   'js/libs/pixi.js',
   'js/libs/pako.min.js',
   'js/libs/localforage.min.js',
@@ -15,8 +15,8 @@ type scriptUrls = [
   'js/rmmz_sprites.js',
   'js/rmmz_windows.js',
   'js/plugins.js'
-] & string[]
-type effekseerWasmUrl = 'js/libs/effekseer.wasm' | string
+]
+declare const effekseerWasmUrl: 'js/libs/effekseer.wasm'
 
 declare class Main {
   xhrSucceeded: boolean

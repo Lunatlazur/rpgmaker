@@ -1,3 +1,20 @@
+/// <reference path="./libs/lib.dom.d.ts" />
+/// <reference path="./libs/pixi.d.ts" />
+/// <reference path="./libs/effekseer.d.ts" />
+/// <reference path="./libs/localforage.d.ts" />
+/// <reference path="./libs/pako.d.ts" />
+/// <reference path="./libs/vorbisdecoder.d.ts" />
+
+/// <reference path="./data.d.ts" />
+/// <reference path="./event-command.d.ts" />
+/// <reference path="./main.d.ts" />
+/// <reference path="./rmmz_core.d.ts" />
+/// <reference path="./rmmz_managers.d.ts" />
+/// <reference path="./rmmz_objects.d.ts" />
+/// <reference path="./rmmz_scenes.d.ts" />
+/// <reference path="./rmmz_sprites.d.ts" />
+/// <reference path="./rmmz_windows.d.ts" />
+
 type Stringifiable = string | number
 
 declare namespace RPGMakerMZ {

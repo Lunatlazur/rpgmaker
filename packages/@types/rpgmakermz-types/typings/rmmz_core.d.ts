@@ -830,6 +830,8 @@ declare class TouchInput {
 
   static clear(): void
 
+  static _createNewState(): void
+
   static _mousePressed: boolean
   static _screenPressed: boolean
   static _pressedTime: number

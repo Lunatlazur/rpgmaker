@@ -2,10 +2,32 @@
   "name": "@lunatlazur/rpgmakermz-types",
   "version": "1.0.0+1.5.0",
   "description": "RPGツクールMZのコアスクリプトをTypeScriptで扱うための型定義ファイルです。",
-  "types": "typings/rpgmakermv.d.ts",
+  "types": "typings/rpgmakermz.d.ts",
+  "exports": {
+    ".": {
+      "types": "./typings/rpgmakermz.d.ts"
+    },
+    "./modules": {
+      "types": "./modules/index.d.ts"
+    },
+    "./modules/*": {
+      "types": "./modules/*.d.ts"
+    }
+  },
   "author": "Taku Aoi",
   "license": "Zlib",
+  "scripts": {
+    "extract-structure": "node scripts/extract-structure.js",
+    "validate-types": "node tests/type-completeness-validator.js",
+    "diff-types": "node scripts/type-diff-analyzer.js",
+    "test:types": "node scripts/simple-type-checker.mjs",
+    "check": "npm run extract-structure && npm run validate-types",
+    "check:all": "npm run check && npm run test:types",
+    "analyze:all": "npm run extract-structure && npm run diff-types"
+  },
   "devDependencies": {
+    "@babel/parser": "^7.28.0",
+    "@babel/traverse": "^7.28.0",
     "typescript": "^5.2.2"
   }
 }

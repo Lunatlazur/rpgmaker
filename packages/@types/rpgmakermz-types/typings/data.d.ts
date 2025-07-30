@@ -26,6 +26,8 @@ declare namespace RPGMakerMZ {
     traits: Data.Trait[]
   }
 
+  type DataObject = Identifiable & HasTraits
+
   interface HasEffects {
     effects: Data.Effect[]
   }

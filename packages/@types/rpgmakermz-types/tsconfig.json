@@ -1,17 +1,57 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "baseUrl": "sample_code/ts",
-    "outDir": "sample_code/js",
-    "inlineSourceMap": false,
-    "noFallthroughCasesInSwitch": true,
+    "target": "es2020",
+    "module": "es2015",
+    "lib": ["es2020"],
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "baseUrl": "./",
+
+    // 厳密な型チェックオプション
+    "strict": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "removeComments": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "strictBindCallApply": true,
-    "lib": ["es2018"],
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
+
+    // 追加チェックオプション
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+
+    // モジュール解決
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // ソースマップ・デバッグ
+    "sourceMap": false,
+    "inlineSourceMap": false,
+    "removeComments": false,
+    "preserveConstEnums": true,
+
+    // 出力制御
+    "noEmit": true,
+    "skipLibCheck": false,
     "newLine": "LF"
   },
-  "include": ["sample_code/ts/**/*", "typings/**/*"]
+  "include": [
+    "typings/rpgmakermz.d.ts",
+    "test-typings.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "scripts/**/*",
+    "src/**/*"
+  ]
 }
