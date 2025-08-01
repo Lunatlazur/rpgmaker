@@ -1,0 +1,72 @@
+{
+  "name": "@lunatlazur/nwjs-dom-types",
+  "version": "1.0.0",
+  "description": "RPGツクールMV/MZ対応DOM型定義ライブラリ - バージョン間差異を吸収した統合DOM型定義を提供",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./mv": {
+      "types": "./mv/lib.dom.d.ts"
+    },
+    "./mz": {
+      "types": "./mz/lib.dom.d.ts"
+    },
+    "./common": {
+      "types": "./common/lib.dom.d.ts"
+    },
+    "./unified": {
+      "types": "./unified/lib.dom.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "mv/",
+    "mz/",
+    "common/",
+    "unified/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && npm run generate",
+    "generate": "ts-node src/generators/main.ts",
+    "dev": "ts-node --watch src/generators/main.ts",
+    "test-parser": "ts-node src/test-parser.ts",
+    "clean": "rimraf dist mv mz common unified",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "rpgmaker",
+    "typescript",
+    "dom",
+    "type-definitions",
+    "mv",
+    "mz",
+    "unified-types"
+  ],
+  "author": "RPGMaker Type Tools",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "eslint": "^8.52.0",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
